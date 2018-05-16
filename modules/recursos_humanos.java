@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import objects.Graficos;
 import objects.Usuario;
-import views.clientes;
+import views.clients;
 
 /**
  *
@@ -247,7 +247,7 @@ public class recursos_humanos extends javax.swing.JFrame {
                 break;
             }
             case 3: {
-                clientes BC = new clientes(this.usuario);
+                clients BC = new clients(this.usuario);
                 escritorio.add(BC);
                 Dimension FrameSize = escritorio.getSize();
                 BC.setSize(FrameSize);

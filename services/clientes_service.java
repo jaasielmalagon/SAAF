@@ -9,7 +9,7 @@ import objects.Estudio;
 import objects.Lista;
 import objects.Ocupacion;
 import objects.Persona;
-import objects.Staff;
+import objects.Empleado;
 import objects.TableCreator;
 import resources.clientes_resource;
 
@@ -51,13 +51,13 @@ public class clientes_service {
         return personas;
     }
 
-    public Staff staff(int idPersona) {
-        Staff staff = null;
+    public Empleado staff(int idPersona) {
+        Empleado staff = null;
         String[] array = this.recurso.staff(idPersona);
         if (array != null) {
-            //staff = new Staff(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
+            //staff = new Empleado(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
             //        Integer.valueOf(array[5]), Integer.valueOf(array[6]), array[7], array[8], array[9], array[10], array[11], Integer.parseInt(array[12]), array[13], this.persona(Integer.valueOf(array[5]), Integer.valueOf(array[1])));
-            staff = new Staff(Integer.valueOf(array[0]),
+            staff = new Empleado(Integer.valueOf(array[0]),
             Integer.valueOf(array[1]),
             Integer.valueOf(array[2]),
             array[3],
@@ -179,7 +179,7 @@ public class clientes_service {
         return dcbm;
     }
 
-    public int guardarDatosStaff(Staff staff) {
+    public int guardarDatosStaff(Empleado staff) {
         if (staff != null) {
             //System.out.println(staff.toString());
             int guion = staff.getDIAS_LABORALES().indexOf("-");
@@ -196,7 +196,7 @@ public class clientes_service {
         }
     }
     
-    public boolean actualizarDatosStaff(Staff nuevo) {
+    public boolean actualizarDatosStaff(Empleado nuevo) {
         if (nuevo != null ){
 //            System.out.println(nuevo.toString());
             int guion = nuevo.getDIAS_LABORALES().indexOf("-");
@@ -212,7 +212,7 @@ public class clientes_service {
         }
     }
 
-    private String codigoStaff(Staff s) {
+    private String codigoStaff(Empleado s) {
         String codigo = "";
         if (s != null) {
             if (s.getSUCURSAL() < 10) {

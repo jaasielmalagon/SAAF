@@ -4,13 +4,13 @@ package objects;
  *
  * @author JMalagon
  */
-public class Staff {
+public class Empleado {
 
     private int ID_STAFF, ID_PERSONA, CARGO, ESTUDIOS, DEPARTAMENTO, SUCURSAL, SALARIO, EFECTIVO, USUARIO;
     private String ENTRADA, SALIDA, DIAS_LABORALES, CASO_EMERGENCIA, FECHA_INCORPORACION, CODIGO, REGISTRO;
     private Persona PERSONA;
 
-    public Staff(int ID_STAFF, int SUCURSAL, int USUARIO, String REGISTRO, int ID_PERSONA, int CARGO, int ESTUDIOS, int DEPARTAMENTO, int SALARIO, String ENTRADA, String SALIDA, String DIAS_LABORALES, String CASO_EMERGENCIA, String FECHA_INCORPORACION, int EFECTIVO, String CODIGO, Persona PERSONA) {
+    public Empleado(int ID_STAFF, int SUCURSAL, int USUARIO, String REGISTRO, int ID_PERSONA, int CARGO, int ESTUDIOS, int DEPARTAMENTO, int SALARIO, String ENTRADA, String SALIDA, String DIAS_LABORALES, String CASO_EMERGENCIA, String FECHA_INCORPORACION, int EFECTIVO, String CODIGO, Persona PERSONA) {
         this.ID_STAFF = ID_STAFF;
         this.ID_PERSONA = ID_PERSONA;
         this.CARGO = CARGO;

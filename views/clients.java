@@ -23,7 +23,7 @@ import services.clientes_service;
  *
  * @author JMalagon
  */
-public final class clientes extends javax.swing.JInternalFrame {
+public final class clients extends javax.swing.JInternalFrame {
 
     private final clientes_service SERVICIO;
 //    private int ID_PERSONA_SELECCIONADA = 0;
@@ -31,7 +31,7 @@ public final class clientes extends javax.swing.JInternalFrame {
     private Usuario USUARIO = null;
     private Cliente CLIENTE = null;
 
-    public clientes(Usuario usuario) {
+    public clients(Usuario usuario) {
         initComponents();
         this.SERVICIO = new clientes_service();
         this.USUARIO = usuario;

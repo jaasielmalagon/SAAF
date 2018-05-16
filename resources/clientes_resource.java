@@ -167,7 +167,11 @@ public class clientes_resource {
                     personas = new String[count][9];
                     RS = this.DB.Select("idPersona, nombre, apaterno, amaterno, curp, ocr, telefono, celular, sexo", "personas", "sucursal = " + idSucursal + " AND (nombre like '%" + dato + "%' OR apaterno like '%" + dato + "%' OR amaterno like '%" + dato + "%' OR curp like '%" + dato + "%' OR ocr like '%" + dato + "%' OR telefono like '%" + dato + "%' OR celular like '%" + dato + "%')");
                 } else {
-                    personas = new String[50][9];
+                    if (count > 50) {
+                        personas = new String[50][9];
+                    }else{
+                        personas = new String[count][9];
+                    }                    
                     RS = this.DB.Select("idPersona, nombre, apaterno, amaterno, curp, ocr, telefono, celular, sexo", "personas", "sucursal = " + idSucursal + " ORDER BY idPersona DESC LIMIT 50");
                 }
                 while (RS.next()) {

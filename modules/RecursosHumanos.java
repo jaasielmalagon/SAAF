@@ -14,11 +14,11 @@ import views.Personas;
  *
  * @author JMalagon
  */
-public class Administracion extends javax.swing.JFrame {
+public class RecursosHumanos extends javax.swing.JFrame {
 
     private final Usuario usuario;
 
-    public Administracion(Usuario usuario) {
+    public RecursosHumanos(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
@@ -60,8 +60,8 @@ public class Administracion extends javax.swing.JFrame {
         lblPersonas = new javax.swing.JLabel();
         iconDomicilios = new javax.swing.JLabel();
         lblDomicilios = new javax.swing.JLabel();
-        iconClientes = new javax.swing.JLabel();
-        lblClientes = new javax.swing.JLabel();
+        iconTrabajadores = new javax.swing.JLabel();
+        lblTrabajadores = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -84,7 +84,7 @@ public class Administracion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ADMINISTRACIÓN");
+        jLabel1.setText("RECURSOS HUMANOS");
         BarraSuperior.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 300, 40));
 
         nombreUsuario.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
@@ -172,36 +172,36 @@ public class Administracion extends javax.swing.JFrame {
         iconDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconDomicilios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home.png"))); // NOI18N
         iconDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Escritorio.add(iconDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 150, 150));
+        Escritorio.add(iconDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 150, 150));
 
         lblDomicilios.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         lblDomicilios.setForeground(new java.awt.Color(255, 99, 1));
         lblDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDomicilios.setText("DOMICILIOS");
         lblDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Escritorio.add(lblDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 245, 150, 35));
+        Escritorio.add(lblDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 245, 150, 35));
 
-        iconClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cliente.png"))); // NOI18N
-        iconClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconTrabajadores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconTrabajadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
+        iconTrabajadores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconTrabajadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconClientesMouseClicked(evt);
+                iconTrabajadoresMouseClicked(evt);
             }
         });
-        Escritorio.add(iconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 150, 150));
+        Escritorio.add(iconTrabajadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 150, 150));
 
-        lblClientes.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
-        lblClientes.setForeground(new java.awt.Color(255, 99, 1));
-        lblClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClientes.setText("CLIENTES");
-        lblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTrabajadores.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
+        lblTrabajadores.setForeground(new java.awt.Color(255, 99, 1));
+        lblTrabajadores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTrabajadores.setText("TRABAJADORES");
+        lblTrabajadores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTrabajadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblClientesMouseClicked(evt);
+                lblTrabajadoresMouseClicked(evt);
             }
         });
-        Escritorio.add(lblClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 245, 150, 35));
+        Escritorio.add(lblTrabajadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 245, 150, 35));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -287,13 +287,13 @@ public class Administracion extends javax.swing.JFrame {
         openInternet(txtBuscador.getText());
     }//GEN-LAST:event_txtBuscadorActionPerformed
 
-    private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked
+    private void iconTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconTrabajadoresMouseClicked
         (new Clientes(this, true, this.usuario)).setVisible(true);
-    }//GEN-LAST:event_iconClientesMouseClicked
+    }//GEN-LAST:event_iconTrabajadoresMouseClicked
 
-    private void lblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseClicked
+    private void lblTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrabajadoresMouseClicked
         (new Clientes(this, true, this.usuario)).setVisible(true);
-    }//GEN-LAST:event_lblClientesMouseClicked
+    }//GEN-LAST:event_lblTrabajadoresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -307,8 +307,9 @@ public class Administracion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RecursosHumanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         //</editor-fold>
@@ -324,9 +325,9 @@ public class Administracion extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel fotografia;
     private javax.swing.JLabel iconBuscar;
-    private javax.swing.JLabel iconClientes;
     private javax.swing.JLabel iconDomicilios;
     private javax.swing.JLabel iconPersonas;
+    private javax.swing.JLabel iconTrabajadores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -338,10 +339,10 @@ public class Administracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblDomicilios;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblPersonas;
+    private javax.swing.JLabel lblTrabajadores;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JTextField txtBuscador;
     // End of variables declaration//GEN-END:variables
