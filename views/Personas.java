@@ -734,6 +734,7 @@ public class Personas extends javax.swing.JDialog {
         panelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnReferencias.setBackground(new java.awt.Color(255, 78, 0));
+        btnReferencias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReferencias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReferenciasMouseClicked(evt);
@@ -750,6 +751,7 @@ public class Personas extends javax.swing.JDialog {
         panelOpciones.add(btnReferencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 154, 35));
 
         btnDomicilio.setBackground(new java.awt.Color(255, 78, 0));
+        btnDomicilio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDomicilio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDomicilioMouseClicked(evt);
@@ -766,6 +768,7 @@ public class Personas extends javax.swing.JDialog {
         panelOpciones.add(btnDomicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 154, 35));
 
         btnFicha.setBackground(new java.awt.Color(255, 78, 0));
+        btnFicha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFicha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFichaMouseClicked(evt);
@@ -782,6 +785,7 @@ public class Personas extends javax.swing.JDialog {
         panelOpciones.add(btnFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 154, 35));
 
         btnCrearCliente.setBackground(new java.awt.Color(255, 78, 0));
+        btnCrearCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCrearCliente3MouseClicked(evt);
@@ -798,6 +802,7 @@ public class Personas extends javax.swing.JDialog {
         panelOpciones.add(btnCrearCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 20, 154, 35));
 
         btnCredito.setBackground(new java.awt.Color(255, 78, 0));
+        btnCredito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCredito.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCreditoMouseClicked(evt);
@@ -1092,19 +1097,11 @@ public class Personas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFichaMouseClicked
 
     private void btnCrearCliente3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCliente3MouseClicked
-//        if (PERSONA_SELECCIONADA != null) {
-//            clientes2 clientes = new clientes2(this, USUARIO, PERSONA_SELECCIONADA);
-//            escritorio.add(clientes);
-//            Dimension FrameSize = escritorio.getSize();
-//            //            System.out.println(FrameSize.height/4 + " x " + FrameSize.width /8);
-//            clientes.setLocation(FrameSize.height / 4, FrameSize.width / 8);
-//            clientes.toFront();
-//            clientes.show();
-//            this.toBack();
-//            this.hide();
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
-//        }
+        if (PERSONA_SELECCIONADA != null) {
+            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
+        }
     }//GEN-LAST:event_btnCrearCliente3MouseClicked
 
     private void btnCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditoMouseClicked
