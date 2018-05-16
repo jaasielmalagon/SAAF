@@ -141,10 +141,10 @@ public class Administracion extends javax.swing.JFrame {
                 txtBuscadorActionPerformed(evt);
             }
         });
-        Escritorio.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 35, 250, 32));
+        Escritorio.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 25, 250, 32));
 
         iconBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px_2.png"))); // NOI18N
-        Escritorio.add(iconBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 35, 32, 32));
+        Escritorio.add(iconBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 25, 32, 32));
 
         iconPersonas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconPersonas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user-group-icon-80286.png"))); // NOI18N

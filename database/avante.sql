@@ -1,23 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.18
--- https://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 23-12-2017 a las 00:52:52
--- Versión del servidor: 5.6.36-cll-lve
--- Versión de PHP: 5.6.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-05-2018 a las 06:59:33
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `avanteDB`
+-- Base de datos: `avante`
 --
 
 -- --------------------------------------------------------
@@ -26,13 +28,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `calles`
 --
 
-CREATE TABLE IF NOT EXISTS `calles` (
-  `idCalle` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `calles` (
+  `idCalle` int(11) NOT NULL,
   `calle` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `colonia` int(11) NOT NULL,
-  PRIMARY KEY (`idCalle`),
-  KEY `idCalle` (`idCalle`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=423 ;
+  `colonia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calles`
@@ -464,16 +464,13 @@ INSERT INTO `calles` (`idCalle`, `calle`, `colonia`) VALUES
 -- Estructura de tabla para la tabla `colonias`
 --
 
-CREATE TABLE IF NOT EXISTS `colonias` (
-  `idColonia` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `colonias` (
+  `idColonia` int(11) NOT NULL,
   `colonia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `asentamiento` int(11) NOT NULL,
   `cp` int(11) NOT NULL,
-  `municipio` int(11) NOT NULL,
-  PRIMARY KEY (`idColonia`),
-  KEY `municipio` (`municipio`,`asentamiento`),
-  KEY `asentamiento` (`asentamiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=299 ;
+  `municipio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `colonias`
@@ -784,8 +781,8 @@ INSERT INTO `colonias` (`idColonia`, `colonia`, `asentamiento`, `cp`, `municipio
 -- Estructura de tabla para la tabla `domicilios`
 --
 
-CREATE TABLE IF NOT EXISTS `domicilios` (
-  `idDomicilio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `domicilios` (
+  `idDomicilio` int(11) NOT NULL,
   `sucursal` int(11) NOT NULL,
   `calle` int(11) NOT NULL,
   `numero` int(11) NOT NULL,
@@ -795,16 +792,8 @@ CREATE TABLE IF NOT EXISTS `domicilios` (
   `tipo` int(11) NOT NULL,
   `propietario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `vigencia_contrato` date NOT NULL,
-  `tiempoResidencia` int(11) NOT NULL,
-  PRIMARY KEY (`idDomicilio`),
-  KEY `idDomicilio` (`idDomicilio`),
-  KEY `calle` (`calle`),
-  KEY `colonia` (`colonia`),
-  KEY `numero` (`numero`),
-  KEY `tipo` (`tipo`),
-  KEY `calle1` (`calle1`),
-  KEY `calle2` (`calle2`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+  `tiempoResidencia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `domicilios`
@@ -812,7 +801,17 @@ CREATE TABLE IF NOT EXISTS `domicilios` (
 
 INSERT INTO `domicilios` (`idDomicilio`, `sucursal`, `calle`, `numero`, `calle1`, `calle2`, `colonia`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES
 (1, 1, 417, 419, 419, 418, 252, 1, '', '0000-01-00', 0),
-(2, 1, 420, 420, 421, 422, 127, 1, '', '0000-01-00', 0);
+(2, 1, 420, 420, 421, 422, 127, 1, '', '0000-01-00', 0),
+(3, 1, 119, 112, 33, 32, 6, 1, '', '0000-01-00', 0);
+
+--
+-- Disparadores `domicilios`
+--
+DELIMITER $$
+CREATE TRIGGER `copiar_historial_domicilios` BEFORE UPDATE ON `domicilios` FOR EACH ROW INSERT INTO `historial_domicilios`(`idDomicilio`, `sucursal`, `calle`, `numero`, `calle1`, `calle2`, `colonia`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES (
+ old.`idDomicilio`, old.`sucursal`, old.`calle`, old.`numero`, old.`calle1`, old.`calle2`, old.`colonia`, old.`tipo`, old.`propietario`, old.`vigencia_contrato`, old.`tiempoResidencia`)
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -820,12 +819,10 @@ INSERT INTO `domicilios` (`idDomicilio`, `sucursal`, `calle`, `numero`, `calle1`
 -- Estructura de tabla para la tabla `estados`
 --
 
-CREATE TABLE IF NOT EXISTS `estados` (
-  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idEstado`),
-  KEY `idEstado` (`idEstado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=34 ;
+CREATE TABLE `estados` (
+  `idEstado` int(11) NOT NULL,
+  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -869,11 +866,32 @@ INSERT INTO `estados` (`idEstado`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historial_domicilios`
+--
+
+CREATE TABLE `historial_domicilios` (
+  `idHistorialDomicilio` int(11) NOT NULL,
+  `idDomicilio` int(11) NOT NULL,
+  `sucursal` int(11) NOT NULL,
+  `calle` int(11) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `calle1` int(11) NOT NULL,
+  `calle2` int(11) NOT NULL,
+  `colonia` int(11) NOT NULL,
+  `tipo` int(11) NOT NULL,
+  `propietario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `vigencia_contrato` date NOT NULL,
+  `tiempoResidencia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial_personas`
 --
 
-CREATE TABLE IF NOT EXISTS `historial_personas` (
-  `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `historial_personas` (
+  `idHistorialPersonas` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `modificacion` datetime NOT NULL,
   `usuario` int(11) NOT NULL,
@@ -891,9 +909,8 @@ CREATE TABLE IF NOT EXISTS `historial_personas` (
   `domicilio` int(11) DEFAULT NULL,
   `conyuge` int(11) DEFAULT NULL,
   `aval` int(11) DEFAULT NULL,
-  `referencia` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idHistorialPersonas`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=13 ;
+  `referencia` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `historial_personas`
@@ -911,7 +928,60 @@ INSERT INTO `historial_personas` (`idHistorialPersonas`, `idPersona`, `modificac
 (9, 248, '2017-12-18 18:54:51', 1, 'FIDEL ', 'SIXTO ', 'GUILLERMO ', '1971-04-24', 21, 'SIGF710424HPLXLD03', '2047030984041', 'M', 1, '', '2381689040', NULL, NULL, NULL, NULL),
 (10, 276, '2017-12-22 17:22:17', 1, 'MARGARITA', 'LEZAMA ', 'RAMIREZ', '1956-06-10', 21, 'LERM560610MPLZMR06', '1965020100233', 'H', 0, '', '2381559029', NULL, NULL, NULL, NULL),
 (11, 294, '2017-12-22 18:40:06', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 0),
-(12, 1, '2017-12-22 19:02:21', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '', '2381721972', 1, 0, 0, 2);
+(12, 1, '2017-12-22 19:02:21', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '', '2381721972', 1, 0, 0, 2),
+(13, 1, '2018-01-10 13:38:00', 2, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 2),
+(14, 1, '2018-01-10 13:38:27', 2, 'ENRIQUE', 'LOPEZ', 'PEREZ', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 2),
+(15, 1, '2018-01-13 01:19:31', 2, 'ENRIQUE JAVIER', 'SANCHEZ', 'PEREZ', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 2),
+(16, 1, '2018-01-13 01:20:46', 2, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 2),
+(17, 304, '2018-01-23 10:10:19', 1, 'ANGEL DE JESUS ', 'LOPEZ', 'ABREGO ', '1972-11-28', 21, 'LOAA721128HPLPBN01', '2006040620778', 'H', 1, '', '2381231756', 0, 0, 0, 0),
+(18, 304, '2018-01-23 10:10:23', 1, 'ANGEL DE JESUS ', 'LOPEZ', 'ABREGO ', '1972-11-28', 21, 'LOAA721128HPLPBN01', '2006040620778', 'H', 1, '', '2381231756', 0, 0, 0, 1),
+(19, 304, '2018-01-23 10:10:28', 1, 'ANGEL DE JESUS ', 'LOPEZ', 'ABREGO ', '1972-11-28', 21, 'LOAA721128HPLPBN01', '2006040620778', 'H', 1, '', '2381231756', 0, 4, 0, 1),
+(20, 304, '2018-01-23 10:10:46', 1, 'ANGEL DE JESUS ', 'LOPEZ', 'ABREGO ', '1972-11-28', 21, 'LOAA721128HPLPBN01', '2006040620778', 'H', 1, '', '2381231756', 0, 4, 8, 1),
+(21, 1, '2018-01-30 19:43:52', 2, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 9, 2),
+(22, 1, '2018-02-13 01:43:55', 2, 'JAASIEL', 'MENDEZZZZZZZZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 9, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_personas_clientes`
+--
+
+CREATE TABLE `historial_personas_clientes` (
+  `idHistorialClientes` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL DEFAULT '0',
+  `sucursal` int(11) NOT NULL DEFAULT '0',
+  `usuario` int(11) NOT NULL DEFAULT '0',
+  `registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `adc` int(11) NOT NULL DEFAULT '0',
+  `idPersona` int(11) NOT NULL DEFAULT '0',
+  `ingresos` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `egresos` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `dependientes` int(11) NOT NULL DEFAULT '1',
+  `ocupacion` int(11) NOT NULL DEFAULT '0',
+  `estudios` int(11) NOT NULL DEFAULT '0',
+  `empresa` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `domicilio_empresa` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tel_empresa` varchar(10) COLLATE utf8_spanish_ci NOT NULL DEFAULT '----------',
+  `horario_entrada` time NOT NULL DEFAULT '08:00:00',
+  `horario_salida` time NOT NULL DEFAULT '20:00:00',
+  `score` int(3) NOT NULL DEFAULT '0',
+  `status` int(2) NOT NULL DEFAULT '0',
+  `actividad` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `historial_personas_clientes`
+--
+
+INSERT INTO `historial_personas_clientes` (`idHistorialClientes`, `idCliente`, `sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`, `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`, `score`, `status`, `actividad`) VALUES
+(2, 1, 0, 0, '2018-01-02 23:44:35', 0, 0, '0.00', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(3, 1, 0, 0, '2018-01-02 23:44:35', 0, 0, '999999.00', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(4, 1, 0, 0, '2018-01-02 23:44:35', 0, 0, '999999.99', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(5, 1, 0, 0, '2018-01-02 23:44:35', 0, 0, '999999.99', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(6, 1, 0, 0, '2018-01-02 23:44:35', 0, 0, '999999.99', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(7, 1, 0, 0, '2018-01-02 23:44:35', 0, 1, '999999.99', '0.00', 1, 0, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(8, 1, 0, 0, '2018-01-02 23:44:35', 0, 1, '999999.99', '0.00', 1, 3, 0, NULL, NULL, '----------', '08:00:00', '20:00:00', 0, 0, 1),
+(9, 1, 1, 2, '2018-01-11 18:00:55', 50, 1, '3000.00', '2500.00', 2, 3, 6, 'JUZGADO MUNICIPAL #1', 'AV. ADOLFO LOPEZ MAETOS ', '2383092030', '10:00:00', '00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -919,14 +989,12 @@ INSERT INTO `historial_personas` (`idHistorialPersonas`, `idPersona`, `modificac
 -- Estructura de tabla para la tabla `municipios`
 --
 
-CREATE TABLE IF NOT EXISTS `municipios` (
-  `idMunicipio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `municipios` (
+  `idMunicipio` int(11) NOT NULL,
   `municipio` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `estado` int(11) NOT NULL,
-  `sucursal` int(11) NOT NULL,
-  PRIMARY KEY (`idMunicipio`),
-  KEY `estado` (`estado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=229 ;
+  `sucursal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `municipios`
@@ -1168,13 +1236,11 @@ INSERT INTO `municipios` (`idMunicipio`, `municipio`, `estado`, `sucursal`) VALU
 -- Estructura de tabla para la tabla `numerosdomiciliares`
 --
 
-CREATE TABLE IF NOT EXISTS `numerosdomiciliares` (
-  `idNumero` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `numerosdomiciliares` (
+  `idNumero` int(11) NOT NULL,
   `numero` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `calle` int(11) NOT NULL,
-  PRIMARY KEY (`idNumero`),
-  KEY `calle_fk` (`calle`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=421 ;
+  `calle` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `numerosdomiciliares`
@@ -1608,8 +1674,8 @@ INSERT INTO `numerosdomiciliares` (`idNumero`, `numero`, `calle`) VALUES
 -- Estructura de tabla para la tabla `personas`
 --
 
-CREATE TABLE IF NOT EXISTS `personas` (
-  `idPersona` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personas` (
+  `idPersona` int(11) NOT NULL,
   `sucursal` int(11) NOT NULL DEFAULT '0',
   `registro` datetime NOT NULL,
   `usuario` int(11) NOT NULL DEFAULT '0',
@@ -1627,16 +1693,15 @@ CREATE TABLE IF NOT EXISTS `personas` (
   `domicilio` int(11) NOT NULL DEFAULT '0',
   `conyuge` int(11) NOT NULL DEFAULT '0',
   `aval` int(11) NOT NULL DEFAULT '0',
-  `referencia` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idPersona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=295 ;
+  `referencia` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `personas`
 --
 
 INSERT INTO `personas` (`idPersona`, `sucursal`, `registro`, `usuario`, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES
-(1, 1, '2017-11-15 17:10:39', 2, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 2),
+(1, 1, '2017-11-15 17:10:39', 2, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 9, 2),
 (2, 1, '2017-11-16 17:50:35', 1, 'EFRAIN ', 'PEREZ', 'HERNANDEZ', '1994-09-14', 21, 'PEHE940914HPLRRF08', '2015131368371', 'H', 0, '', '2381330007', 0, 0, 0, 0),
 (3, 1, '2017-11-16 17:57:51', 1, 'JUVENTINO ', 'GARCIA', 'OLIVARES', '1959-09-19', 21, 'GAOJ590919HPLRLV06', '2015134389631', 'H', 1, '', '2381872556', 0, 0, 0, 0),
 (4, 1, '2017-11-16 18:03:41', 1, 'SALVADOR ', 'DURAN', 'MARIN ', '1975-11-09', 21, 'DUMS751109HPLRRL06', '2015076423125', 'H', 0, '', '2381422357', 0, 0, 0, 0),
@@ -1928,40 +1993,91 @@ INSERT INTO `personas` (`idPersona`, `sucursal`, `registro`, `usuario`, `nombre`
 (291, 1, '2017-12-22 17:57:31', 1, 'LEONCIO ', 'DE LA LUZ', 'MACEDAS', '1957-08-01', 21, 'LUML570801HPLZCN09', '2015076661716', 'H', 1, '', '2382000961', 0, 0, 0, 0),
 (292, 1, '2017-12-22 17:59:07', 1, 'ELIA ', 'CEDILLO ', 'RAMOS ', '1974-07-05', 21, 'CERE740705MPLDML06', '2015075640947', 'M', 1, '', '2381364548', 0, 0, 0, 0),
 (293, 1, '2017-12-22 18:01:43', 1, 'RAYMUNDO ', 'CARRILLO ', 'QUISTIANO', '1951-03-15', 21, 'CAQR510315HPLRSY06', '2015134180500', 'H', 1, '', '2381867547', 0, 0, 0, 0),
-(294, 1, '2017-12-22 18:26:05', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 2, 0, 0, 0);
+(294, 1, '2017-12-22 18:26:05', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 2, 0, 0, 0),
+(295, 1, '2017-12-23 10:55:09', 1, 'HUGO ', 'VILLEGAS', 'LARA ', '1977-04-01', 21, 'VILH770401HOCLRG07', '2015135190333', 'H', 1, '', '2381047159', 0, 0, 0, 0),
+(296, 1, '2017-12-23 10:57:33', 1, 'ANGEL ', 'ARROYO', 'VELAZQUEZ', '1996-01-27', 21, 'AOVA960127HPLRLN08', '2015119887045', 'H', 1, '', '2381669592', 0, 0, 0, 0),
+(297, 1, '2017-12-23 10:59:15', 1, 'FRANCISCO JAVIER', 'MARTINEZ', 'ROQUE ', '1974-12-03', 21, 'MARF741203HPLRQR04', '2015076856751', 'H', 0, '', '2381212383', 0, 0, 0, 0),
+(298, 1, '2017-12-23 11:11:22', 1, 'VICTOR ELIAS', 'GONZALEZ', 'SANTIAGO ', '1990-07-28', 31, 'GOSV900128HVZNNC17', '2006081929337', 'H', 1, '', '2381083921', 0, 0, 0, 0),
+(299, 1, '2017-12-23 11:13:35', 1, 'MARIBEL ROCIELA ', 'GALVEZ', 'BALDERAS ', '1976-12-10', 21, 'GAMB761210MPLLLR25', '2006076437528', 'M', 0, '', '2381220433', 0, 0, 0, 0),
+(300, 1, '2017-12-23 11:17:29', 1, 'JUAN ARTURO ', 'ROJAS', 'RAMIREZ', '1997-05-19', 21, 'RORJ970519HPLJMN09', '2006103039743', 'H', 1, '', '2381976290', 0, 0, 0, 0),
+(301, 1, '2017-12-23 11:19:17', 1, 'GABRIEL', 'HERNANDEZ', 'PONCE', '1990-09-12', 21, 'HEPG900912HPLRNB08', '2006099218454', 'H', 1, '', '2383942118', 0, 0, 0, 0),
+(302, 1, '2017-12-23 11:21:07', 1, 'OYUKI', 'RODRIGUEZ', 'LOPEZ', '1996-11-13', 31, 'ROLO961113MVZDPY06', '2006100078820', 'M', 0, '', '5561607870', 0, 0, 0, 0),
+(303, 1, '2017-12-23 11:22:48', 1, 'PATRICIA', 'MORALES', 'GUITIERREZ', '1972-03-17', 21, 'MOGP720317MPLRTT09', '1964002919946', 'M', 0, '', '2381978052', 0, 0, 0, 0),
+(304, 1, '2017-12-23 11:26:47', 1, 'ANGEL DE JESUS ', 'LOPEZ', 'ABREGO ', '1972-11-28', 21, 'LOAA721128HPLPBN01', '2006040620778', 'H', 1, '', '2381231756', 1, 4, 8, 1);
 
 --
 -- Disparadores `personas`
 --
-DROP TRIGGER IF EXISTS `copiar_historial_personas`;
-DELIMITER //
-CREATE TRIGGER `copiar_historial_personas` BEFORE UPDATE ON `personas`
- FOR EACH ROW INSERT INTO historial_personas (`idPersona`, modificacion, usuario, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES (old.idPersona, now(), old.usuario, old.nombre, old.apaterno, old.amaterno, old.nacimiento, old.entidad, old.curp, old.ocr, old.sexo, old.edoCivil, old.telefono, old.celular, old.domicilio, old.conyuge, old.aval, old.referencia)
-//
+DELIMITER $$
+CREATE TRIGGER `copiar_historial_personas` BEFORE UPDATE ON `personas` FOR EACH ROW INSERT INTO historial_personas (`idPersona`, modificacion, usuario, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES (old.idPersona, now(), old.usuario, old.nombre, old.apaterno, old.amaterno, old.nacimiento, old.entidad, old.curp, old.ocr, old.sexo, old.edoCivil, old.telefono, old.celular, old.domicilio, old.conyuge, old.aval, old.referencia)
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `staff`
+-- Estructura de tabla para la tabla `personas_clientes`
 --
 
-CREATE TABLE IF NOT EXISTS `staff` (
-  `idStaff` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personas_clientes` (
+  `idCliente` int(11) NOT NULL,
+  `sucursal` int(11) NOT NULL DEFAULT '0',
+  `usuario` int(11) NOT NULL DEFAULT '0',
+  `registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `adc` int(11) NOT NULL DEFAULT '0',
+  `idPersona` int(11) NOT NULL DEFAULT '0',
+  `ingresos` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `egresos` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `dependientes` int(11) NOT NULL DEFAULT '1',
+  `ocupacion` int(11) NOT NULL DEFAULT '0',
+  `estudios` int(11) NOT NULL DEFAULT '0',
+  `empresa` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `domicilio_empresa` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tel_empresa` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `horario_entrada` time DEFAULT NULL,
+  `horario_salida` time DEFAULT NULL,
+  `score` int(3) NOT NULL DEFAULT '0',
+  `status` int(2) NOT NULL DEFAULT '0',
+  `actividad` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `personas_clientes`
+--
+
+INSERT INTO `personas_clientes` (`idCliente`, `sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`, `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`, `score`, `status`, `actividad`) VALUES
+(1, 1, 2, '2018-01-11 18:00:55', 51, 1, '3000.51', '2500.70', 99, 2, 4, 'JUZGADO MUNICIPAL #2', 'AV. ADOLFO LOPEZ MAETOS NUMERO DESCONOCIDO', '2383092031', '09:00:00', '20:00:00', 0, 0, 1);
+
+--
+-- Disparadores `personas_clientes`
+--
+DELIMITER $$
+CREATE TRIGGER `copiar_historial_personas_clientes` BEFORE UPDATE ON `personas_clientes` FOR EACH ROW INSERT INTO `historial_personas_clientes`(`idCliente`, `sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`, `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`, `score`, `status`, `actividad`) VALUES (old.`idCliente`, old.`sucursal`, old.`usuario`, old.`registro`, old.`adc`, old.`idPersona`, old.`ingresos`, old.`egresos`, old.`dependientes`, old.`ocupacion`, old.`estudios`, old.`empresa`, old.`domicilio_empresa`, old.`tel_empresa`, old.`horario_entrada`, old.`horario_salida`, old.`score`, old.`status`, old.`actividad`)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personas_staff`
+--
+
+CREATE TABLE `personas_staff` (
+  `idStaff` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `cargo` int(11) NOT NULL,
   `estudios` int(11) NOT NULL,
   `departamento` int(11) NOT NULL,
-  `sucursal` int(11) NOT NULL,
-  PRIMARY KEY (`idStaff`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `sucursal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `staff`
+-- Volcado de datos para la tabla `personas_staff`
 --
 
-INSERT INTO `staff` (`idStaff`, `idPersona`, `cargo`, `estudios`, `departamento`, `sucursal`) VALUES
-(1, 294, 0, 6, 1, 1);
+INSERT INTO `personas_staff` (`idStaff`, `idPersona`, `cargo`, `estudios`, `departamento`, `sucursal`) VALUES
+(1, 1, 0, 7, 7, 1),
+(2, 294, 0, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1969,11 +2085,10 @@ INSERT INTO `staff` (`idStaff`, `idPersona`, `cargo`, `estudios`, `departamento`
 -- Estructura de tabla para la tabla `sucursales`
 --
 
-CREATE TABLE IF NOT EXISTS `sucursales` (
-  `idSucursal` int(11) NOT NULL AUTO_INCREMENT,
-  `sucursal` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idSucursal`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+CREATE TABLE `sucursales` (
+  `idSucursal` int(11) NOT NULL,
+  `sucursal` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sucursales`
@@ -1986,41 +2101,13 @@ INSERT INTO `sucursales` (`idSucursal`, `sucursal`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tiposUsuario`
---
-
-CREATE TABLE IF NOT EXISTS `tiposUsuario` (
-  `idTipoUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(50) NOT NULL,
-  PRIMARY KEY (`idTipoUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Volcado de datos para la tabla `tiposUsuario`
---
-
-INSERT INTO `tiposUsuario` (`idTipoUsuario`, `tipo`) VALUES
-(1, 'Administación'),
-(2, 'Contabilidad'),
-(3, 'Recursos Humanos'),
-(4, 'Gerencia Operativa'),
-(5, 'Diseño'),
-(6, 'Metodología'),
-(7, 'Sistemas informáticos'),
-(8, 'Administración de cartera');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tipo_asentamiento`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_asentamiento` (
-  `idTipoAsentamiento` int(11) NOT NULL AUTO_INCREMENT,
-  `tipoAsentamiento` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idTipoAsentamiento`),
-  KEY `idTipoAsentamiento` (`idTipoAsentamiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=14 ;
+CREATE TABLE `tipo_asentamiento` (
+  `idTipoAsentamiento` int(11) NOT NULL,
+  `tipoAsentamiento` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_asentamiento`
@@ -2047,12 +2134,10 @@ INSERT INTO `tipo_asentamiento` (`idTipoAsentamiento`, `tipoAsentamiento`) VALUE
 -- Estructura de tabla para la tabla `tipo_domicilio`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_domicilio` (
-  `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idTipoDomicilio`),
-  KEY `idTipoDomicilio` (`idTipoDomicilio`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+CREATE TABLE `tipo_domicilio` (
+  `idTipoDomicilio` int(11) NOT NULL,
+  `tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_domicilio`
@@ -2069,11 +2154,10 @@ INSERT INTO `tipo_domicilio` (`idTipoDomicilio`, `tipo`) VALUES
 -- Estructura de tabla para la tabla `tipo_estudios`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_estudios` (
-  `idTipoEstudios` int(11) NOT NULL AUTO_INCREMENT,
-  `estudios` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idTipoEstudios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=10 ;
+CREATE TABLE `tipo_estudios` (
+  `idTipoEstudios` int(11) NOT NULL,
+  `estudios` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_estudios`
@@ -2093,26 +2177,347 @@ INSERT INTO `tipo_estudios` (`idTipoEstudios`, `estudios`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_ocupaciones`
+--
+
+CREATE TABLE `tipo_ocupaciones` (
+  `idTipo` int(11) NOT NULL,
+  `ocupacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_ocupaciones`
+--
+
+INSERT INTO `tipo_ocupaciones` (`idTipo`, `ocupacion`) VALUES
+(1, 'Ama de casa'),
+(2, 'Comerciante'),
+(3, 'Empleado'),
+(4, 'Estudiante');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_status_cliente`
+--
+
+CREATE TABLE `tipo_status_cliente` (
+  `idStatus` int(11) NOT NULL,
+  `status` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_usuarios`
+--
+
+CREATE TABLE `tipo_usuarios` (
+  `idTipoUsuario` int(11) NOT NULL,
+  `tipo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_usuarios`
+--
+
+INSERT INTO `tipo_usuarios` (`idTipoUsuario`, `tipo`) VALUES
+(1, 'Administación'),
+(2, 'Contabilidad'),
+(3, 'Recursos Humanos'),
+(4, 'Gerencia Operativa'),
+(5, 'Diseño'),
+(6, 'Metodología'),
+(7, 'Sistemas informáticos'),
+(8, 'Administración de cartera');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
   `usuario` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `tipo` int(11) NOT NULL,
   `idStaff` int(11) NOT NULL,
   `idSucursal` int(11) NOT NULL,
-  PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `fotografia` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `usuario`, `password`, `tipo`, `idStaff`, `idSucursal`) VALUES
-(1, 'fany', 'admin', 1, 1, 1),
-(2, 'patricia', 'admin', 1, 1, 1);
+INSERT INTO `usuarios` (`idUsuario`, `usuario`, `password`, `tipo`, `idStaff`, `idSucursal`, `fotografia`) VALUES
+(1, '', '', 0, 1, 1, NULL),
+(2, 'fany', 'admin', 1, 2, 1, NULL),
+(3, 'patricia', 'admin', 1, 0, 1, NULL);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `calles`
+--
+ALTER TABLE `calles`
+  ADD PRIMARY KEY (`idCalle`),
+  ADD KEY `idCalle` (`idCalle`);
+
+--
+-- Indices de la tabla `colonias`
+--
+ALTER TABLE `colonias`
+  ADD PRIMARY KEY (`idColonia`),
+  ADD KEY `municipio` (`municipio`,`asentamiento`),
+  ADD KEY `asentamiento` (`asentamiento`);
+
+--
+-- Indices de la tabla `domicilios`
+--
+ALTER TABLE `domicilios`
+  ADD PRIMARY KEY (`idDomicilio`),
+  ADD KEY `idDomicilio` (`idDomicilio`),
+  ADD KEY `calle` (`calle`),
+  ADD KEY `colonia` (`colonia`),
+  ADD KEY `numero` (`numero`),
+  ADD KEY `tipo` (`tipo`),
+  ADD KEY `calle1` (`calle1`),
+  ADD KEY `calle2` (`calle2`);
+
+--
+-- Indices de la tabla `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`idEstado`),
+  ADD KEY `idEstado` (`idEstado`);
+
+--
+-- Indices de la tabla `historial_domicilios`
+--
+ALTER TABLE `historial_domicilios`
+  ADD PRIMARY KEY (`idHistorialDomicilio`);
+
+--
+-- Indices de la tabla `historial_personas`
+--
+ALTER TABLE `historial_personas`
+  ADD PRIMARY KEY (`idHistorialPersonas`);
+
+--
+-- Indices de la tabla `historial_personas_clientes`
+--
+ALTER TABLE `historial_personas_clientes`
+  ADD PRIMARY KEY (`idHistorialClientes`);
+
+--
+-- Indices de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD PRIMARY KEY (`idMunicipio`),
+  ADD KEY `estado` (`estado`);
+
+--
+-- Indices de la tabla `numerosdomiciliares`
+--
+ALTER TABLE `numerosdomiciliares`
+  ADD PRIMARY KEY (`idNumero`),
+  ADD KEY `calle_fk` (`calle`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`idPersona`);
+
+--
+-- Indices de la tabla `personas_clientes`
+--
+ALTER TABLE `personas_clientes`
+  ADD PRIMARY KEY (`idCliente`);
+
+--
+-- Indices de la tabla `personas_staff`
+--
+ALTER TABLE `personas_staff`
+  ADD PRIMARY KEY (`idStaff`);
+
+--
+-- Indices de la tabla `sucursales`
+--
+ALTER TABLE `sucursales`
+  ADD PRIMARY KEY (`idSucursal`);
+
+--
+-- Indices de la tabla `tipo_asentamiento`
+--
+ALTER TABLE `tipo_asentamiento`
+  ADD PRIMARY KEY (`idTipoAsentamiento`),
+  ADD KEY `idTipoAsentamiento` (`idTipoAsentamiento`);
+
+--
+-- Indices de la tabla `tipo_domicilio`
+--
+ALTER TABLE `tipo_domicilio`
+  ADD PRIMARY KEY (`idTipoDomicilio`),
+  ADD KEY `idTipoDomicilio` (`idTipoDomicilio`);
+
+--
+-- Indices de la tabla `tipo_estudios`
+--
+ALTER TABLE `tipo_estudios`
+  ADD PRIMARY KEY (`idTipoEstudios`);
+
+--
+-- Indices de la tabla `tipo_ocupaciones`
+--
+ALTER TABLE `tipo_ocupaciones`
+  ADD PRIMARY KEY (`idTipo`);
+
+--
+-- Indices de la tabla `tipo_status_cliente`
+--
+ALTER TABLE `tipo_status_cliente`
+  ADD PRIMARY KEY (`idStatus`);
+
+--
+-- Indices de la tabla `tipo_usuarios`
+--
+ALTER TABLE `tipo_usuarios`
+  ADD PRIMARY KEY (`idTipoUsuario`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `calles`
+--
+ALTER TABLE `calles`
+  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=423;
+
+--
+-- AUTO_INCREMENT de la tabla `colonias`
+--
+ALTER TABLE `colonias`
+  MODIFY `idColonia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=299;
+
+--
+-- AUTO_INCREMENT de la tabla `domicilios`
+--
+ALTER TABLE `domicilios`
+  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_domicilios`
+--
+ALTER TABLE `historial_domicilios`
+  MODIFY `idHistorialDomicilio` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_personas`
+--
+ALTER TABLE `historial_personas`
+  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_personas_clientes`
+--
+ALTER TABLE `historial_personas_clientes`
+  MODIFY `idHistorialClientes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  MODIFY `idMunicipio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+
+--
+-- AUTO_INCREMENT de la tabla `numerosdomiciliares`
+--
+ALTER TABLE `numerosdomiciliares`
+  MODIFY `idNumero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
+
+--
+-- AUTO_INCREMENT de la tabla `personas_clientes`
+--
+ALTER TABLE `personas_clientes`
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `personas_staff`
+--
+ALTER TABLE `personas_staff`
+  MODIFY `idStaff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `sucursales`
+--
+ALTER TABLE `sucursales`
+  MODIFY `idSucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_asentamiento`
+--
+ALTER TABLE `tipo_asentamiento`
+  MODIFY `idTipoAsentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_domicilio`
+--
+ALTER TABLE `tipo_domicilio`
+  MODIFY `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_estudios`
+--
+ALTER TABLE `tipo_estudios`
+  MODIFY `idTipoEstudios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_ocupaciones`
+--
+ALTER TABLE `tipo_ocupaciones`
+  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_status_cliente`
+--
+ALTER TABLE `tipo_status_cliente`
+  MODIFY `idStatus` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_usuarios`
+--
+ALTER TABLE `tipo_usuarios`
+  MODIFY `idTipoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -2141,6 +2546,7 @@ ALTER TABLE `domicilios`
 --
 ALTER TABLE `municipios`
   ADD CONSTRAINT `municipios_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estados` (`idEstado`) ON DELETE NO ACTION ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
