@@ -3,6 +3,8 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objects.ErrorController;
 
 /**
@@ -117,18 +119,22 @@ public class agregarPersona_resource {//implements interfaces.conection {
         return flag;
     }
 
-    public boolean buscarReferencia(String condicion) throws SQLException {
+    public boolean buscarReferencia(String condicion) {
         boolean flag = false;
-        this.DB.Connect();
-        RS = this.DB.Select("idPersona", "personas", condicion);
-        if (RS.next()) {
-            int id = RS.getInt(1);
-            String idX = RS.getString(1);
-            if (id > 0 || idX != null) {
-                flag = true;
+        try {            
+            this.DB.Connect();
+            RS = this.DB.Select("idPersona", "personas", condicion);
+            if (RS.next()) {
+                int id = RS.getInt(1);
+                String idX = RS.getString(1);
+                if (id > 0 || idX != null) {
+                    flag = true;
+                }
             }
+            this.DB.Disconnect();            
+        } catch (SQLException ex) {
+            System.out.println("resources.agregarPersona_resource.buscarReferencia() : " + ex);
         }
-        this.DB.Disconnect();
         return flag;
     }
 

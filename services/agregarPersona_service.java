@@ -70,11 +70,11 @@ public class agregarPersona_service {
         return cliente;
     }
 
-    public boolean agregarReferencia(int idCliente, String valores) throws SQLException {
+    public boolean agregarReferencia(int idCliente, String valores) {
         return this.recurso.agregarReferencia(idCliente, valores);
     }
 
-    public boolean buscarReferencia(String condicion) throws SQLException {
+    public boolean buscarReferencia(String condicion) {
         return this.recurso.buscarReferencia(condicion);
     }
 
@@ -98,7 +98,7 @@ public class agregarPersona_service {
         return error;
     }
 
-    public DefaultTableModel tablaPersonas2(int idSucursal, int idPersona, String dato) throws SQLException {
+    public DefaultTableModel tablaPersonas2(int idSucursal, int idPersona, String dato) {
         String titulos[] = {"Folio", "Nombre", "Apellidos", "CURP", "OCR", "Teléfono", "Celular", "Sexo"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] array = this.recurso.personas2(idSucursal, idPersona, dato);
@@ -119,7 +119,7 @@ public class agregarPersona_service {
         return dtm;
     }
 
-    public DefaultTableModel tablaPersonas2(int idSucursal, int idPersona) throws SQLException {
+    public DefaultTableModel tablaPersonas2(int idSucursal, int idPersona) {
         String titulos[] = {"Folio", "Nombre", "Apellidos", "CURP", "OCR", "Teléfono", "Celular", "Sexo"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] array = this.recurso.personas2(idSucursal, idPersona, "");
