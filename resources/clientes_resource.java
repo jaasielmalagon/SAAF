@@ -26,7 +26,7 @@ public class clientes_resource {
         boolean flag = false;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_staff",
+            flag = this.DB.Update("personas_empleados",
                     "sucursal=" + sucursal + ",usuario=" + usuario + ",cargo=" + cargo + ",estudios=" + estudios + ",departamento=" + departamento + ",sucursal=" + sucursal + ",salario=" + salario
                     + ",entrada='" + entrada + "',salida='" + salida + "',dias='" + dias + "',llamara='" + llamara + "',fecha_incorp='" + fecha + "',efectivo=" + efectivo
                     + ",codigo='" + codigo + "'",
@@ -39,14 +39,14 @@ public class clientes_resource {
         return flag;
     }
 
-    public int guardarDatosStaff(int persona, int cargo, int estudios, int departamento, int sucursal, int salario, String entrada, String salida,
+    public int guardarDatosStaff(int idPersona, int cargo, int estudios, int departamento, int sucursal, int salario, String entrada, String salida,
             String dias, String llamara, String fecha, int efectivo, String codigo, int usuario) {
         int flag = 0;
         try {
 //            this.DB.Connect();
-            flag = this.DB.InsertId("personas_staff",
+            flag = this.DB.InsertId("personas_empleados",
                     "idPersona,cargo,estudios,departamento,sucursal,salario,entrada,salida,dias,llamara,fecha_incorp,efectivo,codigo,usuario,registro",
-                    persona + "," + cargo + "," + estudios + "," + departamento + "," + sucursal + "," + salario + ",'" + entrada + "','" + salida + "','" + dias + "','" + llamara + "','" + fecha + "'," + efectivo + ",'" + codigo + "'," + usuario + ",now()");
+                    idPersona + "," + cargo + "," + estudios + "," + departamento + "," + sucursal + "," + salario + ",'" + entrada + "','" + salida + "','" + dias + "','" + llamara + "','" + fecha + "'," + efectivo + ",'" + codigo + "'," + usuario + ",now()");
 //            this.DB.Disconnect();
         } catch (Exception ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -59,7 +59,7 @@ public class clientes_resource {
         String[] array = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("*", "personas_staff", "idPersona = " + idPersona + " LIMIT 1");
+            RS = this.DB.Select("*", "personas_empleados", "idPersona = " + idPersona + " LIMIT 1");
             if (RS.next()) {
                 array = new String[16];
                 array[0] = RS.getString(1);
@@ -210,7 +210,7 @@ public class clientes_resource {
         String[][] array = null;
         try {
             this.DB.Connect();
-            RS = this.DB.freeSelect("COUNT(*)", "personas_staff_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
+            RS = this.DB.freeSelect("COUNT(*)", "personas_empleados_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
             int count = 0;
             if (RS.next()) {
                 count = RS.getInt(1);
@@ -218,7 +218,7 @@ public class clientes_resource {
             if (count > 0) {
                 array = new String[count][2];
                 int i = 0;
-                RS = this.DB.freeSelect("idAdc,vacante", "personas_staff_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
+                RS = this.DB.freeSelect("idAdc,vacante", "personas_empleados_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
                 while (RS.next()) {
                     array[i][0] = RS.getString(1);
                     array[i][1] = RS.getString(2);
@@ -237,7 +237,7 @@ public class clientes_resource {
         String[] array = null;
         try {
             this.DB.Connect();
-            RS = this.DB.freeSelect("COUNT(DISTINCT(agencia))", "personas_staff_adc", "WHERE sucursal = " + sucursal);
+            RS = this.DB.freeSelect("COUNT(DISTINCT(agencia))", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
             int count = 0;
             if (RS.next()) {
                 count = RS.getInt(1);
@@ -245,7 +245,7 @@ public class clientes_resource {
             if (count > 0) {
                 array = new String[count];
                 int i = 0;
-                RS = this.DB.freeSelect("DISTINCT(agencia)", "personas_staff_adc", "WHERE sucursal = " + sucursal);
+                RS = this.DB.freeSelect("DISTINCT(agencia)", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
                 while (RS.next()) {
                     array[i] = RS.getString(1);
                     i++;
@@ -414,7 +414,7 @@ public class clientes_resource {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_staff_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
             this.DB.Disconnect();
         } catch (Exception ex) {
             flag = false;
@@ -428,9 +428,9 @@ public class clientes_resource {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_staff_adc", "idStaff = 0", "idAdc=" + idAdc);
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc=" + idAdc);
             if (flag) {
-                flag = this.DB.Update("personas_staff_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
             }else{
                 flag = false;
             }
@@ -447,7 +447,7 @@ public class clientes_resource {
         int[] datos = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("*", "personas_staff_adc", "sucursal = " + idSucursal + " AND idStaff = " + id_staff + " LIMIT 1");
+            RS = this.DB.Select("*", "personas_empleados_adc", "sucursal = " + idSucursal + " AND idStaff = " + id_staff + " LIMIT 1");
             if (RS.next()) {
                 datos = new int[6];
                 datos[0] = RS.getInt(1);
