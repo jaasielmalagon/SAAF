@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.net.URI;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import objects.Persona;
 import objects.Usuario;
 import views.Clientes;
+import views.Empleados;
 import views.Personas;
 
 /**
@@ -288,11 +290,13 @@ public class RecursosHumanos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscadorActionPerformed
 
     private void iconTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconTrabajadoresMouseClicked
-        (new Clientes(this, true, this.usuario)).setVisible(true);
+        Persona persona = null;
+        (new Empleados(this, true, this.usuario, persona)).setVisible(true);
     }//GEN-LAST:event_iconTrabajadoresMouseClicked
 
     private void lblTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrabajadoresMouseClicked
-        (new Clientes(this, true, this.usuario)).setVisible(true);
+        Persona persona = null;
+        (new Empleados(this, true, this.usuario, persona)).setVisible(true);
     }//GEN-LAST:event_lblTrabajadoresMouseClicked
 
     /**

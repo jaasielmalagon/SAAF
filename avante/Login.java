@@ -42,7 +42,7 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 3:
-                    new recursos_humanos(u).setVisible(true);
+                    new RecursosHumanos(u).setVisible(true);
                     this.dispose();                    
                     break;
                 case 4:

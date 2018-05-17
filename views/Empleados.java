@@ -44,21 +44,46 @@ public class Empleados extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
 
+        tituloVentana.setText(tituloVentana.getText() + " " + usuario.getIdSucursal());
         this.SERVICIO = new clientes_service();
         this.USUARIO = usuario;
-        this.PERSONA_SELECCIONADA = persona;        
+        this.PERSONA_SELECCIONADA = persona;
+        estudios();
+        cargos();
+        meses();
+        departamentos();
+        cargarDatosEmpleado();
+        llenarTabla("");
+        seleccionarPersona();
     }
     
-    private void cargarDatosEmpleado(){
+    public void seleccionarPersona() {
+        tablaClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 1) {
+                    int id = Integer.parseInt(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0).toString());
+                    try {
+                        PERSONA_SELECCIONADA = SERVICIO.persona(USUARIO.getIdSucursal(), id);
+                        cargarDatosEmpleado();
+                    } catch (NumberFormatException ex) {
+                        System.out.println(".mousePressed() : " + ex);
+                    }
+                }
+            }
+        });
+    }
+
+    private void llenarTabla(String dato) {
+        tablaClientes = this.SERVICIO.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal(), dato);
+    }
+
+    private void cargarDatosEmpleado() {
         if (PERSONA_SELECCIONADA != null) {
-            departamentos();
-            estudios();
-            cargos();
-            meses();
             this.STAFF = this.SERVICIO.staff(PERSONA_SELECCIONADA.getIdPersona());
             if (this.STAFF == null) {
                 JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + PERSONA_SELECCIONADA.toString());
-                panelAdc.setVisible(false);
+                limpiarCampos();
             } else {
                 int opc = JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar los datos laborales de " + this.STAFF.getPERSONA().toString() + "?", "¡Confirmación!", JOptionPane.YES_NO_OPTION);
                 if (opc == JOptionPane.YES_OPTION) {
@@ -69,10 +94,11 @@ public class Empleados extends javax.swing.JDialog {
             }
             lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
             txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
+        } else {
+            desactivarPanelAdc();
         }
     }
-    
-    
+
     private void portarEfectivo() {
         txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
         if (chkPortarEfe.isSelected()) {
@@ -156,9 +182,9 @@ public class Empleados extends javax.swing.JDialog {
                 int vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
                 String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
                 if (vacante > 0 && this.ADC == null) {
-                    mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idInsert, agencia, vacante);                    
-                }else if(this.ADC != null && vacante > 0){   
-                    mensaje = this.SERVICIO.actualizarADC(this.ADC,this.USUARIO.getIdSucursal(),idInsert,agencia,vacante);    
+                    mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idInsert, agencia, vacante);
+                } else if (this.ADC != null && vacante > 0) {
+                    mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idInsert, agencia, vacante);
                 }
                 JOptionPane.showMessageDialog(rootPane, mensaje);
             } else {
@@ -352,11 +378,11 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private void desactivarPanelAdc() {
+        panelFormulario.setSize(panelFormulario.getWidth(), 225);
         panelAdc.setVisible(false);
         cmbAgencia.removeAllItems();
         lblVacante.setVisible(false);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -365,7 +391,7 @@ public class Empleados extends javax.swing.JDialog {
         PanelPrincipal = new javax.swing.JPanel();
         BarraSuperior = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        tituloVentana = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
@@ -457,11 +483,11 @@ public class Empleados extends javax.swing.JDialog {
         });
         BarraSuperior.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1167, 0, 32, 32));
 
-        jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Staff laboral sucursal: ");
-        BarraSuperior.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
+        tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
+        tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
+        tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloVentana.setText("Empleados de sucursal: ");
+        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
         jLabel11.setToolTipText("Cerrar");
@@ -868,7 +894,7 @@ public class Empleados extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed
-        buscar();
+        llenarTabla(txtBuscar2.getText());
     }//GEN-LAST:event_txtBuscar2ActionPerformed
 
     private void txtBuscar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyPressed
@@ -880,13 +906,13 @@ public class Empleados extends javax.swing.JDialog {
         if (cTeclaPresionada == KeyEvent.VK_DELETE || cTeclaPresionada == KeyEvent.VK_BACK_SPACE) {
             int l = txtBuscar2.getText().length();
             if (l == 0) {
-                llenarTabla();
+                llenarTabla("");
             }
         }
     }//GEN-LAST:event_txtBuscar2KeyReleased
 
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
-        buscar();
+        llenarTabla(txtBuscar2.getText());
     }//GEN-LAST:event_btnBusquedaMouseClicked
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -901,11 +927,11 @@ public class Empleados extends javax.swing.JDialog {
         char c = evt.getKeyChar();
         int lon = txtSueldo.getText().length();
         //        if (c == '.') {
-            //            int punto = txtSueldo.getText().indexOf(".");
-            //            if (punto > -1) {
-                //                evt.consume();
-                //            }
-            //        }
+        //            int punto = txtSueldo.getText().indexOf(".");
+        //            if (punto > -1) {
+        //                evt.consume();
+        //            }
+        //        }
         if (Character.isWhitespace(c) || Character.isLetter(c) || lon > 8) {
             evt.consume();
         }
@@ -1056,7 +1082,6 @@ public class Empleados extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1075,6 +1100,7 @@ public class Empleados extends javax.swing.JDialog {
     private javax.swing.JPanel panelTabla;
     private javax.swing.JCheckBox sabado;
     private javax.swing.JTable tablaClientes;
+    private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtBuscar2;
     private javax.swing.JTextField txtDia;

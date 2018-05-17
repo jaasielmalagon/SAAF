@@ -344,7 +344,7 @@ public final class rrhh_staff extends javax.swing.JInternalFrame {
         lblVacante.setText("Actualmente: Vacante " + this.ADC.getVACANTE());
     }
 
-    private void desactivarPanelAdc() {
+    public void desactivarPanelAdc() {
         panelAdc.setVisible(false);
         cmbAgencia.removeAllItems();
         lblVacante.setVisible(false);
