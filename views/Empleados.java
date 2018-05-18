@@ -13,18 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import objects.Adc;
-import objects.Amortizacion;
-import objects.Cliente;
 import objects.Empleado;
-import objects.Estado;
 import objects.Estudio;
 import objects.Fecha;
 import objects.Lista;
 import objects.Mes;
 import objects.Persona;
-import objects.Solicitud;
 import objects.Usuario;
-import services.agregarPersona_service;
 import services.clientes_service;
 
 /**
