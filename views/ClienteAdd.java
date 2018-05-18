@@ -34,7 +34,7 @@ public class ClienteAdd extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         tituloVentana.setText(tituloVentana.getText() + " " + persona.toString());
         
-        this.SERVICIO = new clientes_service();
+        this.SERVICIO = new clientes_service(this.getClass().toString());
         this.USUARIO = usuario;
         this.PERSONA_SELECCIONADA = persona;
         if (PERSONA_SELECCIONADA != null) {            

@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,7 +41,7 @@ public class Empleados extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
 
         tituloVentana.setText(tituloVentana.getText() + " " + usuario.getIdSucursal());
-        this.SERVICIO = new clientes_service();
+        this.SERVICIO = new clientes_service(this.getClass().toString());
         this.USUARIO = usuario;
         this.PERSONA_SELECCIONADA = persona;
         estudios();
@@ -70,12 +71,16 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private void llenarTabla(String dato) {
-        tablaClientes = this.SERVICIO.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal(), dato);
+        if (!dato.isEmpty()) {
+            tablaClientes = this.SERVICIO.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal(), dato);
+        }else{
+            tablaClientes = this.SERVICIO.tablaEmpleados(tablaClientes, this.USUARIO.getIdSucursal(), dato);
+        }        
     }
 
     private void cargarDatosEmpleado() {
         if (PERSONA_SELECCIONADA != null) {
-            this.EMPLEADO = this.SERVICIO.staff(PERSONA_SELECCIONADA.getIdPersona());
+            this.EMPLEADO = this.SERVICIO.empleado(PERSONA_SELECCIONADA.getIdPersona());
             if (this.EMPLEADO == null) {
                 JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + PERSONA_SELECCIONADA.toString());
                 limpiarCampos();
@@ -128,79 +133,85 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private void guardarDatos() {
-        String dias = this.diasLaborales();
-        int salario = Integer.valueOf(txtSueldo.getText());
-        int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
-        int estudios = ((Estudio) cmbNivelEstudios.getSelectedItem()).getID();
-        int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
-        String emergencia = txtEmergencia.getText();
-        String entrada = txtEntrada.getValue().toString();
-        String[] split = entrada.split(" ");//separa en un array la cadena donde encuentre un espacio
-        entrada = split[3];//del formato completo toma sólo la hora
-        String salida = txtSalida.getValue().toString();
-        split = salida.split(" ");//separa en un array la cadena donde encuentre un espacio
-        salida = split[3];//del formato completo toma sólo la hora
-        String fecha = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
-        int efectivo;//si no marcamos la casilla para portar efectivo se toma como 0
-        if ("".equals(txtMontoPortar.getText())) {
-            efectivo = 0;
-        } else {
-            efectivo = Integer.valueOf(txtMontoPortar.getText());
-        }
-
-        int idEmpleado = 0;//id obtenido de la última inserción de un Empleado a la BD
-        boolean updated = false;
-        if (this.EMPLEADO == null) {//si no tenemos un objeto Empleado entonces...
-            this.EMPLEADO = new Empleado(0, this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), "",
-                    PERSONA_SELECCIONADA.getIdPersona(), cargo, estudios, departamento, salario, entrada,
-                    salida, dias, emergencia, fecha, efectivo, "", PERSONA_SELECCIONADA);//creamos un objeto Empleado
-            idEmpleado = this.SERVICIO.guardarDatosStaff(this.EMPLEADO);//lo enviamos para ser guardado
-        } else {//si tenemos un objeto Empleado entonces modificamos sus valores
-            idEmpleado = this.EMPLEADO.getID_STAFF();
-            this.EMPLEADO.setSUCURSAL(this.USUARIO.getIdSucursal());
-            this.EMPLEADO.setUSUARIO(this.USUARIO.getIdUsuario());
-            this.EMPLEADO.setCARGO(cargo);
-            this.EMPLEADO.setESTUDIOS(estudios);
-            this.EMPLEADO.setDEPARTAMENTO(departamento);
-            this.EMPLEADO.setSALARIO(salario);
-            this.EMPLEADO.setENTRADA(entrada);
-            this.EMPLEADO.setSALIDA(salida);
-            this.EMPLEADO.setDIAS_LABORALES(dias);
-            this.EMPLEADO.setCASO_EMERGENCIA(emergencia);
-            this.EMPLEADO.setFECHA_INCORPORACION(fecha);
-            this.EMPLEADO.setEFECTIVO(efectivo);
-//enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
-            updated = this.SERVICIO.actualizarDatosStaff(this.EMPLEADO);
-//            System.out.println(this.EMPLEADO.toString());
-        }
-        int agencia = 0;//número de agencia
-        int vacante = 0;
         try {
-            //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
-            agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
-            //convertimos el numero de vacante a tipo int si existe alguna                
-            vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
-        } catch (Exception ex) {System.out.println("views.Empleados.guardarDatos() : " + ex);}
-        
-        if (updated == true || idEmpleado > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
-//si tenemos una agencia seleccionada y el cargo es ADC entonces            
-            if (cargo == 5 && agencia > 0) {//cargo 5 = ADC |||| agencia = 1,2,3,4, etc... según la BD
-                String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
-                if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
-//creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                    mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
-                } else if (this.ADC != null && vacante > 0) {
-//actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                    mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
-                }
-                //mostramos el mensaje retornado por el controlador
-                JOptionPane.showMessageDialog(rootPane, mensaje);
+            String dias = this.diasLaborales();
+            int salario = Integer.valueOf(txtSueldo.getText());
+            int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
+            int estudios = ((Estudio) cmbNivelEstudios.getSelectedItem()).getID();
+            int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
+            String emergencia = txtEmergencia.getText();
+            String entrada = txtEntrada.getValue().toString();
+            String[] split = entrada.split(" ");//separa en un array la cadena donde encuentre un espacio
+            entrada = split[3];//del formato completo toma sólo la hora
+            String salida = txtSalida.getValue().toString();
+            split = salida.split(" ");//separa en un array la cadena donde encuentre un espacio
+            salida = split[3];//del formato completo toma sólo la hora
+            String fecha = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
+            int efectivo;//si no marcamos la casilla para portar efectivo se toma como 0
+            if ("".equals(txtMontoPortar.getText())) {
+                efectivo = 0;
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Datos laborales guardados correctamente.", "¡Éxito!", JOptionPane.INFORMATION_MESSAGE);
+                efectivo = Integer.valueOf(txtMontoPortar.getText());
             }
-            cancelar();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Datos laborales no guardados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+
+            int idEmpleado = 0;//id obtenido de la última inserción de un Empleado a la BD
+            boolean updated = false;
+            if (this.EMPLEADO == null) {//si no tenemos un objeto Empleado entonces...
+                this.EMPLEADO = new Empleado(0, this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), "",
+                        PERSONA_SELECCIONADA.getIdPersona(), cargo, estudios, departamento, salario, entrada,
+                        salida, dias, emergencia, fecha, efectivo, "", PERSONA_SELECCIONADA);//creamos un objeto Empleado
+                idEmpleado = this.SERVICIO.guardarDatosStaff(this.EMPLEADO);//lo enviamos para ser guardado
+            } else {//si tenemos un objeto Empleado entonces modificamos sus valores
+                idEmpleado = this.EMPLEADO.getID_STAFF();
+                this.EMPLEADO.setSUCURSAL(this.USUARIO.getIdSucursal());
+                this.EMPLEADO.setUSUARIO(this.USUARIO.getIdUsuario());
+                this.EMPLEADO.setCARGO(cargo);
+                this.EMPLEADO.setESTUDIOS(estudios);
+                this.EMPLEADO.setDEPARTAMENTO(departamento);
+                this.EMPLEADO.setSALARIO(salario);
+                this.EMPLEADO.setENTRADA(entrada);
+                this.EMPLEADO.setSALIDA(salida);
+                this.EMPLEADO.setDIAS_LABORALES(dias);
+                this.EMPLEADO.setCASO_EMERGENCIA(emergencia);
+                this.EMPLEADO.setFECHA_INCORPORACION(fecha);
+                this.EMPLEADO.setEFECTIVO(efectivo);
+//enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
+                updated = this.SERVICIO.actualizarDatosStaff(this.EMPLEADO);
+//            System.out.println(this.EMPLEADO.toString());
+            }
+            int agencia = 0;//número de agencia
+            int vacante = 0;
+            try {
+                //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
+                agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
+                //convertimos el numero de vacante a tipo int si existe alguna                
+                vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
+            } catch (Exception ex) {
+                System.out.println("views.Empleados.guardarDatos() : " + ex);
+            }
+
+            if (updated == true || idEmpleado > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
+//si tenemos una agencia seleccionada y el cargo es ADC entonces            
+                if (cargo == 5 && agencia > 0) {//cargo 5 = ADC |||| agencia = 1,2,3,4, etc... según la BD
+                    String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
+                    if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
+//creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
+                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                    } else if (this.ADC != null && vacante > 0) {
+//actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                    }
+                    //mostramos el mensaje retornado por el controlador
+                    JOptionPane.showMessageDialog(rootPane, mensaje);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Datos laborales guardados correctamente.", "¡Éxito!", JOptionPane.INFORMATION_MESSAGE);
+                }
+                cancelar();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Datos laborales no guardados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            System.out.println("views.Empleados.guardarDatos() : " + e);
         }
     }
 
@@ -345,13 +356,14 @@ public class Empleados extends javax.swing.JDialog {
         SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
         txtSalida.setModel(sm2);
         JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
-        txtSalida.setEditor(ded);
+        txtSalida.setEditor(ded);        
     }
 
     private void cancelar() {
         this.PERSONA_SELECCIONADA = null;
         this.EMPLEADO = null;
         limpiarCampos();
+        llenarTabla("");
     }
 
     private void meses() {
@@ -362,7 +374,7 @@ public class Empleados extends javax.swing.JDialog {
             dcbm.addElement(mes);
         }
         comboMeses.setModel(dcbm);
-    }   
+    }
 
     private void cargaDatosAdc() {
         panelAdc.setVisible(true);
@@ -573,18 +585,16 @@ public class Empleados extends javax.swing.JDialog {
         panelTablaLayout.setHorizontalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaLayout.createSequentialGroup()
-                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTablaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3))
-                    .addGroup(panelTablaLayout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(182, 182, 182)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(263, Short.MAX_VALUE))
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1128, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTablaLayout.setVerticalGroup(

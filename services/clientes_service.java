@@ -20,9 +20,9 @@ import resources.clientes_resource;
 public class clientes_service {
 
     private final clientes_resource recurso;
-
-    public clientes_service() {
-        this.recurso = new clientes_resource();
+    
+    public clientes_service(String modulo) {
+        this.recurso = new clientes_resource(modulo);
     }
 
     public Cliente cliente(Persona persona) {
@@ -51,30 +51,63 @@ public class clientes_service {
         return personas;
     }
 
-    public Empleado staff(int idPersona) {
+    public Empleado empleado(int idPersona) {
         Empleado staff = null;
-        String[] array = this.recurso.staff(idPersona);
+        String[] array = this.recurso.datosEmpleado(idPersona);
         if (array != null) {
             //staff = new Empleado(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
             //        Integer.valueOf(array[5]), Integer.valueOf(array[6]), array[7], array[8], array[9], array[10], array[11], Integer.parseInt(array[12]), array[13], this.persona(Integer.valueOf(array[5]), Integer.valueOf(array[1])));
             staff = new Empleado(Integer.valueOf(array[0]),
-            Integer.valueOf(array[1]),
-            Integer.valueOf(array[2]),
-            array[3],
-            Integer.valueOf(array[4]),
-            Integer.valueOf(array[5]),
-            Integer.valueOf(array[6]),
-            Integer.valueOf(array[7]),
-            Integer.valueOf(array[8]),
-            array[9],
-            array[10],
-            array[11],
-            array[12],
-            array[13],
-            Integer.valueOf(array[14]),
-            array[15],this.persona(Integer.valueOf(array[1]), idPersona));
+                    Integer.valueOf(array[1]),
+                    Integer.valueOf(array[2]),
+                    array[3],
+                    Integer.valueOf(array[4]),
+                    Integer.valueOf(array[5]),
+                    Integer.valueOf(array[6]),
+                    Integer.valueOf(array[7]),
+                    Integer.valueOf(array[8]),
+                    array[9],
+                    array[10],
+                    array[11],
+                    array[12],
+                    array[13],
+                    Integer.valueOf(array[14]),
+                    array[15], this.persona(Integer.valueOf(array[1]), idPersona));
         }
         return staff;
+    }
+
+    public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
+        String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo","Estudios","Departamento","Contacto","Dias Laborales"};
+        DefaultTableModel dtm = new DefaultTableModel(null, titulos);
+        String[][] array;
+        if (dato.isEmpty()) {
+            array = this.recurso.datosEmpleados(idSucursal, dato);
+        } else {
+            array = this.recurso.personas(idSucursal, dato);
+        }
+        if (array != null) {
+            for (String[] var : array) {
+                Object[] cli = new Object[var.length];
+                cli[0] = var[0];
+                cli[1] = var[1];
+                cli[2] = var[2] + " " + var[3];
+                cli[3] = var[4];
+                cli[4] = var[5];
+                cli[5] = var[6];
+                cli[6] = var[7];
+                cli[7] = var[8];
+                cli[8] = var[9];
+                cli[9] = var[10];
+                cli[10] = var[11];
+                cli[11] = var[12];                
+                dtm.addRow(cli);
+            }
+        }
+        TableCreator tcr = new TableCreator();
+        tabla.setModel(dtm);
+        tabla.setColumnModel(tcr.resizeTableEmpleados(tabla));
+        return tabla;
     }
 
     public JTable tablaPersonas(JTable tabla, int idSucursal, String dato) {
@@ -154,7 +187,7 @@ public class clientes_service {
         }
         return dcbm;
     }
-    
+
     public DefaultComboBoxModel agencias(int sucursal) {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String[] array = this.recurso.agencias(sucursal);
@@ -166,14 +199,14 @@ public class clientes_service {
         }
         return dcbm;
     }
-    
+
     public DefaultComboBoxModel vacantes(int sucursal, int agencia) {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String[][] array = this.recurso.vacantes(sucursal, agencia);
         if (array != null) {
             dcbm.addElement(new Lista(0, "-- Seleccione --"));
             for (String[] val : array) {
-                dcbm.addElement(new Lista(Integer.valueOf(val[0]), "Vacante " +val[1]));
+                dcbm.addElement(new Lista(Integer.valueOf(val[0]), "Vacante " + val[1]));
             }
         }
         return dcbm;
@@ -189,15 +222,15 @@ public class clientes_service {
             return this.recurso.guardarDatosStaff(staff.getPERSONA().getIdPersona(), staff.getCARGO(), staff.getESTUDIOS(), staff.getDEPARTAMENTO(),
                     staff.getSUCURSAL(), staff.getSALARIO(), staff.getENTRADA(), staff.getSALIDA(),
                     staff.getDIAS_LABORALES(), staff.getCASO_EMERGENCIA(), staff.getFECHA_INCORPORACION(), staff.getEFECTIVO(),
-                    this.codigoStaff(staff),staff.getUSUARIO());
+                    this.codigoStaff(staff), staff.getUSUARIO());
 
         } else {
             return 0;
         }
     }
-    
+
     public boolean actualizarDatosStaff(Empleado nuevo) {
-        if (nuevo != null ){
+        if (nuevo != null) {
 //            System.out.println(nuevo.toString());
             int guion = nuevo.getDIAS_LABORALES().indexOf("-");
             if (guion >= 1) {
@@ -235,7 +268,7 @@ public class clientes_service {
             }
         }
         return codigo;
-    }         
+    }
 
     public int guardarDatos(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
@@ -257,17 +290,17 @@ public class clientes_service {
             return -1;//La persona no es cliente
         }
     }
-    
+
     public String actualizarADC(Adc ADC, int sucursal, int staff, int agencia, int vacante) {
         String mensaje;
         if (ADC != null) {
-            boolean b = this.recurso.actualizarADC(ADC.getID(),sucursal, staff, agencia, vacante);
+            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, staff, agencia, vacante);
             if (b) {
                 mensaje = "Datos de ADC actualizados correctamente";
-            }else{
+            } else {
                 mensaje = "Algo falló al actualizar los datos del ADC";
             }
-        }else{            
+        } else {
             mensaje = "No es posible actualizar la información porque\nalguno de los datos se encuentra vacío o es incorrecto.";
         }
         return mensaje;
@@ -276,14 +309,14 @@ public class clientes_service {
     public String crearADC(int sucursal, int staff, int agencia, int vacante) {
         String mensaje;
         if (sucursal > 0 && staff > 0 && agencia > 0 && vacante > 0) {
-            boolean b = this.recurso.crearADC(sucursal,staff,agencia,vacante);
+            boolean b = this.recurso.crearADC(sucursal, staff, agencia, vacante);
             if (b) {
                 mensaje = "Datos de ADC insertados correctamente";
-            }else{
+            } else {
                 mensaje = "Algo falló al insertar los datos de ADC";
             }
-        }else{
-            System.out.println(sucursal +"-"+ staff+"-"+agencia+"-"+vacante);
+        } else {
+            System.out.println(sucursal + "-" + staff + "-" + agencia + "-" + vacante);
             mensaje = "Alguno de los datos se encuentra vacío o es incorrecto.";
         }
         return mensaje;
@@ -298,6 +331,6 @@ public class clientes_service {
             }
         }
         return adc;
-    }    
+    }
 
 }

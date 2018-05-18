@@ -39,6 +39,28 @@ public class TableCreator {
         }
         return tabla;
     }
+    
+    public TableColumnModel resizeTableEmpleados(JTable tabla) {
+        TableColumnModel columnModel = tabla.getColumnModel();
+        if (columnModel.getColumnCount() > 0) {
+            columnModel.getColumn(0).setPreferredWidth(30);
+            columnModel.getColumn(1).setPreferredWidth(90);
+            columnModel.getColumn(2).setPreferredWidth(130);
+            columnModel.getColumn(3).setPreferredWidth(110);
+            columnModel.getColumn(4).setPreferredWidth(60);
+            columnModel.getColumn(5).setPreferredWidth(60);
+            columnModel.getColumn(6).setPreferredWidth(35);
+            columnModel.getColumn(7).setPreferredWidth(120);
+            columnModel.getColumn(8).setPreferredWidth(120);
+            columnModel.getColumn(9).setPreferredWidth(120);
+            columnModel.getColumn(10).setPreferredWidth(120);
+            columnModel.getColumn(11).setPreferredWidth(133);
+            for (int i = 0; i < tabla.getColumnCount(); i++) {
+                columnModel.getColumn(i).setResizable(false);                
+            }
+        }
+        return columnModel;
+    }
 
     public TableColumnModel resizeTablePersonas(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();

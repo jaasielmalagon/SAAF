@@ -35,7 +35,7 @@ public class Clientes extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         
-        this.SERVICIO = new clientes_service();
+        this.SERVICIO = new clientes_service(this.getClass().toString());
         this.USUARIO = usuario;
         ocupaciones();
         estudios();
