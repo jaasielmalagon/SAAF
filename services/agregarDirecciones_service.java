@@ -1,8 +1,6 @@
 package services;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objects.Calle;

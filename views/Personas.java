@@ -326,7 +326,7 @@ public class Personas extends javax.swing.JDialog {
         PanelPrincipal = new javax.swing.JPanel();
         BarraSuperior = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        tituloVentana = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
@@ -405,11 +405,11 @@ public class Personas extends javax.swing.JDialog {
         });
         BarraSuperior.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1167, 0, 32, 32));
 
-        jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Registro de datos personales");
-        BarraSuperior.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
+        tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
+        tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
+        tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloVentana.setText("Registro de datos personales");
+        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
         jLabel11.setToolTipText("Cerrar");
@@ -1069,13 +1069,7 @@ public class Personas extends javax.swing.JDialog {
 
     private void btnDomicilioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDomicilioMouseClicked
         if (PERSONA_SELECCIONADA != null) {
-//            asociar_direcciones direcciones = new asociar_direcciones(USUARIO, "Asociar domicilio a " + PERSONA_SELECCIONADA.toString(), PERSONA_SELECCIONADA);
-//            escritorio.add(direcciones);
-//            Dimension FrameSize = escritorio.getSize();
-//            direcciones.setSize(FrameSize);
-//            direcciones.toFront();
-//            direcciones.show();
-//            this.dispose();
+            (new Domicilio(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
@@ -1175,7 +1169,6 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1184,6 +1177,7 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tablaClientes;
+    private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtAp1;
     private javax.swing.JTextField txtAp2;
