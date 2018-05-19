@@ -1,11 +1,17 @@
 package mapasformulario;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import maps.java.Geocoding;
@@ -19,6 +25,19 @@ public class form extends javax.swing.JFrame {
     public form() {
         initComponents();
         setLocationRelativeTo(null);
+
+        try (InputStream is = form.class.getResourceAsStream("/image/fa-solid-900.ttf")) {
+            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+            font = font.deriveFont(Font.PLAIN, 24f);
+
+            JLabel label = new JLabel("holaaaa");
+            label.setFont(font);
+            
+            panel.add(label);
+            
+        } catch (IOException | FontFormatException exp) {
+            System.out.println(exp);
+        }
     }
 
     private void buscarDireccion(String direccion) {
@@ -71,6 +90,7 @@ public class form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         yPos = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -83,6 +103,9 @@ public class form extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 130, 130));
 
         jLabel1.setText("Dirección:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
@@ -115,7 +138,7 @@ public class form extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 280));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 90));
 
         y.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         y.setText("Y: ");
@@ -196,6 +219,7 @@ public class form extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panel;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JLabel x;

@@ -182,7 +182,7 @@ public class Personas extends javax.swing.JDialog {
         } else if (comboSexo.getSelectedIndex() == 2) {
             sexo = "M";
         }
-        System.out.println(sexo);
+//        System.out.println(sexo);
         int estadoCivil = cmbEstadoCivil.getSelectedIndex();
         String tel = txtTel.getText();
         String cel = txtCel.getText();

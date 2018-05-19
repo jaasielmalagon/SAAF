@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -23,7 +22,7 @@ import services.Domicilios_service;
  */
 public class Domicilio extends javax.swing.JDialog {
 
-    private int ID_PERSONA_SELECCIONADA = 0;
+    private String DIRECCION_SELECCIONADA = null;
     private Persona PERSONA_SELECCIONADA = null;
     private Usuario USUARIO = null;
     private final Domicilios_service servicio;
@@ -40,25 +39,30 @@ public class Domicilio extends javax.swing.JDialog {
         frmArrendamientoOnOff(false);
         meses();
     }
-    
-    private void guardarDomicilio(){
-        String direccion = txtDireccion.getText();
+
+    private void guardarDomicilio() {
+        String direccion = txtDireccion.getText().toUpperCase();
         String latitud = xPos.getText();
         String longitud = yPos.getText();
-        objects.Domicilio dom = this.servicio.buscarDomicilio(direccion, latitud, longitud);
-//        JOptionPane.showMessageDialog(this, dom.toString());
+        int tipo = comboTipoVivienda.getSelectedIndex();
+        String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
+        String propietario = txtPropietario.getText();
+        String tiempoResidencia = txtAnosResidencia.getText();
+        objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
+
         if (dom == null) {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y asociarla con la persona " + this.PERSONA_SELECCIONADA.toString()+"?", "Pregunta", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y asociarla con la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                boolean guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA);                
+                dom = new objects.Domicilio(0, tipo, direccion, latitud, longitud, propietario, vigencia, tiempoResidencia);
+                boolean guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA);
                 if (guardado) {
-                    JOptionPane.showMessageDialog(this, "Domicilio guardado y asociado correctamente a " + this.PERSONA_SELECCIONADA.toString(),"Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado","Error",JOptionPane.ERROR);
+                    JOptionPane.showMessageDialog(this, "Domicilio guardado y asociado correctamente a " + this.PERSONA_SELECCIONADA.toString(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR);
                 }
             }
-        }else{
-            int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString()+"?","Pregunta",JOptionPane.YES_NO_OPTION);
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 //asociarlo
             }
@@ -66,24 +70,24 @@ public class Domicilio extends javax.swing.JDialog {
     }
 
     private void buscarDireccion(String direccion) {
-        Geocoding ObjGeocod = new Geocoding();
+        tabla = this.servicio.buscarCoordenadas(tabla, direccion);
         try {
-            Point2D.Double resultadoCD = ObjGeocod.getCoordinates(direccion);
-            String titulos[] = {"Direcciónes relacionadas"};
-            DefaultTableModel dtm = new DefaultTableModel(null, titulos);
-            ArrayList<String> array = ObjGeocod.getAddress(resultadoCD.x, resultadoCD.y);
-            if (array != null) {
-                for (String item : array) {
-                    Object[] cli = new Object[1];
-                    cli[0] = item;
-                    dtm.addRow(cli);
-                }
-                tabla.setModel(dtm);
-                seleccionarDeTabla();
-            }
-        } catch (UnsupportedEncodingException | MalformedURLException e) {
-            System.out.println("Error: " + e);
+            Geocoding ObjGeocod = new Geocoding();
+            Point2D.Double resultadoCD = ObjGeocod.getCoordinates(DIRECCION_SELECCIONADA);
+            tabla.setEnabled(false);
+            JOptionPane.showMessageDialog(rootPane, "Se mostrarán las coordenadas de la dirección \"" + DIRECCION_SELECCIONADA + "\".", "Información", JOptionPane.INFORMATION_MESSAGE);
+            txtDireccion.setText(DIRECCION_SELECCIONADA);
+            xPos.setText("" + resultadoCD.x);
+            yPos.setText("" + resultadoCD.y);
+            tabla.setEnabled(true);
+        } catch (UnsupportedEncodingException | MalformedURLException ex) {
+            System.out.println(".mousePressed() : " + ex);
         }
+    }
+
+    private void buscarDireccionesGuardadas() {
+        String direccion = txtBuscar2.getText();
+        tabla = this.servicio.buscarDomicilios(tabla, direccion);
     }
 
     public void seleccionarDeTabla() {
@@ -91,22 +95,12 @@ public class Domicilio extends javax.swing.JDialog {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
-                    String direccionSeleccionada = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
-                    try {
-                        Geocoding ObjGeocod = new Geocoding();
-                        Point2D.Double resultadoCD = ObjGeocod.getCoordinates(direccionSeleccionada);
-                        JOptionPane.showMessageDialog(rootPane, "Se mostrarán las coordenadas de la dirección \"" + direccionSeleccionada + "\".", "Información", JOptionPane.INFORMATION_MESSAGE);
-                        txtDireccion.setText(direccionSeleccionada);
-                        xPos.setText("" + resultadoCD.x);
-                        yPos.setText("" + resultadoCD.y);
-                    } catch (UnsupportedEncodingException | MalformedURLException ex) {
-                        System.out.println(".mousePressed() : " + ex);
-                    }
+                    DIRECCION_SELECCIONADA = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
                 }
             }
         });
     }
-    
+
     private void frmArrendamientoOnOff(boolean estado) {
         txtAno.setEnabled(estado);
         txtDia.setEnabled(estado);
@@ -121,7 +115,7 @@ public class Domicilio extends javax.swing.JDialog {
         txtAnosResidencia.setText("0");
         txtPropietario.setText("");
     }
-    
+
     private void meses() {
         Mes[] meses = this.servicio.meses();
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
@@ -202,9 +196,8 @@ public class Domicilio extends javax.swing.JDialog {
 
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
-        tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloVentana.setText("Asignar domicilio a:");
-        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
+        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 0, 870, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
         jLabel11.setToolTipText("Cerrar");
@@ -312,7 +305,6 @@ public class Domicilio extends javax.swing.JDialog {
         btnBuscar.setContentAreaFilled(false);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setFocusPainted(false);
-        btnBuscar.setOpaque(false);
         btnBuscar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px.png"))); // NOI18N
         btnBuscar.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px.png"))); // NOI18N
         btnBuscar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px.png"))); // NOI18N
@@ -506,8 +498,8 @@ public class Domicilio extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void txtDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyReleased
-        String cadena = txtDireccion.getText().toUpperCase();
-        txtDireccion.setText(cadena);
+//        String cadena = txtDireccion.getText().toUpperCase();
+//        txtDireccion.setText(cadena);
     }//GEN-LAST:event_txtDireccionKeyReleased
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
@@ -525,17 +517,18 @@ public class Domicilio extends javax.swing.JDialog {
         txtDireccion.setText("");
         xPos.setText("");
         yPos.setText("");
-        tabla.removeAll();
+        tabla.setModel(new DefaultTableModel());
+        txtPropietario.setText("");
         PERSONA_SELECCIONADA = null;
-        ID_PERSONA_SELECCIONADA = 0;
+        DIRECCION_SELECCIONADA = null;
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed
-        
+        buscarDireccionesGuardadas();
     }//GEN-LAST:event_txtBuscar2ActionPerformed
 
     private void txtBuscar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyPressed
-
+        buscarDireccionesGuardadas();
     }//GEN-LAST:event_txtBuscar2KeyPressed
 
     private void txtBuscar2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyReleased
@@ -543,7 +536,7 @@ public class Domicilio extends javax.swing.JDialog {
         if (cTeclaPresionada == KeyEvent.VK_DELETE || cTeclaPresionada == KeyEvent.VK_BACK_SPACE) {
             int l = txtBuscar2.getText().length();
             if (l == 0) {
-
+                tabla.setModel(new DefaultTableModel());
             }
         }
     }//GEN-LAST:event_txtBuscar2KeyReleased
@@ -605,9 +598,9 @@ public class Domicilio extends javax.swing.JDialog {
     private void txtPropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPropietarioKeyTyped
         //        int lon = txtPropietario.getText().length();
         //        if (lon >= 18) {
-            //            evt.consume();
-            //            JOptionPane.showMessageDialog(rootPane, "El código CURP contiene únicamente 18 caracteres");
-            //        }
+        //            evt.consume();
+        //            JOptionPane.showMessageDialog(rootPane, "El código CURP contiene únicamente 18 caracteres");
+        //        }
     }//GEN-LAST:event_txtPropietarioKeyTyped
 
     /**

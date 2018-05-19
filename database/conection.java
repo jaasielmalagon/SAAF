@@ -106,7 +106,7 @@ public class conection {
         } else {
             try {
                 if (estado != null) {
-                    System.out.println("INSERT INTO " + tabla + "(" + campos + ") VALUES (" + valores + ")");
+                    //System.out.println("INSERT INTO " + tabla + "(" + campos + ") VALUES (" + valores + ")");
                     estado.execute("INSERT INTO " + tabla + "(" + campos + ") VALUES (" + valores + ")");
                     xsas = true;
                 }
