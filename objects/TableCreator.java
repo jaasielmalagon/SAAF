@@ -99,10 +99,21 @@ public class TableCreator {
         return columnModel;
     }
     
+    public TableColumnModel resizeTableDireccionesGuardadas(JTable tabla) {
+        TableColumnModel columnModel = tabla.getColumnModel();
+        if (columnModel.getColumnCount() > 0) {
+            columnModel.getColumn(0).setPreferredWidth(60);
+            columnModel.getColumn(1).setPreferredWidth(1130);
+            for (int i = 0; i < tabla.getColumnCount(); i++) {
+                columnModel.getColumn(i).setResizable(false);                
+            }
+        }
+        return columnModel;
+    }
+    
     public TableColumnModel noEditable(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
-        if (columnModel.getColumnCount() > 0) {            
-            
+        if (columnModel.getColumnCount() > 0) {                        
             for (int i = 0; i < tabla.getColumnCount(); i++) {
                 columnModel.getColumn(i).setResizable(false);                
             }

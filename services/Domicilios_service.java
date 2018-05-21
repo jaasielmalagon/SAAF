@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import maps.java.Geocoding;
@@ -11,6 +12,8 @@ import objects.Domicilio;
 import objects.Fecha;
 import objects.Mes;
 import objects.Persona;
+import objects.TableCreator;
+import objects.Usuario;
 import resources.Domicilios_resource;
 
 /**
@@ -29,6 +32,7 @@ public class Domicilios_service {
         String titulos[] = {"ID", "Dirección"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] resultados = this.RECURSO.buscarDomicilios(direccion);
+        System.out.println(Arrays.deepToString(resultados));
         if (resultados != null) {
             for (String[] resultado : resultados) {
                 Object[] o = new Object[2];
@@ -36,13 +40,15 @@ public class Domicilios_service {
                 o[1] = resultado[1];
                 dtm.addRow(o);
             }
-            tabla.setModel(dtm);
         } else {
             Object[] cli = new Object[2];
             cli[0] = "";
-            cli[1] = "NO SE ENCONTRARON RESULTADOS";
+            cli[1] = "NO SE OBTUVIERON RESULTADOS";
             dtm.addRow(cli);
         }
+        TableCreator tcr = new TableCreator();
+        tabla.setModel(dtm);
+        tabla.setColumnModel(tcr.resizeTableDireccionesGuardadas(tabla));
         return tabla;
     }
 
@@ -55,7 +61,23 @@ public class Domicilios_service {
         return dom;
     }
 
-    public boolean guardarAsociarDomicilio(Domicilio domicilio, Persona persona) {
+    public Domicilio buscarDomicilioGuardado(int idDomicilio) {
+        Domicilio dom = null;
+        String[] d = this.RECURSO.buscarDomicilio(idDomicilio);
+        if (d != null) {
+            dom = new Domicilio(Integer.valueOf(d[0]), Integer.valueOf(d[4]), d[1], d[2], d[3], d[5], d[6], d[7]);
+        }
+        return dom;
+    }
+    
+    public boolean asociarDomicilioPersona(int idDomicilio, Persona persona, Usuario usuario) {
+        boolean flag;
+        //int idPersona, int idDomicilio, int idUsuario, int idSucursal
+        flag = this.RECURSO.asociarDomicilioPersona(persona.getIdPersona(), idDomicilio, usuario.getIdUsuario(), usuario.getIdSucursal());        
+        return flag;
+    }
+
+    public boolean guardarAsociarDomicilio(Domicilio domicilio, Persona persona, Usuario usuario) {
         Fecha fecha = new Fecha();
         boolean flag = false;
         int error = 0;
@@ -72,9 +94,9 @@ public class Domicilios_service {
             }
         }
         if (error == 0) {
-            int id = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD(), domicilio.getTIPO(), domicilio.getPROPIETARIO(), domicilio.getVIGENCIA(), domicilio.getTIEMPO_RESIDENCIA());
-            if (id > 0) {
-                flag = this.RECURSO.asociarDomicilioPersona(persona.getIdPersona(), id);
+            int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD(), domicilio.getTIPO(), domicilio.getPROPIETARIO(), domicilio.getVIGENCIA(), domicilio.getTIEMPO_RESIDENCIA());
+            if (idDomicilio > 0) {
+                flag = this.asociarDomicilioPersona(idDomicilio, persona, usuario);
             } else {
                 flag = false;
             }
@@ -101,22 +123,32 @@ public class Domicilios_service {
 
     public JTable buscarCoordenadas(JTable tabla, String direccion) {
         Geocoding ObjGeocod = new Geocoding();
+        String titulos[] = {"ID", "Dirección relacionada encontrada vía GPS"};
+        DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         try {
             Point2D.Double resultadoCD = ObjGeocod.getCoordinates(direccion);
-            String titulos[] = {"Direcciónes relacionadas encontradas vía GPS"};
-            DefaultTableModel dtm = new DefaultTableModel(null, titulos);
             ArrayList<String> array = ObjGeocod.getAddress(resultadoCD.x, resultadoCD.y);
             if (array != null) {
+                int i = 1;
                 for (String item : array) {
-                    Object[] cli = new Object[1];
-                    cli[0] = item;
+                    Object[] cli = new Object[2];
+                    cli[0] = i;
+                    cli[1] = item;
                     dtm.addRow(cli);
+                    i++;
                 }
-                tabla.setModel(dtm);
+            } else {
+                Object[] cli = new Object[2];
+                cli[0] = "0";
+                cli[1] = "NO SE OBTUVIERON RESULTADOS";
+                dtm.addRow(cli);
             }
         } catch (UnsupportedEncodingException | MalformedURLException e) {
             System.out.println("Error: " + e);
         }
+        TableCreator tcr = new TableCreator();
+        tabla.setModel(dtm);
+        tabla.setColumnModel(tcr.resizeTableDireccionesGuardadas(tabla));
         return tabla;
     }
 }

@@ -28,13 +28,16 @@ public class Domicilios_resource {
             this.DB.Connect();
             RS = this.DB.Select("COUNT(*)", "domicilios", "direccion like '%" + direccion + "%'");
             if (RS.next()) {
-                dom = new String[RS.getInt(1)][2];
-                RS = this.DB.Select("idDomicilio, direccion", "domicilios", "direccion like '%" + direccion + "%' LIMIT 1");
-                int i = 0;
-                while (RS.next()) {
-                    dom[i][0] = RS.getString(1);
-                    dom[i][1] = RS.getString(2);
-                    i++;
+                int count = RS.getInt(1);
+                if (count > 0) {
+                    dom = new String[count][2];
+                    RS = this.DB.Select("idDomicilio, direccion", "domicilios", "direccion like '%" + direccion + "%'");
+                    int i = 0;
+                    while (RS.next()) {
+                        dom[i][0] = RS.getString(1);
+                        dom[i][1] = RS.getString(2);
+                        i++;
+                    }
                 }
             }
             this.DB.Disconnect();
@@ -49,7 +52,7 @@ public class Domicilios_resource {
         String[] dom = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("*", "domicilios", "direccion like '%" + direccion + "%' OR (latitud = '" + latitud + "' AND longitud ='" + longitud + "') LIMIT 1");
+            RS = this.DB.Select("*", "domicilios", "(direccion ='" + direccion + "') OR (latitud = '" + latitud + "' AND longitud ='" + longitud + "') LIMIT 1");
             if (RS.next()) {
                 dom = new String[8];
                 dom[0] = RS.getString(1);
@@ -69,10 +72,34 @@ public class Domicilios_resource {
         return dom;
     }
 
-    public boolean asociarDomicilioPersona(int idPersona, int idDomicilio) {
+    public String[] buscarDomicilio(int idDomicilio) {
+        String[] dom = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "domicilios", "idDomicilio = " + idDomicilio + " LIMIT 1");
+            if (RS.next()) {
+                dom = new String[8];
+                dom[0] = RS.getString(1);
+                dom[1] = RS.getString(2);
+                dom[2] = RS.getString(3);
+                dom[3] = RS.getString(4);
+                dom[4] = RS.getString(5);
+                dom[5] = RS.getString(6);
+                dom[6] = RS.getString(7);
+                dom[7] = RS.getString(8);
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return dom;
+    }
+
+    public boolean asociarDomicilioPersona(int idPersona, int idDomicilio, int idUsuario, int idSucursal) {
         boolean g;
         this.DB.Connect();
-        g = this.DB.Update("personas", "domicilio = " + idDomicilio, "idPersona = " + idPersona + " LIMIT 1");
+        g = this.DB.Update("personas", "domicilio = " + idDomicilio + ", usuario = " + idUsuario + ",sucursal=" + idSucursal, "idPersona = " + idPersona + " LIMIT 1");
         this.DB.Disconnect();
         return g;
     }
