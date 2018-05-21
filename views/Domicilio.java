@@ -36,14 +36,23 @@ public class Domicilio extends javax.swing.JDialog {
         this.USUARIO = usuario;
         this.servicio = new Domicilios_service(this.getClass().toString());
         tituloVentana.setText(tituloVentana.getText() + " " + persona.toString());
-        if (this.PERSONA_SELECCIONADA.getDomicilio() > 0) {
-            txtDireccionActual.setText(this.servicio.buscarDomicilioGuardado(this.PERSONA_SELECCIONADA.getDomicilio()).getDIRECCION());
-        } else {
-            txtDireccionActual.setText("NO ASIGNADA");
-        }
+        mostrarDomicilioActual();
         frmArrendamientoOnOff(false);
         meses();
         seleccionarDeTabla();
+    }
+
+    private void mostrarDomicilioActual() {
+        if (this.PERSONA_SELECCIONADA.getDomicilio() > 0) {
+            objects.Domicilio d = this.servicio.buscarDomicilioGuardado(this.PERSONA_SELECCIONADA.getDomicilio());
+            if (d != null) {
+                txtDireccionActual.setText(d.getDIRECCION());
+            } else {
+                txtDireccionActual.setText("ASIGNADO PERO NO ENCONTRADO, REVISE EL REGISTRO DE DOMICILIOS");
+            }
+        } else {
+            txtDireccionActual.setText("NO ASIGNADA");
+        }
     }
 
     private void guardarDomicilio() {
@@ -54,7 +63,7 @@ public class Domicilio extends javax.swing.JDialog {
         String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
         String propietario = txtPropietario.getText();
         String tiempoResidencia = txtAnosResidencia.getText();
-        if (direccion != "" && latitud != "" && longitud != "") {
+        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && tipo > 0 && !"0.0".equals(latitud) && !"0.0".equals(longitud) ) {
             objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
             boolean guardado = false;
             if (dom == null) {
@@ -73,8 +82,10 @@ public class Domicilio extends javax.swing.JDialog {
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Domicilio guardado y asociado correctamente a " + this.PERSONA_SELECCIONADA.toString(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {//SI EL FORMULARIO ESTÁ VACÍO
+            JOptionPane.showMessageDialog(this, "No ha completado todos los campos necesarios", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }
 

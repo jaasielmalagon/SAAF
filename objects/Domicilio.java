@@ -75,8 +75,14 @@ public class Domicilio {
         this.VIGENCIA = VIGENCIA;
     }
 
-    public String getTIEMPO_RESIDENCIA() {
-        return TIEMPO_RESIDENCIA;
+    public int getTIEMPO_RESIDENCIA() {
+        int t = 0;
+        try {
+            t = Integer.valueOf(TIEMPO_RESIDENCIA);
+        } catch (NumberFormatException e) {
+            System.out.println("objects.Domicilio.getTIEMPO_RESIDENCIA() : " + e);
+        }
+        return t;
     }
 
     public void setTIEMPO_RESIDENCIA(String TIEMPO_RESIDENCIA) {

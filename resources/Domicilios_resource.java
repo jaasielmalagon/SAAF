@@ -104,7 +104,7 @@ public class Domicilios_resource {
         return g;
     }
 
-    public int guardarDomicilio(String direccion, String latitud, String longitud, int tipo, String propietario, String vigencia, String tiempoResidencia) {
+    public int guardarDomicilio(String direccion, String latitud, String longitud, int tipo, String propietario, String vigencia, int tiempoResidencia) {
         int id = 0;
         this.DB.Connect();
         id = this.DB.InsertId("domicilios",

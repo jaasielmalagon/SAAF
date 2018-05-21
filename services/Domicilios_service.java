@@ -69,11 +69,11 @@ public class Domicilios_service {
         }
         return dom;
     }
-    
+
     public boolean asociarDomicilioPersona(int idDomicilio, Persona persona, Usuario usuario) {
         boolean flag;
         //int idPersona, int idDomicilio, int idUsuario, int idSucursal
-        flag = this.RECURSO.asociarDomicilioPersona(persona.getIdPersona(), idDomicilio, usuario.getIdUsuario(), usuario.getIdSucursal());        
+        flag = this.RECURSO.asociarDomicilioPersona(persona.getIdPersona(), idDomicilio, usuario.getIdUsuario(), usuario.getIdSucursal());
         return flag;
     }
 
