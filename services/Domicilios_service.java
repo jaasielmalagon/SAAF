@@ -32,7 +32,7 @@ public class Domicilios_service {
         String titulos[] = {"ID", "Dirección"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] resultados = this.RECURSO.buscarDomicilios(direccion);
-        System.out.println(Arrays.deepToString(resultados));
+//        System.out.println(Arrays.deepToString(resultados));
         if (resultados != null) {
             for (String[] resultado : resultados) {
                 Object[] o = new Object[2];
@@ -77,6 +77,27 @@ public class Domicilios_service {
         return flag;
     }
 
+    public boolean actualizarDomicilio(Domicilio domicilio, String direccionNueva, int idDomicilio) {
+        boolean f = false;
+        if (domicilio != null && !direccionNueva.isEmpty() && idDomicilio > 0) {            
+            try {
+                Geocoding ObjGeocod = new Geocoding();
+                Point2D.Double resultadoCD = ObjGeocod.getCoordinates(direccionNueva);
+                if (String.valueOf(resultadoCD.x).equals(domicilio.getLATITUD()) && String.valueOf(resultadoCD.y).equals(domicilio.getLONGITUD())) {
+                    f = this.RECURSO.actualizarDatosDomicilio(direccionNueva, idDomicilio);
+                }else{
+                    System.out.println("services.Domicilios_service.actualizarDomicilio() : LAS COORDENADAS SON DIFERENTES");
+                    f = false;
+                }
+            } catch (UnsupportedEncodingException | MalformedURLException e) {
+                System.out.println("Error: " + e);
+            }            
+        } else {
+            f = false;
+        }
+        return f;
+    }
+
     public boolean guardarAsociarDomicilio(Domicilio domicilio, Persona persona, Usuario usuario) {
         Fecha fecha = new Fecha();
         boolean flag = false;
@@ -88,7 +109,7 @@ public class Domicilios_service {
             } else if ("".equals(domicilio.getPROPIETARIO())) {
                 System.err.println("El nombre del propietario está vacío");
                 error = 2;
-            } else if (Integer.valueOf(domicilio.getTIEMPO_RESIDENCIA()) < 1) {
+            } else if (domicilio.getTIEMPO_RESIDENCIA() < 1) {
                 System.err.println("El tiempo de residencia es inválido.");
                 error = 3;
             }
@@ -151,4 +172,5 @@ public class Domicilios_service {
         tabla.setColumnModel(tcr.resizeTableDireccionesGuardadas(tabla));
         return tabla;
     }
+
 }

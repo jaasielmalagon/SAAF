@@ -6,8 +6,22 @@ package objects;
  */
 public class Persona {
 
-    private int idPersona, entidad_nac, edoCivil, domicilio, conyuge, referencia, aval;
-    private String nombre, apaterno, amaterno, f_nacimiento, curp, ocr, sexo, telefono, celular;    
+    private final int idPersona;
+    private final String nombre;
+    private final String apaterno;
+    private final String amaterno;
+    private final String f_nacimiento;
+    private final int entidad_nac;
+    private final String curp;
+    private final String ocr;
+    private final String sexo;
+    private final int edoCivil;
+    private final String telefono;
+    private final String celular;
+    private final int domicilio;
+    private final int conyuge;
+    private final int referencia;
+    private final int aval;
 
     public Persona(int idPersona, String nombre, String apaterno, String amaterno, String f_nacimiento, int entidad_nac,
             String curp, String ocr, String sexo, int edoCivil, String telefono, String celular, int domicilio, 
@@ -30,70 +44,6 @@ public class Persona {
         this.aval = aval;
 
     }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    public void setEntidad_nac(int entidad_nac) {
-        this.entidad_nac = entidad_nac;
-    }
-
-    public void setEdoCivil(int edoCivil) {
-        this.edoCivil = edoCivil;
-    }
-
-    public void setDomicilio(int domicilio) {
-        this.domicilio = domicilio;
-    }
-
-    public void setConyuge(int conyuge) {
-        this.conyuge = conyuge;
-    }
-
-    public void setReferencia(int referencia) {
-        this.referencia = referencia;
-    }
-
-    public void setAval(int aval) {
-        this.aval = aval;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setApaterno(String apaterno) {
-        this.apaterno = apaterno;
-    }
-
-    public void setAmaterno(String amaterno) {
-        this.amaterno = amaterno;
-    }
-
-    public void setF_nacimiento(String f_nacimiento) {
-        this.f_nacimiento = f_nacimiento;
-    }
-
-    public void setCurp(String curp) {
-        this.curp = curp;
-    }
-
-    public void setOcr(String ocr) {
-        this.ocr = ocr;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }    
 
     //GETERS
     public int getIdPersona() {

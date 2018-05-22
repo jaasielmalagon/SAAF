@@ -39,6 +39,7 @@ public class Domicilio extends javax.swing.JDialog {
         mostrarDomicilioActual();
         frmArrendamientoOnOff(false);
         meses();
+        buscarDireccionesGuardadas();
         seleccionarDeTabla();
     }
 
@@ -63,7 +64,7 @@ public class Domicilio extends javax.swing.JDialog {
         String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
         String propietario = txtPropietario.getText();
         String tiempoResidencia = txtAnosResidencia.getText();
-        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && tipo > 0 && !"0.0".equals(latitud) && !"0.0".equals(longitud) ) {
+        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && tipo > 0 && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
             objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
             boolean guardado = false;
             if (dom == null) {
@@ -73,14 +74,28 @@ public class Domicilio extends javax.swing.JDialog {
                     guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA, this.USUARIO);
                 }
             } else {
-                int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
+                int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ingresado ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
+                    if (!dom.getDIRECCION().equals(direccion)) {
+                        confirm = JOptionPane.showConfirmDialog(this, "La dirección guardada no es igual a la ingresada\n¿Desea actualizar la información?", "Aviso", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            if (this.servicio.actualizarDomicilio(dom, direccion, dom.getID())) {
+                                JOptionPane.showMessageDialog(this, "Los datos del domicilio se actualizaron correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Los datos del domicilio no pudieron ser actualizados correctamente", "Aviso", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
                     guardado = this.servicio.asociarDomicilioPersona(dom.getID(), this.PERSONA_SELECCIONADA, this.USUARIO);
                 }
             }
 
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Domicilio guardado y asociado correctamente a " + this.PERSONA_SELECCIONADA.toString(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                this.PERSONA_SELECCIONADA.setDomicilio(SOMEBITS);
+                cancelar();
+                mostrarDomicilioActual();
+                buscarDireccionesGuardadas();
             } else {
                 JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -149,6 +164,16 @@ public class Domicilio extends javax.swing.JDialog {
             dcbm.addElement(mes);
         }
         comboMeses.setModel(dcbm);
+    }
+    
+    private void cancelar(){
+        txtDireccion.setText("");
+        xPos.setText("");
+        yPos.setText("");
+        tabla.setModel(new DefaultTableModel());
+        txtPropietario.setText("");
+        comboTipoVivienda.setSelectedIndex(0);
+        DIRECCION_SELECCIONADA = null;
     }
 
     @SuppressWarnings("unchecked")
@@ -565,13 +590,7 @@ public class Domicilio extends javax.swing.JDialog {
     }//GEN-LAST:event_xPosKeyTyped
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        txtDireccion.setText("");
-        xPos.setText("");
-        yPos.setText("");
-        tabla.setModel(new DefaultTableModel());
-        txtPropietario.setText("");
-        comboTipoVivienda.setSelectedIndex(0);
-        DIRECCION_SELECCIONADA = null;
+        cancelar();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed

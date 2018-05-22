@@ -30,8 +30,12 @@ public class Domicilios_resource {
             if (RS.next()) {
                 int count = RS.getInt(1);
                 if (count > 0) {
+                    if (count > 20) {
+                        count = 20;
+                    }
+//                    System.out.println("Count: " + count);
                     dom = new String[count][2];
-                    RS = this.DB.Select("idDomicilio, direccion", "domicilios", "direccion like '%" + direccion + "%'");
+                    RS = this.DB.Select("idDomicilio, direccion", "domicilios", "direccion like '%" + direccion + "%' LIMIT " + count);
                     int i = 0;
                     while (RS.next()) {
                         dom[i][0] = RS.getString(1);
@@ -112,6 +116,20 @@ public class Domicilios_resource {
                 "'" + direccion + "','" + latitud + "','" + longitud + "'," + tipo + ",'" + propietario + "','" + vigencia + "'," + tiempoResidencia);
         this.DB.Disconnect();
         return id;
+    }
+
+    public boolean actualizarDatosDomicilio(String direccion, int idDomicilio) {
+        boolean flag;
+        try {
+            this.DB.Connect();
+            flag = this.DB.Update("domicilios", "direccion = '"+direccion+"'", "idDomicilio = " + idDomicilio +" LIMIT 1");
+            this.DB.Disconnect();
+        } catch (Exception ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            flag = false;
+        }
+        return flag;
     }
 
 }

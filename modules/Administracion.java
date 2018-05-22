@@ -63,8 +63,8 @@ public class Administracion extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        lblBackground = new javax.swing.JLabel();
         fotografia = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -227,13 +227,13 @@ public class Administracion extends javax.swing.JFrame {
         jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 510, 150, 35));
 
+        fotografia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(fotografia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 305, 200, 200));
+
         lblBackground.setBackground(new java.awt.Color(0, 0, 0));
         lblBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/MENU_900x620.png"))); // NOI18N
         getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 620));
-
-        fotografia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(fotografia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 200, 200));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
