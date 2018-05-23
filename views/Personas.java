@@ -1061,7 +1061,7 @@ public class Personas extends javax.swing.JDialog {
 
     private void btnReferenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReferenciasMouseClicked
         if (PERSONA_SELECCIONADA != null) {
-            (new Referencias(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+//            (new Referencias(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
@@ -1069,7 +1069,7 @@ public class Personas extends javax.swing.JDialog {
 
     private void btnDomicilioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDomicilioMouseClicked
         if (PERSONA_SELECCIONADA != null) {
-            (new Domicilio(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+//            (new Domicilio(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
@@ -1092,7 +1092,7 @@ public class Personas extends javax.swing.JDialog {
 
     private void btnCrearCliente3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCliente3MouseClicked
         if (PERSONA_SELECCIONADA != null) {
-            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+//            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }

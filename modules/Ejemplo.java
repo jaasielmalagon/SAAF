@@ -7,7 +7,6 @@ import java.net.URI;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Usuario;
-import views.Clientes;
 import views.Personas;
 
 /**
@@ -74,7 +73,7 @@ public class Ejemplo extends javax.swing.JFrame {
         tituloModulo.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloModulo.setForeground(new java.awt.Color(181, 10, 20));
         tituloModulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloModulo.setText("ADMINISTRACIÓN");
+        tituloModulo.setText("NOMBRE DEL MODULO");
         getContentPane().add(tituloModulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 300, 40));
 
         nombreUsuario.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
@@ -108,16 +107,19 @@ public class Ejemplo extends javax.swing.JFrame {
         iconBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px_2.png"))); // NOI18N
         getContentPane().add(iconBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, -1, -1));
 
+        iconPersonas.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         iconPersonas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconPersonas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user-group-icon-80286.png"))); // NOI18N
+        iconPersonas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         iconPersonas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iconPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconPersonasMouseClicked(evt);
             }
         });
-        getContentPane().add(iconPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, -1, -1));
+        getContentPane().add(iconPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 150, 150));
 
+        jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -127,9 +129,11 @@ public class Ejemplo extends javax.swing.JFrame {
         lblDomicilios.setForeground(new java.awt.Color(181, 10, 20));
         lblDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDomicilios.setText("DOMICILIOS");
+        lblDomicilios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(lblDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 150, 35));
 
+        jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -139,6 +143,7 @@ public class Ejemplo extends javax.swing.JFrame {
         lblClientes.setForeground(new java.awt.Color(181, 10, 20));
         lblClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblClientes.setText("CLIENTES");
+        lblClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -182,25 +187,30 @@ public class Ejemplo extends javax.swing.JFrame {
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 520, 150, 35));
 
+        iconDomicilios.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         iconDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconDomicilios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home.png"))); // NOI18N
+        iconDomicilios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         iconDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(iconDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, 150));
+        getContentPane().add(iconDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 150, 150));
 
+        iconClientes.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         iconClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cliente.png"))); // NOI18N
+        iconClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         iconClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iconClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconClientesMouseClicked(evt);
             }
         });
-        getContentPane().add(iconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 130, -1, 150));
+        getContentPane().add(iconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 130, 150, 150));
 
         lblPersonas.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         lblPersonas.setForeground(new java.awt.Color(181, 10, 20));
         lblPersonas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPersonas.setText("PERSONAS");
+        lblPersonas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblPersonas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,6 +231,7 @@ public class Ejemplo extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 150, 35));
 
+        jLabel10.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -268,11 +279,11 @@ public class Ejemplo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscadorActionPerformed
 
     private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked
-        (new Clientes(this, true, this.usuario)).setVisible(true);
+        
     }//GEN-LAST:event_iconClientesMouseClicked
 
     private void lblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseClicked
-        (new Clientes(this, true, this.usuario)).setVisible(true);
+        
     }//GEN-LAST:event_lblClientesMouseClicked
 
     /**

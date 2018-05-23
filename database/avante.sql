@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2018 a las 22:04:35
+-- Tiempo de generación: 23-05-2018 a las 21:48:41
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -783,13 +783,10 @@ INSERT INTO `colonias` (`idColonia`, `colonia`, `asentamiento`, `cp`, `municipio
 
 CREATE TABLE `domicilios` (
   `idDomicilio` int(11) NOT NULL,
-  `sucursal` int(11) NOT NULL,
-  `calle` int(11) NOT NULL,
-  `numero` int(11) NOT NULL,
-  `calle1` int(11) NOT NULL,
-  `calle2` int(11) NOT NULL,
-  `colonia` int(11) NOT NULL,
-  `tipo` int(11) NOT NULL,
+  `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `latitud` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `longitud` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo` int(11) NOT NULL COMMENT '1=propia, 2=rentada, 3=prestada',
   `propietario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `vigencia_contrato` date NOT NULL,
   `tiempoResidencia` int(11) NOT NULL
@@ -799,21 +796,9 @@ CREATE TABLE `domicilios` (
 -- Volcado de datos para la tabla `domicilios`
 --
 
-INSERT INTO `domicilios` (`idDomicilio`, `sucursal`, `calle`, `numero`, `calle1`, `calle2`, `colonia`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES
-(1, 1, 417, 419, 419, 418, 252, 1, '', '0000-01-00', 0),
-(2, 1, 420, 420, 421, 422, 127, 1, '', '0000-01-00', 0),
-(3, 1, 119, 112, 33, 32, 6, 1, '', '0000-01-00', 0),
-(4, 1, 118, 98, 33, 32, 6, 2, 'MALCOLM EL DE EN MEDIO', '2019-12-31', 1),
-(5, 1, 163, 180, 166, 164, 10, 1, '', '0000-01-00', 0);
-
---
--- Disparadores `domicilios`
---
-DELIMITER $$
-CREATE TRIGGER `copiar_historial_domicilios` BEFORE UPDATE ON `domicilios` FOR EACH ROW INSERT INTO `historial_domicilios`(`idDomicilio`, `sucursal`, `calle`, `numero`, `calle1`, `calle2`, `colonia`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES (
- old.`idDomicilio`, old.`sucursal`, old.`calle`, old.`numero`, old.`calle1`, old.`calle2`, old.`colonia`, old.`tipo`, old.`propietario`, old.`vigencia_contrato`, old.`tiempoResidencia`)
-$$
-DELIMITER ;
+INSERT INTO `domicilios` (`idDomicilio`, `direccion`, `latitud`, `longitud`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES
+(1, 'CALLE 1 SUR 108 INT 203, CENTRO DE LA CIUDAD, 75700 TEHUACÁN, PUE., MÉXICO', '18.4623504', '-97.3934058', 1, '', '0000-01-00', 0),
+(2, 'CALLE 6 PTE 217, CENTRO, 75700 TEHUACÁN, PUE., MÉXICO', '18.4691768', '-97.3971585', 1, '', '0000-01-00', 0);
 
 -- --------------------------------------------------------
 
@@ -919,7 +904,16 @@ CREATE TABLE `historial_personas` (
 --
 
 INSERT INTO `historial_personas` (`idHistorialPersonas`, `idPersona`, `modificacion`, `usuario`, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES
-(1, 4, '2018-05-15 15:25:06', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'H', 0, '----------', '2381209130', 0, 0, 0, 0);
+(1, 4, '2018-05-15 15:25:06', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'H', 0, '----------', '2381209130', 0, 0, 0, 0),
+(2, 1, '2018-05-19 11:24:30', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 0, 0, 0, 0),
+(3, 1, '2018-05-19 11:38:38', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 0),
+(4, 1, '2018-05-19 11:41:45', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 1, 0, 0, 0),
+(5, 4, '2018-05-19 11:44:15', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 0, 0, 0, 0),
+(6, 3, '2018-05-19 11:44:18', 3, 'ALMA ELIA', 'VALERIO', 'LECHUGA', '1969-07-20', 21, 'VALA690720MPLLCL00', '1992075813527', 'M', 1, '----------', '2381682735', 0, 0, 0, 0),
+(7, 4, '2018-05-21 14:53:19', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 2, 0, 0, 0),
+(8, 4, '2018-05-21 14:53:35', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 0, 0, 0, 0),
+(9, 4, '2018-05-21 14:55:25', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 2, 0, 0, 0),
+(10, 4, '2018-05-21 14:58:20', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1668,10 +1662,11 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`idPersona`, `sucursal`, `registro`, `usuario`, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES
-(1, 1, '2018-04-19 11:14:53', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 0, 0, 0, 0),
+(1, 1, '2018-04-19 11:14:53', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 2, 0, 0, 0),
 (2, 1, '2018-04-19 11:16:21', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 0),
-(3, 1, '2018-04-19 11:33:44', 3, 'ALMA ELIA', 'VALERIO', 'LECHUGA', '1969-07-20', 21, 'VALA690720MPLLCL00', '1992075813527', 'M', 1, '----------', '2381682735', 0, 0, 0, 0),
-(4, 1, '2018-05-03 14:36:13', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 0, 0, 0, 0);
+(3, 1, '2018-04-19 11:33:44', 3, 'ALMA ELIA', 'VALERIO', 'LECHUGA', '1969-07-20', 21, 'VALA690720MPLLCL00', '1992075813527', 'M', 1, '----------', '2381682735', 1, 0, 0, 0),
+(4, 1, '2018-05-03 14:36:13', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 2, 0, 0, 0),
+(5, 1, '2018-05-19 12:06:58', 2, 'ANGELINA', 'CONTRERA', 'MARTINEZ', '1972-03-28', 20, 'NSANDOXKSMDKOKN3IO', '1545615665867', 'M', 0, '----------', '2381209502', 0, 0, 0, 0);
 
 --
 -- Disparadores `personas`
@@ -1754,7 +1749,8 @@ CREATE TABLE `personas_empleados` (
 --
 
 INSERT INTO `personas_empleados` (`idStaff`, `sucursal`, `usuario`, `registro`, `idPersona`, `cargo`, `estudios`, `departamento`, `salario`, `entrada`, `salida`, `dias`, `llamara`, `fecha_incorp`, `efectivo`, `codigo`) VALUES
-(1, 1, 3, '2018-05-17 14:09:03', 1, 1, 7, 7, 1500, '10:00:00', '15:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'PASTORA CELIA MALAGON RAMOS (MADRE) 2381314177', '2017-06-20', 500, '01C-O');
+(1, 1, 3, '2018-05-17 14:09:03', 1, 1, 7, 7, 1500, '10:00:00', '15:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'PASTORA CELIA MALAGON RAMOS (MADRE) 2381314177', '2017-06-20', 500, '01C-O'),
+(2, 1, 3, '2018-05-18 14:44:28', 3, 1, 6, 3, 1000, '09:00:00', '14:00:00', 'Lunes-Miércoles-Jueves-Viernes-Sábado', 'SU ESPOSO RENAUT', '2018-07-01', 0, '01C-O');
 
 -- --------------------------------------------------------
 
@@ -2081,12 +2077,7 @@ ALTER TABLE `colonias`
 ALTER TABLE `domicilios`
   ADD PRIMARY KEY (`idDomicilio`),
   ADD KEY `idDomicilio` (`idDomicilio`),
-  ADD KEY `calle` (`calle`),
-  ADD KEY `colonia` (`colonia`),
-  ADD KEY `numero` (`numero`),
-  ADD KEY `tipo` (`tipo`),
-  ADD KEY `calle1` (`calle1`),
-  ADD KEY `calle2` (`calle2`);
+  ADD KEY `tipo` (`tipo`);
 
 --
 -- Indices de la tabla `estados`
@@ -2233,7 +2224,7 @@ ALTER TABLE `colonias`
 -- AUTO_INCREMENT de la tabla `domicilios`
 --
 ALTER TABLE `domicilios`
-  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -2251,7 +2242,7 @@ ALTER TABLE `historial_domicilios`
 -- AUTO_INCREMENT de la tabla `historial_personas`
 --
 ALTER TABLE `historial_personas`
-  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_personas_clientes`
@@ -2275,7 +2266,7 @@ ALTER TABLE `numerosdomiciliares`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `personas_clientes`
@@ -2287,7 +2278,7 @@ ALTER TABLE `personas_clientes`
 -- AUTO_INCREMENT de la tabla `personas_empleados`
 --
 ALTER TABLE `personas_empleados`
-  MODIFY `idStaff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idStaff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `personas_empleados_adc`
@@ -2365,17 +2356,6 @@ ALTER TABLE `usuarios`
 ALTER TABLE `colonias`
   ADD CONSTRAINT `colonias_ibfk_1` FOREIGN KEY (`municipio`) REFERENCES `municipios` (`idMunicipio`) ON UPDATE CASCADE,
   ADD CONSTRAINT `colonias_ibfk_2` FOREIGN KEY (`asentamiento`) REFERENCES `tipo_asentamiento` (`idTipoAsentamiento`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `domicilios`
---
-ALTER TABLE `domicilios`
-  ADD CONSTRAINT `domicilios_ibfk_1` FOREIGN KEY (`calle`) REFERENCES `calles` (`idCalle`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `domicilios_ibfk_2` FOREIGN KEY (`colonia`) REFERENCES `colonias` (`idColonia`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `domicilios_ibfk_3` FOREIGN KEY (`numero`) REFERENCES `numerosdomiciliares` (`idNumero`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `domicilios_ibfk_4` FOREIGN KEY (`tipo`) REFERENCES `tipo_domicilio` (`idTipoDomicilio`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `domicilios_ibfk_5` FOREIGN KEY (`calle1`) REFERENCES `calles` (`idCalle`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `domicilios_ibfk_6` FOREIGN KEY (`calle2`) REFERENCES `calles` (`idCalle`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `municipios`
