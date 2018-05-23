@@ -124,6 +124,33 @@ public class Domicilios_service {
         }
         return flag;
     }
+    
+    public boolean guardarDomicilio(Domicilio domicilio) {
+        Fecha fecha = new Fecha();
+        boolean flag = false;
+        int error = 0;
+        if (domicilio.getTIPO() > 1) {
+            if (fecha.compareMinorDate(domicilio.getVIGENCIA()) == true || fecha.compareEqualDate(domicilio.getVIGENCIA()) == true) {
+                System.err.println("La fecha es menor o igual a la actual");
+                error = 1;
+            } else if ("".equals(domicilio.getPROPIETARIO())) {
+                System.err.println("El nombre del propietario está vacío");
+                error = 2;
+            } else if (domicilio.getTIEMPO_RESIDENCIA() < 1) {
+                System.err.println("El tiempo de residencia es inválido.");
+                error = 3;
+            }
+        }
+        if (error == 0) {
+            int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD(), domicilio.getTIPO(), domicilio.getPROPIETARIO(), domicilio.getVIGENCIA(), domicilio.getTIEMPO_RESIDENCIA());
+            if (idDomicilio > 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
 
     public Mes[] meses() {
         Mes[] meses = new Mes[12];

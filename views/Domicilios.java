@@ -1,16 +1,12 @@
 package views;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import maps.java.Geocoding;
-import objects.Mes;
 import objects.Usuario;
 import services.Domicilios_service;
 
@@ -36,17 +32,20 @@ public class Domicilios extends javax.swing.JDialog {
     }
 
     private void guardarDomicilio() {
+        objects.Domicilio dom;
         String direccion = txtDireccion.getText().toUpperCase();
         String latitud = xPos.getText();
         String longitud = yPos.getText();
-        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && tipo > 0 && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
-            objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
-            boolean guardado = false;
+        boolean guardado = false;
+        
+        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
+            dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
+            
             if (dom == null) {
-                int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y asociarla con la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
+                int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta nueva dirección con las coordenadas mostradas?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    dom = new objects.Domicilio(0, tipo, direccion, latitud, longitud, propietario, vigencia, tiempoResidencia);
-                    guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA, this.USUARIO);
+                    dom = new objects.Domicilio(0, 1, direccion, latitud, longitud, "", "", "");
+                    guardado = this.servicio.guardarDomicilio(dom);
                 }
             } else {
                 int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ingresado ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
@@ -142,9 +141,9 @@ public class Domicilios extends javax.swing.JDialog {
         xPos = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -244,25 +243,8 @@ public class Domicilios extends javax.swing.JDialog {
         jLabel16.setText("Seleccionada:");
         panelFormulario.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 110, 20));
 
-        btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.setEnabled(false);
-        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEliminarMouseClicked(evt);
-            }
-        });
-        btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Eliminar");
-        btnEliminar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
-
-        panelFormulario.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 110, -1));
-
-        btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
+        btnCancelar.setBackground(new java.awt.Color(255, 78, 0));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.setEnabled(false);
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -272,15 +254,35 @@ public class Domicilios extends javax.swing.JDialog {
         });
         btnCancelar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Cancelar");
+        btnCancelar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        panelFormulario.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 110, -1));
+
+        btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setEnabled(false);
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
+        btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Cancelar");
-        btnCancelar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+        jLabel8.setText("Eliminar");
+        btnEliminar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        panelFormulario.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 110, -1));
+        panelFormulario.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 110, -1));
 
         btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
+        btnGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setEnabled(false);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -381,12 +383,11 @@ public class Domicilios extends javax.swing.JDialog {
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 225, 1160, 300));
-        panelTabla.getAccessibleContext().setAccessibleName("Domicilios registrados");
+        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 205, 1160, 320));
 
         PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -417,9 +418,9 @@ public class Domicilios extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_xPosKeyTyped
 
-    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         cancelar();
-    }//GEN-LAST:event_btnCancelarMouseClicked
+    }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
@@ -441,9 +442,9 @@ public class Domicilios extends javax.swing.JDialog {
         buscarDireccionesGuardadas(txtDireccion.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarMouseClicked
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     /**
      * @param args the command line arguments
