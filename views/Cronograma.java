@@ -31,15 +31,16 @@ public class Cronograma extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-
+        
         this.servicio = new agregarPersona_service();
-        this.meses();
+        /*this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
         System.out.println(this.USUARIO.toString());
         llenarTabla();
         seleccionarPersona();
         opciones(false);
+        */
     }
 
     private void solicitarPrestamo() {
@@ -149,11 +150,13 @@ public class Cronograma extends javax.swing.JDialog {
 
     //NO NECESITA CORREGIR
     private void opciones(boolean onOff) {
+        /*
         btnReferencias.setEnabled(onOff);
         btnDomicilio.setEnabled(onOff);
         btnFicha.setEnabled(onOff);
         btnCrearCliente.setEnabled(onOff);
         btnCredito.setEnabled(onOff);
+        */
     }
 
     //CORREGIDO
@@ -163,7 +166,7 @@ public class Cronograma extends javax.swing.JDialog {
 
     //CORREGIDO
     private void guardarDatos() {
-        Estado estado_nac = (Estado) comboEstadosNacimiento.getSelectedItem();
+       /* Estado estado_nac = (Estado) comboEstadosNacimiento.getSelectedItem();
         Mes mesNac = (Mes) comboMeses.getSelectedItem();
         String nombre = txtNombre.getText();
         String apaterno = txtAp1.getText();
@@ -224,12 +227,12 @@ public class Cronograma extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(rootPane, "El número telefónico y celular deben contener 10 dígitos", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }
-
+        */
     }
 
     //NO NECESITA CORREGIR
     private void limpiarCampos() {
-        comboMeses.setSelectedIndex(0);
+       /* comboMeses.setSelectedIndex(0);
         comboEstadosNacimiento.setSelectedIndex(0);
         cmbEstadoCivil.setSelectedIndex(0);
         txtNombre.setText("");
@@ -240,11 +243,12 @@ public class Cronograma extends javax.swing.JDialog {
         txtCurp.setText("");
         txtOcr.setText("");
         txtTel.setText("");
-        txtCel.setText("");
+        txtCel.setText(""); */
     }
 
     //NO NECESITA CORREGIR
     private void meses() {
+        /*
         Fecha f = new Fecha();
         Mes[] meses = f.meses();
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
@@ -252,25 +256,26 @@ public class Cronograma extends javax.swing.JDialog {
             dcbm.addElement(mes);
         }
         comboMeses.setModel(dcbm);
+        */
     }
 
     //CORREGIDO
     private void estadosNacimiento() {
-        comboEstadosNacimiento.setModel(this.servicio.estados());
+        //comboEstadosNacimiento.setModel(this.servicio.estados());
     }
 
     //CORREGIDO
     public void buscar() {
-        if (!txtBuscar2.getText().isEmpty()) {
+      /*  if (!txtBuscar2.getText().isEmpty()) {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, USUARIO.getIdSucursal(), txtBuscar2.getText());
         } else {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal());
-        }
+        }*/
     }
 
     //CORREGIDO
     public void seleccionarPersona() {
-        tablaClientes.addMouseListener(new MouseAdapter() {
+       /* tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
@@ -303,11 +308,11 @@ public class Cronograma extends javax.swing.JDialog {
                     }
                 }
             }
-        });
+        }); */
     }
 
     public void setSelectedEstado(String value) {
-        Object item;
+      /*  Object item;
         Estado estado;
         for (int i = 0; i < comboEstadosNacimiento.getItemCount(); i++) {
             item = comboEstadosNacimiento.getItemAt(i);
@@ -317,6 +322,7 @@ public class Cronograma extends javax.swing.JDialog {
                 break;
             }
         }
+        */
     }
 
     @SuppressWarnings("unchecked")
@@ -331,7 +337,6 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
         panelFormulario = new javax.swing.JPanel();
-        jCalendar2 = new com.toedter.calendar.JCalendar();
         txtNombre = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JPanel();
@@ -477,38 +482,32 @@ public class Cronograma extends javax.swing.JDialog {
         panelFormularioLayout.setHorizontalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
+                        .addGap(433, 433, 433)
                         .addComponent(jLabel16))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(392, 392, 392)
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelFormularioLayout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel16)
+                .addGap(12, 12, 12)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel16)
-                        .addGap(12, 12, 12)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68))
         );
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 680, 240));
@@ -627,7 +626,6 @@ public class Cronograma extends javax.swing.JDialog {
     private javax.swing.JPanel btnCancelar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnGuardar;
-    private com.toedter.calendar.JCalendar jCalendar2;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;
