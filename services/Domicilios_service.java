@@ -4,7 +4,6 @@ import java.awt.geom.Point2D;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import maps.java.Geocoding;
@@ -29,15 +28,17 @@ public class Domicilios_service {
     }
 
     public JTable buscarDomicilios(JTable tabla, String direccion) {
-        String titulos[] = {"ID", "Dirección"};
+        String titulos[] = {"ID", "Dirección","Lat","Long"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] resultados = this.RECURSO.buscarDomicilios(direccion);
 //        System.out.println(Arrays.deepToString(resultados));
         if (resultados != null) {
             for (String[] resultado : resultados) {
-                Object[] o = new Object[2];
+                Object[] o = new Object[4];
                 o[0] = resultado[0];
                 o[1] = resultado[1];
+                o[2] = resultado[2];
+                o[3] = resultado[3];
                 dtm.addRow(o);
             }
         } else {

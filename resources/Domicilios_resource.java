@@ -34,12 +34,14 @@ public class Domicilios_resource {
                         count = 20;
                     }
 //                    System.out.println("Count: " + count);
-                    dom = new String[count][2];
-                    RS = this.DB.Select("idDomicilio, direccion", "domicilios", "direccion like '%" + direccion + "%' LIMIT " + count);
+                    dom = new String[count][4];
+                    RS = this.DB.Select("idDomicilio, direccion,latitud,longitud", "domicilios", "direccion like '%" + direccion + "%' LIMIT " + count);
                     int i = 0;
                     while (RS.next()) {
                         dom[i][0] = RS.getString(1);
                         dom[i][1] = RS.getString(2);
+                        dom[i][2] = RS.getString(3);
+                        dom[i][3] = RS.getString(4);
                         i++;
                     }
                 }

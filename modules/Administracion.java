@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Usuario;
 import views.Clientes;
+import views.Domicilios;
 import views.Personas;
 
 /**
@@ -150,6 +151,11 @@ public class Administracion extends javax.swing.JFrame {
         iconDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconDomicilios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icono_home.png"))); // NOI18N
         iconDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconDomicilios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconDomiciliosMouseClicked(evt);
+            }
+        });
         getContentPane().add(iconDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 150, 150));
 
         lblDomicilios.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
@@ -157,6 +163,11 @@ public class Administracion extends javax.swing.JFrame {
         lblDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDomicilios.setText("DOMICILIOS");
         lblDomicilios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblDomicilios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDomiciliosMouseClicked(evt);
+            }
+        });
         getContentPane().add(lblDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 150, 35));
 
         iconClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -273,6 +284,14 @@ public class Administracion extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void iconDomiciliosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconDomiciliosMouseClicked
+        (new Domicilios(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_iconDomiciliosMouseClicked
+
+    private void lblDomiciliosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDomiciliosMouseClicked
+        (new Domicilios(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_lblDomiciliosMouseClicked
 
     /**
      * @param args the command line arguments

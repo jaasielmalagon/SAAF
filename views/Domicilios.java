@@ -16,7 +16,7 @@ import services.Domicilios_service;
  */
 public class Domicilios extends javax.swing.JDialog {
 
-    private String DIRECCION_SELECCIONADA = null;   
+    private String DIRECCION_SELECCIONADA = null;
     private Usuario USUARIO = null;
     private final Domicilios_service servicio;
 
@@ -26,55 +26,44 @@ public class Domicilios extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
 
         this.USUARIO = usuario;
-        this.servicio = new Domicilios_service(this.getClass().toString());                
+        this.servicio = new Domicilios_service(this.getClass().toString());
         buscarDireccionesGuardadas("");
         seleccionarDeTabla();
     }
 
     private void guardarDomicilio() {
-        objects.Domicilio dom;
         String direccion = txtDireccion.getText().toUpperCase();
         String latitud = xPos.getText();
         String longitud = yPos.getText();
-        boolean guardado = false;
-        
-        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
-            dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
-            
-            if (dom == null) {
-                int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta nueva dirección con las coordenadas mostradas?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    dom = new objects.Domicilio(0, 1, direccion, latitud, longitud, "", "", "");
-                    guardado = this.servicio.guardarDomicilio(dom);
-                }
-            } else {
-                int confirm = JOptionPane.showConfirmDialog(this, "El domicilio ingresado ya se encuentra registrado, ¿desea asociarlo a la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    if (!dom.getDIRECCION().equals(direccion)) {
-                        confirm = JOptionPane.showConfirmDialog(this, "La dirección guardada no es igual a la ingresada\n¿Desea actualizar la información?", "Aviso", JOptionPane.YES_NO_OPTION);
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            if (this.servicio.actualizarDomicilio(dom, direccion, dom.getID())) {
-                                JOptionPane.showMessageDialog(this, "Los datos del domicilio se actualizaron correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Los datos del domicilio no pudieron ser actualizados correctamente", "Aviso", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-                    }
-                    guardado = this.servicio.asociarDomicilioPersona(dom.getID(), this.PERSONA_SELECCIONADA, this.USUARIO);
-                }
-            }
 
-            if (guardado) {
-                JOptionPane.showMessageDialog(this, "Domicilio guardado y asociado correctamente a " + this.PERSONA_SELECCIONADA.toString(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                this.PERSONA_SELECCIONADA.setDomicilio(SOMEBITS);
-                cancelar();
-                mostrarDomicilioActual();
-                buscarDireccionesGuardadas();
-            } else {
-                JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
+            objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
+
+            boolean guardado = false;
+            if (dom == null) {
+                int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y sus coordenadas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (confirm == JOptionPane.YES_OPTION) {
+//                    dom = new objects.Domicilio(0, tipo, direccion, latitud, longitud, propietario, vigencia, tiempoResidencia);
+//                    guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA, this.USUARIO);
+                }
+            } else if (!dom.getDIRECCION().equals(direccion)) {
+                int confirm = JOptionPane.showConfirmDialog(this, "La dirección guardada no es igual a la actualmente ingresada\n¿Desea actualizar la información?", "Aviso", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    if (this.servicio.actualizarDomicilio(dom, direccion, dom.getID())) {
+                        JOptionPane.showMessageDialog(this, "Los datos del domicilio se actualizaron correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Los datos del domicilio no pudieron ser actualizados correctamente", "Aviso", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
-        } else {//SI EL FORMULARIO ESTÁ VACÍO
-            JOptionPane.showMessageDialog(this, "No ha completado todos los campos necesarios", "Aviso", JOptionPane.ERROR_MESSAGE);
+            
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Domicilio guardado correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                
+                cancelar();                
+                buscarDireccionesGuardadas("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Falla al guardar la dirección indicada", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -82,7 +71,7 @@ public class Domicilios extends javax.swing.JDialog {
         tabla = this.servicio.buscarCoordenadas(tabla, direccion);
     }
 
-    private void buscarDireccionesGuardadas(String direccion) {        
+    private void buscarDireccionesGuardadas(String direccion) {
         tabla = this.servicio.buscarDomicilios(tabla, direccion);
     }
 
@@ -114,8 +103,8 @@ public class Domicilios extends javax.swing.JDialog {
             }
         });
     }
-    
-    private void cancelar(){
+
+    private void cancelar() {
         txtDireccion.setText("");
         xPos.setText("");
         yPos.setText("");

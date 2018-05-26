@@ -103,7 +103,8 @@ public class TableCreator {
         TableColumnModel columnModel = tabla.getColumnModel();
         if (columnModel.getColumnCount() > 0) {
             columnModel.getColumn(0).setPreferredWidth(60);
-            columnModel.getColumn(1).setPreferredWidth(1130);
+            columnModel.getColumn(1).setPreferredWidth(800);
+            
             for (int i = 0; i < tabla.getColumnCount(); i++) {
                 columnModel.getColumn(i).setResizable(false);                
             }
