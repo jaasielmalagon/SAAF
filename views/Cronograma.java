@@ -31,8 +31,9 @@ public class Cronograma extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-
+        
         this.servicio = new agregarPersona_service();
+        /*
         this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
@@ -40,6 +41,7 @@ public class Cronograma extends javax.swing.JDialog {
         llenarTabla();
         seleccionarPersona();
         opciones(false);
+        */    
     }
 
     private void solicitarPrestamo() {
@@ -149,11 +151,13 @@ public class Cronograma extends javax.swing.JDialog {
 
     //NO NECESITA CORREGIR
     private void opciones(boolean onOff) {
+        /*
         btnReferencias.setEnabled(onOff);
         btnDomicilio.setEnabled(onOff);
         btnFicha.setEnabled(onOff);
         btnCrearCliente.setEnabled(onOff);
         btnCredito.setEnabled(onOff);
+        */
     }
 
     //CORREGIDO
@@ -163,6 +167,7 @@ public class Cronograma extends javax.swing.JDialog {
 
     //CORREGIDO
     private void guardarDatos() {
+        /*
         Estado estado_nac = (Estado) comboEstadosNacimiento.getSelectedItem();
         Mes mesNac = (Mes) comboMeses.getSelectedItem();
         String nombre = txtNombre.getText();
@@ -224,11 +229,12 @@ public class Cronograma extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(rootPane, "El número telefónico y celular deben contener 10 dígitos", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }
-
+        */
     }
 
     //NO NECESITA CORREGIR
     private void limpiarCampos() {
+        /*
         comboMeses.setSelectedIndex(0);
         comboEstadosNacimiento.setSelectedIndex(0);
         cmbEstadoCivil.setSelectedIndex(0);
@@ -241,10 +247,12 @@ public class Cronograma extends javax.swing.JDialog {
         txtOcr.setText("");
         txtTel.setText("");
         txtCel.setText("");
+        */
     }
 
     //NO NECESITA CORREGIR
     private void meses() {
+        /*
         Fecha f = new Fecha();
         Mes[] meses = f.meses();
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
@@ -252,25 +260,28 @@ public class Cronograma extends javax.swing.JDialog {
             dcbm.addElement(mes);
         }
         comboMeses.setModel(dcbm);
+        */
     }
 
     //CORREGIDO
     private void estadosNacimiento() {
-        comboEstadosNacimiento.setModel(this.servicio.estados());
+     /*      comboEstadosNacimiento.setModel(this.servicio.estados()); */
     }
 
     //CORREGIDO
     public void buscar() {
+        /*
         if (!txtBuscar2.getText().isEmpty()) {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, USUARIO.getIdSucursal(), txtBuscar2.getText());
         } else {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal());
         }
+        */
     }
 
     //CORREGIDO
     public void seleccionarPersona() {
-        tablaClientes.addMouseListener(new MouseAdapter() {
+        /*tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
@@ -304,10 +315,11 @@ public class Cronograma extends javax.swing.JDialog {
                 }
             }
         });
+        */
     }
 
     public void setSelectedEstado(String value) {
-        Object item;
+       /* Object item;
         Estado estado;
         for (int i = 0; i < comboEstadosNacimiento.getItemCount(); i++) {
             item = comboEstadosNacimiento.getItemAt(i);
@@ -317,6 +329,7 @@ public class Cronograma extends javax.swing.JDialog {
                 break;
             }
         }
+        */
     }
 
     @SuppressWarnings("unchecked")
