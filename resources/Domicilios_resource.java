@@ -78,7 +78,7 @@ public class Domicilios_resource {
         String[] dom = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("`idDomicilio`, `direccion`, `latitud`", "domicilios", "idDomicilio = " + idDomicilio + " LIMIT 1");
+            RS = this.DB.Select("`idDomicilio`, `direccion`, `latitud`, `longitud`", "domicilios", "idDomicilio = " + idDomicilio + " LIMIT 1");
             if (RS.next()) {
                 dom = new String[4];
                 dom[0] = RS.getString(1);
@@ -102,12 +102,10 @@ public class Domicilios_resource {
         return g;
     }
 
-    public int guardarDomicilio(String direccion, String latitud, String longitud, int tipo, String propietario, String vigencia, int tiempoResidencia) {
+    public int guardarDomicilio(String direccion, String latitud, String longitud) {
         int id = 0;
         this.DB.Connect();
-        id = this.DB.InsertId("domicilios",
-                "`direccion`, `latitud`, `longitud`, `tipo`, `propietario`, `vigencia_contrato`, `tiempoResidencia`",
-                "'" + direccion + "','" + latitud + "','" + longitud + "'," + tipo + ",'" + propietario + "','" + vigencia + "'," + tiempoResidencia);
+        id = this.DB.InsertId("domicilios", "`direccion`, `latitud`, `longitud`", "'" + direccion + "','" + latitud + "','" + longitud + "'");
         this.DB.Disconnect();
         return id;
     }

@@ -1,6 +1,5 @@
 package services;
 
-import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

@@ -35,7 +35,7 @@ public class Domicilio extends javax.swing.JDialog {
         this.servicio = new Domicilios_service(this.getClass().toString());
         tituloVentana.setText(tituloVentana.getText() + " " + persona.toString());
         mostrarDomicilioActual();
-        buscarDireccionesGuardadas();
+        buscarDireccionesGuardadas("");
         seleccionarDeTabla();
     }
 
@@ -91,7 +91,7 @@ public class Domicilio extends javax.swing.JDialog {
                 this.PERSONA_SELECCIONADA.setDomicilio(SOMEBITS);
                 cancelar();
                 mostrarDomicilioActual();
-                buscarDireccionesGuardadas();
+                buscarDireccionesGuardadas("");
             } else {
                 JOptionPane.showMessageDialog(this, "Falla al guardar y asociar el domicilio indicado", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -104,8 +104,7 @@ public class Domicilio extends javax.swing.JDialog {
         tabla = this.servicio.buscarCoordenadas(tabla, direccion);
     }
 
-    private void buscarDireccionesGuardadas() {
-        String direccion = txtBuscar2.getText();
+    private void buscarDireccionesGuardadas(String direccion) {         
         tabla = this.servicio.buscarDomicilios(tabla, direccion);
     }
 
@@ -143,7 +142,7 @@ public class Domicilio extends javax.swing.JDialog {
         txtBuscar2.setText("");
         xPos.setText("0.0");
         yPos.setText("0.0");
-        tabla.setModel(new DefaultTableModel());
+        buscarDireccionesGuardadas("");
     }
 
     @SuppressWarnings("unchecked")
@@ -485,7 +484,7 @@ public class Domicilio extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed
-        buscarDireccionesGuardadas();
+        buscarDireccionesGuardadas("");
     }//GEN-LAST:event_txtBuscar2ActionPerformed
 
     private void txtBuscar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyPressed
@@ -503,7 +502,7 @@ public class Domicilio extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscar2KeyReleased
 
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
-        buscarDireccionesGuardadas();
+        buscarDireccionesGuardadas("");
     }//GEN-LAST:event_btnBusquedaMouseClicked
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed

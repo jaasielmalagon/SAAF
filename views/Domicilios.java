@@ -43,24 +43,21 @@ public class Domicilios extends javax.swing.JDialog {
             if (dom == null) {
                 int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y sus coordenadas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (confirm == JOptionPane.YES_OPTION) {
-//                    dom = new objects.Domicilio(0, tipo, direccion, latitud, longitud, propietario, vigencia, tiempoResidencia);
-//                    guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA, this.USUARIO);
+                    dom = new objects.Domicilio(0, direccion, latitud, longitud);
+                    guardado = this.servicio.guardarDomicilio(dom);
                 }
             } else if (!dom.getDIRECCION().equals(direccion)) {
                 int confirm = JOptionPane.showConfirmDialog(this, "La dirección guardada no es igual a la actualmente ingresada\n¿Desea actualizar la información?", "Aviso", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
                     if (this.servicio.actualizarDomicilio(dom, direccion, dom.getID())) {
                         JOptionPane.showMessageDialog(this, "Los datos del domicilio se actualizaron correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Los datos del domicilio no pudieron ser actualizados correctamente", "Aviso", JOptionPane.ERROR_MESSAGE);
-                    }
+                    } 
                 }
             }
             
             if (guardado) {
-                JOptionPane.showMessageDialog(this, "Domicilio guardado correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                
+                JOptionPane.showMessageDialog(this, "Datos del domicilio guardados correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                
                 cancelar();                
-                buscarDireccionesGuardadas("");
             } else {
                 JOptionPane.showMessageDialog(this, "Falla al guardar la dirección indicada", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -108,7 +105,7 @@ public class Domicilios extends javax.swing.JDialog {
         txtDireccion.setText("");
         xPos.setText("");
         yPos.setText("");
-        buscarDireccionesGuardadas(DIRECCION_SELECCIONADA);
+        buscarDireccionesGuardadas("");
         DIRECCION_SELECCIONADA = null;
     }
 

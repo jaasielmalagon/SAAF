@@ -28,7 +28,7 @@ public class Domicilios_service {
     }
 
     public JTable buscarDomicilios(JTable tabla, String direccion) {
-        String titulos[] = {"ID", "Dirección","Lat","Long"};
+        String titulos[] = {"ID", "Dirección", "Lat", "Long"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] resultados = this.RECURSO.buscarDomicilios(direccion);
 //        System.out.println(Arrays.deepToString(resultados));
@@ -80,19 +80,19 @@ public class Domicilios_service {
 
     public boolean actualizarDomicilio(Domicilio domicilio, String direccionNueva, int idDomicilio) {
         boolean f = false;
-        if (domicilio != null && !direccionNueva.isEmpty() && idDomicilio > 0) {            
+        if (domicilio != null && !direccionNueva.isEmpty() && idDomicilio > 0) {
             try {
                 Geocoding ObjGeocod = new Geocoding();
                 Point2D.Double resultadoCD = ObjGeocod.getCoordinates(direccionNueva);
                 if (String.valueOf(resultadoCD.x).equals(domicilio.getLATITUD()) && String.valueOf(resultadoCD.y).equals(domicilio.getLONGITUD())) {
                     f = this.RECURSO.actualizarDatosDomicilio(direccionNueva, idDomicilio);
-                }else{
+                } else {
                     System.out.println("services.Domicilios_service.actualizarDomicilio() : LAS COORDENADAS SON DIFERENTES");
                     f = false;
                 }
             } catch (UnsupportedEncodingException | MalformedURLException e) {
                 System.out.println("Error: " + e);
-            }            
+            }
         } else {
             f = false;
         }
@@ -100,58 +100,23 @@ public class Domicilios_service {
     }
 
     public boolean guardarAsociarDomicilio(Domicilio domicilio, Persona persona, Usuario usuario) {
-        Fecha fecha = new Fecha();
-        boolean flag = false;
-        int error = 0;
-        if (domicilio.getTIPO() > 1) {
-            if (fecha.compareMinorDate(domicilio.getVIGENCIA()) == true || fecha.compareEqualDate(domicilio.getVIGENCIA()) == true) {
-                System.err.println("La fecha es menor o igual a la actual");
-                error = 1;
-            } else if ("".equals(domicilio.getPROPIETARIO())) {
-                System.err.println("El nombre del propietario está vacío");
-                error = 2;
-            } else if (domicilio.getTIEMPO_RESIDENCIA() < 1) {
-                System.err.println("El tiempo de residencia es inválido.");
-                error = 3;
-            }
+        boolean flag;
+        int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD());
+        if (idDomicilio > 0) {
+            flag = this.asociarDomicilioPersona(idDomicilio, persona, usuario);
+        } else {
+            flag = false;
         }
-        if (error == 0) {
-            int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD(), domicilio.getTIPO(), domicilio.getPROPIETARIO(), domicilio.getVIGENCIA(), domicilio.getTIEMPO_RESIDENCIA());
-            if (idDomicilio > 0) {
-                flag = this.asociarDomicilioPersona(idDomicilio, persona, usuario);
-            } else {
-                flag = false;
-            }
-        }
+
         return flag;
     }
-    
-    public boolean guardarDomicilio(Domicilio domicilio) {
-        Fecha fecha = new Fecha();
-        boolean flag = false;
-        int error = 0;
-        if (domicilio.getTIPO() > 1) {
-            if (fecha.compareMinorDate(domicilio.getVIGENCIA()) == true || fecha.compareEqualDate(domicilio.getVIGENCIA()) == true) {
-                System.err.println("La fecha es menor o igual a la actual");
-                error = 1;
-            } else if ("".equals(domicilio.getPROPIETARIO())) {
-                System.err.println("El nombre del propietario está vacío");
-                error = 2;
-            } else if (domicilio.getTIEMPO_RESIDENCIA() < 1) {
-                System.err.println("El tiempo de residencia es inválido.");
-                error = 3;
-            }
-        }
-        if (error == 0) {
-            int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD(), domicilio.getTIPO(), domicilio.getPROPIETARIO(), domicilio.getVIGENCIA(), domicilio.getTIEMPO_RESIDENCIA());
-            if (idDomicilio > 0) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-        }
+
+    public boolean guardarDomicilio(Domicilio domicilio) {        
+        boolean flag;
+        int idDomicilio = this.RECURSO.guardarDomicilio(domicilio.getDIRECCION(), domicilio.getLATITUD(), domicilio.getLONGITUD());
+        flag = idDomicilio > 0;
         return flag;
-    }    
+    }
 
     public JTable buscarCoordenadas(JTable tabla, String direccion) {
         Geocoding ObjGeocod = new Geocoding();

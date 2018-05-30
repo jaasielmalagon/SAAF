@@ -271,7 +271,7 @@ public class clientes_service {
         return codigo;
     }
 
-    public int guardarDatos(Cliente c) {
+    public int guardarDatosCliente(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
         if (datos == null) {
             return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
