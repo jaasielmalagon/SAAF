@@ -7,6 +7,7 @@ package objects;
 public class Cliente {
 
     private int ID = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;
+    //private String ID, SUCURSAL, USUARIO, ID_PERSONA, DEPENDIENTES, OCUPACION, ESTUDIOS, SCORE, STATUS, ACTIVIDAD, TIPO_VIVIENDA;
     private String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, ADC, PROPIETARIO, VIGENCIA, TIEMPO_RESIDENCIA;
     private double INGRESOS, EGRESOS;
     private Persona PERSONA;
@@ -160,7 +161,7 @@ public class Cliente {
 
     public void setID(int ID) {
         this.ID = ID;
-    }
+    }        
 
     public void setSUCURSAL(int SUCURSAL) {
         this.SUCURSAL = SUCURSAL;
@@ -253,7 +254,59 @@ public class Cliente {
     public void setPERSONA(Persona PERSONA) {
         this.PERSONA = PERSONA;
     }
-   
+//string    
+    public void setID(String var) {
+        try {
+            this.ID = Integer.valueOf(ID);
+        } catch (NumberFormatException e) {
+            System.out.println("objects.Cliente.setID() : " + e);
+        }        
+    }
+
+    public void setSUCURSAL(String var) {
+        try {
+            this.SUCURSAL = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println("objects.Cliente.setSUCURSAL() : " + e);
+        }  
+    }
+
+    public void setUSUARIO(String var) {
+        this.USUARIO = var;
+    }
+
+    public void setID_PERSONA(String var) {
+        this.ID_PERSONA = var;
+    }
+
+    public void setDEPENDIENTES(String var) {
+        this.DEPENDIENTES = var;
+    }
+
+    public void setOCUPACION(String var) {
+        this.OCUPACION = var;
+    }
+
+    public void setESTUDIOS(String var) {
+        this.ESTUDIOS = var;
+    }
+
+    public void setSCORE(String var) {
+        this.SCORE = var;
+    }
+
+    public void setSTATUS(String var) {
+        this.STATUS = var;
+    }
+
+    public void setACTIVIDAD(String var) {
+        this.ACTIVIDAD = var;
+    }
+
+    public void setTIPO_VIVIENDA(String var) {
+        this.TIPO_VIVIENDA = var;
+    }
+    
     
     
 

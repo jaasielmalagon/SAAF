@@ -125,7 +125,7 @@ public class Clientes extends javax.swing.JDialog {
                     cliente.setHORA_ENTRADA(entrada);
                     cliente.setHORA_SALIDA(salida);
                     cliente.setPERSONA(PERSONA_SELECCIONADA);
-                    int insert = this.SERVICIO.guardarDatos(cliente);
+                    int insert = this.SERVICIO.guardarDatosCliente(cliente);
                     cancelar();
                     if (insert == -1) {
                         int x = JOptionPane.showConfirmDialog(rootPane, "Esta persona ya se encuentra registrada como cliente..", "¡Error!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);

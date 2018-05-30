@@ -28,19 +28,20 @@ public class clientes_service {
 
     public Cliente cliente(Persona persona) {
         String[] datos = this.recurso.cliente(persona.getIdPersona());
-        Cliente cliente = null;
+        Cliente c = null;
 //        System.out.println(Arrays.toString(datos));
         if (datos != null) {
-            cliente = new Cliente(
-                    Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), Integer.parseInt(datos[2]),
+            c = new Cliente();
+            c.setID(datos[0]);
+                    /*Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), Integer.parseInt(datos[2]),
                     datos[3], datos[4], Integer.parseInt(datos[5]),
                     Double.parseDouble(datos[6]), Double.parseDouble(datos[7]), Integer.parseInt(datos[8]),
                     Integer.parseInt(datos[9]), Integer.parseInt(datos[10]), datos[11],
                     datos[12], datos[13], datos[14],
                     datos[15], Integer.parseInt(datos[16]), Integer.parseInt(datos[17]),
-                    Integer.parseInt(datos[18]), persona);
+                    Integer.parseInt(datos[18]), persona);*/
         }
-        return cliente;
+        return c;
     }
 
     public Persona persona(int idSucursal, int idPersona) {
@@ -274,9 +275,12 @@ public class clientes_service {
     public int guardarDatosCliente(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
         if (datos == null) {
-            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
-                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
-        } else {
+            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), 
+                    c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), 
+                    c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
+                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),
+                    c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
+        } else {a
             return -1;//La persona ya es un cliente
         }
     }
