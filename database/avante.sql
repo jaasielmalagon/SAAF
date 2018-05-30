@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2018 a las 21:53:59
+-- Tiempo de generación: 29-05-2018 a las 22:12:13
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -785,20 +785,16 @@ CREATE TABLE `domicilios` (
   `idDomicilio` int(11) NOT NULL,
   `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `latitud` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `longitud` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo_vivienda` int(11) NOT NULL COMMENT '1=propia, 2=rentada, 3=prestada',
-  `propietario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `vigencia_contrato` date NOT NULL,
-  `tiempoResidencia` int(11) NOT NULL
+  `longitud` varchar(20) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `domicilios`
 --
 
-INSERT INTO `domicilios` (`idDomicilio`, `direccion`, `latitud`, `longitud`, `tipo_vivienda`, `propietario`, `vigencia_contrato`, `tiempoResidencia`) VALUES
-(1, 'CALLE 1 SUR 108 INT 203, CENTRO DE LA CIUDAD, 75700 TEHUACÁN, PUE., MÉXICO', '18.4623504', '-97.3934058', 1, '', '0000-01-00', 0),
-(2, 'CALLE 6 PTE 217, CENTRO, 75700 TEHUACÁN, PUE., MÉXICO', '18.4691768', '-97.3971585', 1, '', '0000-01-00', 0);
+INSERT INTO `domicilios` (`idDomicilio`, `direccion`, `latitud`, `longitud`) VALUES
+(1, 'CALLE 1 SUR 108 INT 203, CENTRO DE LA CIUDAD, 75700 TEHUACÁN, PUE., MÉXICO', '18.4623504', '-97.3934058'),
+(2, 'CALLE 6 PTE 217, CENTRO, 75700 TEHUACÁN, PUE., MÉXICO', '18.4691768', '-97.3971585');
 
 -- --------------------------------------------------------
 
@@ -2081,8 +2077,7 @@ ALTER TABLE `colonias`
 --
 ALTER TABLE `domicilios`
   ADD PRIMARY KEY (`idDomicilio`),
-  ADD KEY `idDomicilio` (`idDomicilio`),
-  ADD KEY `tipo` (`tipo_vivienda`);
+  ADD KEY `idDomicilio` (`idDomicilio`);
 
 --
 -- Indices de la tabla `estados`

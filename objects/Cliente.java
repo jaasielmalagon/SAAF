@@ -6,11 +6,11 @@ package objects;
  */
 public class Cliente {
 
-    private final int ID, SUCURSAL, USUARIO, ID_PERSONA, DEPENDIENTES, OCUPACION, ESTUDIOS, SCORE, STATUS, ACTIVIDAD;
-    private final String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, ADC;
-    private final double INGRESOS, EGRESOS;
-    private final Persona PERSONA;
-    
+    private int ID = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;
+    private String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, ADC, PROPIETARIO, VIGENCIA, TIEMPO_RESIDENCIA;
+    private double INGRESOS, EGRESOS;
+    private Persona PERSONA;
+
     public Cliente(
             int ID, int SUCURSAL, int USUARIO,
             String F_REGISTRO, String ADC, int ID_PERSONA,
@@ -18,7 +18,9 @@ public class Cliente {
             int DEPENDIENTES, int OCUPACION, int ESTUDIOS,
             String EMPRESA, String DOMICILIO_EMPRESA,
             String TEL_EMPRESA, String HORA_ENTRADA, String HORA_SALIDA,
-            int SCORE, int STATUS, int ACTIVIDAD, Persona persona) {
+            int SCORE, int STATUS, int ACTIVIDAD, Persona persona,
+            int TIPO_VIVIENDA, String PROPIETARIO, String VIGENCIA, String TIEMPO_RESIDENCIA) {
+
         this.ID = ID;
         this.SUCURSAL = SUCURSAL;
         this.USUARIO = USUARIO;
@@ -39,6 +41,14 @@ public class Cliente {
         this.INGRESOS = INGRESOS;
         this.EGRESOS = EGRESOS;
         this.PERSONA = persona;
+        this.TIPO_VIVIENDA = TIPO_VIVIENDA;
+        this.PROPIETARIO = PROPIETARIO;
+        this.VIGENCIA = VIGENCIA;
+        this.TIEMPO_RESIDENCIA = TIEMPO_RESIDENCIA;
+    }
+    
+    public Cliente(){
+        
     }
 
     public int getIdCliente() {
@@ -116,14 +126,135 @@ public class Cliente {
     public double getEGRESOS() {
         return EGRESOS;
     }
-    
-    public Persona getPersona(){
+
+    public Persona getPersona() {
         return PERSONA;
     }
-    
-    @Override
-    public String toString(){
-        return PERSONA.getNombre() + " " + PERSONA.getApaterno() + " " + PERSONA.getAmaterno();
+
+    public int getTIPO_VIVIENDA() {
+        return TIPO_VIVIENDA;
     }
+    
+    public String getVIGENCIA() {
+        return VIGENCIA;
+    }
+    
+    public String getPROPIETARIO() {
+        return PROPIETARIO;
+    }
+    
+    public int getTIEMPO_RESIDENCIA() {
+        int t = 0;
+        try {
+            t = Integer.valueOf(TIEMPO_RESIDENCIA);
+        } catch (NumberFormatException e) {
+            System.out.println("objects.Domicilio.getTIEMPO_RESIDENCIA() : " + e);
+        }
+        return t;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "ID=" + ID + ", SUCURSAL=" + SUCURSAL + ", USUARIO=" + USUARIO + ", ID_PERSONA=" + ID_PERSONA + ", DEPENDIENTES=" + DEPENDIENTES + ", OCUPACION=" + OCUPACION + ", ESTUDIOS=" + ESTUDIOS + ", SCORE=" + SCORE + ", STATUS=" + STATUS + ", ACTIVIDAD=" + ACTIVIDAD + ", TIPO_VIVIENDA=" + TIPO_VIVIENDA + ", F_REGISTRO=" + F_REGISTRO + ", EMPRESA=" + EMPRESA + ", DOMICILIO_EMPRESA=" + DOMICILIO_EMPRESA + ", TEL_EMPRESA=" + TEL_EMPRESA + ", HORA_ENTRADA=" + HORA_ENTRADA + ", HORA_SALIDA=" + HORA_SALIDA + ", ADC=" + ADC + ", PROPIETARIO=" + PROPIETARIO + ", VIGENCIA=" + VIGENCIA + ", TIEMPO_RESIDENCIA=" + TIEMPO_RESIDENCIA + ", INGRESOS=" + INGRESOS + ", EGRESOS=" + EGRESOS + ", PERSONA=" + PERSONA.toString() + '}';
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setSUCURSAL(int SUCURSAL) {
+        this.SUCURSAL = SUCURSAL;
+    }
+
+    public void setUSUARIO(int USUARIO) {
+        this.USUARIO = USUARIO;
+    }
+
+    public void setID_PERSONA(int ID_PERSONA) {
+        this.ID_PERSONA = ID_PERSONA;
+    }
+
+    public void setDEPENDIENTES(int DEPENDIENTES) {
+        this.DEPENDIENTES = DEPENDIENTES;
+    }
+
+    public void setOCUPACION(int OCUPACION) {
+        this.OCUPACION = OCUPACION;
+    }
+
+    public void setESTUDIOS(int ESTUDIOS) {
+        this.ESTUDIOS = ESTUDIOS;
+    }
+
+    public void setSCORE(int SCORE) {
+        this.SCORE = SCORE;
+    }
+
+    public void setSTATUS(int STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public void setACTIVIDAD(int ACTIVIDAD) {
+        this.ACTIVIDAD = ACTIVIDAD;
+    }
+
+    public void setTIPO_VIVIENDA(int TIPO_VIVIENDA) {
+        this.TIPO_VIVIENDA = TIPO_VIVIENDA;
+    }
+
+    public void setF_REGISTRO(String F_REGISTRO) {
+        this.F_REGISTRO = F_REGISTRO;
+    }
+
+    public void setEMPRESA(String EMPRESA) {
+        this.EMPRESA = EMPRESA;
+    }
+
+    public void setDOMICILIO_EMPRESA(String DOMICILIO_EMPRESA) {
+        this.DOMICILIO_EMPRESA = DOMICILIO_EMPRESA;
+    }
+
+    public void setTEL_EMPRESA(String TEL_EMPRESA) {
+        this.TEL_EMPRESA = TEL_EMPRESA;
+    }
+
+    public void setHORA_ENTRADA(String HORA_ENTRADA) {
+        this.HORA_ENTRADA = HORA_ENTRADA;
+    }
+
+    public void setHORA_SALIDA(String HORA_SALIDA) {
+        this.HORA_SALIDA = HORA_SALIDA;
+    }
+
+    public void setADC(String ADC) {
+        this.ADC = ADC;
+    }
+
+    public void setPROPIETARIO(String PROPIETARIO) {
+        this.PROPIETARIO = PROPIETARIO;
+    }
+
+    public void setVIGENCIA(String VIGENCIA) {
+        this.VIGENCIA = VIGENCIA;
+    }
+
+    public void setTIEMPO_RESIDENCIA(String TIEMPO_RESIDENCIA) {
+        this.TIEMPO_RESIDENCIA = TIEMPO_RESIDENCIA;
+    }
+
+    public void setINGRESOS(double INGRESOS) {
+        this.INGRESOS = INGRESOS;
+    }
+
+    public void setEGRESOS(double EGRESOS) {
+        this.EGRESOS = EGRESOS;
+    }
+
+    public void setPERSONA(Persona PERSONA) {
+        this.PERSONA = PERSONA;
+    }
+   
+    
+    
 
 }

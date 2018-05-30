@@ -6,12 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import maps.java.Geocoding;
-import objects.Mes;
 import objects.Persona;
 import objects.Usuario;
 import services.Domicilios_service;
@@ -37,8 +35,6 @@ public class Domicilio extends javax.swing.JDialog {
         this.servicio = new Domicilios_service(this.getClass().toString());
         tituloVentana.setText(tituloVentana.getText() + " " + persona.toString());
         mostrarDomicilioActual();
-        frmArrendamientoOnOff(false);
-        meses();
         buscarDireccionesGuardadas();
         seleccionarDeTabla();
     }
@@ -60,17 +56,17 @@ public class Domicilio extends javax.swing.JDialog {
         String direccion = txtDireccion.getText().toUpperCase();
         String latitud = xPos.getText();
         String longitud = yPos.getText();
-        int tipo = comboTipoVivienda.getSelectedIndex();
-        String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
-        String propietario = txtPropietario.getText();
-        String tiempoResidencia = txtAnosResidencia.getText();
-        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && tipo > 0 && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
+        
+        if (!"".equals(direccion) && !"".equals(latitud) && !"".equals(longitud) && !"0.0".equals(latitud) && !"0.0".equals(longitud)) {
             objects.Domicilio dom = this.servicio.buscarDomicilioGuardado(direccion, latitud, longitud);
             boolean guardado = false;
             if (dom == null) {
                 int confirm = JOptionPane.showConfirmDialog(this, "¿Desea guardar esta dirección y asociarla con la persona " + this.PERSONA_SELECCIONADA.toString() + "?", "Pregunta", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    dom = new objects.Domicilio(0, tipo, direccion, latitud, longitud, propietario, vigencia, tiempoResidencia);
+                    dom = new objects.Domicilio();
+                    dom.setDIRECCION(direccion);
+                    dom.setLATITUD(latitud);
+                    dom.setLONGITUD(longitud);
                     guardado = this.servicio.guardarAsociarDomicilio(dom, this.PERSONA_SELECCIONADA, this.USUARIO);
                 }
             } else {
@@ -141,39 +137,13 @@ public class Domicilio extends javax.swing.JDialog {
             }
         });
     }
-
-    private void frmArrendamientoOnOff(boolean estado) {
-        txtAno.setEnabled(estado);
-        txtDia.setEnabled(estado);
-        comboMeses.setEnabled(estado);
-        txtAnosResidencia.setEnabled(estado);
-        txtPropietario.setEnabled(estado);
-        jLabel18.setEnabled(estado);
-        jLabel28.setEnabled(estado);
-        jLabel21.setEnabled(estado);
-        txtAno.setText("0000");
-        txtDia.setText("00");
-        txtAnosResidencia.setText("0");
-        txtPropietario.setText("");
-    }
-
-    private void meses() {
-        Mes[] meses = this.servicio.meses();
-        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-        for (Mes mes : meses) {
-            dcbm.addElement(mes);
-        }
-        comboMeses.setModel(dcbm);
-    }
     
-    private void cancelar(){
+     private void cancelar() {
         txtDireccion.setText("");
-        xPos.setText("");
-        yPos.setText("");
+        txtBuscar2.setText("");
+        xPos.setText("0.0");
+        yPos.setText("0.0");
         tabla.setModel(new DefaultTableModel());
-        txtPropietario.setText("");
-        comboTipoVivienda.setSelectedIndex(0);
-        DIRECCION_SELECCIONADA = null;
     }
 
     @SuppressWarnings("unchecked")
@@ -199,16 +169,6 @@ public class Domicilio extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        comboTipoVivienda = new javax.swing.JComboBox<>();
-        jLabel18 = new javax.swing.JLabel();
-        txtDia = new javax.swing.JTextField();
-        comboMeses = new javax.swing.JComboBox<>();
-        txtAno = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        txtAnosResidencia = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        txtPropietario = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtDireccionActual = new javax.swing.JTextField();
         panelTabla = new javax.swing.JPanel();
@@ -333,7 +293,7 @@ public class Domicilio extends javax.swing.JDialog {
         jLabel8.setText("Cancelar");
         btnCancelar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        panelFormulario.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 110, -1));
+        panelFormulario.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 110, -1));
 
         btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -351,7 +311,7 @@ public class Domicilio extends javax.swing.JDialog {
         jLabel5.setText("Guardar");
         btnGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        panelFormulario.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 110, 40));
+        panelFormulario.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 110, 40));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons/icons8_Search_32px_2.png"))); // NOI18N
         btnBuscar.setBorder(null);
@@ -368,75 +328,6 @@ public class Domicilio extends javax.swing.JDialog {
             }
         });
         panelFormulario.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 32, 32));
-
-        jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel4.setText("Tipo de vivienda:");
-        panelFormulario.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 110, 20));
-
-        comboTipoVivienda.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        comboTipoVivienda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "Propia", "Rentada", "Prestada" }));
-        comboTipoVivienda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTipoViviendaActionPerformed(evt);
-            }
-        });
-        panelFormulario.add(comboTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 100, 20));
-
-        jLabel18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel18.setText("Vigencia de renta");
-        panelFormulario.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, 20));
-
-        txtDia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        txtDia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDiaKeyTyped(evt);
-            }
-        });
-        panelFormulario.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 80, 20));
-
-        comboMeses.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        panelFormulario.add(comboMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 120, 20));
-
-        txtAno.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        txtAno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtAno.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAnoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAnoKeyTyped(evt);
-            }
-        });
-        panelFormulario.add(txtAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 80, 20));
-
-        jLabel28.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel28.setText("Tiempo de residencia (años):");
-        panelFormulario.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, 20));
-
-        txtAnosResidencia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        txtAnosResidencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAnosResidenciaKeyTyped(evt);
-            }
-        });
-        panelFormulario.add(txtAnosResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 160, 60, 20));
-
-        jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel21.setText("Propietario:");
-        panelFormulario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 20));
-
-        txtPropietario.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        txtPropietario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPropietario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPropietarioKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPropietarioKeyTyped(evt);
-            }
-        });
-        panelFormulario.add(txtPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 580, 20));
 
         jLabel17.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel17.setText("Ingresar dirección:");
@@ -457,7 +348,7 @@ public class Domicilio extends javax.swing.JDialog {
         });
         panelFormulario.add(txtDireccionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 580, 20));
 
-        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, 280));
+        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, 200));
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Domicilios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
@@ -545,11 +436,11 @@ public class Domicilio extends javax.swing.JDialog {
                     .addComponent(jLabel9)
                     .addComponent(btnBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 295, 1160, 230));
+        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 1160, 300));
 
         PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -623,56 +514,6 @@ public class Domicilio extends javax.swing.JDialog {
         buscarCoordenadas(txtDireccion.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void comboTipoViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoViviendaActionPerformed
-        int i = comboTipoVivienda.getSelectedIndex();
-        if (i > 1) {
-            frmArrendamientoOnOff(true);
-        } else {
-            frmArrendamientoOnOff(false);
-        }
-    }//GEN-LAST:event_comboTipoViviendaActionPerformed
-
-    private void txtDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiaKeyTyped
-        char c = evt.getKeyChar();
-        int lon = txtDia.getText().length();
-        if (!Character.isDigit(c) || lon >= 2) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtDiaKeyTyped
-
-    private void txtAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoKeyReleased
-
-    }//GEN-LAST:event_txtAnoKeyReleased
-
-    private void txtAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoKeyTyped
-        int lon = txtAno.getText().length();
-        if (lon >= 4) {
-            evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "El año no puede tener más de 4 caracteres");
-        }
-    }//GEN-LAST:event_txtAnoKeyTyped
-
-    private void txtAnosResidenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidenciaKeyTyped
-        char c = evt.getKeyChar();
-        int lon = txtAnosResidencia.getText().length();
-        if (!Character.isDigit(c) || lon >= 2) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtAnosResidenciaKeyTyped
-
-    private void txtPropietarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPropietarioKeyReleased
-        String cadena = txtPropietario.getText().toUpperCase();
-        txtPropietario.setText(cadena);
-    }//GEN-LAST:event_txtPropietarioKeyReleased
-
-    private void txtPropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPropietarioKeyTyped
-        //        int lon = txtPropietario.getText().length();
-        //        if (lon >= 18) {
-        //            evt.consume();
-        //            JOptionPane.showMessageDialog(rootPane, "El código CURP contiene únicamente 18 caracteres");
-        //        }
-    }//GEN-LAST:event_txtPropietarioKeyTyped
-
     private void txtDireccionActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActualActionPerformed
@@ -719,19 +560,13 @@ public class Domicilio extends javax.swing.JDialog {
     private javax.swing.JPanel btnCancelar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnGuardar;
-    private javax.swing.JComboBox<String> comboMeses;
-    private javax.swing.JComboBox<String> comboTipoVivienda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -740,13 +575,9 @@ public class Domicilio extends javax.swing.JDialog {
     private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
-    private javax.swing.JTextField txtAno;
-    private javax.swing.JTextField txtAnosResidencia;
     private javax.swing.JTextField txtBuscar2;
-    private javax.swing.JTextField txtDia;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDireccionActual;
-    private javax.swing.JTextField txtPropietario;
     private javax.swing.JTextField xPos;
     private javax.swing.JTextField yPos;
     // End of variables declaration//GEN-END:variables

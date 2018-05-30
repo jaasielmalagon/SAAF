@@ -446,12 +446,14 @@ public class clientes_resource {
         return array;
     }
 
-    public int guardarDatosCliente(int sucursal, int usuario, String adc, int id_persona, double ingresos, double egresos, int dependientes, int ocupacion, int estudios, String empresa, String domicilio_empresa, String tel_empresa, String hora_entrada, String hora_salida) {
+    public int guardarDatosCliente(int sucursal, int usuario, String adc, int id_persona, double ingresos, double egresos, int dependientes, 
+            int ocupacion, int estudios, String empresa, String domicilio_empresa, String tel_empresa, String hora_entrada, String hora_salida,
+    int tipo_vivienda, String propietario_inmueble, String vigencia_contrato, int tiempo_residencia) {
         int res = this.DB.InsertId("personas_clientes",
                 "`sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`,"
-                + " `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`",
+                + " `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`,`tipo_vivienda`, `propietario`, `vigencia_contrato`, `tiempo_residencia`",
                 sucursal + "," + usuario + ",now(),'" + adc + "'," + id_persona + "," + ingresos + "," + egresos + "," + dependientes + "," + ocupacion + ","
-                + estudios + ",'" + empresa + "','" + domicilio_empresa + "','" + tel_empresa + "','" + hora_entrada + "','" + hora_salida + "'");
+                + estudios + ",'" + empresa + "','" + domicilio_empresa + "','" + tel_empresa + "','" + hora_entrada + "','" + hora_salida + "',"+tipo_vivienda+",'"+propietario_inmueble+"','"+vigencia_contrato+"',"+tiempo_residencia);
         return res;
     }
 

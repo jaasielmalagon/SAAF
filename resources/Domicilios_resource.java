@@ -58,17 +58,13 @@ public class Domicilios_resource {
         String[] dom = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("*", "domicilios", "(direccion ='" + direccion + "') OR (latitud = '" + latitud + "' AND longitud ='" + longitud + "') LIMIT 1");
+            RS = this.DB.Select("`idDomicilio`, `direccion`, `latitud`, `longitud`", "domicilios", "(direccion ='" + direccion + "') OR (latitud = '" + latitud + "' AND longitud ='" + longitud + "') LIMIT 1");
             if (RS.next()) {
-                dom = new String[8];
+                dom = new String[4];
                 dom[0] = RS.getString(1);
                 dom[1] = RS.getString(2);
                 dom[2] = RS.getString(3);
-                dom[3] = RS.getString(4);
-                dom[4] = RS.getString(5);
-                dom[5] = RS.getString(6);
-                dom[6] = RS.getString(7);
-                dom[7] = RS.getString(8);
+                dom[3] = RS.getString(4);                
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
@@ -82,17 +78,13 @@ public class Domicilios_resource {
         String[] dom = null;
         try {
             this.DB.Connect();
-            RS = this.DB.Select("*", "domicilios", "idDomicilio = " + idDomicilio + " LIMIT 1");
+            RS = this.DB.Select("`idDomicilio`, `direccion`, `latitud`", "domicilios", "idDomicilio = " + idDomicilio + " LIMIT 1");
             if (RS.next()) {
-                dom = new String[8];
+                dom = new String[4];
                 dom[0] = RS.getString(1);
                 dom[1] = RS.getString(2);
                 dom[2] = RS.getString(3);
-                dom[3] = RS.getString(4);
-                dom[4] = RS.getString(5);
-                dom[5] = RS.getString(6);
-                dom[6] = RS.getString(7);
-                dom[7] = RS.getString(8);
+                dom[3] = RS.getString(4);    
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {

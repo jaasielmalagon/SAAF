@@ -10,6 +10,7 @@ import objects.Lista;
 import objects.Ocupacion;
 import objects.Persona;
 import objects.Empleado;
+import objects.Mes;
 import objects.TableCreator;
 import resources.clientes_resource;
 
@@ -273,7 +274,8 @@ public class clientes_service {
     public int guardarDatos(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
         if (datos == null) {
-            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA());
+            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
+                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
         } else {
             return -1;//La persona ya es un cliente
         }
@@ -331,6 +333,23 @@ public class clientes_service {
             }
         }
         return adc;
+    }
+    
+    public Mes[] meses() {
+        Mes[] meses = new Mes[12];
+        meses[0] = new Mes("01", "Enero");
+        meses[1] = new Mes("02", "Febrero");
+        meses[2] = new Mes("03", "Marzo");
+        meses[3] = new Mes("04", "Abril");
+        meses[4] = new Mes("05", "Mayo");
+        meses[5] = new Mes("06", "Junio");
+        meses[6] = new Mes("07", "Julio");
+        meses[7] = new Mes("08", "Agosto");
+        meses[8] = new Mes("09", "Septiembre");
+        meses[9] = new Mes("10", "Octubre");
+        meses[10] = new Mes("11", "Noviembre");
+        meses[11] = new Mes("12", "Diciembre");
+        return meses;
     }
 
 }
