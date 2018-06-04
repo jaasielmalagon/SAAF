@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -27,19 +28,36 @@ public class clientes_service {
     }
 
     public Cliente cliente(Persona persona) {
-        String[] datos = this.recurso.cliente(persona.getIdPersona());
+        System.out.println(persona.toString());
+        String[] d = this.recurso.cliente(persona.getIdPersona());
         Cliente c = null;
-//        System.out.println(Arrays.toString(datos));
-        if (datos != null) {
+        System.out.println(Arrays.toString(d));
+        if (d != null) {
             c = new Cliente();
-            c.setID(datos[0]);
-                    /*Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), Integer.parseInt(datos[2]),
-                    datos[3], datos[4], Integer.parseInt(datos[5]),
-                    Double.parseDouble(datos[6]), Double.parseDouble(datos[7]), Integer.parseInt(datos[8]),
-                    Integer.parseInt(datos[9]), Integer.parseInt(datos[10]), datos[11],
-                    datos[12], datos[13], datos[14],
-                    datos[15], Integer.parseInt(datos[16]), Integer.parseInt(datos[17]),
-                    Integer.parseInt(datos[18]), persona);*/
+            c.setID(d[0]);
+            c.setSUCURSAL(d[1]);
+            c.setUSUARIO(d[2]);
+            c.setF_REGISTRO(d[3]);
+            c.setADC(d[4]);
+            c.setID_PERSONA(d[5]);
+            c.setINGRESOS(d[6]);
+            c.setEGRESOS(d[7]);
+            c.setDEPENDIENTES(d[8]);
+            c.setOCUPACION(d[9]);
+            c.setESTUDIOS(d[10]);
+            c.setEMPRESA(d[11]);
+            c.setDOMICILIO_EMPRESA(d[12]);
+            c.setTEL_EMPRESA(d[13]);
+            c.setHORA_ENTRADA(d[14]);
+            c.setHORA_SALIDA(d[15]);
+            c.setTIPO_VIVIENDA(d[16]);
+            c.setPROPIETARIO(d[17]);
+            c.setVIGENCIA(d[18]);
+            c.setTIEMPO_RESIDENCIA(d[19]);
+            c.setSCORE(d[20]);
+            c.setSTATUS(d[21]);
+            c.setACTIVIDAD(d[22]);
+            c.setPERSONA(persona);
         }
         return c;
     }
@@ -280,20 +298,29 @@ public class clientes_service {
                     c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
                     c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),
                     c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
-        } else {a
+        } else {
             return -1;//La persona ya es un cliente
         }
     }
 
     public int actualizarDatos(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
-        if (datos != null && Integer.parseInt(datos[0]) == c.getIdCliente()) {
-            return this.recurso.actualizarDatosCliente(c.getIdCliente(), c.getSUCURSAL(), c.getUSUARIO(), c.getADC(),
+        if (datos != null && Integer.parseInt(datos[0]) == c.getID()) {
+            return this.recurso.actualizarDatosCliente(c.getID(), c.getSUCURSAL(), c.getUSUARIO(), c.getADC(),
                     c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(),
                     c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(),
-                    c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA());
+                    c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
+                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
         } else {
             return -1;//La persona no es cliente
+        }
+    }
+    
+    public boolean desactivarCliente(Cliente cliente) {
+        if (cliente != null) {
+            return this.recurso.actividadCliente(cliente.getID(), 0);
+        }else{
+            return false;
         }
     }
 
@@ -354,6 +381,6 @@ public class clientes_service {
         meses[10] = new Mes("11", "Noviembre");
         meses[11] = new Mes("12", "Diciembre");
         return meses;
-    }
+    }    
 
 }
