@@ -133,11 +133,11 @@ public class clientes_resource {
         return personas;
     }
 
-    private int contarEmpleados(int idSucursal, String dato) {
+    public int contarEmpleados(int idSucursal, String otraCondicion) {
         int count = 0;
         try {
-            if (!dato.isEmpty()) {
-                //RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal + " AND (nombre like '%" + dato + "%' OR apaterno like '%" + dato + "%' OR amaterno like '%" + dato + "%' OR curp like '%" + dato + "%' OR ocr like '%" + dato + "%' OR telefono like '%" + dato + "%' OR celular like '%" + dato + "%')");
+            if (!otraCondicion.isEmpty()) {
+                RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal + " AND " + otraCondicion);                
             } else {
                 RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal);
             }

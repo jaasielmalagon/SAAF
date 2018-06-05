@@ -343,7 +343,7 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private void limpiarCampos() {
-        //lblNombrePersona.setText("");
+        lblNombrePersona.setText("");
         txtSueldo.setText("");
         cmbNivelEstudios.setSelectedIndex(0);
         cmbDepartamento.setSelectedIndex(0);

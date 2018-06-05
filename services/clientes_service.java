@@ -28,9 +28,9 @@ public class clientes_service {
     }
 
     public Cliente cliente(Persona persona) {
-         Cliente c = null;
+        Cliente c = null;
         if (persona != null) {
-            String[] d = this.recurso.cliente(persona.getIdPersona());           
+            String[] d = this.recurso.cliente(persona.getIdPersona());
             if (d != null) {
                 c = new Cliente();
                 c.setID(d[0]);
@@ -265,27 +265,36 @@ public class clientes_service {
         }
     }
 
-    private String codigoStaff(Empleado s) {
+    private String codigoStaff(Empleado emp) {
         String codigo = "";
-        if (s != null) {
-            if (s.getSUCURSAL() < 10) {
-                codigo = "0" + s.getSUCURSAL();
+        if (emp != null) {
+            if (emp.getSUCURSAL() < 10) {
+                codigo = "0" + emp.getSUCURSAL();
             } else {
-                codigo += s.getSUCURSAL();
+                codigo += emp.getSUCURSAL();
             }
-            if (s.getSUCURSAL() == 1 && s.getCARGO() != 5) {//el 5 es ADC
+            if (emp.getSUCURSAL() == 1 && emp.getCARGO() != 5) {//el 5 es ADC
                 codigo += "C-";
-            } else if ((s.getSUCURSAL() == 1 && s.getCARGO() == 5) || (s.getSUCURSAL() > 1)) {//el 5 es ADC
+            } else if ((emp.getSUCURSAL() == 1 && emp.getCARGO() == 5) || (emp.getSUCURSAL() > 1)) {//el 5 es ADC
                 codigo += "S-";
             }
-            int tipoCargo = Integer.valueOf(this.recurso.cargo(s.getCARGO())[2]);
-            if (tipoCargo == 1 && s.getCARGO() == 5) {
+
+            int tipoCargo = Integer.valueOf(this.recurso.cargo(emp.getCARGO())[2]);
+            int countEmpleados = this.recurso.contarEmpleados(emp.getSUCURSAL(), "cargo = " + tipoCargo);//contar empleados del mismo tipo
+            if (tipoCargo == 1 && emp.getCARGO() == 5) {
                 codigo += "Z";
-            } else if (tipoCargo == 1 && s.getCARGO() != 5) {
-                codigo += "O";
-            } else if (tipoCargo == 0) {
-                codigo += "A";
+            } else {
+                if (tipoCargo == 1 && emp.getCARGO() != 5) {
+                    codigo += "O";
+                } else if (tipoCargo == 0) {
+                    codigo += "A";
+                }
+
+                if (countEmpleados < 100) {
+                    codigo += "0" + (countEmpleados + 1);
+                }
             }
+            codigo += emp.getFECHA_INCORPORACION().substring(8, 10)+emp.getFECHA_INCORPORACION().substring(5, 7)+emp.getFECHA_INCORPORACION().substring(0, 2);
         }
         return codigo;
     }

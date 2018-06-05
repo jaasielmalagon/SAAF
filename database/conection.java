@@ -125,7 +125,7 @@ public class conection {
     public ResultSet Select(String campos, String tabla, String condicion) {
         try {
             if (estado != null) {
-                rs = estado.executeQuery("SELECT " + campos + " FROM " + tabla + " WHERE " + condicion);
+                rs = estado.executeQuery("SELECT " + campos + " FROM " + tabla + " WHERE " + condicion);                
             } else {
                 rs = null;
             }

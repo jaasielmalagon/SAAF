@@ -45,7 +45,7 @@ public class agregarPersona_service {
     public Solicitud ultimaSolicitud(Cliente cliente) {
         Solicitud solicitud = null;
         if (cliente != null) {
-            String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getIdCliente());
+            String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getID());
             if (datos != null) {
                 solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8]);
             }            
