@@ -114,7 +114,7 @@ public class Personas extends javax.swing.JDialog {
                                     JOptionPane.showMessageDialog(this, "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
                                 } else {
                                     Solicitud ultimaSolicitud = this.servicio.ultimaSolicitud(CLIENTE);
-                                    Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), semanas, CLIENTE.getIdCliente(), this.USUARIO.getIdUsuario(), this.USUARIO.getIdSucursal(), tasa, "", "");
+                                    Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), semanas, CLIENTE.getID(), this.USUARIO.getIdUsuario(), this.USUARIO.getIdSucursal(), tasa, "", "");
                                     if (this.servicio.compararFechaSolicitud(ultimaSolicitud)) {
                                         JOptionPane.showMessageDialog(this, "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.", "¡AVISO!", JOptionPane.INFORMATION_MESSAGE);
                                     } else {
@@ -365,10 +365,10 @@ public class Personas extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         btnFicha = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        btnCrearCliente = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         btnCredito = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        btnCrearCliente = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
         panelTabla = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtBuscar2 = new javax.swing.JTextField();
@@ -784,23 +784,6 @@ public class Personas extends javax.swing.JDialog {
 
         panelOpciones.add(btnFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 154, 35));
 
-        btnCrearCliente.setBackground(new java.awt.Color(255, 78, 0));
-        btnCrearCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCrearCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCrearCliente3MouseClicked(evt);
-            }
-        });
-        btnCrearCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel14.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Crear cliente");
-        btnCrearCliente.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
-
-        panelOpciones.add(btnCrearCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 20, 154, 35));
-
         btnCredito.setBackground(new java.awt.Color(255, 78, 0));
         btnCredito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -817,6 +800,23 @@ public class Personas extends javax.swing.JDialog {
         btnCredito.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 35));
 
         panelOpciones.add(btnCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 20, 140, 35));
+
+        btnCrearCliente.setBackground(new java.awt.Color(255, 78, 0));
+        btnCrearCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCrearClienteMouseClicked(evt);
+            }
+        });
+        btnCrearCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Crear cliente");
+        btnCrearCliente.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
+
+        panelOpciones.add(btnCrearCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 154, 35));
 
         Contenedor.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 920, 70));
 
@@ -1090,14 +1090,6 @@ public class Personas extends javax.swing.JDialog {
 //        }
     }//GEN-LAST:event_btnFichaMouseClicked
 
-    private void btnCrearCliente3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCliente3MouseClicked
-        if (PERSONA_SELECCIONADA != null) {
-            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
-        }
-    }//GEN-LAST:event_btnCrearCliente3MouseClicked
-
     private void btnCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditoMouseClicked
         solicitarPrestamo();
     }//GEN-LAST:event_btnCreditoMouseClicked
@@ -1105,6 +1097,14 @@ public class Personas extends javax.swing.JDialog {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnCrearClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseClicked
+        if (PERSONA_SELECCIONADA != null) {
+            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
+        }
+    }//GEN-LAST:event_btnCrearClienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1156,7 +1156,6 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1166,6 +1165,7 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

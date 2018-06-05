@@ -22,42 +22,42 @@ import resources.clientes_resource;
 public class clientes_service {
 
     private final clientes_resource recurso;
-    
+
     public clientes_service(String modulo) {
         this.recurso = new clientes_resource(modulo);
     }
 
     public Cliente cliente(Persona persona) {
-        System.out.println(persona.toString());
-        String[] d = this.recurso.cliente(persona.getIdPersona());
-        Cliente c = null;
-        System.out.println(Arrays.toString(d));
-        if (d != null) {
-            c = new Cliente();
-            c.setID(d[0]);
-            c.setSUCURSAL(d[1]);
-            c.setUSUARIO(d[2]);
-            c.setF_REGISTRO(d[3]);
-            c.setADC(d[4]);
-            c.setID_PERSONA(d[5]);
-            c.setINGRESOS(d[6]);
-            c.setEGRESOS(d[7]);
-            c.setDEPENDIENTES(d[8]);
-            c.setOCUPACION(d[9]);
-            c.setESTUDIOS(d[10]);
-            c.setEMPRESA(d[11]);
-            c.setDOMICILIO_EMPRESA(d[12]);
-            c.setTEL_EMPRESA(d[13]);
-            c.setHORA_ENTRADA(d[14]);
-            c.setHORA_SALIDA(d[15]);
-            c.setTIPO_VIVIENDA(d[16]);
-            c.setPROPIETARIO(d[17]);
-            c.setVIGENCIA(d[18]);
-            c.setTIEMPO_RESIDENCIA(d[19]);
-            c.setSCORE(d[20]);
-            c.setSTATUS(d[21]);
-            c.setACTIVIDAD(d[22]);
-            c.setPERSONA(persona);
+         Cliente c = null;
+        if (persona != null) {
+            String[] d = this.recurso.cliente(persona.getIdPersona());           
+            if (d != null) {
+                c = new Cliente();
+                c.setID(d[0]);
+                c.setSUCURSAL(d[1]);
+                c.setUSUARIO(d[2]);
+                c.setF_REGISTRO(d[3]);
+                c.setADC(d[4]);
+                c.setID_PERSONA(d[5]);
+                c.setINGRESOS(d[6]);
+                c.setEGRESOS(d[7]);
+                c.setDEPENDIENTES(d[8]);
+                c.setOCUPACION(d[9]);
+                c.setESTUDIOS(d[10]);
+                c.setEMPRESA(d[11]);
+                c.setDOMICILIO_EMPRESA(d[12]);
+                c.setTEL_EMPRESA(d[13]);
+                c.setHORA_ENTRADA(d[14]);
+                c.setHORA_SALIDA(d[15]);
+                c.setTIPO_VIVIENDA(d[16]);
+                c.setPROPIETARIO(d[17]);
+                c.setVIGENCIA(d[18]);
+                c.setTIEMPO_RESIDENCIA(d[19]);
+                c.setSCORE(d[20]);
+                c.setSTATUS(d[21]);
+                c.setACTIVIDAD(d[22]);
+                c.setPERSONA(persona);
+            }
         }
         return c;
     }
@@ -98,7 +98,7 @@ public class clientes_service {
     }
 
     public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
-        String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo","Estudios","Departamento","Contacto","Dias Laborales"};
+        String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo", "Estudios", "Departamento", "Contacto", "Dias Laborales"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] array;
         if (dato.isEmpty()) {
@@ -120,7 +120,7 @@ public class clientes_service {
                 cli[8] = var[9];
                 cli[9] = var[10];
                 cli[10] = var[11];
-                cli[11] = var[12];                
+                cli[11] = var[12];
                 dtm.addRow(cli);
             }
         }
@@ -293,11 +293,11 @@ public class clientes_service {
     public int guardarDatosCliente(Cliente c) {
         String[] datos = this.recurso.cliente(c.getPersona().getIdPersona());
         if (datos == null) {
-            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), 
-                    c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), 
+            return this.recurso.guardarDatosCliente(c.getSUCURSAL(), c.getUSUARIO(), c.getADC(), c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(),
+                    c.getDEPENDIENTES(), c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(), c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(),
                     c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
-                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),
-                    c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
+                    c.getTIPO_VIVIENDA(), c.getPROPIETARIO(),
+                    c.getVIGENCIA(), c.getTIEMPO_RESIDENCIA());
         } else {
             return -1;//La persona ya es un cliente
         }
@@ -310,16 +310,16 @@ public class clientes_service {
                     c.getID_PERSONA(), c.getINGRESOS(), c.getEGRESOS(), c.getDEPENDIENTES(),
                     c.getOCUPACION(), c.getESTUDIOS(), c.getEMPRESA(),
                     c.getDOMICILIO_EMPRESA(), c.getTEL_EMPRESA(), c.getHORA_ENTRADA(), c.getHORA_SALIDA(),
-                    c.getTIPO_VIVIENDA(),c.getPROPIETARIO(),c.getVIGENCIA(),c.getTIEMPO_RESIDENCIA());
+                    c.getTIPO_VIVIENDA(), c.getPROPIETARIO(), c.getVIGENCIA(), c.getTIEMPO_RESIDENCIA());
         } else {
             return -1;//La persona no es cliente
         }
     }
-    
-    public boolean desactivarCliente(Cliente cliente) {
+
+    public boolean desactivarCliente(Cliente cliente, int actividad) {
         if (cliente != null) {
-            return this.recurso.actividadCliente(cliente.getID(), 0);
-        }else{
+            return this.recurso.actividadCliente(cliente.getID(), actividad);
+        } else {
             return false;
         }
     }
@@ -349,7 +349,7 @@ public class clientes_service {
                 mensaje = "Algo falló al insertar los datos de ADC";
             }
         } else {
-            System.out.println(sucursal + "-" + staff + "-" + agencia + "-" + vacante);
+////            System.out.println(sucursal + "-" + staff + "-" + agencia + "-" + vacante);
             mensaje = "Alguno de los datos se encuentra vacío o es incorrecto.";
         }
         return mensaje;
@@ -365,7 +365,7 @@ public class clientes_service {
         }
         return adc;
     }
-    
+
     public Mes[] meses() {
         Mes[] meses = new Mes[12];
         meses[0] = new Mes("01", "Enero");
@@ -381,6 +381,6 @@ public class clientes_service {
         meses[10] = new Mes("11", "Noviembre");
         meses[11] = new Mes("12", "Diciembre");
         return meses;
-    }    
+    }
 
 }

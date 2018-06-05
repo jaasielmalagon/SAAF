@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -44,6 +43,7 @@ public class Clientes extends javax.swing.JDialog {
         meses();
         llenarTabla();
         seleccionarPersona();
+        cancelar();
     }
 
     private void llenarTabla() {
@@ -222,15 +222,15 @@ public class Clientes extends javax.swing.JDialog {
                 txtPropietario.setText(CLIENTE.getPROPIETARIO());
                 String vigencia = CLIENTE.getVIGENCIA();
                 txtAno.setText(vigencia.substring(0, 4));
-                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1 );
-                txtDia.setText(vigencia.substring(8, 10));                
+                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1);
+                txtDia.setText(vigencia.substring(8, 10));
             }
-            switch(CLIENTE.getSTATUS()){
+            switch (CLIENTE.getSTATUS()) {
                 case 1:
                     lblEstado.setText("ESTABLE");
                     break;
                 case 2:
-                    lblEstado.setText("EN MORA");                    
+                    lblEstado.setText("EN MORA");
                     break;
                 case 3:
                     lblEstado.setText("NEGACIÓN DE PAGO");
@@ -239,10 +239,17 @@ public class Clientes extends javax.swing.JDialog {
                     lblEstado.setText("N/D");
                     break;
             }
-            if (CLIENTE.getACTIVIDAD() == 1) {
-//                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/green-orb.png")));
-            }else{
-//                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/gray-orb.png")));
+            btnEliminar.setEnabled(true);
+            if (CLIENTE.getACTIVIDAD() == 0) {
+                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red-orb.png")));
+                lblEstado.setText("Deshabilitado");
+                lblActividad.setText("Habilitar");
+                btnEliminar.setBackground(new java.awt.Color(115, 189, 99));
+            } else {
+                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/green-orb.png")));
+                lblEstado.setText("Habilitado");
+                lblActividad.setText("Inhabilitar");
+                btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
             }
         } catch (ParseException ex) {
             System.out.println("views.clientes.cargarDatosCliente() : " + ex);
@@ -403,6 +410,9 @@ public class Clientes extends javax.swing.JDialog {
         txtDireccion.setText("");
         txtPropietario.setText("");
         comboTipoVivienda.setSelectedIndex(0);
+        btnEliminar.setEnabled(false);
+        lblEstado.setText("");
+        lblOrb.setIcon(null);
     }
 
     private void cancelar() {
@@ -435,15 +445,20 @@ public class Clientes extends javax.swing.JDialog {
         }
         comboMeses.setModel(dcbm);
     }
-    
-    private void desactivarCliente(){
-        int x = JOptionPane.showConfirmDialog(rootPane, "¿Desea deshabilitar a este cliente?\nSi lo hace no podrá realizar operaciones como asignación de préstamos o realizar cobranza.", "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+    private void desactivarCliente() {
+        int x = JOptionPane.showConfirmDialog(rootPane, "¿Desea cambiar el estado de actividad a este cliente?", "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (x == JOptionPane.YES_OPTION) {
-            boolean dc = this.SERVICIO.desactivarCliente(this.CLIENTE);
-            if (dc) {
-                JOptionPane.showMessageDialog(rootPane, "Cliente deshabilitado correctamente.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            int act = 0;
+            if (CLIENTE.getACTIVIDAD() == 0) {
+                act = 1;
             }
-        }        
+            boolean dc = this.SERVICIO.desactivarCliente(this.CLIENTE, act);
+            if (dc) {
+                JOptionPane.showMessageDialog(rootPane, "Estado de actividad cambiado correctamente.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                cancelar();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -463,7 +478,7 @@ public class Clientes extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        lblActividad = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         txtIngresos = new javax.swing.JTextField();
         txtEgresos = new javax.swing.JTextField();
@@ -616,19 +631,19 @@ public class Clientes extends javax.swing.JDialog {
         });
         btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Inhabilitar");
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        lblActividad.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        lblActividad.setForeground(new java.awt.Color(255, 255, 255));
+        lblActividad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActividad.setText("Inhabilitar");
+        lblActividad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.add(lblActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
 
         panelForm.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 210, 120, 50));
 
         jLabel17.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Egresos:");
-        panelForm.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, 20));
+        panelForm.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, 20));
 
         txtIngresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtIngresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -641,7 +656,7 @@ public class Clientes extends javax.swing.JDialog {
                 txtIngresosKeyTyped(evt);
             }
         });
-        panelForm.add(txtIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 110, 20));
+        panelForm.add(txtIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 110, 20));
 
         txtEgresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtEgresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -654,12 +669,12 @@ public class Clientes extends javax.swing.JDialog {
                 txtEgresosKeyTyped(evt);
             }
         });
-        panelForm.add(txtEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 110, 20));
+        panelForm.add(txtEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, 20));
 
         jLabel18.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Dependientes económicos:");
-        panelForm.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
+        panelForm.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
 
         txtDependientes.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDependientes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -668,10 +683,10 @@ public class Clientes extends javax.swing.JDialog {
                 txtDependientesKeyTyped(evt);
             }
         });
-        panelForm.add(txtDependientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 50, 20));
+        panelForm.add(txtDependientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 50, 20));
 
         cmbNivelEstudios.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        panelForm.add(cmbNivelEstudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 180, 20));
+        panelForm.add(cmbNivelEstudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, 180, 20));
 
         jLabel19.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -682,30 +697,30 @@ public class Clientes extends javax.swing.JDialog {
         txtSobrante.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSobrante.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtSobrante.setEnabled(false);
-        panelForm.add(txtSobrante, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 110, 20));
+        panelForm.add(txtSobrante, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 110, 20));
 
         jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Ocupación:");
-        panelForm.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, 20));
+        panelForm.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, 20));
 
         jLabel16.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Ingresos: ");
-        panelForm.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, 20));
+        panelForm.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, 20));
 
         jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Nivel de estudios:");
-        panelForm.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, 20));
+        panelForm.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, 20));
 
         jLabel24.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Sobrante:");
-        panelForm.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, -1, 20));
+        panelForm.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, -1, 20));
 
         cmbOcupacion.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        panelForm.add(cmbOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 180, 20));
+        panelForm.add(cmbOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 180, 20));
 
         txtEmpresa.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -735,7 +750,7 @@ public class Clientes extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Teléfono:");
-        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 60, 20));
+        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 60, 20));
 
         txtTel.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -744,12 +759,12 @@ public class Clientes extends javax.swing.JDialog {
                 txtTelKeyTyped(evt);
             }
         });
-        panelForm.add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 110, 20));
+        panelForm.add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 110, 20));
 
         jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Entrada:");
-        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 60, 20));
+        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 60, 20));
 
         JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
         txtEntrada.setEditor(de);
@@ -759,12 +774,12 @@ public class Clientes extends javax.swing.JDialog {
                 txtEntradaKeyPressed(evt);
             }
         });
-        panelForm.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 110, 20));
+        panelForm.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 110, 20));
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Salida:");
-        panelForm.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 60, 20));
+        panelForm.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 60, 20));
 
         JSpinner.DateEditor de2 = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
         txtSalida.setEditor(de2);
@@ -774,30 +789,30 @@ public class Clientes extends javax.swing.JDialog {
                 txtSalidaKeyTyped(evt);
             }
         });
-        panelForm.add(txtSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 110, 20));
+        panelForm.add(txtSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 110, 20));
 
         lblDatosde.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         lblDatosde.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDatosde.setText("Datos de:");
-        panelForm.add(lblDatosde, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 68, 20));
+        panelForm.add(lblDatosde, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 68, 20));
 
         lblNombrePersona.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         lblNombrePersona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panelForm.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 375, 20));
+        panelForm.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 375, 20));
 
         jLabel23.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("ADC:");
-        panelForm.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+        panelForm.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
         txtAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAdc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtAdc.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        panelForm.add(txtAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 60, 20));
+        panelForm.add(txtAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 60, 20));
 
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de vivienda:");
-        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 110, 20));
+        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 110, 20));
 
         comboTipoVivienda.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         comboTipoVivienda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "Propia", "Rentada", "Prestada" }));
@@ -806,11 +821,11 @@ public class Clientes extends javax.swing.JDialog {
                 comboTipoViviendaActionPerformed(evt);
             }
         });
-        panelForm.add(comboTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 100, 20));
+        panelForm.add(comboTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 100, 20));
 
         jLabel26.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel26.setText("Vigencia de renta");
-        panelForm.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, -1, 20));
+        panelForm.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 20));
 
         txtDia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -819,10 +834,10 @@ public class Clientes extends javax.swing.JDialog {
                 txtDiaKeyTyped(evt);
             }
         });
-        panelForm.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 80, 20));
+        panelForm.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 80, 20));
 
         comboMeses.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        panelForm.add(comboMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 120, 20));
+        panelForm.add(comboMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 120, 20));
 
         txtAno.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -834,11 +849,11 @@ public class Clientes extends javax.swing.JDialog {
                 txtAnoKeyTyped(evt);
             }
         });
-        panelForm.add(txtAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, 80, 20));
+        panelForm.add(txtAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 80, 20));
 
         jLabel28.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel28.setText("Años de residencia:");
-        panelForm.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, -1, 20));
+        panelForm.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, -1, 20));
 
         txtAnosResidencia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAnosResidencia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -846,11 +861,11 @@ public class Clientes extends javax.swing.JDialog {
                 txtAnosResidenciaKeyTyped(evt);
             }
         });
-        panelForm.add(txtAnosResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 60, 20));
+        panelForm.add(txtAnosResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 60, 20));
 
         jLabel27.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel27.setText("Propietario:");
-        panelForm.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, 20));
+        panelForm.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
 
         txtPropietario.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtPropietario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -862,19 +877,17 @@ public class Clientes extends javax.swing.JDialog {
                 txtPropietarioKeyTyped(evt);
             }
         });
-        panelForm.add(txtPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 580, 20));
+        panelForm.add(txtPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 580, 20));
 
         lblEstad.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         lblEstad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblEstad.setText("Estado");
-        panelForm.add(lblEstad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 40, 20));
+        panelForm.add(lblEstad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 40, 20));
 
         lblEstado.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         lblEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panelForm.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 140, 20));
-
-        lblOrb.setText("jLabel7");
-        panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 40, 20));
+        panelForm.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 140, 20));
+        panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 40, 20));
 
         Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 25, 1000, 280));
 
@@ -1140,7 +1153,7 @@ public class Clientes extends javax.swing.JDialog {
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         if (CLIENTE != null) {
             desactivarCliente();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "No ha seleccionado una persona existente.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
@@ -1189,7 +1202,6 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1211,6 +1223,7 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblActividad;
     private javax.swing.JLabel lblDatosde;
     private javax.swing.JLabel lblEstad;
     private javax.swing.JLabel lblEstado;

@@ -11,6 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import objects.Cliente;
 import objects.Estudio;
+import objects.Mes;
 import objects.Ocupacion;
 import objects.Persona;
 import objects.Usuario;
@@ -33,20 +34,23 @@ public class ClienteAdd extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         tituloVentana.setText(tituloVentana.getText() + " " + persona.toString());
-        
+
         this.SERVICIO = new clientes_service(this.getClass().toString());
         this.USUARIO = usuario;
         this.PERSONA_SELECCIONADA = persona;
-        if (PERSONA_SELECCIONADA != null) {            
+        if (this.PERSONA_SELECCIONADA != null) {
             ocupaciones();
             estudios();
-            CLIENTE = SERVICIO.cliente(PERSONA_SELECCIONADA);
-            if (CLIENTE != null) {
+            meses();
+            limpiarCampos();
+            System.out.println(this.PERSONA_SELECCIONADA.toString());
+            this.CLIENTE = SERVICIO.cliente(this.PERSONA_SELECCIONADA);
+            if (this.CLIENTE != null) {
                 cargarDatosCliente();
             }
         }
     }
-    
+
     private void guardarDatos() {
         if (PERSONA_SELECCIONADA != null) {
             if (comprobarCampos() == true) {
@@ -56,7 +60,7 @@ public class ClienteAdd extends javax.swing.JDialog {
                 int ocupacion = ((Ocupacion) cmbOcupacion.getSelectedItem()).getId();
                 int estudios = ((Estudio) cmbNivelEstudios.getSelectedItem()).getID();
                 String empresa = txtEmpresa.getText();
-                String direccion = txtDireccion.getText();
+                String direccion_empresa = txtDireccion.getText();
                 String telefono = txtTel.getText();
                 String entrada = txtEntrada.getValue().toString();
                 String[] split = entrada.split(" ");
@@ -65,38 +69,71 @@ public class ClienteAdd extends javax.swing.JDialog {
                 split = salida.split(" ");
                 salida = split[3];
                 String adc = txtAdc.getText();
-                Cliente cliente;
+                int tipo = comboTipoVivienda.getSelectedIndex();
+                String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
+                String propietario = txtPropietario.getText();
+                String tiempoResidencia = txtAnosResidencia.getText();
+
+                Cliente cliente = new Cliente();
                 if (CLIENTE == null) {
-                    cliente = new Cliente();
-                    cliente = new Cliente(0, this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), "", adc,
-                            PERSONA_SELECCIONADA.getIdPersona(), ingresos, egresos, dependientes, ocupacion, estudios,
-                            empresa, direccion, telefono, entrada, salida, 0, 0, 1, PERSONA_SELECCIONADA);
-                    int insert = this.SERVICIO.guardarDatos(cliente);
-                    cancelar();
+                    cliente.setSUCURSAL(this.USUARIO.getIdSucursal());
+                    cliente.setUSUARIO(this.USUARIO.getIdUsuario());
+                    cliente.setADC(adc);
+                    cliente.setID_PERSONA(PERSONA_SELECCIONADA.getIdPersona());
+                    cliente.setINGRESOS(ingresos);
+                    cliente.setEGRESOS(egresos);
+                    cliente.setDEPENDIENTES(dependientes);
+                    cliente.setOCUPACION(ocupacion);
+                    cliente.setESTUDIOS(estudios);
+                    cliente.setEMPRESA(empresa);
+                    cliente.setDOMICILIO_EMPRESA(direccion_empresa);
+                    cliente.setTEL_EMPRESA(telefono);
+                    cliente.setHORA_ENTRADA(entrada);
+                    cliente.setHORA_SALIDA(salida);
+                    cliente.setTIPO_VIVIENDA(tipo);
+                    cliente.setPROPIETARIO(propietario);
+                    cliente.setVIGENCIA(vigencia);
+                    cliente.setTIEMPO_RESIDENCIA(tiempoResidencia);
+                    cliente.setPERSONA(PERSONA_SELECCIONADA);
+                    int insert = this.SERVICIO.guardarDatosCliente(cliente);
+                    cargarDatosCliente();
                     if (insert == -1) {
                         int x = JOptionPane.showConfirmDialog(rootPane, "Esta persona ya se encuentra registrada como cliente..", "¡Error!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                         if (x == 1) {
                             CLIENTE = this.SERVICIO.cliente(PERSONA_SELECCIONADA);
                             cargarDatosCliente();
                         } else {
-                            cancelar();
+                            limpiarCampos();
                         }
                     } else if (insert == 0) {
                         JOptionPane.showMessageDialog(rootPane, "Los datos no se guardaron correctamente.", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     } else if (insert > 0) {
                         JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente.", "¡Extio!", JOptionPane.INFORMATION_MESSAGE);
-                        this.dispose();
                     }
                 } else if (CLIENTE != null) {
-                    cliente = new Cliente(CLIENTE.getIdCliente(), this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), CLIENTE.getF_REGISTRO(), adc,
-                            CLIENTE.getID_PERSONA(), ingresos, egresos, dependientes, ocupacion, estudios, empresa,
-                            direccion, telefono, entrada, salida, CLIENTE.getSCORE(), CLIENTE.getSTATUS(), 1, PERSONA_SELECCIONADA);
+                    cliente = CLIENTE;
+                    cliente.setSUCURSAL(this.USUARIO.getIdSucursal());
+                    cliente.setUSUARIO(this.USUARIO.getIdUsuario());
+                    cliente.setADC(adc);
+                    cliente.setINGRESOS(ingresos);
+                    cliente.setEGRESOS(egresos);
+                    cliente.setDEPENDIENTES(dependientes);
+                    cliente.setOCUPACION(ocupacion);
+                    cliente.setESTUDIOS(estudios);
+                    cliente.setEMPRESA(empresa);
+                    cliente.setDOMICILIO_EMPRESA(direccion_empresa);
+                    cliente.setTEL_EMPRESA(telefono);
+                    cliente.setHORA_ENTRADA(entrada);
+                    cliente.setHORA_SALIDA(salida);
+                    cliente.setTIPO_VIVIENDA(tipo);
+                    cliente.setPROPIETARIO(propietario);
+                    cliente.setVIGENCIA(vigencia);
+                    cliente.setTIEMPO_RESIDENCIA(tiempoResidencia);
                     int update = this.SERVICIO.actualizarDatos(cliente);
                     switch (update) {
                         case 1:
-                            JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente.", "¡Exito!", JOptionPane.INFORMATION_MESSAGE);
-                            cancelar();                            
-                            this.dispose();
+                            JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente.", "¡Extio!", JOptionPane.INFORMATION_MESSAGE);
+                            cargarDatosCliente();
                             break;
                         case 0:
                             JOptionPane.showMessageDialog(rootPane, "Los datos no se guardaron correctamente.", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -140,6 +177,41 @@ public class ClienteAdd extends javax.swing.JDialog {
             txtSalida.setEditor(ded);
             txtAdc.setText(CLIENTE.getADC());
             txtAdc.requestFocus();
+            comboTipoVivienda.setSelectedIndex(CLIENTE.getTIPO_VIVIENDA());
+            if (CLIENTE.getTIPO_VIVIENDA() > 1) {
+                txtAnosResidencia.setText(String.valueOf(CLIENTE.getTIEMPO_RESIDENCIA()));
+                txtPropietario.setText(CLIENTE.getPROPIETARIO());
+                String vigencia = CLIENTE.getVIGENCIA();
+                txtAno.setText(vigencia.substring(0, 4));
+                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1);
+                txtDia.setText(vigencia.substring(8, 10));
+            }
+            switch (CLIENTE.getSTATUS()) {
+                case 1:
+                    lblEstado.setText("ESTABLE");
+                    break;
+                case 2:
+                    lblEstado.setText("EN MORA");
+                    break;
+                case 3:
+                    lblEstado.setText("NEGACIÓN DE PAGO");
+                    break;
+                default:
+                    lblEstado.setText("N/D");
+                    break;
+            }
+            btnEliminar.setEnabled(true);
+            if (CLIENTE.getACTIVIDAD() == 0) {
+                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red-orb.png")));
+                lblEstado.setText("Deshabilitado");
+                lblActividad.setText("Habilitar");
+                btnEliminar.setBackground(new java.awt.Color(115, 189, 99));
+            } else {
+                lblOrb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/green-orb.png")));
+                lblEstado.setText("Habilitado");
+                lblActividad.setText("Inhabilitar");
+                btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
+            }
         } catch (ParseException ex) {
             System.out.println("views.clientes.cargarDatosCliente() : " + ex);
         }
@@ -286,14 +358,53 @@ public class ClienteAdd extends javax.swing.JDialog {
         txtSalida.setModel(sm2);
         JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
         txtSalida.setEditor(ded);
+        txtDireccion.setText("");
+        txtPropietario.setText("");
+        comboTipoVivienda.setSelectedIndex(0);
+        btnEliminar.setEnabled(false);
+        lblEstado.setText("");
+        lblOrb.setIcon(null);
     }
 
-    private void cancelar() {
-        this.PERSONA_SELECCIONADA = null;
-        this.CLIENTE = null;
-        limpiarCampos();
+    private void frmArrendamientoOnOff(boolean estado) {
+        txtAno.setEnabled(estado);
+        txtDia.setEnabled(estado);
+        comboMeses.setEnabled(estado);
+        txtAnosResidencia.setEnabled(estado);
+        txtPropietario.setEnabled(estado);
+        jLabel18.setEnabled(estado);
+        jLabel28.setEnabled(estado);
+        jLabel21.setEnabled(estado);
+        txtAno.setText("0000");
+        txtDia.setText("00");
+        txtAnosResidencia.setText("0");
+        txtPropietario.setText("");
     }
-    
+
+    private void meses() {
+        Mes[] meses = this.SERVICIO.meses();
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        for (Mes mes : meses) {
+            dcbm.addElement(mes);
+        }
+        comboMeses.setModel(dcbm);
+    }
+
+    private void desactivarCliente() {
+        int x = JOptionPane.showConfirmDialog(rootPane, "¿Desea cambiar el estado de actividad a este cliente?", "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (x == JOptionPane.YES_OPTION) {
+            int act = 0;
+            if (CLIENTE.getACTIVIDAD() == 0) {
+                act = 1;
+            }
+            boolean dc = this.SERVICIO.desactivarCliente(this.CLIENTE, act);
+            if (dc) {
+                JOptionPane.showMessageDialog(rootPane, "Estado de actividad cambiado correctamente.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosCliente();
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -305,11 +416,15 @@ public class ClienteAdd extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        txtIngresos = new javax.swing.JTextField();
+        panelForm = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JPanel();
+        lblActividad = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtIngresos = new javax.swing.JTextField();
         txtEgresos = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtDependientes = new javax.swing.JTextField();
@@ -319,8 +434,6 @@ public class ClienteAdd extends javax.swing.JDialog {
         jLabel20 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         cmbOcupacion = new javax.swing.JComboBox<>();
         txtEmpresa = new javax.swing.JTextField();
@@ -352,6 +465,9 @@ public class ClienteAdd extends javax.swing.JDialog {
         txtAnosResidencia = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         txtPropietario = new javax.swing.JTextField();
+        lblEstad = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblOrb = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -403,10 +519,64 @@ public class ClienteAdd extends javax.swing.JDialog {
         Contenedor.setBackground(new java.awt.Color(255, 245, 250));
         Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Ingrese los datos a continuación", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelForm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Ingrese los datos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
+        });
+        btnGuardar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Guardar datos");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        panelForm.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 50, 120, 50));
+
+        btnCancelar.setBackground(new java.awt.Color(255, 78, 0));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
+        btnCancelar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Cancelar");
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        panelForm.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 120, 120, 50));
+
+        btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
+        btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblActividad.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        lblActividad.setForeground(new java.awt.Color(255, 255, 255));
+        lblActividad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActividad.setText("Inhabilitar");
+        lblActividad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.add(lblActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        panelForm.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 120, 50));
 
         jLabel17.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Egresos:");
+        panelForm.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, -1, 20));
 
         txtIngresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtIngresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -419,34 +589,7 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtIngresosKeyTyped(evt);
             }
         });
-
-        btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardarMouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Guardar datos");
-
-        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
-        btnGuardar.setLayout(btnGuardarLayout);
-        btnGuardarLayout.setHorizontalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(51, 51, 51))
-        );
-        btnGuardarLayout.setVerticalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+        panelForm.add(txtIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 110, 20));
 
         txtEgresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtEgresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -459,9 +602,12 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtEgresosKeyTyped(evt);
             }
         });
+        panelForm.add(txtEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 110, 20));
 
         jLabel18.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Dependientes económicos:");
+        panelForm.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
         txtDependientes.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDependientes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -470,58 +616,44 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtDependientesKeyTyped(evt);
             }
         });
+        panelForm.add(txtDependientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 50, 20));
 
         cmbNivelEstudios.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        panelForm.add(cmbNivelEstudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 180, 20));
 
         jLabel19.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("Empresa: ");
+        panelForm.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
         txtSobrante.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtSobrante.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSobrante.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtSobrante.setEnabled(false);
+        panelForm.add(txtSobrante, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 110, 20));
 
         jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Ocupación:");
+        panelForm.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, 20));
 
         jLabel16.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Ingresos: ");
+        panelForm.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, 20));
 
         jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Nivel de estudios:");
-
-        btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
-        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelarMouseClicked(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Cancelar");
-
-        javax.swing.GroupLayout btnCancelarLayout = new javax.swing.GroupLayout(btnCancelar);
-        btnCancelar.setLayout(btnCancelarLayout);
-        btnCancelarLayout.setHorizontalGroup(
-            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCancelarLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
-        );
-        btnCancelarLayout.setVerticalGroup(
-            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCancelarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel8)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+        panelForm.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, -1, 20));
 
         jLabel24.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Sobrante:");
+        panelForm.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, -1, 20));
 
         cmbOcupacion.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        panelForm.add(cmbOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 180, 20));
 
         txtEmpresa.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -531,9 +663,12 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtEmpresaKeyReleased(evt);
             }
         });
+        panelForm.add(txtEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 760, 20));
 
         jLabel25.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("Dirección:");
+        panelForm.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
         txtDireccion.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -543,9 +678,12 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtDireccionKeyReleased(evt);
             }
         });
+        panelForm.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 760, 20));
 
         jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Teléfono:");
+        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 60, 20));
 
         txtTel.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -554,9 +692,12 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtTelKeyTyped(evt);
             }
         });
+        panelForm.add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 110, 20));
 
         jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Entrada:");
+        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 60, 20));
 
         JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
         txtEntrada.setEditor(de);
@@ -566,9 +707,12 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtEntradaKeyPressed(evt);
             }
         });
+        panelForm.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 110, 20));
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Salida:");
+        panelForm.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 60, 20));
 
         JSpinner.DateEditor de2 = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
         txtSalida.setEditor(de2);
@@ -578,16 +722,21 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtSalidaKeyTyped(evt);
             }
         });
+        panelForm.add(txtSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 110, 20));
 
         jLabel23.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("ADC:");
+        panelForm.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         txtAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAdc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtAdc.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        panelForm.add(txtAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 60, 20));
 
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de vivienda:");
+        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 110, 20));
 
         comboTipoVivienda.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         comboTipoVivienda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "Propia", "Rentada", "Prestada" }));
@@ -596,9 +745,11 @@ public class ClienteAdd extends javax.swing.JDialog {
                 comboTipoViviendaActionPerformed(evt);
             }
         });
+        panelForm.add(comboTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 100, 20));
 
         jLabel26.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel26.setText("Vigencia de renta");
+        panelForm.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, 20));
 
         txtDia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -607,8 +758,10 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtDiaKeyTyped(evt);
             }
         });
+        panelForm.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 80, 20));
 
         comboMeses.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        panelForm.add(comboMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 120, 20));
 
         txtAno.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -620,9 +773,11 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtAnoKeyTyped(evt);
             }
         });
+        panelForm.add(txtAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 80, 20));
 
         jLabel28.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel28.setText("Años de residencia:");
+        panelForm.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, -1, 20));
 
         txtAnosResidencia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtAnosResidencia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -630,9 +785,11 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtAnosResidenciaKeyTyped(evt);
             }
         });
+        panelForm.add(txtAnosResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 200, 60, 20));
 
         jLabel27.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel27.setText("Propietario:");
+        panelForm.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
 
         txtPropietario.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtPropietario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -644,158 +801,19 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtPropietarioKeyTyped(evt);
             }
         });
+        panelForm.add(txtPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 580, 20));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(comboTipoVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel26)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel28)
-                                .addGap(9, 9, 9)
-                                .addComponent(txtAnosResidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addGap(5, 5, 5)
-                                .addComponent(txtPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel18)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtDependientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(24, 24, 24)
-                                    .addComponent(jLabel20)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel21)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbNivelEstudios, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel19)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtEmpresa))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel25)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDireccion))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel23)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtAdc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel16)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(jLabel17)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(txtEgresos, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(50, 50, 50)
-                                    .addComponent(jLabel24)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtSobrante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(71, 71, 71)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(76, 76, 76)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(115, 115, 115)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(txtIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)
-                            .addComponent(txtEgresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSobrante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel23)
-                            .addComponent(txtAdc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(txtDependientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20)
-                            .addComponent(cmbOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21)
-                            .addComponent(cmbNivelEstudios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTipoVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnosResidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+        lblEstad.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        lblEstad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEstad.setText("Estado");
+        panelForm.add(lblEstad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 20));
 
-        Contenedor.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 1000, 250));
+        lblEstado.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        lblEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelForm.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 140, 20));
+        panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 40, 20));
+
+        Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 25, 1000, 260));
 
         PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -811,6 +829,22 @@ public class ClienteAdd extends javax.swing.JDialog {
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        guardarDatos();
+    }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        limpiarCampos();
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        if (CLIENTE != null) {
+            desactivarCliente();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No ha seleccionado una persona existente.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void txtIngresosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresosKeyReleased
         restarIngresosyEgresos();
@@ -829,10 +863,6 @@ public class ClienteAdd extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_txtIngresosKeyTyped
-
-    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-        guardarDatos();
-    }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtEgresosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEgresosKeyReleased
         restarIngresosyEgresos();
@@ -859,10 +889,6 @@ public class ClienteAdd extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_txtDependientesKeyTyped
-
-    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        cancelar();
-    }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyReleased
         String txt = txtEmpresa.getText();
@@ -940,15 +966,15 @@ public class ClienteAdd extends javax.swing.JDialog {
     private void txtPropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPropietarioKeyTyped
         //        int lon = txtPropietario.getText().length();
         //        if (lon >= 18) {
-            //            evt.consume();
-            //            JOptionPane.showMessageDialog(rootPane, "El código CURP contiene únicamente 18 caracteres");
-            //        }
+        //            evt.consume();
+        //            JOptionPane.showMessageDialog(rootPane, "El código CURP contiene únicamente 18 caracteres");
+        //        }
     }//GEN-LAST:event_txtPropietarioKeyTyped
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {                
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -959,7 +985,7 @@ public class ClienteAdd extends javax.swing.JDialog {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClienteAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(() -> {
             Usuario usuario = null;
             Persona persona = null;
@@ -980,6 +1006,7 @@ public class ClienteAdd extends javax.swing.JDialog {
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JPanel btnCancelar;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JPanel btnEliminar;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JComboBox<String> cmbNivelEstudios;
     private javax.swing.JComboBox<String> cmbOcupacion;
@@ -1005,7 +1032,11 @@ public class ClienteAdd extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lblActividad;
+    private javax.swing.JLabel lblEstad;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblOrb;
+    private javax.swing.JPanel panelForm;
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtAdc;
     private javax.swing.JTextField txtAno;
