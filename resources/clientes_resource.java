@@ -98,10 +98,10 @@ public class clientes_resource {
         String[][] personas = null;
         int i = 0;
         try {
-            this.DB.Connect();
             int count = this.contarEmpleados(idSucursal, dato);
             int columnas = 13;
             if (count > 0) {
+                this.DB.Connect();
                 if (!dato.isEmpty()) {
                     //aquí va la búsqueda filtrada                    
                 } else {
@@ -124,8 +124,8 @@ public class clientes_resource {
                     personas[i] = array;
                     i++;
                 }
+                this.DB.Disconnect();
             }
-            this.DB.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
             this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -136,14 +136,17 @@ public class clientes_resource {
     public int contarEmpleados(int idSucursal, String otraCondicion) {
         int count = 0;
         try {
+            this.DB.Connect();
             if (!otraCondicion.isEmpty()) {
-                RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal + " AND " + otraCondicion);                
+                System.out.println("SELECT COUNT(idStaff) FROM personas_empleados WHERE sucursal = " + idSucursal + " AND " + otraCondicion);
+                RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal + " AND " + otraCondicion);
             } else {
                 RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal);
             }
             if (RS.next()) {
                 count = RS.getInt(1);
             }
+            this.DB.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
             this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -473,11 +476,14 @@ public class clientes_resource {
         return f;
     }
 
-    public boolean crearADC(int sucursal, int staff, int agencia, int vacante) {
+    public boolean crearADC(int sucursal, int staff, int agencia, int vacante, String codBar) {
         boolean flag;
         try {
             this.DB.Connect();
             flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+            if (flag) {
+                flag = this.DB.Update("personas_empleados", "codigo = '" + codBar + "'", "idStaff = " + staff);
+            }
             this.DB.Disconnect();
         } catch (Exception ex) {
             flag = false;
@@ -487,13 +493,13 @@ public class clientes_resource {
         return flag;
     }
 
-    public boolean actualizarADC(int idAdc, int sucursal, int staff, int agencia, int vacante) {
+    public boolean actualizarADC(int idAdc, int sucursal, int staff, int agencia, int vacante, String codBar) {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc=" + idAdc);
-            if (flag) {
-                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+            if (flag) {            
+                flag = this.DB.Update("personas_empleados", "codigo = '" + codBar + "'", "idStaff = " + staff);                           
             } else {
                 flag = false;
             }
@@ -526,6 +532,30 @@ public class clientes_resource {
             this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return datos;
+    }
+
+    public int[] idCargos(int tipoCargo) {        
+        int[] array = null;
+        try {
+            this.DB.Connect();            
+            RS = this.DB.Select("COUNT(idCargo)", "tipo_cargo", "tipo =" + tipoCargo);
+            if (RS.next()) {
+                array = new int[RS.getInt(1)];
+                RS = this.DB.Select("idCargo", "tipo_cargo", "tipo =" + tipoCargo);
+                int i = 0;
+                while (RS.next()) {                    
+                    array[i] = RS.getInt(1);
+                    i++;
+                }
+                System.out.println(Arrays.toString(array));
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    
     }
 
 }

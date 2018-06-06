@@ -242,7 +242,7 @@ public class clientes_service {
             return this.recurso.guardarDatosStaff(staff.getPERSONA().getIdPersona(), staff.getCARGO(), staff.getESTUDIOS(), staff.getDEPARTAMENTO(),
                     staff.getSUCURSAL(), staff.getSALARIO(), staff.getENTRADA(), staff.getSALIDA(),
                     staff.getDIAS_LABORALES(), staff.getCASO_EMERGENCIA(), staff.getFECHA_INCORPORACION(), staff.getEFECTIVO(),
-                    this.codigoStaff(staff), staff.getUSUARIO());
+                    this.codigoStaff(staff, null), staff.getUSUARIO());
 
         } else {
             return 0;
@@ -258,14 +258,14 @@ public class clientes_service {
             }
             return this.recurso.actualizarDatosStaff(nuevo.getID_STAFF(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),
-                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), this.codigoStaff(nuevo), nuevo.getUSUARIO());
+                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), this.codigoStaff(nuevo, null), nuevo.getUSUARIO());
 
         } else {
             return false;
         }
     }
 
-    private String codigoStaff(Empleado emp) {
+    private String codigoStaff(Empleado emp, Adc adc) {
         String codigo = "";
         if (emp != null) {
             if (emp.getSUCURSAL() < 10) {
@@ -280,21 +280,38 @@ public class clientes_service {
             }
 
             int tipoCargo = Integer.valueOf(this.recurso.cargo(emp.getCARGO())[2]);
-            int countEmpleados = this.recurso.contarEmpleados(emp.getSUCURSAL(), "cargo = " + tipoCargo);//contar empleados del mismo tipo
+            int[] idCargos = this.recurso.idCargos(tipoCargo);
+            String condicion = "(";
+            for (int i = 0; i < idCargos.length; i++) {
+                condicion += "cargo = " + idCargos[i];
+                if (i+1 < idCargos.length) {
+                    condicion += " OR ";
+                }
+            }
+            condicion += ")";
+            int countEmpleados = this.recurso.contarEmpleados(emp.getSUCURSAL(), condicion);//contar empleados del mismo tipo
             if (tipoCargo == 1 && emp.getCARGO() == 5) {
-                codigo += "Z";
+                codigo += "Z" + adc.getAGENCIA() + "-";
+                if (adc.getVACANTE() < 10) {
+                    codigo += "0";
+                }
+                codigo += adc.getVACANTE();
+
             } else {
-                if (tipoCargo == 1 && emp.getCARGO() != 5) {
+                if (tipoCargo == 1) {
                     codigo += "O";
                 } else if (tipoCargo == 0) {
                     codigo += "A";
                 }
 
-                if (countEmpleados < 100) {
+                if (countEmpleados < 10) {
+                    codigo += "00" + (countEmpleados + 1);
+                } else if (countEmpleados < 100 && countEmpleados > 9) {
                     codigo += "0" + (countEmpleados + 1);
                 }
+                //01C-O01300620
             }
-            codigo += emp.getFECHA_INCORPORACION().substring(8, 10)+emp.getFECHA_INCORPORACION().substring(5, 7)+emp.getFECHA_INCORPORACION().substring(0, 2);
+            codigo += "-" + emp.getFECHA_INCORPORACION().substring(8, 10) + emp.getFECHA_INCORPORACION().substring(5, 7) + emp.getFECHA_INCORPORACION().substring(0, 2);
         }
         return codigo;
     }
@@ -333,10 +350,10 @@ public class clientes_service {
         }
     }
 
-    public String actualizarADC(Adc ADC, int sucursal, int staff, int agencia, int vacante) {
+    public String actualizarADC(Adc ADC, int sucursal, int staff, int agencia, int vacante, Empleado emp) {
         String mensaje;
         if (ADC != null) {
-            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, staff, agencia, vacante);
+            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, staff, agencia, vacante, this.codigoStaff(emp, ADC));
             if (b) {
                 mensaje = "Datos de ADC actualizados correctamente";
             } else {
@@ -348,10 +365,11 @@ public class clientes_service {
         return mensaje;
     }
 
-    public String crearADC(int sucursal, int staff, int agencia, int vacante) {
+    public String crearADC(int sucursal, int staff, int agencia, int vacante, Empleado emp) {
         String mensaje;
         if (sucursal > 0 && staff > 0 && agencia > 0 && vacante > 0) {
-            boolean b = this.recurso.crearADC(sucursal, staff, agencia, vacante);
+            Adc adc = new Adc(0, sucursal, staff, agencia, vacante, 0);
+            boolean b = this.recurso.crearADC(sucursal, staff, agencia, vacante, this.codigoStaff(emp, adc));            
             if (b) {
                 mensaje = "Datos de ADC insertados correctamente";
             } else {

@@ -196,10 +196,10 @@ public class Empleados extends javax.swing.JDialog {
                     String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
                     if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
 //creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante, this.EMPLEADO);
                     } else if (this.ADC != null && vacante > 0) {
 //actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante, this.EMPLEADO);
                     }
                     //mostramos el mensaje retornado por el controlador
                     JOptionPane.showMessageDialog(rootPane, mensaje);
