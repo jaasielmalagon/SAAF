@@ -72,12 +72,13 @@ public class clientes_service {
     }
 
     public Empleado empleado(int idPersona) {
-        Empleado staff = null;
+        Empleado empleado = null;
         String[] array = this.recurso.datosEmpleado(idPersona);
         if (array != null) {
-            //staff = new Empleado(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
+            //empleado = new Empleado(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
             //        Integer.valueOf(array[5]), Integer.valueOf(array[6]), array[7], array[8], array[9], array[10], array[11], Integer.parseInt(array[12]), array[13], this.persona(Integer.valueOf(array[5]), Integer.valueOf(array[1])));
-            staff = new Empleado(Integer.valueOf(array[0]),
+            empleado = new Empleado(
+                    Integer.valueOf(array[0]),
                     Integer.valueOf(array[1]),
                     Integer.valueOf(array[2]),
                     array[3],
@@ -94,7 +95,7 @@ public class clientes_service {
                     Integer.valueOf(array[14]),
                     array[15], this.persona(Integer.valueOf(array[1]), idPersona));
         }
-        return staff;
+        return empleado;
     }
 
     public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
@@ -232,24 +233,24 @@ public class clientes_service {
         return dcbm;
     }
 
-    public int guardarDatosStaff(Empleado staff) {
-        if (staff != null) {
-            //System.out.println(staff.toString());
-            int guion = staff.getDIAS_LABORALES().indexOf("-");
+    public int guardarDatosEmpleado(Empleado empleado, int agencia, int vacante) {
+        if (empleado != null) {
+            //System.out.println(empleado.toString());
+            int guion = empleado.getDIAS_LABORALES().indexOf("-");
             if (guion >= 1) {
-                staff.setDIAS_LABORALES(staff.getDIAS_LABORALES().substring(0, staff.getDIAS_LABORALES().length() - 1));
+                empleado.setDIAS_LABORALES(empleado.getDIAS_LABORALES().substring(0, empleado.getDIAS_LABORALES().length() - 1));
             }
-            return this.recurso.guardarDatosStaff(staff.getPERSONA().getIdPersona(), staff.getCARGO(), staff.getESTUDIOS(), staff.getDEPARTAMENTO(),
-                    staff.getSUCURSAL(), staff.getSALARIO(), staff.getENTRADA(), staff.getSALIDA(),
-                    staff.getDIAS_LABORALES(), staff.getCASO_EMERGENCIA(), staff.getFECHA_INCORPORACION(), staff.getEFECTIVO(),
-                    this.codigoStaff(staff, null), staff.getUSUARIO());
+            return this.recurso.guardarDatosStaff(empleado.getPERSONA().getIdPersona(), empleado.getCARGO(), empleado.getESTUDIOS(), empleado.getDEPARTAMENTO(),
+                    empleado.getSUCURSAL(), empleado.getSALARIO(), empleado.getENTRADA(), empleado.getSALIDA(),
+                    empleado.getDIAS_LABORALES(), empleado.getCASO_EMERGENCIA(), empleado.getFECHA_INCORPORACION(), empleado.getEFECTIVO(),
+                    this.codigoStaff(empleado, agencia, vacante), empleado.getUSUARIO());
 
         } else {
             return 0;
         }
     }
 
-    public boolean actualizarDatosStaff(Empleado nuevo) {
+    public boolean actualizarDatosEmpleado(Empleado nuevo, int agencia, int vacante) {
         if (nuevo != null) {
 //            System.out.println(nuevo.toString());
             int guion = nuevo.getDIAS_LABORALES().indexOf("-");
@@ -258,14 +259,14 @@ public class clientes_service {
             }
             return this.recurso.actualizarDatosStaff(nuevo.getID_STAFF(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),
-                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), this.codigoStaff(nuevo, null), nuevo.getUSUARIO());
+                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), this.codigoStaff(nuevo, agencia, vacante), nuevo.getUSUARIO());
 
         } else {
             return false;
         }
     }
 
-    private String codigoStaff(Empleado emp, Adc adc) {
+    private String codigoStaff(Empleado emp, int agencia, int vacante) {
         String codigo = "";
         if (emp != null) {
             if (emp.getSUCURSAL() < 10) {
@@ -281,21 +282,21 @@ public class clientes_service {
 
             int tipoCargo = Integer.valueOf(this.recurso.cargo(emp.getCARGO())[2]);
             int[] idCargos = this.recurso.idCargos(tipoCargo);
-            String condicion = "(";
+            String condicion = "idStaff != " + emp.getID_STAFF() + " AND (";
             for (int i = 0; i < idCargos.length; i++) {
                 condicion += "cargo = " + idCargos[i];
-                if (i+1 < idCargos.length) {
+                if (i + 1 < idCargos.length) {
                     condicion += " OR ";
                 }
             }
             condicion += ")";
             int countEmpleados = this.recurso.contarEmpleados(emp.getSUCURSAL(), condicion);//contar empleados del mismo tipo
             if (tipoCargo == 1 && emp.getCARGO() == 5) {
-                codigo += "Z" + adc.getAGENCIA() + "-";
-                if (adc.getVACANTE() < 10) {
+                codigo += "Z" + agencia + "-";
+                if (vacante < 10) {
                     codigo += "0";
                 }
-                codigo += adc.getVACANTE();
+                codigo += vacante;
 
             } else {
                 if (tipoCargo == 1) {
@@ -311,7 +312,7 @@ public class clientes_service {
                 }
                 //01C-O01300620
             }
-            codigo += "-" + emp.getFECHA_INCORPORACION().substring(8, 10) + emp.getFECHA_INCORPORACION().substring(5, 7) + emp.getFECHA_INCORPORACION().substring(0, 2);
+            codigo += "-" + emp.getFECHA_INCORPORACION().substring(8, 10) + emp.getFECHA_INCORPORACION().substring(5, 7) + emp.getFECHA_INCORPORACION().substring(2, 4);
         }
         return codigo;
     }
@@ -350,10 +351,10 @@ public class clientes_service {
         }
     }
 
-    public String actualizarADC(Adc ADC, int sucursal, int staff, int agencia, int vacante, Empleado emp) {
+    public String actualizarADC(Adc ADC, int sucursal, int empleado, int agencia, int vacante) {
         String mensaje;
         if (ADC != null) {
-            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, staff, agencia, vacante, this.codigoStaff(emp, ADC));
+            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, empleado, agencia, vacante);
             if (b) {
                 mensaje = "Datos de ADC actualizados correctamente";
             } else {
@@ -365,27 +366,26 @@ public class clientes_service {
         return mensaje;
     }
 
-    public String crearADC(int sucursal, int staff, int agencia, int vacante, Empleado emp) {
+    public String crearADC(int sucursal, int empleado, int agencia, int vacante) {
         String mensaje;
-        if (sucursal > 0 && staff > 0 && agencia > 0 && vacante > 0) {
-            Adc adc = new Adc(0, sucursal, staff, agencia, vacante, 0);
-            boolean b = this.recurso.crearADC(sucursal, staff, agencia, vacante, this.codigoStaff(emp, adc));            
+        if (sucursal > 0 && empleado > 0 && agencia > 0 && vacante > 0) {
+            boolean b = this.recurso.crearADC(sucursal, empleado, agencia, vacante);
             if (b) {
                 mensaje = "Datos de ADC insertados correctamente";
             } else {
                 mensaje = "Algo falló al insertar los datos de ADC";
             }
         } else {
-////            System.out.println(sucursal + "-" + staff + "-" + agencia + "-" + vacante);
+////            System.out.println(sucursal + "-" + empleado + "-" + agencia + "-" + vacante);
             mensaje = "Alguno de los datos se encuentra vacío o es incorrecto.";
         }
         return mensaje;
     }
 
-    public Adc adc(int idSucursal, int id_staff) {
+    public Adc adc(int idSucursal, int id_empleado) {
         Adc adc = null;
-        if (idSucursal > 0 && id_staff > 0) {
-            int[] val = this.recurso.datosAdc(idSucursal, id_staff);
+        if (idSucursal > 0 && id_empleado > 0) {
+            int[] val = this.recurso.datosAdc(idSucursal, id_empleado);
             if (val != null) {
                 adc = new Adc(val[0], val[1], val[2], val[3], val[4], val[5]);
             }

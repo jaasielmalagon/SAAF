@@ -73,9 +73,9 @@ public class Empleados extends javax.swing.JDialog {
     private void llenarTabla(String dato) {
         if (!dato.isEmpty()) {
             tablaClientes = this.SERVICIO.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal(), dato);
-        }else{
+        } else {
             tablaClientes = this.SERVICIO.tablaEmpleados(tablaClientes, this.USUARIO.getIdSucursal(), dato);
-        }        
+        }
     }
 
     private void cargarDatosEmpleado() {
@@ -148,6 +148,17 @@ public class Empleados extends javax.swing.JDialog {
             salida = split[3];//del formato completo toma sólo la hora
             String fecha = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
             int efectivo;//si no marcamos la casilla para portar efectivo se toma como 0
+
+            int agencia = 0;//número de agencia
+            int vacante = 0;//número de vacante de la agencia
+            try {
+                //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
+                agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
+                //convertimos el numero de vacante a tipo int si existe alguna                
+                vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
+            } catch (Exception ex) {
+//                System.out.println("views.Empleados.guardarDatos() : " + ex);
+            }
             if ("".equals(txtMontoPortar.getText())) {
                 efectivo = 0;
             } else {
@@ -160,7 +171,7 @@ public class Empleados extends javax.swing.JDialog {
                 this.EMPLEADO = new Empleado(0, this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), "",
                         PERSONA_SELECCIONADA.getIdPersona(), cargo, estudios, departamento, salario, entrada,
                         salida, dias, emergencia, fecha, efectivo, "", PERSONA_SELECCIONADA);//creamos un objeto Empleado
-                idEmpleado = this.SERVICIO.guardarDatosStaff(this.EMPLEADO);//lo enviamos para ser guardado
+                idEmpleado = this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, agencia, vacante);//lo enviamos para ser guardado
             } else {//si tenemos un objeto Empleado entonces modificamos sus valores
                 idEmpleado = this.EMPLEADO.getID_STAFF();
                 this.EMPLEADO.setSUCURSAL(this.USUARIO.getIdSucursal());
@@ -176,18 +187,8 @@ public class Empleados extends javax.swing.JDialog {
                 this.EMPLEADO.setFECHA_INCORPORACION(fecha);
                 this.EMPLEADO.setEFECTIVO(efectivo);
 //enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
-                updated = this.SERVICIO.actualizarDatosStaff(this.EMPLEADO);
+                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, agencia, vacante);
 //            System.out.println(this.EMPLEADO.toString());
-            }
-            int agencia = 0;//número de agencia
-            int vacante = 0;
-            try {
-                //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
-                agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
-                //convertimos el numero de vacante a tipo int si existe alguna                
-                vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
-            } catch (Exception ex) {
-                System.out.println("views.Empleados.guardarDatos() : " + ex);
             }
 
             if (updated == true || idEmpleado > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
@@ -196,10 +197,10 @@ public class Empleados extends javax.swing.JDialog {
                     String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
                     if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
 //creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante, this.EMPLEADO);
+                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
                     } else if (this.ADC != null && vacante > 0) {
 //actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante, this.EMPLEADO);
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
                     }
                     //mostramos el mensaje retornado por el controlador
                     JOptionPane.showMessageDialog(rootPane, mensaje);
@@ -262,7 +263,7 @@ public class Empleados extends javax.swing.JDialog {
         String dias = this.EMPLEADO.getDIAS_LABORALES();
         String[] diasSplit = dias.split("-");
         int splits = diasSplit.length;
-        System.out.println(Arrays.toString(diasSplit));
+//        System.out.println(Arrays.toString(diasSplit));
         for (int i = 0; i < splits; i++) {
             if ("Lunes".equals(diasSplit[i])) {
                 lunes.setSelected(true);
@@ -356,7 +357,7 @@ public class Empleados extends javax.swing.JDialog {
         SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
         txtSalida.setModel(sm2);
         JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
-        txtSalida.setEditor(ded);        
+        txtSalida.setEditor(ded);
     }
 
     private void cancelar() {

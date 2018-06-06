@@ -65,8 +65,9 @@ public class clientes_resource {
             this.DB.Connect();
             RS = this.DB.Select("*", "personas_empleados", "idPersona = " + idPersona + " LIMIT 1");
             if (RS.next()) {
-                array = new String[RS.getFetchSize()];
-                for (int i = 0; i < RS.getFetchSize(); i++) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
                     array[i] = RS.getString(i + 1);
                 }
 //                array[0] = RS.getString(1);
@@ -138,7 +139,7 @@ public class clientes_resource {
         try {
             this.DB.Connect();
             if (!otraCondicion.isEmpty()) {
-                System.out.println("SELECT COUNT(idStaff) FROM personas_empleados WHERE sucursal = " + idSucursal + " AND " + otraCondicion);
+//                System.out.println("SELECT COUNT(idStaff) FROM personas_empleados WHERE sucursal = " + idSucursal + " AND " + otraCondicion);
                 RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal + " AND " + otraCondicion);
             } else {
                 RS = this.DB.Select("COUNT(idStaff)", "personas_empleados", "sucursal = " + idSucursal);
@@ -348,7 +349,7 @@ public class clientes_resource {
                 array[0] = RS.getString(1);
                 array[1] = RS.getString(2);
                 array[2] = RS.getString(3);
-                System.out.println(Arrays.toString(array));
+//                System.out.println(Arrays.toString(array));
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
@@ -476,13 +477,13 @@ public class clientes_resource {
         return f;
     }
 
-    public boolean crearADC(int sucursal, int staff, int agencia, int vacante, String codBar) {
+    public boolean crearADC(int sucursal, int staff, int agencia, int vacante) {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idStaff = " + staff);
             if (flag) {
-                flag = this.DB.Update("personas_empleados", "codigo = '" + codBar + "'", "idStaff = " + staff);
+                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
             }
             this.DB.Disconnect();
         } catch (Exception ex) {
@@ -493,15 +494,13 @@ public class clientes_resource {
         return flag;
     }
 
-    public boolean actualizarADC(int idAdc, int sucursal, int staff, int agencia, int vacante, String codBar) {
+    public boolean actualizarADC(int idAdc, int sucursal, int staff, int agencia, int vacante) {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
-            if (flag) {            
-                flag = this.DB.Update("personas_empleados", "codigo = '" + codBar + "'", "idStaff = " + staff);                           
-            } else {
-                flag = false;
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc = " + idAdc + " OR idStaff = " + staff);
+            if (flag) {
+                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
             }
             this.DB.Disconnect();
         } catch (Exception ex) {
@@ -534,20 +533,20 @@ public class clientes_resource {
         return datos;
     }
 
-    public int[] idCargos(int tipoCargo) {        
+    public int[] idCargos(int tipoCargo) {
         int[] array = null;
         try {
-            this.DB.Connect();            
+            this.DB.Connect();
             RS = this.DB.Select("COUNT(idCargo)", "tipo_cargo", "tipo =" + tipoCargo);
             if (RS.next()) {
                 array = new int[RS.getInt(1)];
                 RS = this.DB.Select("idCargo", "tipo_cargo", "tipo =" + tipoCargo);
                 int i = 0;
-                while (RS.next()) {                    
+                while (RS.next()) {
                     array[i] = RS.getInt(1);
                     i++;
                 }
-                System.out.println(Arrays.toString(array));
+//                System.out.println(Arrays.toString(array));
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
@@ -555,7 +554,7 @@ public class clientes_resource {
             this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return array;
-    
+
     }
 
 }
