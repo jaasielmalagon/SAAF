@@ -481,10 +481,10 @@ public class clientes_resource {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idStaff = " + staff);
-            if (flag) {
+            //flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idStaff = " + staff);
+            //if (flag) {
                 flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
-            }
+            //}
             this.DB.Disconnect();
         } catch (Exception ex) {
             flag = false;
@@ -498,9 +498,13 @@ public class clientes_resource {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc = " + idAdc + " OR idStaff = " + staff);
+            System.out.println(idAdc);
+            flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc = " + idAdc);
             if (flag) {
-                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+                System.out.println(staff+"-"+sucursal+"-"+agencia+"-"+vacante);
+                flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, 
+                        "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
+                System.out.println("se actualizó el adc");
             }
             this.DB.Disconnect();
         } catch (Exception ex) {
