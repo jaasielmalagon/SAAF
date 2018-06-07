@@ -112,7 +112,7 @@ public class TableCreator {
         return columnModel;
     }
     
-    public TableColumnModel noEditable(JTable tabla) {
+    public TableColumnModel noResizable(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
         if (columnModel.getColumnCount() > 0) {                        
             for (int i = 0; i < tabla.getColumnCount(); i++) {

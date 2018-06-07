@@ -1,6 +1,5 @@
 package services;
 
-import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -74,9 +73,7 @@ public class clientes_service {
     public Empleado empleado(int idPersona) {
         Empleado empleado = null;
         String[] array = this.recurso.datosEmpleado(idPersona);
-        if (array != null) {
-            //empleado = new Empleado(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]), Integer.valueOf(array[3]), Integer.valueOf(array[4]),
-            //        Integer.valueOf(array[5]), Integer.valueOf(array[6]), array[7], array[8], array[9], array[10], array[11], Integer.parseInt(array[12]), array[13], this.persona(Integer.valueOf(array[5]), Integer.valueOf(array[1])));
+        if (array != null) {            
             empleado = new Empleado(
                     Integer.valueOf(array[0]),
                     Integer.valueOf(array[1]),
@@ -100,7 +97,12 @@ public class clientes_service {
 
     public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
         String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo", "Estudios", "Departamento", "Contacto", "Dias Laborales"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos);
+        DefaultTableModel dtm = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         String[][] array;
         if (dato.isEmpty()) {
             array = this.recurso.datosEmpleados(idSucursal, dato);
@@ -133,7 +135,12 @@ public class clientes_service {
 
     public JTable tablaPersonas(JTable tabla, int idSucursal, String dato) {
         String titulos[] = {"Folio", "Nombre", "Apellidos", "CURP", "OCR", "Teléfono", "Celular", "Sexo"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos);
+        DefaultTableModel dtm = new DefaultTableModel(null, titulos){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         String[][] array;
         if (dato.isEmpty()) {
             array = this.recurso.personas(idSucursal, "");

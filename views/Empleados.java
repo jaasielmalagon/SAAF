@@ -93,7 +93,7 @@ public class Empleados extends javax.swing.JDialog {
                 }
             }
             lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
-            txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
+            //txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
         } else {
             desactivarPanelAdc();
         }
@@ -738,7 +738,7 @@ public class Empleados extends javax.swing.JDialog {
         panelFormulario.add(lblDatosde, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 17, -1, -1));
 
         lblNombrePersona.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        panelFormulario.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 17, 706, -1));
+        panelFormulario.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 17, 706, 10));
 
         cmbCargo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         cmbCargo.addActionListener(new java.awt.event.ActionListener() {
