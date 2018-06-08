@@ -6,9 +6,9 @@ package objects;
  */
 public class Empleado {
 
-    private int ID_STAFF, ID_PERSONA, CARGO, ESTUDIOS, DEPARTAMENTO, SUCURSAL, SALARIO, EFECTIVO, USUARIO;
+    private int ID_STAFF = 0, ID_PERSONA = 0, CARGO = 0, ESTUDIOS = 0, DEPARTAMENTO = 0, SUCURSAL = 0, SALARIO = 0, EFECTIVO = 0, USUARIO = 0;
     private String ENTRADA, SALIDA, DIAS_LABORALES, CASO_EMERGENCIA, FECHA_INCORPORACION, CODIGO, REGISTRO;
-    private Persona PERSONA;
+    private Persona PERSONA = null;
 
     public Empleado(int ID_STAFF, int SUCURSAL, int USUARIO, String REGISTRO, int ID_PERSONA, int CARGO, int ESTUDIOS, int DEPARTAMENTO, int SALARIO, String ENTRADA, String SALIDA, String DIAS_LABORALES, String CASO_EMERGENCIA, String FECHA_INCORPORACION, int EFECTIVO, String CODIGO, Persona PERSONA) {
         this.ID_STAFF = ID_STAFF;
@@ -29,7 +29,11 @@ public class Empleado {
         this.REGISTRO = REGISTRO;
         this.PERSONA = PERSONA;
     }
-
+    
+    public Empleado(){
+        
+    }
+    
     public int getID_STAFF() {
         return ID_STAFF;
     }
