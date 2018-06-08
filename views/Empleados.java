@@ -81,7 +81,7 @@ public class Empleados extends javax.swing.JDialog {
     private void cargarDatosEmpleado() {
         if (PERSONA_SELECCIONADA != null) {
             lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
-            this.EMPLEADO = this.SERVICIO.empleado(PERSONA_SELECCIONADA.getIdPersona());
+            this.EMPLEADO = this.SERVICIO.getEmpleado(PERSONA_SELECCIONADA.getIdPersona());
             if (this.EMPLEADO == null) {
                 JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + PERSONA_SELECCIONADA.toString());
                 limpiarCampos();
@@ -129,7 +129,7 @@ public class Empleados extends javax.swing.JDialog {
 
     private void cargarDatos() {
         try {
-            this.ADC = this.SERVICIO.adc(this.USUARIO.getIdSucursal(), this.EMPLEADO.getID_STAFF());
+            this.ADC = this.SERVICIO.adc(this.USUARIO.getIdSucursal(), this.EMPLEADO.getID());
             txtSueldo.setText(String.valueOf(this.EMPLEADO.getSALARIO()));
             setSelectedEstudios(this.EMPLEADO.getESTUDIOS());
             setSelectedDepartamento(this.EMPLEADO.getDEPARTAMENTO());
@@ -236,7 +236,6 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private Empleado creaEmpleado() {
-        Empleado emp = null;
         String dias = this.diasLaborales();
         int salario = Integer.valueOf(txtSueldo.getText());
         int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
@@ -256,72 +255,43 @@ public class Empleados extends javax.swing.JDialog {
         } else {
             efectivo = Integer.valueOf(txtMontoPortar.getText());
         }
-        emp = new Empleado();
-        emp.setSUCURSAL(this.USUARIO.getIdSucursal());
-        emp.setUSUARIO(this.USUARIO.getIdUsuario());
-        emp.setID_PERSONA(PERSONA_SELECCIONADA.getIdPersona());
-        emp.setCARGO(cargo);
-        emp.setESTUDIOS(estudios);
-        emp.setDEPARTAMENTO(departamento);
-        emp.setSALARIO(salario);
-        emp.setENTRADA(entrada);
-        emp.setSALIDA(salida);
-        emp.setDIAS_LABORALES(dias);
-        emp.setCASO_EMERGENCIA(emergencia);
-        emp.setFECHA_INCORPORACION(fecha);
-        emp.setEFECTIVO(efectivo);
-        emp.setPERSONA(PERSONA_SELECCIONADA);
-        return emp;
+        return this.SERVICIO.crearEmpleado(USUARIO, PERSONA_SELECCIONADA, cargo, estudios, departamento, salario, entrada, salida, dias, emergencia, fecha, efectivo);
+    }
+
+    private Adc creaAdc() {
+        Object agencia = cmbAgencia.getSelectedItem();//número de agencia
+        Object vacante = cmbVacante.getSelectedItem();//número de vacante de la agencia        
+        return this.SERVICIO.crearAdc(USUARIO,EMPLEADO,agencia,vacante);
     }
 
     private void guardarDatos() {
         try {
-            String mensaje = "COMPLETADO";
-
-            int agencia = 0;//número de agencia
-            int vacante = 0;//número de vacante de la agencia
-            try {
-                //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
-                agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
-                //convertimos el numero de vacante a tipo int si existe alguna                
-                vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
-            } catch (Exception ex) {
-//                System.out.println("views.Empleados.guardarDatos() : " + ex);
-            }
-
-            int idEmpleado = 0;//id obtenido de la última inserción de un Empleado a la BD
+            String mensaje = "COMPLETADO";//SI ESTE MENSAJE NO SE CAMBIA ES QUE TODO SALIÓ MAL :(                       
             boolean updated = false;
             if (this.EMPLEADO == null) {//si no tenemos un objeto Empleado entonces...
                 this.EMPLEADO = this.creaEmpleado();//creamos un objeto Empleado
-                idEmpleado = this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, agencia, vacante);//lo enviamos para ser guardado
-            } else {//si tenemos un objeto Empleado entonces modificamos sus valores
-                Empleado nuevoEmpleado = this.creaEmpleado();
-                idEmpleado = this.EMPLEADO.getID_STAFF();
-                this.EMPLEADO.setSUCURSAL(this.USUARIO.getIdSucursal());
-                this.EMPLEADO.setUSUARIO(this.USUARIO.getIdUsuario());
-                this.EMPLEADO.setCARGO(nuevoEmpleado.getCARGO());
-                this.EMPLEADO.setESTUDIOS(nuevoEmpleado.getESTUDIOS());
-                this.EMPLEADO.setDEPARTAMENTO(nuevoEmpleado.getDEPARTAMENTO());
-                this.EMPLEADO.setSALARIO(nuevoEmpleado.);
-                this.EMPLEADO.setENTRADA(entrada);
-                this.EMPLEADO.setSALIDA(salida);
-                this.EMPLEADO.setDIAS_LABORALES(dias);
-                this.EMPLEADO.setCASO_EMERGENCIA(emergencia);
-                this.EMPLEADO.setFECHA_INCORPORACION(fecha);
-                this.EMPLEADO.setEFECTIVO(efectivo);
-//enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
-                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, agencia, vacante);
+                //lo enviamos para ser guardado y le asignamos el valor del id obtenido al empleado que estamos creando
+                this.EMPLEADO.setID(this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, this.creaAdc()));
+            } else {
+//si tenemos un objeto Empleado previamente guardado y encontrado en la BD entonces modificamos sus valores
+                Empleado nuevoEmpleado = this.creaEmpleado();//lo creamos con los datos ingresados actualmente
+                nuevoEmpleado.setID(this.EMPLEADO.getID());
+                nuevoEmpleado.setSUCURSAL(this.USUARIO.getIdSucursal());
+                nuevoEmpleado.setUSUARIO(this.USUARIO.getIdUsuario());
+                this.EMPLEADO = nuevoEmpleado;//lo pasamos a la variable global tipo Empleado
+                //enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
+                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, this.creaAdc());
             }
 
-            if (updated == true || idEmpleado > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
+            if (updated == true || this.EMPLEADO.getID() > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
 //si tenemos una agencia seleccionada y el cargo es ADC entonces            
-                if (cargo == 5 && agencia > 0) {//cargo 5 = ADC |||| agencia = 1,2,3,4, etc... según la BD
-                    if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
+                if (this.EMPLEADO.getCARGO() == 5) {//cargo 5 = ADC
+                    if (this.ADC == null) {//si el Empleado aún no es ADC
 //creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
-                    } else if (this.ADC != null && vacante > 0) {
+                        mensaje = this.SERVICIO.crearADC(this.creaAdc());
+                    } else {
 //actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.creaAdc());
                     }
                 } else {
                     mensaje = "Datos laborales guardados correctamente";
@@ -1026,7 +996,7 @@ public class Empleados extends javax.swing.JDialog {
     private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
         int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
         if (cargo == 5) {
-            panelAdc.setVisible(true);
+            cmbAgencia.setEnabled(true);
             cmbAgencia.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
         } else {
             desactivarPanelAdc();
@@ -1163,4 +1133,5 @@ public class Empleados extends javax.swing.JDialog {
     private javax.swing.JTextField txtSueldo;
     private javax.swing.JCheckBox viernes;
     // End of variables declaration//GEN-END:variables
+    
 }

@@ -12,6 +12,7 @@ import objects.Persona;
 import objects.Empleado;
 import objects.Mes;
 import objects.TableCreator;
+import objects.Usuario;
 import resources.clientes_resource;
 
 /**
@@ -24,6 +25,41 @@ public class clientes_service {
 
     public clientes_service(String modulo) {
         this.recurso = new clientes_resource(modulo);
+    }
+
+    public Adc crearAdc(Usuario USUARIO, Empleado EMPLEADO, Object agencia, Object vacante) {
+        Adc adc = null;
+        try {
+//convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0            
+//convertimos el numero de vacante a tipo int si existe alguna                                        
+            adc = new Adc();
+            adc.setID_EMPLEADO(EMPLEADO.getID());
+            adc.setSUCURSAL(USUARIO.getIdSucursal());
+            adc.setAGENCIA(((Lista) agencia).getID());
+            adc.setVACANTE(((Lista) vacante).getID());
+        } catch (Exception ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return adc;
+    }
+
+    public Empleado crearEmpleado(Usuario USUARIO, Persona PERSONA_SELECCIONADA, int cargo, int estudios, int departamento, int salario, String entrada, String salida, String dias, String emergencia, String fecha, int efectivo) {
+        Empleado emp = new Empleado();
+        emp.setSUCURSAL(USUARIO.getIdSucursal());
+        emp.setUSUARIO(USUARIO.getIdUsuario());
+        emp.setID_PERSONA(PERSONA_SELECCIONADA.getIdPersona());
+        emp.setCARGO(cargo);
+        emp.setESTUDIOS(estudios);
+        emp.setDEPARTAMENTO(departamento);
+        emp.setSALARIO(salario);
+        emp.setENTRADA(entrada);
+        emp.setSALIDA(salida);
+        emp.setDIAS_LABORALES(dias);
+        emp.setCASO_EMERGENCIA(emergencia);
+        emp.setFECHA_INCORPORACION(fecha);
+        emp.setEFECTIVO(efectivo);
+        emp.setPERSONA(PERSONA_SELECCIONADA);
+        return emp;
     }
 
     public Cliente cliente(Persona persona) {
@@ -70,10 +106,10 @@ public class clientes_service {
         return personas;
     }
 
-    public Empleado empleado(int idPersona) {
+    public Empleado getEmpleado(int idPersona) {
         Empleado empleado = null;
         String[] array = this.recurso.datosEmpleado(idPersona);
-        if (array != null) {            
+        if (array != null) {
             empleado = new Empleado(
                     Integer.valueOf(array[0]),
                     Integer.valueOf(array[1]),
@@ -135,7 +171,7 @@ public class clientes_service {
 
     public JTable tablaPersonas(JTable tabla, int idSucursal, String dato) {
         String titulos[] = {"Folio", "Nombre", "Apellidos", "CURP", "OCR", "Teléfono", "Celular", "Sexo"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos){
+        DefaultTableModel dtm = new DefaultTableModel(null, titulos) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -240,7 +276,7 @@ public class clientes_service {
         return dcbm;
     }
 
-    public int guardarDatosEmpleado(Empleado empleado, int agencia, int vacante) {
+    public int guardarDatosEmpleado(Empleado empleado, Adc adc) {
         if (empleado != null) {
             //System.out.println(empleado.toString());
             int guion = empleado.getDIAS_LABORALES().indexOf("-");
@@ -250,23 +286,24 @@ public class clientes_service {
             return this.recurso.guardarDatosStaff(empleado.getPERSONA().getIdPersona(), empleado.getCARGO(), empleado.getESTUDIOS(), empleado.getDEPARTAMENTO(),
                     empleado.getSUCURSAL(), empleado.getSALARIO(), empleado.getENTRADA(), empleado.getSALIDA(),
                     empleado.getDIAS_LABORALES(), empleado.getCASO_EMERGENCIA(), empleado.getFECHA_INCORPORACION(), empleado.getEFECTIVO(),
-                    this.codigoStaff(empleado, agencia, vacante), empleado.getUSUARIO());
+                    this.codigoStaff(empleado, adc.getAGENCIA(), adc.getVACANTE()), empleado.getUSUARIO());
 
         } else {
             return 0;
         }
     }
 
-    public boolean actualizarDatosEmpleado(Empleado nuevo, int agencia, int vacante) {
+    public boolean actualizarDatosEmpleado(Empleado nuevo, Adc adc) {
         if (nuevo != null) {
 //            System.out.println(nuevo.toString());
             int guion = nuevo.getDIAS_LABORALES().indexOf("-");
             if (guion >= 1) {
                 nuevo.setDIAS_LABORALES(nuevo.getDIAS_LABORALES().substring(0, nuevo.getDIAS_LABORALES().length() - 1));
             }
-            return this.recurso.actualizarDatosStaff(nuevo.getID_STAFF(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
+            return this.recurso.actualizarDatosStaff(nuevo.getID(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),
-                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), this.codigoStaff(nuevo, agencia, vacante), nuevo.getUSUARIO());
+                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), 
+                    this.codigoStaff(nuevo, adc.getAGENCIA(), adc.getVACANTE()), nuevo.getUSUARIO());
 
         } else {
             return false;
@@ -289,7 +326,7 @@ public class clientes_service {
 
             int tipoCargo = Integer.valueOf(this.recurso.cargo(emp.getCARGO())[2]);
             int[] idCargos = this.recurso.idCargos(tipoCargo);
-            String condicion = "idStaff != " + emp.getID_STAFF() + " AND (";
+            String condicion = "idStaff != " + emp.getID() + " AND (";
             for (int i = 0; i < idCargos.length; i++) {
                 condicion += "cargo = " + idCargos[i];
                 if (i + 1 < idCargos.length) {
@@ -358,10 +395,11 @@ public class clientes_service {
         }
     }
 
-    public String actualizarADC(Adc ADC, int sucursal, int empleado, int agencia, int vacante) {
+    public String actualizarADC(Adc ADC, Adc nuevosDatos) {
         String mensaje;
         if (ADC != null) {
-            boolean b = this.recurso.actualizarADC(ADC.getID(), sucursal, empleado, agencia, vacante);
+            boolean b = this.recurso.actualizarADC(ADC.getID(), nuevosDatos.getSUCURSAL(), nuevosDatos.getID_EMPLEADO(), 
+                    nuevosDatos.getAGENCIA(), nuevosDatos.getVACANTE());
             if (b) {
                 mensaje = "Datos de ADC actualizados correctamente";
             } else {
@@ -373,10 +411,11 @@ public class clientes_service {
         return mensaje;
     }
 
-    public String crearADC(int sucursal, int empleado, int agencia, int vacante) {
+    public String crearADC(Adc adc){//int sucursal, int empleado, int agencia, int vacante) {
         String mensaje;
-        if (sucursal > 0 && empleado > 0 && agencia > 0 && vacante > 0) {
-            boolean b = this.recurso.crearADC(sucursal, empleado, agencia, vacante);
+        //if (sucursal > 0 && empleado > 0 && agencia > 0 && vacante > 0) {
+        if(adc != null){
+            boolean b = this.recurso.crearADC(adc.getSUCURSAL(), adc.getID_EMPLEADO(), adc.getAGENCIA(), adc.getVACANTE());
             if (b) {
                 mensaje = "Datos de ADC insertados correctamente";
             } else {
