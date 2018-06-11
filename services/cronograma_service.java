@@ -16,5 +16,28 @@ public class cronograma_service {
         this.recurso = new cronograma_resource();
     }
     
+    public int agregarActividad(String fecha, String actividad){
+        try{
+            int status;
+            status = (this.recurso.agregarActividad(fecha, actividad)) ? 1 : 0;
+            return status;
+        }catch(Exception ex){
+            System.out.println("services.cronograma_service.agregarActividad(): " + ex);
+            
+            return 0;
+        }
+    }
+    
+    public int modificarActividad(String fecha, String actividad){
+        try{
+            int status;
+            status = (this.recurso.modificarActividad(fecha, actividad)) ? 1 : 0;
+            return status;
+        }catch(Exception ex){
+            System.out.println("services.cronograma_service.modificarActividad(): " + ex);
+            
+            return 0;
+        }
+    }
     
 }

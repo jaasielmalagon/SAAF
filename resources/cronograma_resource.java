@@ -7,6 +7,7 @@ package resources;
 
 import database.conection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import objects.ErrorController;
 
 /**
@@ -23,6 +24,51 @@ public class cronograma_resource {
         this.ERROR_CONTROLLER = new ErrorController();
     }
     
+    public boolean agregarActividad(String fecha, String actividad){
+        try{
+            this.DB.Connect();
+            this.DB.Insert("cronograma", "fecha, actividad", " ' " + fecha + " ', ' " + actividad + " ' ");
+            this.DB.Disconnect();
+            return true;
+        }catch(Exception ex){
+            System.out.println("resources.cronograma_resource.actividadesDelDia() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", "resources.cronograma_resource.actividadesDelDia()  : " + ex);
+            return false;
+        }
+    }
     
+    public boolean modificarActividad(String fecha, String actividad){
+        try{
+            this.DB.Connect();
+            this.DB.Update("cronograma", " ' " + actividad +  " ' ", "fecha = " + fecha);
+            this.DB.Disconnect();
+            return true;
+        }catch(Exception ex){
+            System.out.println("resources.cronograma_resource.modificarActividad() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", "resources.cronograma_resource.modificarActividad() : " + ex);
+            return false;
+        }
+    }
+    
+    public String[][] actividadesDelDia(String fecha){
+        String[][] data = null;
+        try{
+            this.DB.Connect();
+            this.RS = this.DB.Select("*", "cronograma", "fecha = " + fecha);
+            if(this.RS != null){
+                int i = 0;
+                
+                while(this.RS.next()){
+                    String[] actividad = {this.RS.getString("fecha"), this.RS.getString("actividad")};
+                    data[i] = actividad;
+                    i++;
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("resources.cronograma_resource.actividadesDelDia() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", "resources.cronograma_resource.actividadesDelDia()  : " + ex);
+        }
+        return data;
+    }
     
 }
