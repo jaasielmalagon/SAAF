@@ -2047,10 +2047,12 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `usuario`, `password`, `tipo`, `idStaff`, `idSucursal`, `fotografia`) VALUES
-(1, '', '', 0, 1, 1, NULL),
-(2, 'Jaasiel', 'admin', 1, 2, 1, NULL),
-(3, 'almarh3', 'rrhh', 3, 3, 1, NULL);
+--Calendario de actividades
+CREATE TABLE ´cronograma´(
+    ´idActividad´ INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    ´fecha´ DATE NOT NULL,
+    ´descripcion´ VARCHAR(100) NOT NULL DEFAULT NULL;
+);
 
 --
 -- Índices para tablas volcadas

@@ -33,15 +33,23 @@ public class Cronograma extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         
         this.servicio = new agregarPersona_service();
+//<<<<<<< HEAD
         /*
         this.meses();
+=======
+        /*this.meses();
+>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
         this.estadosNacimiento();
         this.USUARIO = usuario;
         System.out.println(this.USUARIO.toString());
         llenarTabla();
         seleccionarPersona();
         opciones(false);
+//<<<<<<< HEAD
         */    
+//=======
+     //   */
+//>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
     }
 
     private void solicitarPrestamo() {
@@ -167,8 +175,12 @@ public class Cronograma extends javax.swing.JDialog {
 
     //CORREGIDO
     private void guardarDatos() {
+//<<<<<<< HEAD
         /*
         Estado estado_nac = (Estado) comboEstadosNacimiento.getSelectedItem();
+=======
+       /* Estado estado_nac = (Estado) comboEstadosNacimiento.getSelectedItem();
+>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
         Mes mesNac = (Mes) comboMeses.getSelectedItem();
         String nombre = txtNombre.getText();
         String apaterno = txtAp1.getText();
@@ -234,8 +246,12 @@ public class Cronograma extends javax.swing.JDialog {
 
     //NO NECESITA CORREGIR
     private void limpiarCampos() {
+//<<<<<<< HEAD
         /*
         comboMeses.setSelectedIndex(0);
+=======
+       /* comboMeses.setSelectedIndex(0);
+>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
         comboEstadosNacimiento.setSelectedIndex(0);
         cmbEstadoCivil.setSelectedIndex(0);
         txtNombre.setText("");
@@ -246,8 +262,12 @@ public class Cronograma extends javax.swing.JDialog {
         txtCurp.setText("");
         txtOcr.setText("");
         txtTel.setText("");
+<<<<<<< HEAD
         txtCel.setText("");
         */
+/*=======
+        txtCel.setText(""); */
+//>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
     }
 
     //NO NECESITA CORREGIR
@@ -265,11 +285,16 @@ public class Cronograma extends javax.swing.JDialog {
 
     //CORREGIDO
     private void estadosNacimiento() {
+//<<<<<<< HEAD
      /*      comboEstadosNacimiento.setModel(this.servicio.estados()); */
+//=======
+        //comboEstadosNacimiento.setModel(this.servicio.estados());
+//>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
     }
 
     //CORREGIDO
     public void buscar() {
+//<<<<<<< HEAD
         /*
         if (!txtBuscar2.getText().isEmpty()) {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, USUARIO.getIdSucursal(), txtBuscar2.getText());
@@ -277,11 +302,22 @@ public class Cronograma extends javax.swing.JDialog {
             tablaClientes = this.servicio.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal());
         }
         */
+//=======
+      /*  if (!txtBuscar2.getText().isEmpty()) {
+            tablaClientes = this.servicio.tablaPersonas(tablaClientes, USUARIO.getIdSucursal(), txtBuscar2.getText());
+        } else {
+            tablaClientes = this.servicio.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal());
+        }*/
+//>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
     }
 
     //CORREGIDO
     public void seleccionarPersona() {
+//<<<<<<< HEAD
         /*tablaClientes.addMouseListener(new MouseAdapter() {
+=======
+       /* tablaClientes.addMouseListener(new MouseAdapter() {
+>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
@@ -314,12 +350,20 @@ public class Cronograma extends javax.swing.JDialog {
                     }
                 }
             }
+<<<<<<< HEAD
         });
         */
     }
 
     public void setSelectedEstado(String value) {
        /* Object item;
+=======
+        }); */
+    }
+
+//    public void setSelectedEstado(String value) {
+      /*  Object item;
+>>>>>>> 3f2c4059ccaeffdfc10a76cb8c1e7d4a232c93c8
         Estado estado;
         for (int i = 0; i < comboEstadosNacimiento.getItemCount(); i++) {
             item = comboEstadosNacimiento.getItemAt(i);
@@ -330,7 +374,7 @@ public class Cronograma extends javax.swing.JDialog {
             }
         }
         */
-    }
+  //  }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -344,16 +388,20 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
         panelFormulario = new javax.swing.JPanel();
-        jCalendar2 = new com.toedter.calendar.JCalendar();
         txtNombre = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
+        btnGuardar1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnGuardar2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -385,8 +433,8 @@ public class Cronograma extends javax.swing.JDialog {
 
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
-        tituloVentana.setText("Calendario de actividades");
-        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 0, 350, 85));
+        tituloVentana.setText("Cronograma");
+        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
         jLabel11.setToolTipText("Cerrar");
@@ -491,28 +539,27 @@ public class Cronograma extends javax.swing.JDialog {
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
+                        .addGap(55, 55, 55)
                         .addComponent(jLabel16))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(14, 14, 14)
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelFormularioLayout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel16)
                         .addGap(12, 12, 12)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,8 +567,10 @@ public class Cronograma extends javax.swing.JDialog {
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 680, 240));
@@ -541,6 +590,62 @@ public class Cronograma extends javax.swing.JDialog {
         ));
         jScrollPane3.setViewportView(tablaClientes);
 
+        btnGuardar1.setBackground(new java.awt.Color(244, 0, 100));
+        btnGuardar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardar1MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Eliminar");
+
+        javax.swing.GroupLayout btnGuardar1Layout = new javax.swing.GroupLayout(btnGuardar1);
+        btnGuardar1.setLayout(btnGuardar1Layout);
+        btnGuardar1Layout.setHorizontalGroup(
+            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardar1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
+        );
+        btnGuardar1Layout.setVerticalGroup(
+            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardar1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnGuardar2.setBackground(new java.awt.Color(244, 0, 100));
+        btnGuardar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardar2MouseClicked(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Modificar");
+
+        javax.swing.GroupLayout btnGuardar2Layout = new javax.swing.GroupLayout(btnGuardar2);
+        btnGuardar2.setLayout(btnGuardar2Layout);
+        btnGuardar2Layout.setHorizontalGroup(
+            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardar2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
+        );
+        btnGuardar2Layout.setVerticalGroup(
+            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardar2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
         panelTablaLayout.setHorizontalGroup(
@@ -549,13 +654,22 @@ public class Cronograma extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addGap(339, 339, 339)
+                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(186, 186, 186)
+                .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 56, Short.MAX_VALUE))
         );
 
         Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 265, 1160, 260));
@@ -605,6 +719,14 @@ public class Cronograma extends javax.swing.JDialog {
         guardarDatos();
     }//GEN-LAST:event_btnGuardarMouseClicked
 
+    private void btnGuardar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardar1MouseClicked
+
+    private void btnGuardar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardar2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -640,11 +762,15 @@ public class Cronograma extends javax.swing.JDialog {
     private javax.swing.JPanel btnCancelar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnGuardar;
-    private com.toedter.calendar.JCalendar jCalendar2;
+    private javax.swing.JPanel btnGuardar1;
+    private javax.swing.JPanel btnGuardar2;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormulario;
