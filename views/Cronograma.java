@@ -394,7 +394,6 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
@@ -538,14 +537,12 @@ public class Cronograma extends javax.swing.JDialog {
         panelFormularioLayout.setHorizontalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(449, 449, 449)
                         .addComponent(jLabel16))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(408, 408, 408)
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelFormularioLayout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,20 +554,15 @@ public class Cronograma extends javax.swing.JDialog {
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel16)
+                .addGap(12, 12, 12)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel16)
-                        .addGap(12, 12, 12)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 680, 240));
@@ -764,7 +756,6 @@ public class Cronograma extends javax.swing.JDialog {
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JPanel btnGuardar1;
     private javax.swing.JPanel btnGuardar2;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;
