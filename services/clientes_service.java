@@ -28,7 +28,7 @@ public class clientes_service {
     }
 
     public Adc crearAdc(Usuario USUARIO, Empleado EMPLEADO, Object agencia, Object vacante) {
-        Adc adc = null;
+        Adc adc;
         try {
 //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0            
 //convertimos el numero de vacante a tipo int si existe alguna                                        
@@ -38,6 +38,7 @@ public class clientes_service {
             adc.setAGENCIA(((Lista) agencia).getID());
             adc.setVACANTE(((Lista) vacante).getID());
         } catch (Exception ex) {
+            adc = null;
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return adc;
@@ -266,14 +267,47 @@ public class clientes_service {
 
     public DefaultComboBoxModel vacantes(int sucursal, int agencia) {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-        String[][] array = this.recurso.vacantes(sucursal, agencia);
+        String[] array = this.recurso.vacantes(sucursal, agencia);
         if (array != null) {
             dcbm.addElement(new Lista(0, "-- Seleccione --"));
-            for (String[] val : array) {
-                dcbm.addElement(new Lista(Integer.valueOf(val[0]), "Vacante " + val[1]));
+            for (String array1 : array) {
+                dcbm.addElement(new Lista(Integer.valueOf(array1), "Vacante " + array1));
             }
         }
         return dcbm;
+    }
+
+    public String actualizarADC(Adc ADC, Adc nuevosDatos) {
+        String mensaje;
+        if (ADC != null) {
+            boolean b = this.recurso.actualizarADC(ADC.getID(), nuevosDatos.getSUCURSAL(), nuevosDatos.getID_EMPLEADO(),
+                    nuevosDatos.getAGENCIA(), nuevosDatos.getVACANTE());
+            if (b) {
+                mensaje = "Datos de ADC actualizados correctamente";
+            } else {
+                mensaje = "Algo falló al actualizar los datos del ADC";
+            }
+        } else {
+            mensaje = "No es posible actualizar la información porque\nalguno de los datos se encuentra vacío o es incorrecto.";
+        }
+        return mensaje;
+    }
+
+    public String crearADC(Adc adc) {//int sucursal, int empleado, int agencia, int vacante) {
+        String mensaje;
+        //if (sucursal > 0 && empleado > 0 && agencia > 0 && vacante > 0) {
+        if (adc != null) {
+            boolean b = this.recurso.crearADC(adc.getSUCURSAL(), adc.getID_EMPLEADO(), adc.getAGENCIA(), adc.getVACANTE());
+            if (b) {
+                mensaje = "Datos de ADC insertados correctamente";
+            } else {
+                mensaje = "Algo falló al insertar los datos de ADC";
+            }
+        } else {
+////            System.out.println(sucursal + "-" + empleado + "-" + agencia + "-" + vacante);
+            mensaje = "Alguno de los datos se encuentra vacío o es incorrecto.";
+        }
+        return mensaje;
     }
 
     public int guardarDatosEmpleado(Empleado empleado, Adc adc) {
@@ -300,9 +334,12 @@ public class clientes_service {
             if (guion >= 1) {
                 nuevo.setDIAS_LABORALES(nuevo.getDIAS_LABORALES().substring(0, nuevo.getDIAS_LABORALES().length() - 1));
             }
+            if (adc.getID() > 0) {
+
+            }
             return this.recurso.actualizarDatosStaff(nuevo.getID(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),
-                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(), 
+                    nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(),
                     this.codigoStaff(nuevo, adc.getAGENCIA(), adc.getVACANTE()), nuevo.getUSUARIO());
 
         } else {
@@ -393,39 +430,6 @@ public class clientes_service {
         } else {
             return false;
         }
-    }
-
-    public String actualizarADC(Adc ADC, Adc nuevosDatos) {
-        String mensaje;
-        if (ADC != null) {
-            boolean b = this.recurso.actualizarADC(ADC.getID(), nuevosDatos.getSUCURSAL(), nuevosDatos.getID_EMPLEADO(), 
-                    nuevosDatos.getAGENCIA(), nuevosDatos.getVACANTE());
-            if (b) {
-                mensaje = "Datos de ADC actualizados correctamente";
-            } else {
-                mensaje = "Algo falló al actualizar los datos del ADC";
-            }
-        } else {
-            mensaje = "No es posible actualizar la información porque\nalguno de los datos se encuentra vacío o es incorrecto.";
-        }
-        return mensaje;
-    }
-
-    public String crearADC(Adc adc){//int sucursal, int empleado, int agencia, int vacante) {
-        String mensaje;
-        //if (sucursal > 0 && empleado > 0 && agencia > 0 && vacante > 0) {
-        if(adc != null){
-            boolean b = this.recurso.crearADC(adc.getSUCURSAL(), adc.getID_EMPLEADO(), adc.getAGENCIA(), adc.getVACANTE());
-            if (b) {
-                mensaje = "Datos de ADC insertados correctamente";
-            } else {
-                mensaje = "Algo falló al insertar los datos de ADC";
-            }
-        } else {
-////            System.out.println(sucursal + "-" + empleado + "-" + agencia + "-" + vacante);
-            mensaje = "Alguno de los datos se encuentra vacío o es incorrecto.";
-        }
-        return mensaje;
     }
 
     public Adc adc(int idSucursal, int id_empleado) {

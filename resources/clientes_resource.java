@@ -259,8 +259,8 @@ public class clientes_resource {
         return count;
     }
 
-    public String[][] vacantes(int sucursal, int agencia) {
-        String[][] array = null;
+    public String[] vacantes(int sucursal, int agencia) {
+        String[] array = null;
         try {
             this.DB.Connect();
             RS = this.DB.freeSelect("COUNT(*)", "personas_empleados_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
@@ -269,12 +269,11 @@ public class clientes_resource {
                 count = RS.getInt(1);
             }
             if (count > 0) {
-                array = new String[count][2];
+                array = new String[count];
                 int i = 0;
-                RS = this.DB.freeSelect("idAdc,vacante", "personas_empleados_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
+                RS = this.DB.freeSelect("vacante", "personas_empleados_adc", "WHERE sucursal = " + sucursal + " AND agencia = " + agencia + " AND idStaff = 0");
                 while (RS.next()) {
-                    array[i][0] = RS.getString(1);
-                    array[i][1] = RS.getString(2);
+                    array[i] = RS.getString(1);
                     i++;
                 }
             }

@@ -268,10 +268,11 @@ public class Empleados extends javax.swing.JDialog {
         try {
             String mensaje = "COMPLETADO";//SI ESTE MENSAJE NO SE CAMBIA ES QUE TODO SALIÓ MAL :(                       
             boolean updated = false;
+            Adc nuevoAdc = this.creaAdc();
             if (this.EMPLEADO == null) {//si no tenemos un objeto Empleado entonces...
                 this.EMPLEADO = this.creaEmpleado();//creamos un objeto Empleado
                 //lo enviamos para ser guardado y le asignamos el valor del id obtenido al empleado que estamos creando
-                this.EMPLEADO.setID(this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, this.creaAdc()));
+                this.EMPLEADO.setID(this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, nuevoAdc));
             } else {
 //si tenemos un objeto Empleado previamente guardado y encontrado en la BD entonces modificamos sus valores
                 Empleado nuevoEmpleado = this.creaEmpleado();//lo creamos con los datos ingresados actualmente
@@ -280,7 +281,7 @@ public class Empleados extends javax.swing.JDialog {
                 nuevoEmpleado.setUSUARIO(this.USUARIO.getIdUsuario());
                 this.EMPLEADO = nuevoEmpleado;//lo pasamos a la variable global tipo Empleado
                 //enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
-                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, this.creaAdc());
+                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, nuevoAdc);
             }
 
             if (updated == true || this.EMPLEADO.getID() > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
@@ -288,10 +289,10 @@ public class Empleados extends javax.swing.JDialog {
                 if (this.EMPLEADO.getCARGO() == 5) {//cargo 5 = ADC
                     if (this.ADC == null) {//si el Empleado aún no es ADC
 //creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.crearADC(this.creaAdc());
+                        mensaje = this.SERVICIO.crearADC(nuevoAdc);
                     } else {
 //actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.creaAdc());
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, nuevoAdc);
                     }
                 } else {
                     mensaje = "Datos laborales guardados correctamente";
