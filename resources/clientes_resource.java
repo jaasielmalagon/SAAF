@@ -492,6 +492,20 @@ public class clientes_resource {
         }
         return flag;
     }
+    
+    public boolean quitarADC(int idSucursal, int idEmpleado) {
+        boolean flag;
+        try {
+            this.DB.Connect();            
+            flag = this.DB.Update("personas_empleados_adc", "nivel = 0, idStaff = 0", "idStaff = " + idEmpleado + " AND sucursal = " + idSucursal + " LIMIT 1");
+            this.DB.Disconnect();
+        } catch (Exception ex) {
+            flag = false;
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return flag;
+    }
 
     public boolean actualizarADC(int idAdc, int sucursal, int staff, int agencia, int vacante) {
         boolean flag;

@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
@@ -53,7 +52,7 @@ public class Empleados extends javax.swing.JDialog {
         seleccionarPersona();
     }
 
-    public void seleccionarPersona() {
+    private void seleccionarPersona() {
         tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
@@ -117,7 +116,7 @@ public class Empleados extends javax.swing.JDialog {
             txtSalida.setModel(sm2);
             JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
             txtSalida.setEditor(ded);
-        } catch (Exception e) {
+        } catch (ParseException e) {
         }
         txtDia.setText("");
         comboMeses.setSelectedIndex(0);

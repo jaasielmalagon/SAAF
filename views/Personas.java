@@ -48,7 +48,7 @@ public class Personas extends javax.swing.JDialog {
                 if (PERSONA_SELECCIONADA.getReferencia() > 0) {
                     Amortizacion amr = new Amortizacion();
                     String[] montos = amr.montos();
-                    Object cantidades = JOptionPane.showInputDialog(this, "Ingrese el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
+                    Object cantidades = JOptionPane.showInputDialog(this, "Seleccione el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
                     if (cantidades != null) {
                         CLIENTE = this.servicio.cliente(PERSONA_SELECCIONADA);
                         if (CLIENTE != null) {
@@ -269,7 +269,7 @@ public class Personas extends javax.swing.JDialog {
     }
 
     //CORREGIDO
-    public void seleccionarPersona() {
+    private void seleccionarPersona() {
         tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {

@@ -54,19 +54,38 @@ public class agregarPersona_service {
     }
 
     public Cliente cliente(Persona persona) {
-        String[] datos = this.recurso.cliente(persona.getIdPersona());
-        Cliente cliente = null;
-        if (datos != null) {
-            cliente = new Cliente(
-                    Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), Integer.parseInt(datos[2]),
-                    datos[3], datos[4], Integer.parseInt(datos[5]),
-                    Double.parseDouble(datos[6]), Double.parseDouble(datos[7]), Integer.parseInt(datos[8]),
-                    Integer.parseInt(datos[9]), Integer.parseInt(datos[10]), datos[11],
-                    datos[12], datos[13], datos[14],
-                    datos[15], Integer.parseInt(datos[16]), Integer.parseInt(datos[17]),
-                    Integer.parseInt(datos[18]), persona);
+        Cliente c = null;
+        if (persona != null) {
+            String[] d = this.recurso.cliente(persona.getIdPersona());
+            if (d != null) {
+                c = new Cliente();
+                c.setID(d[0]);
+                c.setSUCURSAL(d[1]);
+                c.setUSUARIO(d[2]);
+                c.setF_REGISTRO(d[3]);
+                c.setADC(d[4]);
+                c.setID_PERSONA(d[5]);
+                c.setINGRESOS(d[6]);
+                c.setEGRESOS(d[7]);
+                c.setDEPENDIENTES(d[8]);
+                c.setOCUPACION(d[9]);
+                c.setESTUDIOS(d[10]);
+                c.setEMPRESA(d[11]);
+                c.setDOMICILIO_EMPRESA(d[12]);
+                c.setTEL_EMPRESA(d[13]);
+                c.setHORA_ENTRADA(d[14]);
+                c.setHORA_SALIDA(d[15]);
+                c.setTIPO_VIVIENDA(d[16]);
+                c.setPROPIETARIO(d[17]);
+                c.setVIGENCIA(d[18]);
+                c.setTIEMPO_RESIDENCIA(d[19]);
+                c.setSCORE(d[20]);
+                c.setSTATUS(d[21]);
+                c.setACTIVIDAD(d[22]);
+                c.setPERSONA(persona);
+            }
         }
-        return cliente;
+        return c;
     }
 
     public boolean agregarReferencia(int idCliente, String valores) {

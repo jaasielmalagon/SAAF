@@ -320,7 +320,7 @@ public class clientes_service {
             return this.recurso.guardarDatosStaff(empleado.getPERSONA().getIdPersona(), empleado.getCARGO(), empleado.getESTUDIOS(), empleado.getDEPARTAMENTO(),
                     empleado.getSUCURSAL(), empleado.getSALARIO(), empleado.getENTRADA(), empleado.getSALIDA(),
                     empleado.getDIAS_LABORALES(), empleado.getCASO_EMERGENCIA(), empleado.getFECHA_INCORPORACION(), empleado.getEFECTIVO(),
-                    this.codigoStaff(empleado, adc.getAGENCIA(), adc.getVACANTE()), empleado.getUSUARIO());
+                    this.codigoStaff(empleado, adc), empleado.getUSUARIO());
 
         } else {
             return 0;
@@ -334,20 +334,17 @@ public class clientes_service {
             if (guion >= 1) {
                 nuevo.setDIAS_LABORALES(nuevo.getDIAS_LABORALES().substring(0, nuevo.getDIAS_LABORALES().length() - 1));
             }
-            if (adc.getID() > 0) {
-                this.recurso.actualizarADC(0, adc.getSUCURSAL(), adc.getID_EMPLEADO(), adc.getAGENCIA(), adc.getVACANTE());
-            }
+            this.recurso.quitarADC(nuevo.getSUCURSAL(), nuevo.getID());
             return this.recurso.actualizarDatosStaff(nuevo.getID(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),
                     nuevo.getCASO_EMERGENCIA(), nuevo.getFECHA_INCORPORACION(), nuevo.getEFECTIVO(),
-                    this.codigoStaff(nuevo, adc.getAGENCIA(), adc.getVACANTE()), nuevo.getUSUARIO());
-
+                    this.codigoStaff(nuevo, adc), nuevo.getUSUARIO());
         } else {
             return false;
         }
     }
 
-    private String codigoStaff(Empleado emp, int agencia, int vacante) {
+    private String codigoStaff(Empleado emp, Adc adc) {
         String codigo = "";
         if (emp != null) {
             if (emp.getSUCURSAL() < 10) {
@@ -372,12 +369,12 @@ public class clientes_service {
             }
             condicion += ")";
             int countEmpleados = this.recurso.contarEmpleados(emp.getSUCURSAL(), condicion);//contar empleados del mismo tipo
-            if (tipoCargo == 1 && emp.getCARGO() == 5) {
-                codigo += "Z" + agencia + "-";
-                if (vacante < 10) {
+            if (tipoCargo == 1 && emp.getCARGO() == 5 && adc != null) {
+                codigo += "Z" + adc.getAGENCIA() + "-";
+                if (adc.getVACANTE() < 10) {
                     codigo += "0";
                 }
-                codigo += vacante;
+                codigo += adc.getVACANTE();
 
             } else {
                 if (tipoCargo == 1) {
