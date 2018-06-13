@@ -335,7 +335,7 @@ public class clientes_service {
                 nuevo.setDIAS_LABORALES(nuevo.getDIAS_LABORALES().substring(0, nuevo.getDIAS_LABORALES().length() - 1));
             }
             if (adc.getID() > 0) {
-
+                this.recurso.actualizarADC(0, adc.getSUCURSAL(), adc.getID_EMPLEADO(), adc.getAGENCIA(), adc.getVACANTE());
             }
             return this.recurso.actualizarDatosStaff(nuevo.getID(), nuevo.getID_PERSONA(), nuevo.getCARGO(), nuevo.getESTUDIOS(), nuevo.getDEPARTAMENTO(),
                     nuevo.getSUCURSAL(), nuevo.getSALARIO(), nuevo.getENTRADA(), nuevo.getSALIDA(), nuevo.getDIAS_LABORALES(),

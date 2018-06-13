@@ -499,7 +499,7 @@ public class clientes_resource {
             this.DB.Connect();
             System.out.println(idAdc);
             flag = this.DB.Update("personas_empleados_adc", "idStaff = 0", "idAdc = " + idAdc);
-            if (flag) {
+            if (flag && idAdc > 0) {
                 System.out.println(staff+"-"+sucursal+"-"+agencia+"-"+vacante);
                 flag = this.DB.Update("personas_empleados_adc", "idStaff = " + staff, 
                         "sucursal = " + sucursal + " AND agencia = " + agencia + " AND vacante = " + vacante);
