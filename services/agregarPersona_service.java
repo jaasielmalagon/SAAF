@@ -3,6 +3,7 @@ package services;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import objects.Amortizacion;
 import objects.Cliente;
 import objects.Estado;
 import objects.Fecha;
@@ -21,6 +22,107 @@ public class agregarPersona_service {
 
     public agregarPersona_service() {
         this.recurso = new agregarPersona_resource();
+    }
+
+    public String solicitarPrestamo(Persona p) {
+        try {
+            if (p.getReferencia() > 0) {
+                Amortizacion amr = new Amortizacion();
+                String[] montos = amr.montos();
+                Object cantidades = JOptionPane.showInputDialog(this, "Seleccione el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
+                if (cantidades != null) {
+                    Cliente cliente = this.cliente(p);
+                    if (cliente != null) {
+                        int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
+                        double tasa;
+                        //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE
+                        if (nPrestamos >= 10) {
+                            tasa = 13.0;
+                        } else if (nPrestamos <= 9 && nPrestamos >= 7) {
+                            tasa = 13.5;
+                        } else if (nPrestamos <= 6 && nPrestamos >= 4) {
+                            tasa = 14.0;
+                        } else {
+                            tasa = 14.5;
+                        }
+                        double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR
+                        String[] nSemanas = {"20", "24"};//PLAZO EN SEMANAS
+                        Object sems = JOptionPane.showInputDialog(this, "Seleccione a cuántas semanas desea el préstamo", "Seleccionar plazo", JOptionPane.QUESTION_MESSAGE, null, nSemanas, "0");
+                        if (sems != null) {
+                            int semanas = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
+                            int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
+                            String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
+                            //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
+                            if (semanas == 20) {//TABLAS A 20 SEMANAS                                    
+                                switch (tasaString) {
+                                    case "14.5":
+                                        amr.tabla145_20(montoSolicitado, semanas);//14.5% A 20 SEMANAS
+                                        break;
+                                    case "14.0":
+                                        amr.tabla140_20(montoSolicitado, semanas);//14.0% A 20 SEMANAS
+                                        break;
+                                    case "13.5":
+                                        amr.tabla135_20(montoSolicitado, semanas);//13.5% A 20 SEMANAS
+                                        break;
+                                    case "13.0":
+                                        amr.tabla130_20(montoSolicitado, semanas);//13.0% A 20 SEMANAS
+                                        break;
+                                    default:
+                                        JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                                        break;
+                                }
+                            } else if (semanas == 24) {//TABLAS A 24 SEMANAS
+                                switch (tasaString) {
+                                    case "14.5":
+                                        amr.tabla145_24(montoSolicitado, semanas);//14.5% A 24 SEMANAS
+                                        break;
+                                    case "14.0":
+                                        amr.tabla140_24(montoSolicitado, semanas);//14.0% A 24 SEMANAS
+                                        break;
+                                    case "13.5":
+                                        amr.tabla135_24(montoSolicitado, semanas);//13.5% A 24 SEMANAS
+                                        break;
+                                    case "13.0":
+                                        amr.tabla130_24(montoSolicitado, semanas);//13.0% A 24 SEMANAS
+                                        break;
+                                    default:
+                                        JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                                        break;
+                                }
+                            }
+                            //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
+                            if (amr.getMONTO() >= 5000 && PERSONA_SELECCIONADA.getAval() <= 0) {
+                                JOptionPane.showMessageDialog(this, "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                Solicitud ultimaSolicitud = this.servicio.ultimaSolicitud(CLIENTE);
+                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), semanas, CLIENTE.getID(), this.USUARIO.getIdUsuario(), this.USUARIO.getIdSucursal(), tasa, "", "");
+                                if (this.servicio.compararFechaSolicitud(ultimaSolicitud)) {
+                                    JOptionPane.showMessageDialog(this, "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.", "¡AVISO!", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    boolean solIns = this.servicio.guardarSolicitud(solicitudNueva);
+                                    if (solIns) {
+                                        JOptionPane.showMessageDialog(this, "Solicitud guardada correctamente. Esté pendiente del resultado...");
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "No se guardó la solicitud");
+                                    }
+                                }
+                                /**/
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La persona seleccionada todavía no cuenta con datos de cliente", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "La persona seleccionada no cuenta con una referencia válida asociada", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un monto válido", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public boolean guardarSolicitud(Solicitud solicitud) {
@@ -45,28 +147,47 @@ public class agregarPersona_service {
     public Solicitud ultimaSolicitud(Cliente cliente) {
         Solicitud solicitud = null;
         if (cliente != null) {
-            String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getIdCliente());
+            String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getID());
             if (datos != null) {
                 solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8]);
-            }            
-        } 
+            }
+        }
         return solicitud;
     }
 
     public Cliente cliente(Persona persona) {
-        String[] datos = this.recurso.cliente(persona.getIdPersona());
-        Cliente cliente = null;
-        if (datos != null) {
-            cliente = new Cliente(
-                    Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), Integer.parseInt(datos[2]),
-                    datos[3], datos[4], Integer.parseInt(datos[5]),
-                    Double.parseDouble(datos[6]), Double.parseDouble(datos[7]), Integer.parseInt(datos[8]),
-                    Integer.parseInt(datos[9]), Integer.parseInt(datos[10]), datos[11],
-                    datos[12], datos[13], datos[14],
-                    datos[15], Integer.parseInt(datos[16]), Integer.parseInt(datos[17]),
-                    Integer.parseInt(datos[18]), persona);
+        Cliente c = null;
+        if (persona != null) {
+            String[] d = this.recurso.cliente(persona.getIdPersona());
+            if (d != null) {
+                c = new Cliente();
+                c.setID(d[0]);
+                c.setSUCURSAL(d[1]);
+                c.setUSUARIO(d[2]);
+                c.setF_REGISTRO(d[3]);
+                c.setADC(d[4]);
+                c.setID_PERSONA(d[5]);
+                c.setINGRESOS(d[6]);
+                c.setEGRESOS(d[7]);
+                c.setDEPENDIENTES(d[8]);
+                c.setOCUPACION(d[9]);
+                c.setESTUDIOS(d[10]);
+                c.setEMPRESA(d[11]);
+                c.setDOMICILIO_EMPRESA(d[12]);
+                c.setTEL_EMPRESA(d[13]);
+                c.setHORA_ENTRADA(d[14]);
+                c.setHORA_SALIDA(d[15]);
+                c.setTIPO_VIVIENDA(d[16]);
+                c.setPROPIETARIO(d[17]);
+                c.setVIGENCIA(d[18]);
+                c.setTIEMPO_RESIDENCIA(d[19]);
+                c.setSCORE(d[20]);
+                c.setSTATUS(d[21]);
+                c.setACTIVIDAD(d[22]);
+                c.setPERSONA(persona);
+            }
         }
-        return cliente;
+        return c;
     }
 
     public boolean agregarReferencia(int idCliente, String valores) {
@@ -210,7 +331,7 @@ public class agregarPersona_service {
 
     public String estado(int id) {
         return recurso.estado(id);
-    }    
+    }
 
     public int buscarCliente(String curp, String ocr, String cel, String tel) {
         return this.recurso.buscarCliente(curp, ocr, cel, tel);

@@ -6,12 +6,12 @@ package objects;
  */
 public class Empleado {
 
-    private int ID_STAFF, ID_PERSONA, CARGO, ESTUDIOS, DEPARTAMENTO, SUCURSAL, SALARIO, EFECTIVO, USUARIO;
+    private int ID = 0, ID_PERSONA = 0, CARGO = 0, ESTUDIOS = 0, DEPARTAMENTO = 0, SUCURSAL = 0, SALARIO = 0, EFECTIVO = 0, USUARIO = 0;
     private String ENTRADA, SALIDA, DIAS_LABORALES, CASO_EMERGENCIA, FECHA_INCORPORACION, CODIGO, REGISTRO;
-    private Persona PERSONA;
+    private Persona PERSONA = null;
 
-    public Empleado(int ID_STAFF, int SUCURSAL, int USUARIO, String REGISTRO, int ID_PERSONA, int CARGO, int ESTUDIOS, int DEPARTAMENTO, int SALARIO, String ENTRADA, String SALIDA, String DIAS_LABORALES, String CASO_EMERGENCIA, String FECHA_INCORPORACION, int EFECTIVO, String CODIGO, Persona PERSONA) {
-        this.ID_STAFF = ID_STAFF;
+    public Empleado(int ID, int SUCURSAL, int USUARIO, String REGISTRO, int ID_PERSONA, int CARGO, int ESTUDIOS, int DEPARTAMENTO, int SALARIO, String ENTRADA, String SALIDA, String DIAS_LABORALES, String CASO_EMERGENCIA, String FECHA_INCORPORACION, int EFECTIVO, String CODIGO, Persona PERSONA) {
+        this.ID = ID;
         this.ID_PERSONA = ID_PERSONA;
         this.CARGO = CARGO;
         this.ESTUDIOS = ESTUDIOS;
@@ -29,13 +29,17 @@ public class Empleado {
         this.REGISTRO = REGISTRO;
         this.PERSONA = PERSONA;
     }
-
-    public int getID_STAFF() {
-        return ID_STAFF;
+    
+    public Empleado(){
+        
+    }
+    
+    public int getID() {
+        return ID;
     }
 
-    public void setID_STAFF(int ID_STAFF) {
-        this.ID_STAFF = ID_STAFF;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public int getID_PERSONA() {
@@ -168,7 +172,7 @@ public class Empleado {
     
     @Override
     public String toString() {
-        return "Staff{" + "ID_STAFF=" + ID_STAFF + ", ID_PERSONA=" + ID_PERSONA + ", CARGO=" + CARGO + ", ESTUDIOS=" + ESTUDIOS + ", DEPARTAMENTO=" + DEPARTAMENTO + ", SUCURSAL=" + SUCURSAL + ", SALARIO=" + SALARIO + ", EFECTIVO=" + EFECTIVO + ", ENTRADA=" + ENTRADA + ", SALIDA=" + SALIDA + ", DIAS_LABORALES=" + DIAS_LABORALES + ", CASO_EMERGENCIA=" + CASO_EMERGENCIA + ", FECHA_INCORPORACION=" + FECHA_INCORPORACION + ", CODIGO=" + CODIGO + ", PERSONA=" + PERSONA + '}';
+        return "Staff{" + "ID=" + ID + ", ID_PERSONA=" + ID_PERSONA + ", CARGO=" + CARGO + ", ESTUDIOS=" + ESTUDIOS + ", DEPARTAMENTO=" + DEPARTAMENTO + ", SUCURSAL=" + SUCURSAL + ", SALARIO=" + SALARIO + ", EFECTIVO=" + EFECTIVO + ", ENTRADA=" + ENTRADA + ", SALIDA=" + SALIDA + ", DIAS_LABORALES=" + DIAS_LABORALES + ", CASO_EMERGENCIA=" + CASO_EMERGENCIA + ", FECHA_INCORPORACION=" + FECHA_INCORPORACION + ", CODIGO=" + CODIGO + ", PERSONA=" + PERSONA + '}';
     }    
 
 }

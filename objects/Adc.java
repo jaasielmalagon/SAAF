@@ -5,16 +5,18 @@ package objects;
  * @author Root
  */
 public class Adc {
-    private int ID, SUCURSAL, ID_STAFF, AGENCIA, VACANTE, NIVEL;
+    private int ID = 0, SUCURSAL = 0, ID_EMPLEADO = 0, AGENCIA = 0, VACANTE = 0, NIVEL = 0;
 
-    public Adc(int ID, int SUCURSAL, int ID_STAFF, int AGENCIA, int VACANTE, int NIVEL) {
+    public Adc(int ID, int SUCURSAL, int ID_EMPLEADO, int AGENCIA, int VACANTE, int NIVEL) {
         this.ID = ID;
         this.SUCURSAL = SUCURSAL;
-        this.ID_STAFF = ID_STAFF;
+        this.ID_EMPLEADO = ID_EMPLEADO;
         this.AGENCIA = AGENCIA;
         this.VACANTE = VACANTE;
         this.NIVEL = NIVEL;
     }
+    
+    public Adc(){}
 
     public int getID() {
         return ID;
@@ -32,12 +34,12 @@ public class Adc {
         this.SUCURSAL = SUCURSAL;
     }
 
-    public int getID_STAFF() {
-        return ID_STAFF;
+    public int getID_EMPLEADO() {
+        return ID_EMPLEADO;
     }
 
-    public void setID_STAFF(int ID_STAFF) {
-        this.ID_STAFF = ID_STAFF;
+    public void setID_EMPLEADO(int ID_EMPLEADO) {
+        this.ID_EMPLEADO = ID_EMPLEADO;
     }
 
     public int getAGENCIA() {
@@ -66,7 +68,7 @@ public class Adc {
 
     @Override
     public String toString() {
-        return "Adc{" + "ID=" + ID + ", SUCURSAL=" + SUCURSAL + ", ID_STAFF=" + ID_STAFF + ", AGENCIA=" + AGENCIA + ", VACANTE=" + VACANTE + ", NIVEL=" + NIVEL + '}';
+        return "Adc{" + "ID=" + ID + ", SUCURSAL=" + SUCURSAL + ", ID_EMPLEADO=" + ID_EMPLEADO + ", AGENCIA=" + AGENCIA + ", VACANTE=" + VACANTE + ", NIVEL=" + NIVEL + '}';
     }
 
             

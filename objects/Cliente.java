@@ -52,7 +52,7 @@ public class Cliente {
         
     }
 
-    public int getIdCliente() {
+    public int getID() {
         return ID;
     }
 
@@ -149,7 +149,7 @@ public class Cliente {
         try {
             t = Integer.valueOf(TIEMPO_RESIDENCIA);
         } catch (NumberFormatException e) {
-            System.out.println("objects.Domicilio.getTIEMPO_RESIDENCIA() : " + e);
+            System.out.println(this.getClass().getName() + ": " + e);
         }
         return t;
     }
@@ -158,7 +158,8 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "ID=" + ID + ", SUCURSAL=" + SUCURSAL + ", USUARIO=" + USUARIO + ", ID_PERSONA=" + ID_PERSONA + ", DEPENDIENTES=" + DEPENDIENTES + ", OCUPACION=" + OCUPACION + ", ESTUDIOS=" + ESTUDIOS + ", SCORE=" + SCORE + ", STATUS=" + STATUS + ", ACTIVIDAD=" + ACTIVIDAD + ", TIPO_VIVIENDA=" + TIPO_VIVIENDA + ", F_REGISTRO=" + F_REGISTRO + ", EMPRESA=" + EMPRESA + ", DOMICILIO_EMPRESA=" + DOMICILIO_EMPRESA + ", TEL_EMPRESA=" + TEL_EMPRESA + ", HORA_ENTRADA=" + HORA_ENTRADA + ", HORA_SALIDA=" + HORA_SALIDA + ", ADC=" + ADC + ", PROPIETARIO=" + PROPIETARIO + ", VIGENCIA=" + VIGENCIA + ", TIEMPO_RESIDENCIA=" + TIEMPO_RESIDENCIA + ", INGRESOS=" + INGRESOS + ", EGRESOS=" + EGRESOS + ", PERSONA=" + PERSONA.toString() + '}';
     }
-
+    
+    //STRINGS TO INTEGER
     public void setID(int ID) {
         this.ID = ID;
     }        
@@ -257,9 +258,9 @@ public class Cliente {
 //string    
     public void setID(String var) {
         try {
-            this.ID = Integer.valueOf(ID);
+            this.ID = Integer.valueOf(var);
         } catch (NumberFormatException e) {
-            System.out.println("objects.Cliente.setID() : " + e);
+            System.out.println(this.getClass().getName() + ": " + e);
         }        
     }
 
@@ -267,47 +268,96 @@ public class Cliente {
         try {
             this.SUCURSAL = Integer.valueOf(var);
         } catch (NumberFormatException e) {
-            System.out.println("objects.Cliente.setSUCURSAL() : " + e);
-        }  
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setUSUARIO(String var) {
-        this.USUARIO = var;
+        try {
+            this.USUARIO = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setID_PERSONA(String var) {
-        this.ID_PERSONA = var;
+        try {
+            this.ID_PERSONA = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setDEPENDIENTES(String var) {
-        this.DEPENDIENTES = var;
+        try {
+            this.DEPENDIENTES = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setOCUPACION(String var) {
-        this.OCUPACION = var;
+        try {
+            this.OCUPACION = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setESTUDIOS(String var) {
-        this.ESTUDIOS = var;
+        try {
+            this.ESTUDIOS = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setSCORE(String var) {
-        this.SCORE = var;
+        try {
+            this.SCORE = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setSTATUS(String var) {
-        this.STATUS = var;
+        try {
+            this.STATUS = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setACTIVIDAD(String var) {
-        this.ACTIVIDAD = var;
+        try {
+            this.ACTIVIDAD = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
 
     public void setTIPO_VIVIENDA(String var) {
-        this.TIPO_VIVIENDA = var;
+        try {
+            this.TIPO_VIVIENDA = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
     }
     
-    
-    
+    public void setINGRESOS(String var) {
+        try {
+            this.INGRESOS = Double.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        } 
+    }
+
+    public void setEGRESOS(String var) {
+        try {
+            this.EGRESOS = Double.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }    
 
 }

@@ -36,7 +36,7 @@ public class Personas extends javax.swing.JDialog {
         this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
-        System.out.println(this.USUARIO.toString());
+        
         llenarTabla();
         seleccionarPersona();
         opciones(false);
@@ -44,104 +44,8 @@ public class Personas extends javax.swing.JDialog {
 
     private void solicitarPrestamo() {
         if (PERSONA_SELECCIONADA != null) {
-            try {
-                if (PERSONA_SELECCIONADA.getReferencia() > 0) {
-                    Amortizacion amr = new Amortizacion();
-                    String[] montos = amr.montos();
-                    Object cantidades = JOptionPane.showInputDialog(this, "Ingrese el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
-                    if (cantidades != null) {
-                        CLIENTE = this.servicio.cliente(PERSONA_SELECCIONADA);
-                        if (CLIENTE != null) {
-                            int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
-                            double tasa;
-                            //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE
-                            if (nPrestamos >= 10) {
-                                tasa = 13.0;
-                            } else if (nPrestamos <= 9 && nPrestamos >= 7) {
-                                tasa = 13.5;
-                            } else if (nPrestamos <= 6 && nPrestamos >= 4) {
-                                tasa = 14.0;
-                            } else {
-                                tasa = 14.5;
-                            }
-                            double pagoMax = CLIENTE.getINGRESOS() - CLIENTE.getEGRESOS();//LO MÁS QUE PUEDE PAGAR
-                            String[] nSemanas = {"20", "24"};//PLAZO EN SEMANAS
-                            Object sems = JOptionPane.showInputDialog(this, "Seleccione a cuántas semanas desea el préstamo", "Seleccionar plazo", JOptionPane.QUESTION_MESSAGE, null, nSemanas, "0");
-                            if (sems != null) {
-                                int semanas = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
-                                int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
-                                String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
-                                //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
-                                if (semanas == 20) {//TABLAS A 20 SEMANAS                                    
-                                    switch (tasaString) {
-                                        case "14.5":
-                                            amr.tabla145_20(montoSolicitado, semanas);//14.5% A 20 SEMANAS
-                                            break;
-                                        case "14.0":
-                                            amr.tabla140_20(montoSolicitado, semanas);//14.0% A 20 SEMANAS
-                                            break;
-                                        case "13.5":
-                                            amr.tabla135_20(montoSolicitado, semanas);//13.5% A 20 SEMANAS
-                                            break;
-                                        case "13.0":
-                                            amr.tabla130_20(montoSolicitado, semanas);//13.0% A 20 SEMANAS
-                                            break;
-                                        default:
-                                            JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                                            break;
-                                    }
-                                } else if (semanas == 24) {//TABLAS A 24 SEMANAS
-                                    switch (tasaString) {
-                                        case "14.5":
-                                            amr.tabla145_24(montoSolicitado, semanas);//14.5% A 24 SEMANAS
-                                            break;
-                                        case "14.0":
-                                            amr.tabla140_24(montoSolicitado, semanas);//14.0% A 24 SEMANAS
-                                            break;
-                                        case "13.5":
-                                            amr.tabla135_24(montoSolicitado, semanas);//13.5% A 24 SEMANAS
-                                            break;
-                                        case "13.0":
-                                            amr.tabla130_24(montoSolicitado, semanas);//13.0% A 24 SEMANAS
-                                            break;
-                                        default:
-                                            JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                                            break;
-                                    }
-                                }
-                                //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
-                                if (amr.getMONTO() >= 5000 && PERSONA_SELECCIONADA.getAval() <= 0) {
-                                    JOptionPane.showMessageDialog(this, "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                                } else {
-                                    Solicitud ultimaSolicitud = this.servicio.ultimaSolicitud(CLIENTE);
-                                    Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), semanas, CLIENTE.getIdCliente(), this.USUARIO.getIdUsuario(), this.USUARIO.getIdSucursal(), tasa, "", "");
-                                    if (this.servicio.compararFechaSolicitud(ultimaSolicitud)) {
-                                        JOptionPane.showMessageDialog(this, "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.", "¡AVISO!", JOptionPane.INFORMATION_MESSAGE);
-                                    } else {
-                                        boolean solIns = this.servicio.guardarSolicitud(solicitudNueva);
-                                        if (solIns) {
-                                            JOptionPane.showMessageDialog(this, "Solicitud guardada correctamente. Esté pendiente del resultado...");
-                                        } else {
-                                            JOptionPane.showMessageDialog(this, "No se guardó la solicitud");
-                                        }
-                                    }
-                                    /**/
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "La persona seleccionada todavía no cuenta con datos de cliente", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "La persona seleccionada no cuenta con una referencia válida asociada", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar un monto válido", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
-            }
+            String response = this.servicio.solicitarPrestamo(PERSONA_SELECCIONADA);
+            JOptionPane.showMessageDialog(this, response, "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "No ha seleccionado a una persona", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
         }
@@ -269,7 +173,7 @@ public class Personas extends javax.swing.JDialog {
     }
 
     //CORREGIDO
-    public void seleccionarPersona() {
+    private void seleccionarPersona() {
         tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
@@ -365,10 +269,10 @@ public class Personas extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         btnFicha = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        btnCrearCliente = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         btnCredito = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        btnCrearCliente = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
         panelTabla = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtBuscar2 = new javax.swing.JTextField();
@@ -784,23 +688,6 @@ public class Personas extends javax.swing.JDialog {
 
         panelOpciones.add(btnFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 154, 35));
 
-        btnCrearCliente.setBackground(new java.awt.Color(255, 78, 0));
-        btnCrearCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCrearCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCrearCliente3MouseClicked(evt);
-            }
-        });
-        btnCrearCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel14.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Crear cliente");
-        btnCrearCliente.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
-
-        panelOpciones.add(btnCrearCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 20, 154, 35));
-
         btnCredito.setBackground(new java.awt.Color(255, 78, 0));
         btnCredito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -817,6 +704,23 @@ public class Personas extends javax.swing.JDialog {
         btnCredito.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 35));
 
         panelOpciones.add(btnCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 20, 140, 35));
+
+        btnCrearCliente.setBackground(new java.awt.Color(255, 78, 0));
+        btnCrearCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCrearClienteMouseClicked(evt);
+            }
+        });
+        btnCrearCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Crear cliente");
+        btnCrearCliente.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
+
+        panelOpciones.add(btnCrearCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 154, 35));
 
         Contenedor.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 920, 70));
 
@@ -1090,14 +994,6 @@ public class Personas extends javax.swing.JDialog {
 //        }
     }//GEN-LAST:event_btnFichaMouseClicked
 
-    private void btnCrearCliente3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCliente3MouseClicked
-        if (PERSONA_SELECCIONADA != null) {
-            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
-        }
-    }//GEN-LAST:event_btnCrearCliente3MouseClicked
-
     private void btnCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditoMouseClicked
         solicitarPrestamo();
     }//GEN-LAST:event_btnCreditoMouseClicked
@@ -1105,6 +1001,14 @@ public class Personas extends javax.swing.JDialog {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnCrearClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseClicked
+        if (PERSONA_SELECCIONADA != null) {
+            (new ClienteAdd(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
+        }
+    }//GEN-LAST:event_btnCrearClienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1156,7 +1060,6 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1166,6 +1069,7 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
@@ -53,7 +52,7 @@ public class Empleados extends javax.swing.JDialog {
         seleccionarPersona();
     }
 
-    public void seleccionarPersona() {
+    private void seleccionarPersona() {
         tablaClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
@@ -73,14 +72,15 @@ public class Empleados extends javax.swing.JDialog {
     private void llenarTabla(String dato) {
         if (!dato.isEmpty()) {
             tablaClientes = this.SERVICIO.tablaPersonas(tablaClientes, this.USUARIO.getIdSucursal(), dato);
-        }else{
+        } else {
             tablaClientes = this.SERVICIO.tablaEmpleados(tablaClientes, this.USUARIO.getIdSucursal(), dato);
-        }        
+        }
     }
 
     private void cargarDatosEmpleado() {
         if (PERSONA_SELECCIONADA != null) {
-            this.EMPLEADO = this.SERVICIO.empleado(PERSONA_SELECCIONADA.getIdPersona());
+            lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
+            this.EMPLEADO = this.SERVICIO.getEmpleado(PERSONA_SELECCIONADA.getIdPersona());
             if (this.EMPLEADO == null) {
                 JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + PERSONA_SELECCIONADA.toString());
                 limpiarCampos();
@@ -92,10 +92,112 @@ public class Empleados extends javax.swing.JDialog {
                     cancelar();
                 }
             }
-            lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
-            txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
+            //txtMontoPortar.setEnabled(chkPortarEfe.isSelected());
         } else {
             desactivarPanelAdc();
+        }
+    }
+
+    private void limpiarCampos() {
+        lblNombrePersona.setText("");
+        txtSueldo.setText("");
+        cmbNivelEstudios.setSelectedIndex(0);
+        cmbDepartamento.setSelectedIndex(0);
+        cmbCargo.setSelectedIndex(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date hora;
+        try {
+            hora = sdf.parse("00:00:00");
+            SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            txtEntrada.setModel(sm);
+            JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
+            txtEntrada.setEditor(de);
+            SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            txtSalida.setModel(sm2);
+            JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
+            txtSalida.setEditor(ded);
+        } catch (ParseException e) {
+        }
+        txtDia.setText("");
+        comboMeses.setSelectedIndex(0);
+        txtAno.setText("");
+        txtEmergencia.setText("");
+        chkPortarEfe.setSelected(false);
+        txtMontoPortar.setText("");
+    }
+
+    private void cargarDatos() {
+        try {
+            this.ADC = this.SERVICIO.adc(this.USUARIO.getIdSucursal(), this.EMPLEADO.getID());
+            txtSueldo.setText(String.valueOf(this.EMPLEADO.getSALARIO()));
+            setSelectedEstudios(this.EMPLEADO.getESTUDIOS());
+            setSelectedDepartamento(this.EMPLEADO.getDEPARTAMENTO());
+            setSelectedCargo(this.EMPLEADO.getCARGO());
+            txtEmergencia.setText(this.EMPLEADO.getCASO_EMERGENCIA());
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            Date hora = sdf.parse(this.EMPLEADO.getENTRADA());
+            SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            txtEntrada.setModel(sm);
+            JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
+            txtEntrada.setEditor(de);
+            hora = sdf.parse(this.EMPLEADO.getSALIDA());
+            SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            txtSalida.setModel(sm2);
+            JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
+            txtSalida.setEditor(ded);
+            txtDia.setText(this.EMPLEADO.getFECHA_INCORPORACION().substring(8, 10));
+            int mes = Integer.parseInt(EMPLEADO.getFECHA_INCORPORACION().substring(5, 7));
+            comboMeses.setSelectedIndex(mes - 1);
+            txtAno.setText(this.EMPLEADO.getFECHA_INCORPORACION().substring(0, 4));
+            marcarDias();
+            if (this.EMPLEADO.getEFECTIVO() > 0) {
+                chkPortarEfe.setSelected(true);
+                txtMontoPortar.setText(String.valueOf(this.EMPLEADO.getEFECTIVO()));
+            }
+            if (this.ADC != null) {
+                cargaDatosAdc();
+            }
+        } catch (ParseException ex) {
+            System.out.println("views.clientes.cargarDatosCliente() : " + ex);
+        }
+    }
+
+    private void cancelar() {
+        this.PERSONA_SELECCIONADA = null;
+        this.EMPLEADO = null;
+        this.ADC = null;
+        limpiarCampos();
+        llenarTabla("");
+    }
+
+    private void desactivarPanelAdc() {
+//        panelFormulario.setSize(panelFormulario.getWidth(), 225);
+        //panelAdc.setVisible(false);
+        cmbAgencia.setEnabled(false);
+        cmbAgencia.setModel(new DefaultComboBoxModel<>());
+        cmbVacante.setModel(new DefaultComboBoxModel<>());
+        lblVacante.setVisible(false);
+    }
+
+    private void cargaDatosAdc() {
+//        panelAdc.setVisible(true);
+        cmbAgencia.setEnabled(true);
+        cmbAgencia.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
+        Object item;
+        Lista objeto;
+        for (int i = 0; i < cmbAgencia.getItemCount(); i++) {
+            item = cmbAgencia.getItemAt(i);
+            objeto = (Lista) item;
+            if (objeto.getID() == this.ADC.getAGENCIA()) {
+                cmbAgencia.setSelectedIndex(i);
+                break;
+            }
+        }
+        lblVacante.setVisible(true);
+        if (this.ADC.getVACANTE() > 0) {
+            lblVacante.setText("Actualmente: Vacante " + this.ADC.getVACANTE());
+        } else {
+            lblVacante.setText("Actualmente: No asignado");
         }
     }
 
@@ -132,122 +234,75 @@ public class Empleados extends javax.swing.JDialog {
         return cad;
     }
 
+    private Empleado creaEmpleado() {
+        String dias = this.diasLaborales();
+        int salario = Integer.valueOf(txtSueldo.getText());
+        int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
+        int estudios = ((Estudio) cmbNivelEstudios.getSelectedItem()).getID();
+        int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
+        String emergencia = txtEmergencia.getText();
+        String entrada = txtEntrada.getValue().toString();
+        String[] split = entrada.split(" ");//separa en un array la cadena donde encuentre un espacio
+        entrada = split[3];//del formato completo toma sólo la hora
+        String salida = txtSalida.getValue().toString();
+        split = salida.split(" ");//separa en un array la cadena donde encuentre un espacio
+        salida = split[3];//del formato completo toma sólo la hora
+        String fecha = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
+        int efectivo;//si no marcamos la casilla para portar efectivo se toma como 0
+        if ("".equals(txtMontoPortar.getText())) {
+            efectivo = 0;
+        } else {
+            efectivo = Integer.valueOf(txtMontoPortar.getText());
+        }
+        return this.SERVICIO.crearEmpleado(USUARIO, PERSONA_SELECCIONADA, cargo, estudios, departamento, salario, entrada, salida, dias, emergencia, fecha, efectivo);
+    }
+
+    private Adc creaAdc() {
+        Object agencia = cmbAgencia.getSelectedItem();//número de agencia
+        Object vacante = cmbVacante.getSelectedItem();//número de vacante de la agencia        
+        return this.SERVICIO.crearAdc(USUARIO,EMPLEADO,agencia,vacante);
+    }
+
     private void guardarDatos() {
         try {
-            String dias = this.diasLaborales();
-            int salario = Integer.valueOf(txtSueldo.getText());
-            int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
-            int estudios = ((Estudio) cmbNivelEstudios.getSelectedItem()).getID();
-            int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
-            String emergencia = txtEmergencia.getText();
-            String entrada = txtEntrada.getValue().toString();
-            String[] split = entrada.split(" ");//separa en un array la cadena donde encuentre un espacio
-            entrada = split[3];//del formato completo toma sólo la hora
-            String salida = txtSalida.getValue().toString();
-            split = salida.split(" ");//separa en un array la cadena donde encuentre un espacio
-            salida = split[3];//del formato completo toma sólo la hora
-            String fecha = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
-            int efectivo;//si no marcamos la casilla para portar efectivo se toma como 0
-            if ("".equals(txtMontoPortar.getText())) {
-                efectivo = 0;
-            } else {
-                efectivo = Integer.valueOf(txtMontoPortar.getText());
-            }
-
-            int idEmpleado = 0;//id obtenido de la última inserción de un Empleado a la BD
+            String mensaje = "COMPLETADO";//SI ESTE MENSAJE NO SE CAMBIA ES QUE TODO SALIÓ MAL :(                       
             boolean updated = false;
+            Adc nuevoAdc = this.creaAdc();
             if (this.EMPLEADO == null) {//si no tenemos un objeto Empleado entonces...
-                this.EMPLEADO = new Empleado(0, this.USUARIO.getIdSucursal(), this.USUARIO.getIdUsuario(), "",
-                        PERSONA_SELECCIONADA.getIdPersona(), cargo, estudios, departamento, salario, entrada,
-                        salida, dias, emergencia, fecha, efectivo, "", PERSONA_SELECCIONADA);//creamos un objeto Empleado
-                idEmpleado = this.SERVICIO.guardarDatosStaff(this.EMPLEADO);//lo enviamos para ser guardado
-            } else {//si tenemos un objeto Empleado entonces modificamos sus valores
-                idEmpleado = this.EMPLEADO.getID_STAFF();
-                this.EMPLEADO.setSUCURSAL(this.USUARIO.getIdSucursal());
-                this.EMPLEADO.setUSUARIO(this.USUARIO.getIdUsuario());
-                this.EMPLEADO.setCARGO(cargo);
-                this.EMPLEADO.setESTUDIOS(estudios);
-                this.EMPLEADO.setDEPARTAMENTO(departamento);
-                this.EMPLEADO.setSALARIO(salario);
-                this.EMPLEADO.setENTRADA(entrada);
-                this.EMPLEADO.setSALIDA(salida);
-                this.EMPLEADO.setDIAS_LABORALES(dias);
-                this.EMPLEADO.setCASO_EMERGENCIA(emergencia);
-                this.EMPLEADO.setFECHA_INCORPORACION(fecha);
-                this.EMPLEADO.setEFECTIVO(efectivo);
-//enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
-                updated = this.SERVICIO.actualizarDatosStaff(this.EMPLEADO);
-//            System.out.println(this.EMPLEADO.toString());
-            }
-            int agencia = 0;//número de agencia
-            int vacante = 0;
-            try {
-                //convertimos la agencia seleccionada a tipo int en caso de haber una, si no seguirá quedando como 0
-                agencia = ((Lista) cmbAgencia.getSelectedItem()).getID();
-                //convertimos el numero de vacante a tipo int si existe alguna                
-                vacante = ((Lista) cmbVacante.getSelectedItem()).getID();
-            } catch (Exception ex) {
-                System.out.println("views.Empleados.guardarDatos() : " + ex);
+                this.EMPLEADO = this.creaEmpleado();//creamos un objeto Empleado
+                //lo enviamos para ser guardado y le asignamos el valor del id obtenido al empleado que estamos creando
+                this.EMPLEADO.setID(this.SERVICIO.guardarDatosEmpleado(this.EMPLEADO, nuevoAdc));
+            } else {
+//si tenemos un objeto Empleado previamente guardado y encontrado en la BD entonces modificamos sus valores
+                Empleado nuevoEmpleado = this.creaEmpleado();//lo creamos con los datos ingresados actualmente
+                nuevoEmpleado.setID(this.EMPLEADO.getID());
+                nuevoEmpleado.setSUCURSAL(this.USUARIO.getIdSucursal());
+                nuevoEmpleado.setUSUARIO(this.USUARIO.getIdUsuario());
+                this.EMPLEADO = nuevoEmpleado;//lo pasamos a la variable global tipo Empleado
+                //enviamos el objeto Empleado con los nuevos datos para ser actualizado en la BD
+                updated = this.SERVICIO.actualizarDatosEmpleado(this.EMPLEADO, nuevoAdc);
             }
 
-            if (updated == true || idEmpleado > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
+            if (updated == true || this.EMPLEADO.getID() > 0) {//verificamos que los datos del empleado se hayan guardado o actualizado
 //si tenemos una agencia seleccionada y el cargo es ADC entonces            
-                if (cargo == 5 && agencia > 0) {//cargo 5 = ADC |||| agencia = 1,2,3,4, etc... según la BD
-                    String mensaje = "NO SE REALIZÓ NINGUNA OPERACIÓN";
-                    if (vacante > 0 && this.ADC == null) {//si el Empleado aún no es ADC
+                if (this.EMPLEADO.getCARGO() == 5) {//cargo 5 = ADC
+                    if (this.ADC == null) {//si el Empleado aún no es ADC
 //creamos un nuevo ADC con el id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.crearADC(this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
-                    } else if (this.ADC != null && vacante > 0) {
+                        mensaje = this.SERVICIO.crearADC(nuevoAdc);
+                    } else {
 //actualizamos el ADC mediante el objeto ADC con los valores nuevos y id de sucursal, idEmpleado, agencia y vacante a la que pertenece
-                        mensaje = this.SERVICIO.actualizarADC(this.ADC, this.USUARIO.getIdSucursal(), idEmpleado, agencia, vacante);
+                        mensaje = this.SERVICIO.actualizarADC(this.ADC, nuevoAdc);
                     }
-                    //mostramos el mensaje retornado por el controlador
-                    JOptionPane.showMessageDialog(rootPane, mensaje);
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Datos laborales guardados correctamente.", "¡Éxito!", JOptionPane.INFORMATION_MESSAGE);
+                    mensaje = "Datos laborales guardados correctamente";
                 }
                 cancelar();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Datos laborales no guardados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+                mensaje = "Datos del ADC no guardados";
             }
+            JOptionPane.showMessageDialog(rootPane, mensaje, "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | NumberFormatException e) {
             System.out.println("views.Empleados.guardarDatos() : " + e);
-        }
-    }
-
-    private void cargarDatos() {
-        try {
-            this.ADC = this.SERVICIO.adc(this.USUARIO.getIdSucursal(), this.EMPLEADO.getID_STAFF());
-            txtSueldo.setText(String.valueOf(this.EMPLEADO.getSALARIO()));
-            setSelectedEstudios(this.EMPLEADO.getESTUDIOS());
-            setSelectedDepartamento(this.EMPLEADO.getDEPARTAMENTO());
-            setSelectedCargo(this.EMPLEADO.getCARGO());
-            txtEmergencia.setText(this.EMPLEADO.getCASO_EMERGENCIA());
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            Date hora = sdf.parse(this.EMPLEADO.getENTRADA());
-            SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
-            txtEntrada.setModel(sm);
-            JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
-            txtEntrada.setEditor(de);
-            hora = sdf.parse(this.EMPLEADO.getSALIDA());
-            SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
-            txtSalida.setModel(sm2);
-            JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
-            txtSalida.setEditor(ded);
-            txtDia.setText(this.EMPLEADO.getFECHA_INCORPORACION().substring(8, 10));
-            int mes = Integer.parseInt(PERSONA_SELECCIONADA.getF_nac().substring(5, 7));
-            comboMeses.setSelectedIndex(mes - 1);
-            txtAno.setText(this.EMPLEADO.getFECHA_INCORPORACION().substring(0, 4));
-            marcarDias();
-            if (this.EMPLEADO.getEFECTIVO() > 0) {
-                chkPortarEfe.setSelected(true);
-                txtMontoPortar.setText(String.valueOf(this.EMPLEADO.getEFECTIVO()));
-            }
-            if (this.ADC != null) {
-                cargaDatosAdc();
-            }
-        } catch (ParseException ex) {
-            System.out.println("views.clientes.cargarDatosCliente() : " + ex);
         }
     }
 
@@ -262,7 +317,7 @@ public class Empleados extends javax.swing.JDialog {
         String dias = this.EMPLEADO.getDIAS_LABORALES();
         String[] diasSplit = dias.split("-");
         int splits = diasSplit.length;
-        System.out.println(Arrays.toString(diasSplit));
+//        System.out.println(Arrays.toString(diasSplit));
         for (int i = 0; i < splits; i++) {
             if ("Lunes".equals(diasSplit[i])) {
                 lunes.setSelected(true);
@@ -342,30 +397,6 @@ public class Empleados extends javax.swing.JDialog {
         cmbDepartamento.setModel(dcbm);
     }
 
-    private void limpiarCampos() {
-        //lblNombrePersona.setText("");
-        txtSueldo.setText("");
-        cmbNivelEstudios.setSelectedIndex(0);
-        cmbDepartamento.setSelectedIndex(0);
-        txtEmergencia.setText("");
-        Date hora = new Date();
-        SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
-        txtEntrada.setModel(sm);
-        JSpinner.DateEditor de = new JSpinner.DateEditor(txtEntrada, "HH:mm:ss");
-        txtEntrada.setEditor(de);
-        SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
-        txtSalida.setModel(sm2);
-        JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
-        txtSalida.setEditor(ded);        
-    }
-
-    private void cancelar() {
-        this.PERSONA_SELECCIONADA = null;
-        this.EMPLEADO = null;
-        limpiarCampos();
-        llenarTabla("");
-    }
-
     private void meses() {
         Fecha f = new Fecha();
         Mes[] meses = f.meses();
@@ -374,29 +405,6 @@ public class Empleados extends javax.swing.JDialog {
             dcbm.addElement(mes);
         }
         comboMeses.setModel(dcbm);
-    }
-
-    private void cargaDatosAdc() {
-        panelAdc.setVisible(true);
-        cmbAgencia.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
-        Object item;
-        Lista objeto;
-        for (int i = 0; i < cmbAgencia.getItemCount(); i++) {
-            item = cmbAgencia.getItemAt(i);
-            objeto = (Lista) item;
-            if (objeto.getID() == this.ADC.getAGENCIA()) {
-                cmbAgencia.setSelectedIndex(i);
-                break;
-            }
-        }
-        lblVacante.setText("Actualmente: Vacante " + this.ADC.getVACANTE());
-    }
-
-    private void desactivarPanelAdc() {
-        panelFormulario.setSize(panelFormulario.getWidth(), 225);
-        panelAdc.setVisible(false);
-        cmbAgencia.removeAllItems();
-        lblVacante.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -737,7 +745,7 @@ public class Empleados extends javax.swing.JDialog {
         panelFormulario.add(lblDatosde, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 17, -1, -1));
 
         lblNombrePersona.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        panelFormulario.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 17, 706, -1));
+        panelFormulario.add(lblNombrePersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 17, 706, 10));
 
         cmbCargo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         cmbCargo.addActionListener(new java.awt.event.ActionListener() {
@@ -862,8 +870,7 @@ public class Empleados extends javax.swing.JDialog {
                 .addGroup(panelAdcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAdcLayout.createSequentialGroup()
                         .addGap(427, 427, 427)
-                        .addComponent(lblDatosde2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(lblDatosde2))
                     .addGroup(panelAdcLayout.createSequentialGroup()
                         .addGap(271, 271, 271)
                         .addComponent(jLabel23)
@@ -872,10 +879,11 @@ public class Empleados extends javax.swing.JDialog {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbVacante, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblVacante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(cmbVacante, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAdcLayout.createSequentialGroup()
+                        .addGap(394, 394, 394)
+                        .addComponent(lblVacante, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         panelAdcLayout.setVerticalGroup(
             panelAdcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -886,14 +894,15 @@ public class Empleados extends javax.swing.JDialog {
                     .addComponent(cmbAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
                     .addComponent(cmbVacante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(lblVacante))
-                .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVacante)
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        panelFormulario.add(panelAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 225, 928, -1));
+        panelFormulario.add(panelAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 225, 928, 70));
 
-        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, 290));
+        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, 300));
 
         PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -987,7 +996,7 @@ public class Empleados extends javax.swing.JDialog {
     private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
         int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
         if (cargo == 5) {
-            panelAdc.setVisible(true);
+            cmbAgencia.setEnabled(true);
             cmbAgencia.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
         } else {
             desactivarPanelAdc();
@@ -1124,4 +1133,5 @@ public class Empleados extends javax.swing.JDialog {
     private javax.swing.JTextField txtSueldo;
     private javax.swing.JCheckBox viernes;
     // End of variables declaration//GEN-END:variables
+    
 }
