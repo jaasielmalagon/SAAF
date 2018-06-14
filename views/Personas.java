@@ -6,12 +6,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import objects.Amortizacion;
-import objects.Cliente;
 import objects.Estado;
 import objects.Fecha;
 import objects.Mes;
 import objects.Persona;
-import objects.Solicitud;
 import objects.Usuario;
 import services.agregarPersona_service;
 
@@ -24,27 +22,39 @@ public class Personas extends javax.swing.JDialog {
     private final agregarPersona_service servicio;
     private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA_SELECCIONADA = null;
-    private Usuario USUARIO = null;
-    private Cliente CLIENTE = null;
+    private Usuario USUARIO = null;    
+    private final String modulo;
 
-    public Personas(java.awt.Frame parent, boolean modal, Usuario usuario) {
+    public Personas(java.awt.Frame parent, boolean modal, Usuario usuario, String modulo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
 
-        this.servicio = new agregarPersona_service();
+        this.servicio = new agregarPersona_service(modulo);
         this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
+        this.modulo = modulo;
         
         llenarTabla();
         seleccionarPersona();
         opciones(false);
+        if (usuario.getTipoUsuario() != 1) {
+            btnCredito.setEnabled(false);
+            btnCredito.setVisible(false);
+        }
     }
 
     private void solicitarPrestamo() {
         if (PERSONA_SELECCIONADA != null) {
-            String response = this.servicio.solicitarPrestamo(PERSONA_SELECCIONADA);
+            Amortizacion amr = new Amortizacion();
+            String[] montos = amr.montos();
+            Object cantidades = JOptionPane.showInputDialog(this, "Seleccione el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
+            
+            String[] nSemanas = {"20", "24"};//PLAZO EN SEMANAS
+            Object sems = JOptionPane.showInputDialog(this, "Seleccione a cuántas semanas desea el préstamo", "Seleccionar plazo", JOptionPane.QUESTION_MESSAGE, null, nSemanas, "0");
+            
+            String response = this.servicio.solicitarPrestamo(USUARIO, PERSONA_SELECCIONADA, cantidades, sems);
             JOptionPane.showMessageDialog(this, response, "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "No ha seleccionado a una persona", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -700,7 +710,7 @@ public class Personas extends javax.swing.JDialog {
         jLabel15.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Solicitar crédito");
+        jLabel15.setText("Solicitar préstamo");
         btnCredito.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 35));
 
         panelOpciones.add(btnCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 20, 140, 35));
@@ -965,7 +975,7 @@ public class Personas extends javax.swing.JDialog {
 
     private void btnReferenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReferenciasMouseClicked
         if (PERSONA_SELECCIONADA != null) {
-            (new Referencias(this, true, this.USUARIO, this.PERSONA_SELECCIONADA)).setVisible(true);
+            (new Referencias(this, true, this.USUARIO, this.PERSONA_SELECCIONADA, this.modulo)).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
@@ -1027,7 +1037,7 @@ public class Personas extends javax.swing.JDialog {
 
         java.awt.EventQueue.invokeLater(() -> {
             Usuario usuario = null;
-            Personas dialog = new Personas(new javax.swing.JFrame(), true, usuario);
+            Personas dialog = new Personas(new javax.swing.JFrame(), true, usuario, new String());
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

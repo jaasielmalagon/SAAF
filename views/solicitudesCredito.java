@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import static modules.administración.escritorio;
 import objects.Persona;
 import objects.Usuario;
-import services.solicitudCredito_service;
+import services.solicitudes_service;
 
 /**
  *
@@ -16,14 +16,14 @@ import services.solicitudCredito_service;
  */
 public final class solicitudesCredito extends javax.swing.JInternalFrame {
 
-    private final solicitudCredito_service servicio;
+    private final solicitudes_service servicio;
     private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA_SELECCIONADA = null;
     private Usuario USUARIO = null;
 
     public solicitudesCredito(Usuario usuario) {
         initComponents();
-        this.servicio = new solicitudCredito_service();                
+        this.servicio = new solicitudes_service();                
         this.USUARIO = usuario;        
 //        seleccionarPersona();        
     }    

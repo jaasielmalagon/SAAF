@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Persona;
 import objects.Usuario;
-import views.Clientes;
 import views.Domicilios;
 import views.Empleados;
 import views.Personas;
@@ -20,6 +19,7 @@ import views.Personas;
 public class RecursosHumanos extends javax.swing.JFrame {
 
     private final Usuario usuario;
+    private String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
 
     public RecursosHumanos(Usuario usuario) {
         initComponents();
@@ -264,11 +264,11 @@ public class RecursosHumanos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void iconPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_iconPersonasMouseClicked
 
     private void lblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_lblPersonasMouseClicked
 
     private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked

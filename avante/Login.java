@@ -33,6 +33,7 @@ public class Login extends javax.swing.JFrame {
 //7 Sistemas informáticos
 //8 Administración de cartera
         if (u != null) {
+            System.out.println(u.toString());
             switch (u.getTipoUsuario()) {
                 case 1:
                     new Administracion(u).setVisible(true);

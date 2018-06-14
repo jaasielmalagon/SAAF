@@ -14,10 +14,12 @@ public class agregarPersona_resource {//implements interfaces.conection {
     private final conection DB;
     ResultSet RS = null;
     ErrorController ERROR_CONTROLLER;
+    private final String modulo;
 
-    public agregarPersona_resource() {
+    public agregarPersona_resource(String modulo) {
         this.DB = new conection();
         this.ERROR_CONTROLLER = new ErrorController();
+        this.modulo = modulo;
     }
 
     public boolean guardarSolicitud(int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA) {
@@ -80,31 +82,16 @@ public class agregarPersona_resource {//implements interfaces.conection {
             this.DB.Connect();
             RS = this.DB.Select("*", "personas_clientes", "idPersona = " + idPersona + " LIMIT 1");
             if (RS.next()) {
-                array = new String[19];
-                array[0] = RS.getString(1);
-                array[1] = RS.getString(2);
-                array[2] = RS.getString(3);
-                array[3] = RS.getString(4);
-                array[4] = RS.getString(5);
-                array[5] = RS.getString(6);
-                array[6] = RS.getString(7);
-                array[7] = RS.getString(8);
-                array[8] = RS.getString(9);
-                array[9] = RS.getString(10);
-                array[10] = RS.getString(11);
-                array[11] = RS.getString(12);
-                array[12] = RS.getString(13);
-                array[13] = RS.getString(14);
-                array[14] = RS.getString(15);
-                array[15] = RS.getString(16);
-                array[16] = RS.getString(17);
-                array[17] = RS.getString(18);
-                array[18] = RS.getString(19);
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return array;
     }

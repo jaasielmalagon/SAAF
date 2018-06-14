@@ -10,6 +10,7 @@ import objects.Fecha;
 import objects.Persona;
 import objects.Solicitud;
 import objects.TableCreator;
+import objects.Usuario;
 import resources.agregarPersona_resource;
 
 /**
@@ -20,19 +21,59 @@ public class agregarPersona_service {
 
     private final agregarPersona_resource recurso;
 
-    public agregarPersona_service() {
-        this.recurso = new agregarPersona_resource();
+    public agregarPersona_service(String modulo) {
+        this.recurso = new agregarPersona_resource(modulo);
     }
 
-    public String solicitarPrestamo(Persona p) {
+    private Amortizacion obtenerInteres(int plazo, String tasa, int montoSolicitado) {
+        Amortizacion amr = new Amortizacion();
+        if (plazo == 20) {//TABLAS A 20 SEMANAS                                    
+            switch (tasa) {
+                case "14.5":
+                    amr.tabla145_20(montoSolicitado, plazo);//14.5% A 20 SEMANAS
+                    break;
+                case "14.0":
+                    amr.tabla140_20(montoSolicitado, plazo);//14.0% A 20 SEMANAS
+                    break;
+                case "13.5":
+                    amr.tabla135_20(montoSolicitado, plazo);//13.5% A 20 SEMANAS
+                    break;
+                case "13.0":
+                    amr.tabla130_20(montoSolicitado, plazo);//13.0% A 20 SEMANAS
+                    break;
+                default:
+                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
+                    break;
+            }
+        } else if (plazo == 24) {//TABLAS A 24 SEMANAS
+            switch (tasa) {
+                case "14.5":
+                    amr.tabla145_24(montoSolicitado, plazo);//14.5% A 24 SEMANAS
+                    break;
+                case "14.0":
+                    amr.tabla140_24(montoSolicitado, plazo);//14.0% A 24 SEMANAS
+                    break;
+                case "13.5":
+                    amr.tabla135_24(montoSolicitado, plazo);//13.5% A 24 SEMANAS
+                    break;
+                case "13.0":
+                    amr.tabla130_24(montoSolicitado, plazo);//13.0% A 24 SEMANAS
+                    break;
+                default:
+                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
+                    break;
+            }
+        }
+        return amr;
+    }
+
+    public String solicitarPrestamo(Usuario usuario, Persona p, Object cantidades, Object sems) {
         try {
             if (p.getReferencia() > 0) {
-                Amortizacion amr = new Amortizacion();
-                String[] montos = amr.montos();
-                Object cantidades = JOptionPane.showInputDialog(this, "Seleccione el monto a solicitar", "Solicitar préstamo", JOptionPane.QUESTION_MESSAGE, null, montos, "0");
                 if (cantidades != null) {
                     Cliente cliente = this.cliente(p);
                     if (cliente != null) {
+                        double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
                         int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
                         double tasa;
                         //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE
@@ -45,83 +86,45 @@ public class agregarPersona_service {
                         } else {
                             tasa = 14.5;
                         }
-                        double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR
-                        String[] nSemanas = {"20", "24"};//PLAZO EN SEMANAS
-                        Object sems = JOptionPane.showInputDialog(this, "Seleccione a cuántas semanas desea el préstamo", "Seleccionar plazo", JOptionPane.QUESTION_MESSAGE, null, nSemanas, "0");
+
                         if (sems != null) {
-                            int semanas = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
+                            int plazo = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
                             int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
                             String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
                             //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
-                            if (semanas == 20) {//TABLAS A 20 SEMANAS                                    
-                                switch (tasaString) {
-                                    case "14.5":
-                                        amr.tabla145_20(montoSolicitado, semanas);//14.5% A 20 SEMANAS
-                                        break;
-                                    case "14.0":
-                                        amr.tabla140_20(montoSolicitado, semanas);//14.0% A 20 SEMANAS
-                                        break;
-                                    case "13.5":
-                                        amr.tabla135_20(montoSolicitado, semanas);//13.5% A 20 SEMANAS
-                                        break;
-                                    case "13.0":
-                                        amr.tabla130_20(montoSolicitado, semanas);//13.0% A 20 SEMANAS
-                                        break;
-                                    default:
-                                        JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                                        break;
-                                }
-                            } else if (semanas == 24) {//TABLAS A 24 SEMANAS
-                                switch (tasaString) {
-                                    case "14.5":
-                                        amr.tabla145_24(montoSolicitado, semanas);//14.5% A 24 SEMANAS
-                                        break;
-                                    case "14.0":
-                                        amr.tabla140_24(montoSolicitado, semanas);//14.0% A 24 SEMANAS
-                                        break;
-                                    case "13.5":
-                                        amr.tabla135_24(montoSolicitado, semanas);//13.5% A 24 SEMANAS
-                                        break;
-                                    case "13.0":
-                                        amr.tabla130_24(montoSolicitado, semanas);//13.0% A 24 SEMANAS
-                                        break;
-                                    default:
-                                        JOptionPane.showMessageDialog(this, "No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
-                                        break;
-                                }
-                            }
+                            Amortizacion amr = this.obtenerInteres(plazo, tasaString, montoSolicitado);
                             //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
-                            if (amr.getMONTO() >= 5000 && PERSONA_SELECCIONADA.getAval() <= 0) {
-                                JOptionPane.showMessageDialog(this, "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                            if (amr.getMONTO() >= 5000 && p.getAval() <= 0) {
+                                return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
                             } else {
-                                Solicitud ultimaSolicitud = this.servicio.ultimaSolicitud(CLIENTE);
-                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), semanas, CLIENTE.getID(), this.USUARIO.getIdUsuario(), this.USUARIO.getIdSucursal(), tasa, "", "");
-                                if (this.servicio.compararFechaSolicitud(ultimaSolicitud)) {
-                                    JOptionPane.showMessageDialog(this, "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.", "¡AVISO!", JOptionPane.INFORMATION_MESSAGE);
+                                Solicitud ultimaSolicitud = this.ultimaSolicitud(cliente);
+                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), plazo, cliente.getID(), usuario.getIdUsuario(), usuario.getIdSucursal(), tasa, "", "");
+                                if (this.compararFechaSolicitud(ultimaSolicitud)) {
+                                    return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
                                 } else {
-                                    boolean solIns = this.servicio.guardarSolicitud(solicitudNueva);
+                                    boolean solIns = this.guardarSolicitud(solicitudNueva);
                                     if (solIns) {
-                                        JOptionPane.showMessageDialog(this, "Solicitud guardada correctamente. Esté pendiente del resultado...");
+                                        return "Solicitud guardada correctamente. Esté pendiente del resultado...";
                                     } else {
-                                        JOptionPane.showMessageDialog(this, "No se guardó la solicitud");
+                                        return "No se guardó la solicitud";
                                     }
                                 }
                                 /**/
                             }
                         } else {
-                            JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                            return "La operación ha sido cancelada";
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "La persona seleccionada todavía no cuenta con datos de cliente", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+                        return "La persona seleccionada todavía no cuenta con datos de cliente";
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "La operación ha sido cancelada", "¡AVISO!", JOptionPane.WARNING_MESSAGE);
+                    return "La operación ha sido cancelada";
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "La persona seleccionada no cuenta con una referencia válida asociada", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+                return "La persona seleccionada no cuenta con una referencia válida asociada";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un monto válido", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
+            return "Debe ingresar un monto válido";
         }
     }
 

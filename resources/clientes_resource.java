@@ -3,7 +3,6 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import objects.ErrorController;
 
 /**

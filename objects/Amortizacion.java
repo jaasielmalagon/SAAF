@@ -6,7 +6,7 @@ package objects;
  */
 public class Amortizacion {
     
-    private int MONTO, INTERES, TOTAL, PAGO;
+    private int MONTO = 0, INTERES = 0, TOTAL = 0, PAGO = 0;
     public Amortizacion() {
     }
 
