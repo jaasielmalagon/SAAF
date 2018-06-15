@@ -30,6 +30,9 @@ public class Solicitudes extends javax.swing.JDialog {
     }
     
     private void mostrarAdc() {
+        cmbPlazo.setModel(this.servicio.comboPlazo());
+        cmbFecha.setModel(this.servicio.comboFecha());
+        cmbMonto.setModel(this.servicio.comboMonto());
         cmbAdc.setModel(this.servicio.comboAdc(this.USUARIO));
     }
     
@@ -50,7 +53,7 @@ public class Solicitudes extends javax.swing.JDialog {
     }
 
     private void llenarTabla() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO,null));
     }
 
 
@@ -78,7 +81,7 @@ public class Solicitudes extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -135,7 +138,7 @@ public class Solicitudes extends javax.swing.JDialog {
         panelFormulario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los datos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
         cmbPlazo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        cmbPlazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "20 semanas", "24 semanas" }));
+        cmbPlazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "20", "24" }));
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel3.setText("Filtrar por monto:");
@@ -170,6 +173,7 @@ public class Solicitudes extends javax.swing.JDialog {
             .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(panelFormularioLayout.createSequentialGroup()
                             .addComponent(jLabel4)
@@ -178,8 +182,7 @@ public class Solicitudes extends javax.swing.JDialog {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFormularioLayout.createSequentialGroup()
                             .addComponent(jLabel20)
                             .addGap(18, 18, 18)
-                            .addComponent(cmbPlazo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbPlazo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(70, 70, 70)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,10 +215,10 @@ public class Solicitudes extends javax.swing.JDialog {
                     .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(cmbAdc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -225,7 +228,7 @@ public class Solicitudes extends javax.swing.JDialog {
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de personas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
-        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -236,7 +239,7 @@ public class Solicitudes extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tablaClientes);
+        jScrollPane3.setViewportView(tabla);
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
@@ -320,7 +323,7 @@ public class Solicitudes extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormulario;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JTable tablaClientes;
+    private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
     // End of variables declaration//GEN-END:variables
 }
