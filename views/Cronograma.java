@@ -394,7 +394,7 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jCalendar2 = new com.toedter.calendar.JCalendar();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
@@ -454,6 +454,7 @@ public class Cronograma extends javax.swing.JDialog {
 
         panelFormulario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los datos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         panelFormulario.setPreferredSize(new java.awt.Dimension(600, 240));
+        panelFormulario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -472,9 +473,11 @@ public class Cronograma extends javax.swing.JDialog {
                 txtNombreKeyTyped(evt);
             }
         });
+        panelFormulario.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 83, 260, -1));
 
         jLabel16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel16.setText("Descripción");
+        panelFormulario.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 55, -1, -1));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -482,27 +485,14 @@ public class Cronograma extends javax.swing.JDialog {
                 btnCancelarMouseClicked(evt);
             }
         });
+        btnCancelar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Cancelar");
+        btnCancelar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 9, -1, 30));
 
-        javax.swing.GroupLayout btnCancelarLayout = new javax.swing.GroupLayout(btnCancelar);
-        btnCancelar.setLayout(btnCancelarLayout);
-        btnCancelarLayout.setHorizontalGroup(
-            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCancelarLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
-        );
-        btnCancelarLayout.setVerticalGroup(
-            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCancelarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        panelFormulario.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 160, 100, 50));
 
         btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -510,69 +500,20 @@ public class Cronograma extends javax.swing.JDialog {
                 btnGuardarMouseClicked(evt);
             }
         });
+        btnGuardar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Guardar datos");
+        btnGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 9, 110, 30));
 
-        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
-        btnGuardar.setLayout(btnGuardarLayout);
-        btnGuardarLayout.setHorizontalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardarLayout.setVerticalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
-        panelFormulario.setLayout(panelFormularioLayout);
-        panelFormularioLayout.setHorizontalGroup(
-            panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel16))
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFormularioLayout.createSequentialGroup()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelFormularioLayout.setVerticalGroup(
-            panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel16)
-                .addGap(12, 12, 12)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
-            .addGroup(panelFormularioLayout.createSequentialGroup()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        panelFormulario.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 160, -1, 50));
+        panelFormulario.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 370, 160));
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 700, 240));
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actividades del día", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -587,55 +528,22 @@ public class Cronograma extends javax.swing.JDialog {
         ));
         jScrollPane3.setViewportView(tablaClientes);
 
+        panelTabla.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 80, 1128, 123));
+
         btnGuardar1.setBackground(new java.awt.Color(244, 0, 100));
         btnGuardar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGuardar1MouseClicked(evt);
             }
         });
+        btnGuardar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Eliminar");
+        btnGuardar1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 0, 80, 30));
 
-        javax.swing.GroupLayout btnGuardar1Layout = new javax.swing.GroupLayout(btnGuardar1);
-        btnGuardar1.setLayout(btnGuardar1Layout);
-        btnGuardar1Layout.setHorizontalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        btnGuardar1Layout.setVerticalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
-        panelTabla.setLayout(panelTablaLayout);
-        panelTablaLayout.setHorizontalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(512, 512, 512))
-        );
-        panelTablaLayout.setVerticalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 56, Short.MAX_VALUE))
-        );
+        panelTabla.add(btnGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 40, 90, -1));
 
         Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 265, 1160, 260));
 
@@ -724,7 +632,7 @@ public class Cronograma extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JPanel btnGuardar1;
-    private com.toedter.calendar.JCalendar jCalendar2;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;

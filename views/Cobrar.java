@@ -36,19 +36,11 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
         panelFormulario1 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        btnGuardar1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel21 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         panelFormulario2 = new javax.swing.JPanel();
-        btnGuardar2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
@@ -103,147 +95,37 @@ public class Cobrar extends javax.swing.JDialog {
 
         panelFormulario1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los datos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         panelFormulario1.setPreferredSize(new java.awt.Dimension(600, 240));
-
-        jLabel16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel16.setText("Gerencia");
-
-        btnGuardar1.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardar1MouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Buscar");
-
-        javax.swing.GroupLayout btnGuardar1Layout = new javax.swing.GroupLayout(btnGuardar1);
-        btnGuardar1.setLayout(btnGuardar1Layout);
-        btnGuardar1Layout.setHorizontalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardar1Layout.setVerticalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona A", "Zona B", "Zona C", "Zona D", " " }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel21.setText("Colonia");
+        panelFormulario1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona A", "Zona B", "Zona C", "Zona D", " " }));
         jComboBox5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona A", "Zona B", "Zona C", "Zona D", " " }));
-        jComboBox6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
+        panelFormulario1.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
         jLabel23.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel23.setText("Zona");
+        jLabel23.setText("Zona:");
+        panelFormulario1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel24.setText("Cartera");
+        jLabel1.setText("ADC:");
+        panelFormulario1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 30, 20));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona A", "Zona B", "Zona C", "Zona D", " " }));
-        jComboBox7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        panelFormulario1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 240, -1));
 
-        javax.swing.GroupLayout panelFormulario1Layout = new javax.swing.GroupLayout(panelFormulario1);
-        panelFormulario1.setLayout(panelFormulario1Layout);
-        panelFormulario1Layout.setHorizontalGroup(
-            panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFormulario1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addGroup(panelFormulario1Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(46, 46, 46)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24))
-                .addGap(31, 31, 31)
-                .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(104, 104, 104))
-            .addGroup(panelFormulario1Layout.createSequentialGroup()
-                .addGap(424, 424, 424)
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelFormulario1Layout.createSequentialGroup()
-                    .addGap(132, 132, 132)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(589, Short.MAX_VALUE)))
-        );
-        panelFormulario1Layout.setVerticalGroup(
-            panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFormulario1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addGap(22, 22, 22)
-                .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(panelFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelFormulario1Layout.createSequentialGroup()
-                    .addGap(50, 50, 50)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(142, Short.MAX_VALUE)))
-        );
-
-        Contenedor.add(panelFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 1000, 240));
+        Contenedor.add(panelFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 900, 180));
 
         panelFormulario2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         panelFormulario2.setPreferredSize(new java.awt.Dimension(600, 240));
         panelFormulario2.setVerifyInputWhenFocusTarget(false);
-
-        btnGuardar2.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardar2MouseClicked(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Cobrar");
-
-        javax.swing.GroupLayout btnGuardar2Layout = new javax.swing.GroupLayout(btnGuardar2);
-        btnGuardar2.setLayout(btnGuardar2Layout);
-        btnGuardar2Layout.setHorizontalGroup(
-            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardar2Layout.setVerticalGroup(
-            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,25 +146,18 @@ public class Cobrar extends javax.swing.JDialog {
             panelFormulario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormulario2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(panelFormulario2Layout.createSequentialGroup()
-                .addGap(420, 420, 420)
-                .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(447, Short.MAX_VALUE))
         );
         panelFormulario2Layout.setVerticalGroup(
             panelFormulario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormulario2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        Contenedor.add(panelFormulario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 1000, -1));
-        panelFormulario2.getAccessibleContext().setAccessibleName("Clientes");
+        Contenedor.add(panelFormulario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 1000, 290));
         panelFormulario2.getAccessibleContext().setAccessibleDescription("");
 
         jPanel1.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
@@ -301,13 +176,13 @@ public class Cobrar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnGuardar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar1MouseClicked
-        
-    }//GEN-LAST:event_btnGuardar1MouseClicked
-
-    private void btnGuardar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar2MouseClicked
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardar2MouseClicked
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,20 +231,12 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JPanel Contenedor;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JPanel btnGuardar1;
-    private javax.swing.JPanel btnGuardar2;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;

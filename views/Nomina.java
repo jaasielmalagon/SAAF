@@ -4,12 +4,31 @@
  * and open the template in the editor.
  */
 package views;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import objects.Amortizacion;
+import objects.Cliente;
+import objects.Estado;
+import objects.Fecha;
+import objects.Mes;
+import objects.Persona;
+import objects.Solicitud;
+import objects.Usuario;
+import services.agregarPersona_service;
 /**
  *
  * @author mield
  */
-public class Nomina extends javax.swing.JFrame {
+
+public class Nomina extends javax.swing.JDialog {
+        private final agregarPersona_service servicio;
+    private int ID_PERSONA_SELECCIONADA = 0;
+    private Persona PERSONA_SELECCIONADA = null;
+    private Usuario USUARIO = null;
+    private Cliente CLIENTE = null;
 
     /**
      * Creates new form Nomina
@@ -18,7 +37,7 @@ public class Nomina extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void cargarTipoEmpleado(){
+    public void cargarEmpleado(){
     
         
 }
@@ -43,19 +62,15 @@ public class Nomina extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         Contenedor = new javax.swing.JPanel();
         panelTabla = new javax.swing.JPanel();
-        btnGuardar = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        panelTabla1 = new javax.swing.JPanel();
-        btnGuardar1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         txtNombre1 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel21 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        panelTabla1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -108,37 +123,6 @@ public class Nomina extends javax.swing.JFrame {
         panelTabla.setPreferredSize(new java.awt.Dimension(1200, 620));
         panelTabla.setLayout(null);
 
-        btnGuardar.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardarMouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Imprimir");
-
-        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
-        btnGuardar.setLayout(btnGuardarLayout);
-        btnGuardarLayout.setHorizontalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardarLayout.setVerticalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addContainerGap())
-        );
-
-        panelTabla.add(btnGuardar);
-        btnGuardar.setBounds(460, 20, 139, 41);
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -153,49 +137,7 @@ public class Nomina extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         panelTabla.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 70, 960, 160);
-
-        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 1000, 240));
-
-        panelTabla1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de nomina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
-        panelTabla1.setPreferredSize(new java.awt.Dimension(1200, 620));
-        panelTabla1.setLayout(null);
-
-        btnGuardar1.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardar1MouseClicked(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Buscar");
-
-        javax.swing.GroupLayout btnGuardar1Layout = new javax.swing.GroupLayout(btnGuardar1);
-        btnGuardar1.setLayout(btnGuardar1Layout);
-        btnGuardar1Layout.setHorizontalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardar1Layout.setVerticalGroup(
-            btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardar1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addContainerGap())
-        );
-
-        panelTabla1.add(btnGuardar1);
-        btnGuardar1.setBounds(490, 120, 139, 41);
-
-        jLabel19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel19.setText("Cargo:");
-        panelTabla1.add(jLabel19);
-        jLabel19.setBounds(30, 140, 90, 13);
+        jScrollPane1.setBounds(10, 80, 1010, 240);
 
         txtNombre1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtNombre1.addActionListener(new java.awt.event.ActionListener() {
@@ -214,28 +156,44 @@ public class Nomina extends javax.swing.JFrame {
                 txtNombre1KeyTyped(evt);
             }
         });
-        panelTabla1.add(txtNombre1);
-        txtNombre1.setBounds(140, 50, 260, 30);
+        panelTabla.add(txtNombre1);
+        txtNombre1.setBounds(390, 30, 260, 30);
 
         jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel20.setText("Número:");
-        panelTabla1.add(jLabel20);
-        jLabel20.setBounds(30, 60, 55, 13);
+        panelTabla.add(jLabel20);
+        jLabel20.setBounds(330, 30, 55, 30);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox3);
-        jComboBox3.setBounds(140, 130, 260, 30);
+        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 1040, 330));
 
-        jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel21.setText("Departamento:");
-        panelTabla1.add(jLabel21);
-        jLabel21.setBounds(30, 100, 90, 13);
+        panelTabla1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de nomina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelTabla1.setPreferredSize(new java.awt.Dimension(1200, 620));
+        panelTabla1.setLayout(null);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox4);
-        jComboBox4.setBounds(140, 90, 260, 30);
+        jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel1.setText("Departamento:");
+        panelTabla1.add(jLabel1);
+        jLabel1.setBounds(20, 40, 100, 20);
 
-        Contenedor.add(panelTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 15, 700, 240));
+        jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel2.setText("Cargo:");
+        panelTabla1.add(jLabel2);
+        jLabel2.setBounds(350, 40, 40, 20);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        panelTabla1.add(jComboBox1);
+        jComboBox1.setBounds(120, 40, 160, 20);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerente", "Empleado", "Administrador", " " }));
+        panelTabla1.add(jComboBox2);
+        jComboBox2.setBounds(390, 40, 150, 20);
+
+        Contenedor.add(panelTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 600, 110));
 
         getContentPane().add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -249,14 +207,6 @@ public class Nomina extends javax.swing.JFrame {
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
-
-    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-       
-    }//GEN-LAST:event_btnGuardarMouseClicked
-
-    private void btnGuardar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardar1MouseClicked
 
     private void txtNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre1ActionPerformed
         // TODO add your handling code here:
@@ -273,6 +223,10 @@ public class Nomina extends javax.swing.JFrame {
     private void txtNombre1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre1KeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombre1KeyTyped
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,17 +267,13 @@ public class Nomina extends javax.swing.JFrame {
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JPanel Contenedor;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JPanel btnGuardar;
-    private javax.swing.JPanel btnGuardar1;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelTabla;

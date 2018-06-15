@@ -9,6 +9,7 @@ import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import objects.ErrorController;
+import objects.ErrorController;
 
 /**
  *
@@ -25,7 +26,15 @@ public class nomina_resource {
         this.ERROR_CONTROLLER = new ErrorController();
     }
     
-    
+    public String[][] nominaEmpleados(){
+        String[][] data = null;
+        try{
+            this.DB.Connect();
+            this.RS = this.DB.Select(campos, tabla, condicion)
+        }catch(Exception ex){
+            System.out.println("Error en resource.nomina_resource.nominaEmpleados():"+ ex.getMessage());
+        }
+    }
     
 
 }
