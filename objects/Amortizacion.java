@@ -5,7 +5,10 @@ package objects;
  * @author JMalagon
  */
 public class Amortizacion {
-    
+    /*
+    *
+    * la amortización genera cargo para los prestamos de los clientes 
+    */
     private int MONTO, INTERES, TOTAL, PAGO;
     public Amortizacion() {
     }

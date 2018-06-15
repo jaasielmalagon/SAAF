@@ -30,7 +30,7 @@ public class nomina_resource {
         String[][] data = null;
         try{
             this.DB.Connect();
-            this.RS = this.DB.Select(campos, tabla, condicion)
+            this.RS = this.DB.Select(campos, tabla, condicion);
         }catch(Exception ex){
             System.out.println("Error en resource.nomina_resource.nominaEmpleados():"+ ex.getMessage());
         }

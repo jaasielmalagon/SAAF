@@ -26,11 +26,15 @@ public class cobrar_resource {
         this.MODULO = modulo;
     }
 
-    public boolean ejemploInsertar(String val1, int val2) {
+    public cobrar_resource() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean InsertarZonaYADC(String LugarZona, String TipoADC) {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Insert("cliente", "nombre", "pepe");
+            flag = this.DB.Insert("Cobro", "LugarZona, TipoADC", " ' " + LugarZona + " ' , ' " + TipoADC + " ' " );
             this.DB.Disconnect();
         } catch (Exception ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -40,11 +44,11 @@ public class cobrar_resource {
         return flag;
     }
 
-    public boolean ejemploActualizar(String val1, int val2) {
+    public boolean ModificarZonaYADC(String LugarZona, String TipoADC) {
         boolean flag;
         try {
             this.DB.Connect();
-            flag = this.DB.Update("cobro ", "valores", "condicion");
+            flag = this.DB.Update(" Cobro ", " ' " + TipoADC + " ' " ,  " LugarZona = " +  LugarZona);
             this.DB.Disconnect();
         } catch (Exception ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -54,30 +58,30 @@ public class cobrar_resource {
         return flag;
     }
 
-    public String[] ejemploSelectFila(int id) {
-        String[] array = null;
-        try {
-            this.DB.Connect();
-            this.RS = this.DB.Select("campos,id", "tabla", "condicion");
-            if (this.RS.next()) {
-                int size = this.RS.getFetchSize();
-                if (size > 0) {
-                    array = new String[size];
-                    for (int i = 0; i < size; i++) {
-                        array[i] = this.RS.getString(i + 1);
-                    }
-                }
-            }
-            this.DB.Disconnect();
-        } catch (Exception ex) {
-            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-            array = null;
-        }
-        return array;
-    }
+  //  public String[] ejemploSelectFila(int id) {
+  //      String[] array = null;
+  //      try {
+  //          this.DB.Connect();
+  //          this.RS = this.DB.Select("campos,id", "tabla", "condicion");
+  //          if (this.RS.next()) {
+   //             int size = this.RS.getFetchSize();
+  //              if (size > 0) {
+  //                  array = new String[size];
+  //                  for (int i = 0; i < size; i++) {
+  //                      array[i] = this.RS.getString(i + 1);
+   //                 }
+   //             }
+   //         }
+   //         this.DB.Disconnect();
+   //     } catch (Exception ex) {
+   //         System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+   //         this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+   //         array = null;
+   ///     }
+   //     return array;
+   // }
 
-    public String[][] ejemploSelectMuchasFilas(int id) {
+    public String[][] DatosCobro(int id) {
          // ------//|
                   //|
                   //|
@@ -86,7 +90,7 @@ public class cobrar_resource {
             this.DB.Connect();
             int registros = 0;
             int i = 0;
-            this.RS = this.DB.Select("count(*)", "tabla", "condicion");//filas
+            this.RS = this.DB.Select("count(*)", "cobro", "condicion");//filas
             if (this.RS.next()) { //si debe contar                        //la condicion tiene que ser igual la del campo 
                 registros = this.RS.getInt(1); // cantidad de registros
                 this.RS = this.DB.Select("campos,id,fecha,nombre,edad", "tabla", "condicion");
@@ -110,17 +114,5 @@ public class cobrar_resource {
         }
         return array;
     }
-     public boolean SolicitudTarifas(String tarifas, int idcliente) {
-        boolean flag;
-        try {
-            this.DB.Connect();
-            flag = this.DB.Insert("cliente", "tarifa 1", "tarifa 2");
-            this.DB.Disconnect();
-        } catch (Exception ex) {
-            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-            flag = false;
-        }
-        return flag;
-    }
+     
 }
