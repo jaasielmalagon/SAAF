@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -158,17 +159,27 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="panelFormulario">
+            <Container class="javax.swing.JPanel" name="panelFormulario1">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+<<<<<<< HEAD:views/Domicilio.form
                     <TitledBorder justification="2" title="Datos">
+=======
+                    <TitledBorder justification="2" title="Ingrese los datos">
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       <Font PropertyName="font" name="Solomon Sans Book" size="14" style="1"/>
                     </TitledBorder>
                   </Border>
                 </Property>
+<<<<<<< HEAD:views/Domicilio.form
                 <Property name="toolTipText" type="java.lang.String" value="Datos"/>
                 <Property name="name" type="java.lang.String" value="Datos&#xa;" noResource="true"/>
+=======
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[600, 240]"/>
+                </Property>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Datos&#xa;"/>
@@ -176,13 +187,18 @@
               </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+<<<<<<< HEAD:views/Domicilio.form
                   <AbsoluteConstraints x="30" y="30" width="1150" height="200"/>
+=======
+                  <AbsoluteConstraints x="100" y="20" width="1000" height="240"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                 </Constraint>
               </Constraints>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="48" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -214,12 +230,48 @@
                               <Component id="btnCancelar2" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+=======
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="jComboBox2" min="-2" pref="269" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="138" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jComboBox7" min="-2" pref="269" max="-2" attributes="0"/>
+                              <Component id="jComboBox6" min="-2" pref="269" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="424" max="-2" attributes="0"/>
+                          <Component id="btnGuardar1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="jComboBox5" min="-2" pref="269" max="-2" attributes="0"/>
+                              <EmptySpace pref="589" max="32767" attributes="0"/>
+                          </Group>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -245,43 +297,89 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnCancelar2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="20" max="32767" attributes="0"/>
+=======
+                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <Component id="btnGuardar1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="142" max="32767" attributes="0"/>
+                          </Group>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="btnCancelar">
+                <Component class="javax.swing.JLabel" name="jLabel16">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Solomon Sans Book" size="12" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Gerencia"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JPanel" name="btnGuardar1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                      <Color blue="64" green="0" red="f4" type="rgb"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelarMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGuardar1MouseClicked"/>
                   </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jLabel8" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+=======
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel5" pref="102" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="21" max="32767" attributes="0"/>
+=======
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
+                    <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Solomon Sans Book" size="14" style="1"/>
@@ -289,16 +387,40 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
+<<<<<<< HEAD:views/Domicilio.form
                         <Property name="text" type="java.lang.String" value="CUARDAR"/>
+=======
+                        <Property name="text" type="java.lang.String" value="Buscar"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jLabel17">
+                <Component class="javax.swing.JComboBox" name="jComboBox2">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="5">
+                        <StringItem index="0" value="Zona A"/>
+                        <StringItem index="1" value="Zona B"/>
+                        <StringItem index="2" value="Zona C"/>
+                        <StringItem index="3" value="Zona D"/>
+                        <StringItem index="4" value=" "/>
+                      </StringArray>
+                    </Property>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Cursor Por defecto"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel21">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Solomon Sans Book" size="12" style="0"/>
                     </Property>
+<<<<<<< HEAD:views/Domicilio.form
                     <Property name="text" type="java.lang.String" value="Longitud:"/>
                   </Properties>
                 </Component>
@@ -306,6 +428,21 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Solomon Sans Book" size="12" style="0"/>
+=======
+                    <Property name="text" type="java.lang.String" value="Colonia"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBox5">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="5">
+                        <StringItem index="0" value="Zona A"/>
+                        <StringItem index="1" value="Zona B"/>
+                        <StringItem index="2" value="Zona C"/>
+                        <StringItem index="3" value="Zona D"/>
+                        <StringItem index="4" value=" "/>
+                      </StringArray>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                     </Property>
                     <Property name="text" type="java.lang.String" value="Latitud:"/>
                   </Properties>
@@ -317,6 +454,7 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Direccion actual:"/>
                   </Properties>
+<<<<<<< HEAD:views/Domicilio.form
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField4">
                   <Events>
@@ -324,10 +462,37 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
+=======
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBox6">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="5">
+                        <StringItem index="0" value="Zona A"/>
+                        <StringItem index="1" value="Zona B"/>
+                        <StringItem index="2" value="Zona C"/>
+                        <StringItem index="3" value="Zona D"/>
+                        <StringItem index="4" value=" "/>
+                      </StringArray>
+                    </Property>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Cursor Por defecto"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel23">
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Solomon Sans Book" size="12" style="0"/>
                     </Property>
+<<<<<<< HEAD:views/Domicilio.form
                     <Property name="text" type="java.lang.String" value="Ingresar direccion:"/>
                   </Properties>
                 </Component>
@@ -347,11 +512,26 @@
                   </Events>
                 </Component>
                 <Container class="javax.swing.JPanel" name="btnCancelar2">
+=======
+                    <Property name="text" type="java.lang.String" value="Zona"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel24">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Solomon Sans Book" size="12" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Cartera"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBox7">
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
                   </Properties>
+<<<<<<< HEAD:views/Domicilio.form
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelar2MouseClicked"/>
                   </Events>
@@ -390,9 +570,15 @@
                     </Component>
                   </SubComponents>
                 </Container>
+=======
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="panelTabla">
+            <Container class="javax.swing.JPanel" name="panelFormulario2">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -401,20 +587,29 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Cliente"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[600, 240]"/>
+                </Property>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
               </Properties>
               <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Datos del cliente "/>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Clientes"/>
+                <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
               </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+<<<<<<< HEAD:views/Domicilio.form
                   <AbsoluteConstraints x="30" y="250" width="1150" height="250"/>
+=======
+                  <AbsoluteConstraints x="100" y="270" width="1000" height="-1"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                 </Constraint>
               </Constraints>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
@@ -430,6 +625,17 @@
                               <Component id="jScrollPane3" pref="1128" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           </Group>
+=======
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="420" max="-2" attributes="0"/>
+                          <Component id="btnGuardar2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="447" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -437,6 +643,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+<<<<<<< HEAD:views/Domicilio.form
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -453,43 +660,65 @@
                               <Component id="jScrollPane3" min="-2" pref="123" max="-2" attributes="0"/>
                               <EmptySpace pref="50" max="32767" attributes="0"/>
                           </Group>
+=======
+                          <Component id="btnGuardar2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="153" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
+<<<<<<< HEAD:views/Domicilio.form
                 <Container class="javax.swing.JPanel" name="btnCancelar1">
+=======
+                <Container class="javax.swing.JPanel" name="btnGuardar2">
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                      <Color blue="64" green="0" red="f4" type="rgb"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelar1MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGuardar2MouseClicked"/>
                   </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jLabel9" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+=======
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel6" pref="102" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD:views/Domicilio.form
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+=======
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel9">
+                    <Component class="javax.swing.JLabel" name="jLabel6">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Solomon Sans Book" size="14" style="1"/>
@@ -497,7 +726,32 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
+<<<<<<< HEAD:views/Domicilio.form
                         <Property name="text" type="java.lang.String" value="Buscar"/>
+=======
+                        <Property name="text" type="java.lang.String" value="Cobrar"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable2">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="4" rowCount="4">
+                            <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65:views/Cobrar.form
                       </Properties>
                     </Component>
                   </SubComponents>

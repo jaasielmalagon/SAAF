@@ -1,4 +1,4 @@
-package views;
+        package views;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -394,13 +394,15 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+<<<<<<< HEAD
+=======
+        jCalendar2 = new com.toedter.calendar.JCalendar();
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
         btnGuardar1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        btnGuardar2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -454,6 +456,7 @@ public class Cronograma extends javax.swing.JDialog {
         Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelFormulario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los datos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelFormulario.setPreferredSize(new java.awt.Dimension(600, 240));
 
         txtNombre.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -537,12 +540,23 @@ public class Cronograma extends javax.swing.JDialog {
         panelFormularioLayout.setHorizontalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addGap(449, 449, 449)
                         .addComponent(jLabel16))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addGap(408, 408, 408)
+=======
+                .addContainerGap()
+                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel16))
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelFormularioLayout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -562,10 +576,17 @@ public class Cronograma extends javax.swing.JDialog {
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+<<<<<<< HEAD
                 .addContainerGap(23, Short.MAX_VALUE))
+=======
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addGroup(panelFormularioLayout.createSequentialGroup()
+                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65
         );
 
-        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 680, 240));
+        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 700, 240));
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actividades del día", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
@@ -599,42 +620,14 @@ public class Cronograma extends javax.swing.JDialog {
             btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnGuardar1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+                .addComponent(jLabel6)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         btnGuardar1Layout.setVerticalGroup(
             btnGuardar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnGuardar1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnGuardar2.setBackground(new java.awt.Color(244, 0, 100));
-        btnGuardar2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardar2MouseClicked(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Modificar");
-
-        javax.swing.GroupLayout btnGuardar2Layout = new javax.swing.GroupLayout(btnGuardar2);
-        btnGuardar2.setLayout(btnGuardar2Layout);
-        btnGuardar2Layout.setHorizontalGroup(
-            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
-        );
-        btnGuardar2Layout.setVerticalGroup(
-            btnGuardar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardar2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -646,19 +639,15 @@ public class Cronograma extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addGap(339, 339, 339)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(186, 186, 186)
-                .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(512, 512, 512))
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaLayout.createSequentialGroup()
-                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 56, Short.MAX_VALUE))
@@ -715,10 +704,6 @@ public class Cronograma extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardar1MouseClicked
 
-    private void btnGuardar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardar2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardar2MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -755,13 +740,16 @@ public class Cronograma extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JPanel btnGuardar1;
+<<<<<<< HEAD
     private javax.swing.JPanel btnGuardar2;
+=======
+    private com.toedter.calendar.JCalendar jCalendar2;
+>>>>>>> e5b9318b8ca020cf8836eaf4604ef18da5df7f65
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormulario;
