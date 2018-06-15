@@ -19,35 +19,21 @@ import objects.Persona;
 import objects.Solicitud;
 import objects.Usuario;
 import services.agregarPersona_service;
+import javax.swing.JFrame;
 
 /**
  *
  * @author mield
  */
 public class Nomina extends javax.swing.JDialog {
-    private final agregarPersona_service servicio;
-    private int ID_PERSONA_SELECCIONADA = 0;
-    private Persona PERSONA_SELECCIONADA = null;
-    private Usuario USUARIO = null;
-    private Cliente CLIENTE = null;
-    /**
-     * Creates new form Nomina
-     */
-    public Nomina(java.awt.Frame parent, boolean modal, Usuario usuario) {
+
+    public Nomina (java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(parent);
-        
-        this.servicio= new agregarPersona_service();
-        this.USUARIO=usuario;
-        System.out.print(this.USUARIO.toString());
-        llenarTabla();
-        
     }
-
-private void llenarTabla() {
-        tablaEmpleados = this.servicio.tablaPersonas(tablaEmpleados, this.USUARIO.getIdSucursal());
-}
+   // private Nomina(JFrame jFrame, boolean b, Usuario usuario) {
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     @SuppressWarnings("unchecked")
 
 
@@ -65,6 +51,8 @@ private void llenarTabla() {
         tablaEmpleados = new javax.swing.JTable();
         txtNumeroEmpleado = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
+        Buscar = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         panelTabla1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -157,10 +145,36 @@ private void llenarTabla() {
         panelTabla.add(txtNumeroEmpleado);
         txtNumeroEmpleado.setBounds(390, 30, 260, 30);
 
-        jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel20.setText("Número:");
         panelTabla.add(jLabel20);
         jLabel20.setBounds(330, 30, 55, 30);
+
+        Buscar.setBackground(new java.awt.Color(244, 0, 100));
+
+        jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Buscar");
+
+        javax.swing.GroupLayout BuscarLayout = new javax.swing.GroupLayout(Buscar);
+        Buscar.setLayout(BuscarLayout);
+        BuscarLayout.setHorizontalGroup(
+            BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuscarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(72, 72, 72))
+        );
+        BuscarLayout.setVerticalGroup(
+            BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuscarLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addContainerGap())
+        );
+
+        panelTabla.add(Buscar);
+        Buscar.setBounds(660, 20, 70, 40);
 
         Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 1040, 330));
 
@@ -168,15 +182,15 @@ private void llenarTabla() {
         panelTabla1.setPreferredSize(new java.awt.Dimension(1200, 620));
         panelTabla1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel1.setText("Departamento:");
         panelTabla1.add(jLabel1);
         jLabel1.setBounds(20, 40, 100, 20);
 
-        jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel2.setText("Cargo:");
         panelTabla1.add(jLabel2);
-        jLabel2.setBounds(350, 40, 40, 20);
+        jLabel2.setBounds(340, 40, 50, 20);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +221,13 @@ private void llenarTabla() {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void txtNumeroEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroEmpleadoActionPerformed
-        // TODO add your handling code here:
+              char cTeclaPresionada = evt.getKeyChar();
+        if (cTeclaPresionada == KeyEvent.VK_DELETE || cTeclaPresionada == KeyEvent.VK_BACK_SPACE) {
+            int l = txtNumeroEmpleado.getText().length();
+            if (l == 0) {
+                llenarTabla();
+            }
+        }
     }//GEN-LAST:event_txtNumeroEmpleadoActionPerformed
 
     private void txtNumeroEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroEmpleadoKeyPressed
@@ -286,6 +306,7 @@ private void llenarTabla() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraSuperior;
+    private javax.swing.JPanel Buscar;
     private javax.swing.JPanel Contenedor;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -295,6 +316,7 @@ private void llenarTabla() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JPanel panelTabla1;
@@ -302,4 +324,13 @@ private void llenarTabla() {
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtNumeroEmpleado;
     // End of variables declaration//GEN-END:variables
+
+
+    private void buscar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void llenarTabla() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
