@@ -26,13 +26,24 @@ import javax.swing.JFrame;
  * @author mield
  */
 public class Nomina extends javax.swing.JDialog {
+    //private final agregarPersona_service servicio;
+    private int ID_PERSONA_SELECCIONADA = 0;
+    private Persona PERSONA_SELECCIONADA = null;
+    private Usuario USUARIO = null;
+    private Cliente CLIENTE = null;
 
     public Nomina (java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        llenarTabla();
+           
     }
    // private Nomina(JFrame jFrame, boolean b, Usuario usuario) {
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    private Nomina(JFrame jFrame, boolean b, Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @SuppressWarnings("unchecked")
 
@@ -167,14 +178,11 @@ public class Nomina extends javax.swing.JDialog {
         );
         BuscarLayout.setVerticalGroup(
             BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BuscarLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addContainerGap())
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
 
         panelTabla.add(Buscar);
-        Buscar.setBounds(660, 20, 70, 40);
+        Buscar.setBounds(660, 30, 70, 20);
 
         Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 1040, 330));
 
