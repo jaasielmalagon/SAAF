@@ -6,15 +6,15 @@ package objects;
  */
 public class Cliente {
 
-    private int ID = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;
+    private int ID = 0, ADC = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;
     //private String ID, SUCURSAL, USUARIO, ID_PERSONA, DEPENDIENTES, OCUPACION, ESTUDIOS, SCORE, STATUS, ACTIVIDAD, TIPO_VIVIENDA;
-    private String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, ADC, PROPIETARIO, VIGENCIA, TIEMPO_RESIDENCIA;
+    private String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, PROPIETARIO, VIGENCIA, TIEMPO_RESIDENCIA;
     private double INGRESOS, EGRESOS;
     private Persona PERSONA;
 
     public Cliente(
             int ID, int SUCURSAL, int USUARIO,
-            String F_REGISTRO, String ADC, int ID_PERSONA,
+            String F_REGISTRO, int ADC, int ID_PERSONA,
             double INGRESOS, double EGRESOS,
             int DEPENDIENTES, int OCUPACION, int ESTUDIOS,
             String EMPRESA, String DOMICILIO_EMPRESA,
@@ -47,9 +47,9 @@ public class Cliente {
         this.VIGENCIA = VIGENCIA;
         this.TIEMPO_RESIDENCIA = TIEMPO_RESIDENCIA;
     }
-    
-    public Cliente(){
-        
+
+    public Cliente() {
+
     }
 
     public int getID() {
@@ -64,7 +64,7 @@ public class Cliente {
         return USUARIO;
     }
 
-    public String getADC() {
+    public int getADC() {
         return ADC;
     }
 
@@ -135,15 +135,15 @@ public class Cliente {
     public int getTIPO_VIVIENDA() {
         return TIPO_VIVIENDA;
     }
-    
+
     public String getVIGENCIA() {
         return VIGENCIA;
     }
-    
+
     public String getPROPIETARIO() {
         return PROPIETARIO;
     }
-    
+
     public int getTIEMPO_RESIDENCIA() {
         int t = 0;
         try {
@@ -158,11 +158,11 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "ID=" + ID + ", SUCURSAL=" + SUCURSAL + ", USUARIO=" + USUARIO + ", ID_PERSONA=" + ID_PERSONA + ", DEPENDIENTES=" + DEPENDIENTES + ", OCUPACION=" + OCUPACION + ", ESTUDIOS=" + ESTUDIOS + ", SCORE=" + SCORE + ", STATUS=" + STATUS + ", ACTIVIDAD=" + ACTIVIDAD + ", TIPO_VIVIENDA=" + TIPO_VIVIENDA + ", F_REGISTRO=" + F_REGISTRO + ", EMPRESA=" + EMPRESA + ", DOMICILIO_EMPRESA=" + DOMICILIO_EMPRESA + ", TEL_EMPRESA=" + TEL_EMPRESA + ", HORA_ENTRADA=" + HORA_ENTRADA + ", HORA_SALIDA=" + HORA_SALIDA + ", ADC=" + ADC + ", PROPIETARIO=" + PROPIETARIO + ", VIGENCIA=" + VIGENCIA + ", TIEMPO_RESIDENCIA=" + TIEMPO_RESIDENCIA + ", INGRESOS=" + INGRESOS + ", EGRESOS=" + EGRESOS + ", PERSONA=" + PERSONA.toString() + '}';
     }
-    
+
     //STRINGS TO INTEGER
     public void setID(int ID) {
         this.ID = ID;
-    }        
+    }
 
     public void setSUCURSAL(int SUCURSAL) {
         this.SUCURSAL = SUCURSAL;
@@ -228,7 +228,7 @@ public class Cliente {
         this.HORA_SALIDA = HORA_SALIDA;
     }
 
-    public void setADC(String ADC) {
+    public void setADC(int ADC) {
         this.ADC = ADC;
     }
 
@@ -256,12 +256,13 @@ public class Cliente {
         this.PERSONA = PERSONA;
     }
 //string    
+
     public void setID(String var) {
         try {
             this.ID = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        }        
+        }
     }
 
     public void setSUCURSAL(String var) {
@@ -269,7 +270,7 @@ public class Cliente {
             this.SUCURSAL = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setUSUARIO(String var) {
@@ -277,7 +278,7 @@ public class Cliente {
             this.USUARIO = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setID_PERSONA(String var) {
@@ -285,7 +286,15 @@ public class Cliente {
             this.ID_PERSONA = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
+    }
+    
+    public void setADC(String var) {
+        try {
+            this.ADC = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
     }
 
     public void setDEPENDIENTES(String var) {
@@ -293,7 +302,7 @@ public class Cliente {
             this.DEPENDIENTES = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setOCUPACION(String var) {
@@ -301,7 +310,7 @@ public class Cliente {
             this.OCUPACION = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setESTUDIOS(String var) {
@@ -309,7 +318,7 @@ public class Cliente {
             this.ESTUDIOS = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setSCORE(String var) {
@@ -317,7 +326,7 @@ public class Cliente {
             this.SCORE = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setSTATUS(String var) {
@@ -325,7 +334,7 @@ public class Cliente {
             this.STATUS = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setACTIVIDAD(String var) {
@@ -333,7 +342,7 @@ public class Cliente {
             this.ACTIVIDAD = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setTIPO_VIVIENDA(String var) {
@@ -341,15 +350,15 @@ public class Cliente {
             this.TIPO_VIVIENDA = Integer.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
-    
+
     public void setINGRESOS(String var) {
         try {
             this.INGRESOS = Double.valueOf(var);
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
-        } 
+        }
     }
 
     public void setEGRESOS(String var) {
@@ -358,6 +367,6 @@ public class Cliente {
         } catch (NumberFormatException e) {
             System.out.println(this.getClass().getName() + ": " + e);
         }
-    }    
+    }
 
 }

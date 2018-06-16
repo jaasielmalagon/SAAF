@@ -25,7 +25,7 @@ public class Solicitudes extends javax.swing.JDialog {
         this.USUARIO = usuario;
         this.modulo = modulo;
         this.llenarCombos();
-//        llenarTabla();
+        llenarTabla();
 //        seleccionarDeTabla();
     }
 

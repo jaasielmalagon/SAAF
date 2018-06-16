@@ -80,7 +80,7 @@ public class Empleados extends javax.swing.JDialog {
     private void cargarDatosEmpleado() {
         if (PERSONA_SELECCIONADA != null) {
             lblNombrePersona.setText(PERSONA_SELECCIONADA.toString());
-            this.EMPLEADO = this.SERVICIO.getEmpleado(PERSONA_SELECCIONADA.getIdPersona());
+            this.EMPLEADO = this.SERVICIO.getEmpleado(PERSONA_SELECCIONADA.getIdPersona());            
             if (this.EMPLEADO == null) {
                 JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + PERSONA_SELECCIONADA.toString());
                 limpiarCampos();
@@ -98,8 +98,7 @@ public class Empleados extends javax.swing.JDialog {
         }
     }
 
-    private void limpiarCampos() {
-        lblNombrePersona.setText("");
+    private void limpiarCampos() {        
         txtSueldo.setText("");
         cmbNivelEstudios.setSelectedIndex(0);
         cmbDepartamento.setSelectedIndex(0);
@@ -264,7 +263,7 @@ public class Empleados extends javax.swing.JDialog {
     }
 
     private void guardarDatos() {
-        try {
+//        try {
             String mensaje = "COMPLETADO";//SI ESTE MENSAJE NO SE CAMBIA ES QUE TODO SALIÓ MAL :(                       
             boolean updated = false;
             Adc nuevoAdc = this.creaAdc();
@@ -301,9 +300,9 @@ public class Empleados extends javax.swing.JDialog {
                 mensaje = "Datos del ADC no guardados";
             }
             JOptionPane.showMessageDialog(rootPane, mensaje, "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-        } catch (HeadlessException | NumberFormatException e) {
-            System.out.println("views.Empleados.guardarDatos() : " + e);
-        }
+//        } catch (HeadlessException | NumberFormatException e) {
+//            System.out.println("views.Empleados.guardarDatos() : " + e);
+//        }
     }
 
     private void marcarDias() {

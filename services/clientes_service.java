@@ -26,6 +26,23 @@ public class clientes_service {
     public clientes_service(String modulo) {
         this.recurso = new clientes_resource(modulo);
     }
+    
+    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[][] array = this.recurso.getAdcFromSucursal(USUARIO.getIdSucursal());
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
+            for (String[] val : array) {
+                if (Integer.parseInt(val[2]) < 10) {
+                    val[2] = "0" + val[2];
+                }
+                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
+            }
+        } else {
+            dcbm.addElement(new Lista(0, "Sin resultados"));
+        }
+        return dcbm;
+    }
 
     public Adc crearAdc(Usuario USUARIO, Empleado EMPLEADO, Object agencia, Object vacante) {
         Adc adc;
