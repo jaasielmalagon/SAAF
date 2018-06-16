@@ -1,6 +1,5 @@
 package services;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objects.Lista;
@@ -28,7 +27,7 @@ public class solicitudes_service {
                 if (Integer.parseInt(val[2]) < 10) {
                     val[2] = "0" + val[2];
                 }
-                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2]));
+                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
             }
         } else {
             dcbm.addElement(new Lista(0, "Sin resultados"));
@@ -43,15 +42,13 @@ public class solicitudes_service {
         String[][] array = this.RECURSO.solicitudes(filtro);
         if (array != null) {
             for (String[] var : array) {
-                Object[] cli = new Object[8];
+                Object[] cli = new Object[var.length];
                 cli[0] = var[0];
                 cli[1] = var[1];
-                cli[2] = var[2] + " " + var[3];
-                cli[3] = var[4];
-                cli[4] = var[5];
-                cli[5] = var[6];
-                cli[6] = var[7];
-                cli[7] = var[8];
+                cli[2] = var[2] + "%";
+                cli[3] = var[3] + " semanas";
+                cli[4] = var[7];
+                cli[5] = var[8];
                 dtm.addRow(cli);
             }
         } else {
@@ -63,16 +60,49 @@ public class solicitudes_service {
     }
 
     private String filtro(Usuario u, Object[] objects) {
-        String f = "sucursal = " + u.getIdSucursal();
+        String f = "WHERE prestamos_solicitudes.sucursal = " + u.getIdSucursal();
         if (objects != null) {
             for (Object object : objects) {
                 Lista l = (Lista) object;
                 if (l.getID() > 0) {
-                    f = f + " AND " + l.getSTRING();
+                    if ("adc".equals(l.getSTRING2())) {
+//                        int solicitudes = this.RECURSO.contarSolicitudesDeClientes(this.condicionContarSolicitudes(l));
+//                        f = " INNER JOIN personas_clientes ON prestamos_solicitudes.cliente = personas_clientes.idCliente " + f + " AND personas_clientes.adc = " + l.getID();
+                    } else if ("fecha".equals(l.getSTRING2()) && l.getID() > 0) {
+                        String order = "";
+                        if (l.getID() == 1) {
+                            order = "ASC";
+                        } else if (l.getID() == 2) {
+                            order = "DESC";
+                        }
+                        f = f + " ORDER BY " + l.getSTRING2() + " " + order;
+                    } else {
+                        f = f + " AND " + l.getSTRING2() + " = " + l.getID();
+                    }
                 }
             }
+            System.out.println(f);
         }
         return f;
+    }
+
+    private String condicionContarSolicitudes(Lista l) {
+        String condicion = "";
+        int[] idClientes = this.RECURSO.clientesDeAdc(l.getID());
+        if (idClientes.length > 1) {
+            int i = 1;
+            for (int idCliente : idClientes) {
+                if (i == 1) {
+                    condicion = "cliente = " + idCliente;
+                } else {
+                    condicion = condicion + " OR cliente = " + idCliente;
+                }
+                i++;
+            }
+        }else{
+            condicion = "cliente = " + idClientes[0];
+        }
+        return condicion;
     }
 
     public DefaultComboBoxModel comboPlazo() {

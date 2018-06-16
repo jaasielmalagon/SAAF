@@ -13,7 +13,7 @@ public class Solicitudes extends javax.swing.JDialog {
     private final solicitudes_service servicio;
     private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA_SELECCIONADA = null;
-    private Usuario USUARIO = null;    
+    private Usuario USUARIO = null;
     private final String modulo;
 
     public Solicitudes(java.awt.Frame parent, boolean modal, Usuario usuario, String modulo) {
@@ -21,25 +21,25 @@ public class Solicitudes extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
 
-        this.servicio = new solicitudes_service(modulo);                
+        this.servicio = new solicitudes_service(modulo);
         this.USUARIO = usuario;
         this.modulo = modulo;
-        this.mostrarAdc();
+        this.llenarCombos();
 //        llenarTabla();
 //        seleccionarDeTabla();
     }
-    
-    private void mostrarAdc() {
+
+    private void llenarCombos() {
         cmbPlazo.setModel(this.servicio.comboPlazo());
         cmbFecha.setModel(this.servicio.comboFecha());
         cmbMonto.setModel(this.servicio.comboMonto());
         cmbAdc.setModel(this.servicio.comboAdc(this.USUARIO));
     }
-    
+
     private void seleccionarDeTabla() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     private void guardarDatos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -53,9 +53,17 @@ public class Solicitudes extends javax.swing.JDialog {
     }
 
     private void llenarTabla() {
-        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO,null));
+        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO, null));
     }
 
+    private void busquedaFiltrada() {
+        Object[] obj = new Object[4];
+        obj[0] = cmbAdc.getSelectedItem();
+        obj[1] = cmbPlazo.getSelectedItem();
+        obj[2] = cmbMonto.getSelectedItem();
+        obj[3] = cmbFecha.getSelectedItem();
+        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO, obj));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -139,6 +147,11 @@ public class Solicitudes extends javax.swing.JDialog {
 
         cmbPlazo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         cmbPlazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "20", "24" }));
+        cmbPlazo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPlazoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel3.setText("Filtrar por monto:");
@@ -148,17 +161,33 @@ public class Solicitudes extends javax.swing.JDialog {
 
         cmbFecha.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         cmbFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Descendente", "Ascendente" }));
+        cmbFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFechaActionPerformed(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel20.setText("Filtrar por plazo:");
 
         cmbMonto.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         cmbMonto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "1000", "1500", "2000", "2500", "3000", "3500", "4000", "4500", "5000", "5500", "6000", "6500", "7000", "7500", "8000", "8500", "9000", "9500", "10000" }));
+        cmbMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMontoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel6.setText("Filtrar por ADC:");
 
         cmbAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbAdc.setEnabled(false);
+        cmbAdc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAdcActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/green-check.png"))); // NOI18N
@@ -226,7 +255,7 @@ public class Solicitudes extends javax.swing.JDialog {
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, 160));
 
-        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de personas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Solicitudes de préstamo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,6 +303,22 @@ public class Solicitudes extends javax.swing.JDialog {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void cmbPlazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlazoActionPerformed
+        this.busquedaFiltrada();
+    }//GEN-LAST:event_cmbPlazoActionPerformed
+
+    private void cmbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFechaActionPerformed
+        this.busquedaFiltrada();
+    }//GEN-LAST:event_cmbFechaActionPerformed
+
+    private void cmbMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMontoActionPerformed
+        this.busquedaFiltrada();
+    }//GEN-LAST:event_cmbMontoActionPerformed
+
+    private void cmbAdcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdcActionPerformed
+        this.busquedaFiltrada();
+    }//GEN-LAST:event_cmbAdcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,4 +371,5 @@ public class Solicitudes extends javax.swing.JDialog {
     private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
     // End of variables declaration//GEN-END:variables
+
 }

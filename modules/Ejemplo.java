@@ -23,7 +23,7 @@ public class Ejemplo extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        nombreUsuario.setText("HOLA " + this.usuario.toString().toUpperCase());
+        nombreUsuario.setText("HOLA " + this.usuario.getUsername().toUpperCase());
         if (this.usuario.getFotografia() != null) {
             System.out.println(this.usuario.getFotografia());
             fotografia.setIcon(new ImageIcon(this.usuario.getFotografia()));
