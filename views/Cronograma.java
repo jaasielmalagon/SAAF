@@ -14,8 +14,8 @@ public class Cronograma extends javax.swing.JDialog {
     /**
      * Creates new form Cronograma
      */
-    public Cronograma(boolean modal) {
-        
+    public Cronograma(java.awt.Frame parent,boolean modal, Usuario usuario) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -320,7 +320,7 @@ public class Cronograma extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Cronograma dialog = new Cronograma(true);
+                Cronograma dialog = new Cronograma(new java.awt.Frame(),true, new Usuario(1,"","",1,1,1,""));
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
