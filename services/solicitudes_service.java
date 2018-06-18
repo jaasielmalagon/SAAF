@@ -1,8 +1,11 @@
 package services;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import objects.Lista;
+import objects.Solicitud;
+import objects.TableCreator;
 import objects.Usuario;
 import resources.solicitudCredito_resource;
 
@@ -16,6 +19,41 @@ public class solicitudes_service {
 
     public solicitudes_service(String modulo) {
         this.RECURSO = new solicitudCredito_resource(modulo);
+    }
+
+    public String aprobacionSolicitud(Solicitud solicitud) {
+        boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());        
+        if (b) {
+            String estado = "";
+            if (solicitud.getESTADO() == 0) {
+                estado = "rechazada";
+            } else if (solicitud.getESTADO() == 2) {
+                estado = "aprobada";
+            }
+            return "Solicitud " + estado + " correctamente";
+        } else {
+            return "El estado de la solicitud no pudo ser cambiado";
+        }
+    }
+
+    public Solicitud solicitud(Usuario usuario, int idSolicitud) {
+        String[] array = this.RECURSO.getSolicitud(idSolicitud, usuario.getIdSucursal());
+        if (array != null) {
+            Solicitud solicitud = new Solicitud();
+            solicitud.setID(array[0]);
+            solicitud.setMONTO(array[1]);
+            solicitud.setTASA(array[2]);
+            solicitud.setPLAZO(array[3]);
+            solicitud.setCLIENTE(array[4]);
+            solicitud.setUSUARIO(array[5]);
+            solicitud.setSUCURSAL(array[6]);
+            solicitud.setFECHA(array[7]);
+            solicitud.setHORA(array[8]);
+            solicitud.setESTADO(array[9]);
+            return solicitud;
+        } else {
+            return null;
+        }
     }
 
     public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
@@ -35,9 +73,10 @@ public class solicitudes_service {
         return dcbm;
     }
 
-    public DefaultTableModel tablaSolicitudes(Usuario usuario, Object[] object) {
+    public JTable tablaSolicitudes(JTable tabla, Usuario usuario, Object[] object) {
         String titulos[] = {"Folio", "Monto", "Interés", "Plazo", "Fecha", "Hora"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos);
+        TableCreator tcr = new TableCreator();
+        DefaultTableModel dtm = tcr.noEditableTableModel(titulos);
         String filtro = this.filtro(usuario, object);
         String[][] array = this.RECURSO.solicitudes(filtro);
         if (array != null) {
@@ -56,7 +95,9 @@ public class solicitudes_service {
             cli[0] = "SIN RESULTADOS";
             dtm.addRow(cli);
         }
-        return dtm;
+        tabla.setModel(dtm);
+        tabla.setColumnModel(tcr.noResizable(tabla));
+        return tabla;
     }
 
     private String filtro(Usuario u, Object[] objects) {
@@ -99,7 +140,7 @@ public class solicitudes_service {
                 }
                 i++;
             }
-        }else{
+        } else {
             condicion = "cliente = " + idClientes[0];
         }
         return condicion;

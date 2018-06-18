@@ -98,7 +98,8 @@ public class agregarPersona_service {
                                 return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
                             } else {
                                 Solicitud ultimaSolicitud = this.ultimaSolicitud(cliente);
-                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), plazo, cliente.getID(), usuario.getIdUsuario(), usuario.getIdSucursal(), tasa, "", "");
+                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), plazo, cliente.getID(), usuario.getIdUsuario(),
+                                        usuario.getIdSucursal(), tasa, "", "", 0);
                                 if (this.compararFechaSolicitud(ultimaSolicitud)) {
                                     return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
                                 } else {
@@ -152,7 +153,7 @@ public class agregarPersona_service {
         if (cliente != null) {
             String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getID());
             if (datos != null) {
-                solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8]);
+                solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8], Integer.valueOf(datos[9]));
             }
         }
         return solicitud;

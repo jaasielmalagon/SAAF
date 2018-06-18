@@ -41,7 +41,7 @@ public class agregarPersona_resource {//implements interfaces.conection {
             this.DB.Connect();
             RS = this.DB.Select("*", "prestamos_solicitudes", "cliente=" + idCliente + " ORDER BY idSolicitud DESC LIMIT 1");
             if (RS.next()) {
-                array = new String[9];
+                array = new String[10];
                 array[0] = RS.getString(1);
                 array[1] = RS.getString(2);
                 array[2] = RS.getString(3);
@@ -51,6 +51,7 @@ public class agregarPersona_resource {//implements interfaces.conection {
                 array[6] = RS.getString(7);
                 array[7] = RS.getString(8);
                 array[8] = RS.getString(9);
+                array[9] = RS.getString(10);
             }
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);

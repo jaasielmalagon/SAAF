@@ -22,6 +22,26 @@ public class solicitudCredito_resource {
         this.modulo = modulo;
     }
 
+    public String[] getSolicitud(int idSolicitud, int idSucusal) {
+        String[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "prestamos_solicitudes", "idSolicitud = " + idSolicitud + " AND sucursal = " + idSucusal + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
     public String[][] getAdcFromSucursal(int idSucursal) {
         String[][] array = null;
         try {
@@ -106,14 +126,14 @@ public class solicitudCredito_resource {
         }
         return array;
     }
-    
+
     public int contarSolicitudesDeClientes(String condicion) {
         int count = 0;
         try {
             this.DB.Connect();
             RS = this.DB.Select("COUNT(*)", "prestamos_solicitudes", condicion);
             if (RS.next()) {
-                count = RS.getInt(1);                
+                count = RS.getInt(1);
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
@@ -121,6 +141,13 @@ public class solicitudCredito_resource {
             this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return count;
+    }
+
+    public boolean cambiarEstadoSolicitud(int id, int estado) {        
+        this.DB.Connect();
+        boolean flag = this.DB.Update("prestamos_solicitudes", "estado = " + estado, "idSolicitud = " + id + " LIMIT 1");
+        this.DB.Disconnect();
+        return flag;
     }
 
 }

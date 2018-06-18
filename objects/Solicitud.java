@@ -5,11 +5,12 @@ package objects;
  * @author Root
  */
 public class Solicitud {
-    private int ID, MONTO, PLAZO, CLIENTE, USUARIO, SUCURSAL;
+
+    private int ID, MONTO, PLAZO, CLIENTE, USUARIO, SUCURSAL, ESTADO;
     private double TASA;
     private String FECHA, HORA;
 
-    public Solicitud(int ID, int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA, String FECHA, String HORA) {
+    public Solicitud(int ID, int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA, String FECHA, String HORA, int ESTADO) {
         this.ID = ID;
         this.MONTO = MONTO;
         this.PLAZO = PLAZO;
@@ -19,6 +20,75 @@ public class Solicitud {
         this.TASA = TASA;
         this.FECHA = FECHA;
         this.HORA = HORA;
+        this.ESTADO = ESTADO;
+    }
+
+    public Solicitud() {
+
+    }
+
+    public void setID(String var) {
+        try {
+            this.ID = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setMONTO(String var) {
+        try {
+            this.MONTO = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setPLAZO(String var) {
+        try {
+            this.PLAZO = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setCLIENTE(String var) {
+        try {
+            this.CLIENTE = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setUSUARIO(String var) {
+        try {
+            this.USUARIO = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setSUCURSAL(String var) {
+        try {
+            this.SUCURSAL = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setESTADO(String var) {
+        try {
+            this.ESTADO = Integer.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
+    }
+
+    public void setTASA(String var) {
+        try {
+            this.TASA = Double.valueOf(var);
+        } catch (NumberFormatException e) {
+            System.out.println(this.getClass().getName() + ": " + e);
+        }
     }
 
     public int getID() {
@@ -84,7 +154,7 @@ public class Solicitud {
     public void setFecha(String fecha) {
         this.FECHA = fecha;
     }
-    
+
     public String getHORA() {
         return HORA;
     }
@@ -92,9 +162,25 @@ public class Solicitud {
     public void setHORA(String HORA) {
         this.HORA = HORA;
     }
-    
+
+    public int getESTADO() {
+        return ESTADO;
+    }
+
+    public void setESTADO(int ESTADO) {
+        this.ESTADO = ESTADO;
+    }
+
+    public String getFECHA() {
+        return FECHA;
+    }
+
+    public void setFECHA(String FECHA) {
+        this.FECHA = FECHA;
+    }
+
     @Override
-    public String toString(){
-        return ""+ID;
+    public String toString() {
+        return "" + ID;
     }
 }

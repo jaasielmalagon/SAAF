@@ -1,6 +1,10 @@
 package views;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import objects.Persona;
+import objects.Solicitud;
 import objects.Usuario;
 import services.solicitudes_service;
 
@@ -11,22 +15,18 @@ import services.solicitudes_service;
 public class Solicitudes extends javax.swing.JDialog {
 
     private final solicitudes_service servicio;
-    private int ID_PERSONA_SELECCIONADA = 0;
-    private Persona PERSONA_SELECCIONADA = null;
+    private Solicitud SOLICITUD_SELECCIONADA = null;
     private Usuario USUARIO = null;
-    private final String modulo;
 
     public Solicitudes(java.awt.Frame parent, boolean modal, Usuario usuario, String modulo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-
         this.servicio = new solicitudes_service(modulo);
         this.USUARIO = usuario;
-        this.modulo = modulo;
         this.llenarCombos();
         llenarTabla();
-//        seleccionarDeTabla();
+        seleccionarDeTabla();
     }
 
     private void llenarCombos() {
@@ -37,7 +37,33 @@ public class Solicitudes extends javax.swing.JDialog {
     }
 
     private void seleccionarDeTabla() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 1) {
+                    try {
+                        int idSolicitud = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+
+                        SOLICITUD_SELECCIONADA = servicio.solicitud(USUARIO, idSolicitud);
+                        if (SOLICITUD_SELECCIONADA != null) {
+                            int aprobacion = JOptionPane.showConfirmDialog(rootPane, "Autorizar esta solicitud creará la tabla de pagos \nautomáticamente y generará el préstamo internamente.\n¿Aceptar?", "¿Autorizar solicitud?", JOptionPane.YES_NO_CANCEL_OPTION);
+                            String mensaje = "Algo salió mal. Intente nuevamente.";
+                            if (aprobacion < 2) {
+                                if (aprobacion == JOptionPane.YES_OPTION) {
+                                    SOLICITUD_SELECCIONADA.setESTADO(2);
+                                } else if (aprobacion == JOptionPane.NO_OPTION) {
+                                    SOLICITUD_SELECCIONADA.setESTADO(0);
+                                }
+                                mensaje = servicio.aprobacionSolicitud(SOLICITUD_SELECCIONADA);
+                            }
+                            JOptionPane.showMessageDialog(rootPane, mensaje);
+                        }
+                    } catch (NumberFormatException ex) {
+                        System.out.println(".mousePressed() : " + ex);
+                    }
+                }
+            }
+        });
     }
 
     private void guardarDatos() {
@@ -53,7 +79,7 @@ public class Solicitudes extends javax.swing.JDialog {
     }
 
     private void llenarTabla() {
-        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO, null));
+        tabla = this.servicio.tablaSolicitudes(tabla, this.USUARIO, null);
     }
 
     private void busquedaFiltrada() {
@@ -62,7 +88,7 @@ public class Solicitudes extends javax.swing.JDialog {
         obj[1] = cmbPlazo.getSelectedItem();
         obj[2] = cmbMonto.getSelectedItem();
         obj[3] = cmbFecha.getSelectedItem();
-        tabla.setModel(this.servicio.tablaSolicitudes(this.USUARIO, obj));
+        tabla = this.servicio.tablaSolicitudes(tabla, this.USUARIO, obj);
     }
 
     @SuppressWarnings("unchecked")
@@ -85,8 +111,10 @@ public class Solicitudes extends javax.swing.JDialog {
         cmbMonto = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         cmbAdc = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        cmbFecha1 = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        cmbFecha2 = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -189,11 +217,27 @@ public class Solicitudes extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/green-check.png"))); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel5.setText("Filtrar por estatus:");
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red-cross.png"))); // NOI18N
+        cmbFecha1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbFecha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Aprobado", "Pendiente", "Rechazado" }));
+        cmbFecha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFecha1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        jLabel7.setText("Filtrar por estatus:");
+
+        cmbFecha2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbFecha2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Aprobado", "Pendiente", "Rechazado" }));
+        cmbFecha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFecha2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
         panelFormulario.setLayout(panelFormularioLayout);
@@ -201,33 +245,39 @@ public class Solicitudes extends javax.swing.JDialog {
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(panelFormularioLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(cmbFecha, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFormularioLayout.createSequentialGroup()
-                            .addComponent(jLabel20)
-                            .addGap(18, 18, 18)
-                            .addComponent(cmbPlazo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(70, 70, 70)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panelFormularioLayout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)
-                            .addComponent(cmbMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelFormularioLayout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbAdc, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton2))
-                .addContainerGap(177, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbPlazo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbFecha, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbFecha1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(67, 67, 67)
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbAdc, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbFecha2, 0, 1, Short.MAX_VALUE))
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
-        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton2, jButton3});
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel20, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7});
+
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbFecha1, cmbFecha2, cmbMonto, cmbPlazo});
 
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,15 +295,17 @@ public class Solicitudes extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(cmbAdc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(cmbFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        panelFormularioLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton2, jButton3});
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbFecha1, cmbFecha2, cmbMonto, cmbPlazo, jLabel20, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7});
 
-        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, 160));
+        Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, -1));
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Solicitudes de préstamo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
 
@@ -267,7 +319,15 @@ public class Solicitudes extends javax.swing.JDialog {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tabla);
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
@@ -283,11 +343,11 @@ public class Solicitudes extends javax.swing.JDialog {
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 175, 1160, 350));
+        Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 155, 1160, 370));
 
         PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1200, 530));
 
@@ -319,6 +379,14 @@ public class Solicitudes extends javax.swing.JDialog {
     private void cmbAdcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdcActionPerformed
         this.busquedaFiltrada();
     }//GEN-LAST:event_cmbAdcActionPerformed
+
+    private void cmbFecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFecha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFecha1ActionPerformed
+
+    private void cmbFecha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFecha2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFecha2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,16 +423,18 @@ public class Solicitudes extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cmbAdc;
     private javax.swing.JComboBox<String> cmbFecha;
+    private javax.swing.JComboBox<String> cmbFecha1;
+    private javax.swing.JComboBox<String> cmbFecha2;
     private javax.swing.JComboBox<String> cmbMonto;
     private javax.swing.JComboBox<String> cmbPlazo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormulario;
     private javax.swing.JPanel panelTabla;

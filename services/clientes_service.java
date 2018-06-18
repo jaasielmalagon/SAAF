@@ -151,12 +151,8 @@ public class clientes_service {
 
     public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
         String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo", "Estudios", "Departamento", "Contacto", "Dias Laborales"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        TableCreator tcr = new TableCreator();
+        DefaultTableModel dtm = tcr.noEditableTableModel(titulos);
         String[][] array;
         if (dato.isEmpty()) {
             array = this.recurso.datosEmpleados(idSucursal, dato);
@@ -180,8 +176,7 @@ public class clientes_service {
                 cli[11] = var[12];
                 dtm.addRow(cli);
             }
-        }
-        TableCreator tcr = new TableCreator();
+        }        
         tabla.setModel(dtm);
         tabla.setColumnModel(tcr.resizeTableEmpleados(tabla));
         return tabla;
@@ -458,19 +453,20 @@ public class clientes_service {
     }
 
     public Mes[] meses() {
-        Mes[] meses = new Mes[12];
-        meses[0] = new Mes("01", "Enero");
-        meses[1] = new Mes("02", "Febrero");
-        meses[2] = new Mes("03", "Marzo");
-        meses[3] = new Mes("04", "Abril");
-        meses[4] = new Mes("05", "Mayo");
-        meses[5] = new Mes("06", "Junio");
-        meses[6] = new Mes("07", "Julio");
-        meses[7] = new Mes("08", "Agosto");
-        meses[8] = new Mes("09", "Septiembre");
-        meses[9] = new Mes("10", "Octubre");
-        meses[10] = new Mes("11", "Noviembre");
-        meses[11] = new Mes("12", "Diciembre");
+        Mes[] meses = new Mes[13];
+        meses[0] = new Mes("00", "--Seleccione--");
+        meses[1] = new Mes("01", "Enero");
+        meses[2] = new Mes("02", "Febrero");
+        meses[3] = new Mes("03", "Marzo");
+        meses[4] = new Mes("04", "Abril");
+        meses[5] = new Mes("05", "Mayo");
+        meses[6] = new Mes("06", "Junio");
+        meses[7] = new Mes("07", "Julio");
+        meses[8] = new Mes("08", "Agosto");
+        meses[9] = new Mes("09", "Septiembre");
+        meses[10] = new Mes("10", "Octubre");
+        meses[11] = new Mes("11", "Noviembre");
+        meses[12] = new Mes("12", "Diciembre");
         return meses;
     }
 
