@@ -45,7 +45,7 @@ public class ClienteAdd extends javax.swing.JDialog {
             estudios();
             meses();
             limpiarCampos();
-            System.out.println(this.PERSONA_SELECCIONADA.toString());
+//            System.out.println(this.PERSONA_SELECCIONADA.toString());
             this.CLIENTE = SERVICIO.cliente(this.PERSONA_SELECCIONADA);
             if (this.CLIENTE != null) {
                 cargarDatosCliente();
@@ -188,7 +188,7 @@ public class ClienteAdd extends javax.swing.JDialog {
                 txtPropietario.setText(CLIENTE.getPROPIETARIO());
                 String vigencia = CLIENTE.getVIGENCIA();
                 txtAno.setText(vigencia.substring(0, 4));
-                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1);
+                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)));
                 txtDia.setText(vigencia.substring(8, 10));
             }
             switch (CLIENTE.getSTATUS()) {

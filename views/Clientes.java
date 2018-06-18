@@ -227,7 +227,7 @@ public class Clientes extends javax.swing.JDialog {
                 txtPropietario.setText(CLIENTE.getPROPIETARIO());
                 String vigencia = CLIENTE.getVIGENCIA();
                 txtAno.setText(vigencia.substring(0, 4));
-                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1);
+                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)));
                 txtDia.setText(vigencia.substring(8, 10));
             }
             switch (CLIENTE.getSTATUS()) {

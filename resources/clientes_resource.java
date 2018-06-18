@@ -99,22 +99,6 @@ public class clientes_resource {
                 for (int i = 0; i < size; i++) {
                     array[i] = RS.getString(i + 1);
                 }
-//                array[0] = RS.getString(1);
-//                array[1] = RS.getString(2);
-//                array[2] = RS.getString(3);
-//                array[3] = RS.getString(4);
-//                array[4] = RS.getString(5);
-//                array[5] = RS.getString(6);
-//                array[6] = RS.getString(7);
-//                array[7] = RS.getString(8);
-//                array[8] = RS.getString(9);
-//                array[9] = RS.getString(10);
-//                array[10] = RS.getString(11);
-//                array[11] = RS.getString(12);
-//                array[12] = RS.getString(13);
-//                array[13] = RS.getString(14);
-//                array[14] = RS.getString(15);
-//                array[15] = RS.getString(16);
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {

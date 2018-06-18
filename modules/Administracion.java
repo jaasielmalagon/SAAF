@@ -19,7 +19,7 @@ import views.Solicitudes;
 public class Administracion extends javax.swing.JFrame {
 
     private final Usuario usuario;
-    private String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
+    private final String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
     public Administracion(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
