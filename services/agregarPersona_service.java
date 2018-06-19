@@ -3,12 +3,10 @@ package services;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import objects.Amortizacion;
 import objects.Cliente;
 import objects.Estado;
 import objects.Fecha;
 import objects.Persona;
-import objects.Solicitud;
 import objects.TableCreator;
 import objects.Usuario;
 import resources.agregarPersona_resource;
@@ -20,143 +18,11 @@ import resources.agregarPersona_resource;
 public class agregarPersona_service {
 
     private final agregarPersona_resource recurso;
+    private final String modulo;
 
     public agregarPersona_service(String modulo) {
-        this.recurso = new agregarPersona_resource(modulo);
-    }
-
-    private Amortizacion obtenerInteres(int plazo, String tasa, int montoSolicitado) {
-        Amortizacion amr = new Amortizacion();
-        if (plazo == 20) {//TABLAS A 20 SEMANAS                                    
-            switch (tasa) {
-                case "14.5":
-                    amr.tabla145_20(montoSolicitado, plazo);//14.5% A 20 SEMANAS
-                    break;
-                case "14.0":
-                    amr.tabla140_20(montoSolicitado, plazo);//14.0% A 20 SEMANAS
-                    break;
-                case "13.5":
-                    amr.tabla135_20(montoSolicitado, plazo);//13.5% A 20 SEMANAS
-                    break;
-                case "13.0":
-                    amr.tabla130_20(montoSolicitado, plazo);//13.0% A 20 SEMANAS
-                    break;
-                default:
-                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
-                    break;
-            }
-        } else if (plazo == 24) {//TABLAS A 24 SEMANAS
-            switch (tasa) {
-                case "14.5":
-                    amr.tabla145_24(montoSolicitado, plazo);//14.5% A 24 SEMANAS
-                    break;
-                case "14.0":
-                    amr.tabla140_24(montoSolicitado, plazo);//14.0% A 24 SEMANAS
-                    break;
-                case "13.5":
-                    amr.tabla135_24(montoSolicitado, plazo);//13.5% A 24 SEMANAS
-                    break;
-                case "13.0":
-                    amr.tabla130_24(montoSolicitado, plazo);//13.0% A 24 SEMANAS
-                    break;
-                default:
-                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
-                    break;
-            }
-        }
-        return amr;
-    }
-
-    public String solicitarPrestamo(Usuario usuario, Persona p, Object cantidades, Object sems) {
-        try {
-            if (p.getReferencia() > 0) {
-                if (cantidades != null) {
-                    Cliente cliente = this.cliente(p);
-                    if (cliente != null) {
-                        double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
-                        int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
-                        double tasa;
-                        //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE
-                        if (nPrestamos >= 10) {
-                            tasa = 13.0;
-                        } else if (nPrestamos <= 9 && nPrestamos >= 7) {
-                            tasa = 13.5;
-                        } else if (nPrestamos <= 6 && nPrestamos >= 4) {
-                            tasa = 14.0;
-                        } else {
-                            tasa = 14.5;
-                        }
-
-                        if (sems != null) {
-                            int plazo = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
-                            int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
-                            String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
-                            //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
-                            Amortizacion amr = this.obtenerInteres(plazo, tasaString, montoSolicitado);
-                            //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
-                            if (amr.getMONTO() >= 5000 && p.getAval() <= 0) {
-                                return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
-                            } else {
-                                Solicitud ultimaSolicitud = this.ultimaSolicitud(cliente);
-                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), plazo, cliente.getID(), usuario.getIdUsuario(),
-                                        usuario.getIdSucursal(), tasa, "", "", 0);
-                                if (this.compararFechaSolicitud(ultimaSolicitud)) {
-                                    return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
-                                } else {
-                                    boolean solIns = this.guardarSolicitud(solicitudNueva);
-                                    if (solIns) {
-                                        return "Solicitud guardada correctamente. Esté pendiente del resultado...";
-                                    } else {
-                                        return "No se guardó la solicitud";
-                                    }
-                                }
-                                /**/
-                            }
-                        } else {
-                            return "La operación ha sido cancelada";
-                        }
-                    } else {
-                        return "La persona seleccionada todavía no cuenta con datos de cliente";
-                    }
-                } else {
-                    return "La operación ha sido cancelada";
-                }
-            } else {
-                return "La persona seleccionada no cuenta con una referencia válida asociada";
-            }
-        } catch (NumberFormatException e) {
-            return "Debe ingresar un monto válido";
-        }
-    }
-
-    public boolean guardarSolicitud(Solicitud solicitud) {
-        return this.recurso.guardarSolicitud(solicitud.getMONTO(), solicitud.getPLAZO(), solicitud.getCLIENTE(), solicitud.getUSUARIO(), solicitud.getSUCURSAL(), solicitud.getTASA());
-    }
-
-    public boolean compararFechaSolicitud(Solicitud ultima) {
-        try {
-            if (ultima != null) {
-                String fechaServidor = this.recurso.fechaServidor();
-                String fecha = fechaServidor.substring(0, 10);
-                System.out.println("Fecha actual: " + fecha);
-                return ultima.getFecha().equals(fecha);
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public Solicitud ultimaSolicitud(Cliente cliente) {
-        Solicitud solicitud = null;
-        if (cliente != null) {
-            String[] datos = this.recurso.fechaSolicitudAnterior(cliente.getID());
-            if (datos != null) {
-                solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8], Integer.valueOf(datos[9]));
-            }
-        }
-        return solicitud;
+        this.modulo = modulo;
+        this.recurso = new agregarPersona_resource(this.modulo);
     }
 
     public Cliente cliente(Persona persona) {
@@ -383,5 +249,16 @@ public class agregarPersona_service {
             error = 1;
         }
         return error;
+    }
+
+    public String s(){//Usuario USUARIO, Persona PERSONA_SELECCIONADA, Object cantidades, Object sems) {
+//        solicitudes_service ss = new solicitudes_service(modulo);
+//        return ss.solicitarPrestamo(USUARIO, PERSONA_SELECCIONADA, cantidades, sems);
+//        return USUARIO + " " + PERSONA_SELECCIONADA+ " " +cantidades.toString()+ " " +sems;
+        return "hola";
+    }
+
+    public String solicitarPrestamo(Usuario USUARIO, Persona PERSONA_SELECCIONADA, Object cantidades, Object sems) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

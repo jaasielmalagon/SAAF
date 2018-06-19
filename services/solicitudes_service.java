@@ -3,7 +3,10 @@ package services;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import objects.Amortizacion;
+import objects.Cliente;
 import objects.Lista;
+import objects.Persona;
 import objects.Solicitud;
 import objects.TableCreator;
 import objects.Usuario;
@@ -16,18 +19,102 @@ import resources.solicitudCredito_resource;
 public class solicitudes_service {
 
     private final solicitudCredito_resource RECURSO;
+    private final String modulo;
 
     public solicitudes_service(String modulo) {
-        this.RECURSO = new solicitudCredito_resource(modulo);
+        this.modulo = modulo;
+        this.RECURSO = new solicitudCredito_resource(this.modulo);
+    }
+
+    public String solicitarPrestamo(Usuario usuario, Persona p, Object cantidades, Object sems) {
+        try {
+            if (p.getReferencia() > 0) {
+                if (cantidades != null) {
+                    Cliente cliente = new clientes_service(modulo).cliente(p);
+                    if (cliente != null) {
+                        double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
+                        int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
+                        Amortizacion amr = new Amortizacion();
+                        double tasa = amr.getTasa(nPrestamos);
+                        //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE                        
+                        if (sems != null) {
+                            int plazo = Integer.parseInt(sems.toString());//SEMANAS CONVERTIDAS A int (20 O 24)
+                            int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
+                            String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
+                            //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
+                            amr.setAmortizacion(plazo, montoSolicitado, tasaString);
+                            //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
+                            if (amr.getMONTO() >= 5000 && p.getAval() <= 0) {
+                                return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
+                            } else {
+                                Solicitud ultimaSolicitud = this.ultimaSolicitud(cliente);
+                                Solicitud solicitudNueva = new Solicitud(0, amr.getMONTO(), plazo, cliente.getID(), usuario.getIdUsuario(), usuario.getIdSucursal(), tasa, "", "", 0);
+                                if (this.compararFechaSolicitud(ultimaSolicitud)) {
+                                    return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
+                                } else {
+                                    boolean solIns = this.guardarSolicitud(solicitudNueva);
+                                    if (solIns) {
+                                        return "Solicitud guardada correctamente. Esté pendiente del resultado...";
+                                    } else {
+                                        return "No se guardó la solicitud";
+                                    }
+                                }
+                                /**/
+                            }
+                        } else {
+                            return "La operación ha sido cancelada";
+                        }
+                    } else {
+                        return "La persona seleccionada todavía no cuenta con datos de cliente";
+                    }
+                } else {
+                    return "La operación ha sido cancelada";
+                }
+            } else {
+                return "La persona seleccionada no cuenta con una referencia válida asociada";
+            }
+        } catch (NumberFormatException e) {
+            return "Debe ingresar un monto válido";
+        }
+    }
+
+    public boolean guardarSolicitud(Solicitud solicitud) {
+        return this.RECURSO.guardarSolicitud(solicitud.getMONTO(), solicitud.getPLAZO(), solicitud.getCLIENTE(), solicitud.getUSUARIO(), solicitud.getSUCURSAL(), solicitud.getTASA());
+    }
+
+    public boolean compararFechaSolicitud(Solicitud ultima) {
+        try {
+            if (ultima != null) {
+                String fechaServidor = this.RECURSO.fechaServidor();
+                String fechaSolicitud = fechaServidor.substring(0, 10);
+                return ultima.getFecha().equals(fechaSolicitud);
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Solicitud ultimaSolicitud(Cliente cliente) {
+        Solicitud solicitud = null;
+        if (cliente != null) {
+            String[] datos = this.RECURSO.fechaSolicitudAnterior(cliente.getID());
+            if (datos != null) {
+                solicitud = new Solicitud(Integer.valueOf(datos[0]), Integer.valueOf(datos[1]), Integer.valueOf(datos[3]), Integer.valueOf(datos[4]), Integer.valueOf(datos[5]), Integer.valueOf(datos[6]), Integer.valueOf(datos[2]), datos[7], datos[8], Integer.valueOf(datos[9]));
+            }
+        }
+        return solicitud;
     }
 
     public String aprobacionSolicitud(Solicitud solicitud) {
-        boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());        
+        boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());
         if (b) {
             String estado = "";
             if (solicitud.getESTADO() == 0) {
                 estado = "rechazada";
             } else if (solicitud.getESTADO() == 2) {
+//                b = this.insertarPrestamo(solicitud);
                 estado = "aprobada";
             }
             return "Solicitud " + estado + " correctamente";
@@ -172,5 +259,4 @@ public class solicitudes_service {
         }
         return dcbm;
     }
-
 }

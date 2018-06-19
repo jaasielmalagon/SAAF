@@ -3,7 +3,6 @@ package views;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import objects.Persona;
 import objects.Solicitud;
 import objects.Usuario;
 import services.solicitudes_service;

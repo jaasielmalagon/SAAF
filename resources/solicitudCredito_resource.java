@@ -3,7 +3,6 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import objects.ErrorController;
 
 /**
@@ -18,8 +17,8 @@ public class solicitudCredito_resource {
     private final String modulo;
 
     public solicitudCredito_resource(String modulo) {
-        this.DB = new conection();
         this.modulo = modulo;
+        this.DB = new conection();        
     }
 
     public String[] getSolicitud(int idSolicitud, int idSucusal) {
@@ -148,6 +147,61 @@ public class solicitudCredito_resource {
         boolean flag = this.DB.Update("prestamos_solicitudes", "estado = " + estado, "idSolicitud = " + id + " LIMIT 1");
         this.DB.Disconnect();
         return flag;
+    }
+    
+    public boolean guardarSolicitud(int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA) {
+        try {
+            this.DB.Connect();
+            this.DB.Insert("prestamos_solicitudes", "monto,tasa,plazo,cliente,usuario,sucursal,fecha,hora", MONTO + "," + TASA + "," + PLAZO + "," + CLIENTE + "," + USUARIO + "," + SUCURSAL + ",now(),now()");
+            this.DB.Disconnect();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            return false;
+        }
+    }
+    
+    public String[] fechaSolicitudAnterior(int idCliente) {
+        String[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "prestamos_solicitudes", "cliente=" + idCliente + " ORDER BY idSolicitud DESC LIMIT 1");
+            if (RS.next()) {
+                array = new String[10];
+                array[0] = RS.getString(1);
+                array[1] = RS.getString(2);
+                array[2] = RS.getString(3);
+                array[3] = RS.getString(4);
+                array[4] = RS.getString(5);
+                array[5] = RS.getString(6);
+                array[6] = RS.getString(7);
+                array[7] = RS.getString(8);
+                array[8] = RS.getString(9);
+                array[9] = RS.getString(10);
+            }
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public String fechaServidor() {
+        String hora = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.fullSelect("SELECT now()");
+            if (RS.next()) {
+                hora = RS.getString(1);
+            }            
+            this.DB.Disconnect();            
+            return hora;
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            return hora;
+        }
     }
 
 }
