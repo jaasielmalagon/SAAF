@@ -633,6 +633,14 @@ public class Amortizacion {
         return PAGO;
     }
     
+    public void getAmortizacion(int plazo){
+        if (plazo == 20) {
+            
+        }else if (plazo == 24) {
+            
+        }
+    }
+    
     @Override
     public String toString(){
         return "|" + this.MONTO + "|" + this.INTERES + "|" + this.TOTAL + "|" + this.PAGO + "|";
