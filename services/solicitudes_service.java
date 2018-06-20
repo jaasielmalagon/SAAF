@@ -33,7 +33,7 @@ public class solicitudes_service {
                     Cliente cliente = new clientes_service(modulo).cliente(p);
                     if (cliente != null) {
                         double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
-                        int nPrestamos = 100;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
+                        int nPrestamos = 1;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
                         Amortizacion amr = new Amortizacion();
                         double tasa = amr.getTasa(nPrestamos);
                         //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE                        

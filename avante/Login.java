@@ -47,8 +47,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();                    
                     break;
                 case 4:
-                    new gerencia_operativa(u).setVisible(true);
-                    this.dispose();
+                    JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -60,8 +59,8 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
-                    new fullmodules(u).setVisible(true);
-                    this.dispose();
+//                    new fullmodules(u).setVisible(true);
+//                    this.dispose();
                     break;
             }
         } else {

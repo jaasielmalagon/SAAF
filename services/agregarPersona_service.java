@@ -249,16 +249,9 @@ public class agregarPersona_service {
             error = 1;
         }
         return error;
-    }
-
-    public String s(){//Usuario USUARIO, Persona PERSONA_SELECCIONADA, Object cantidades, Object sems) {
-//        solicitudes_service ss = new solicitudes_service(modulo);
-//        return ss.solicitarPrestamo(USUARIO, PERSONA_SELECCIONADA, cantidades, sems);
-//        return USUARIO + " " + PERSONA_SELECCIONADA+ " " +cantidades.toString()+ " " +sems;
-        return "hola";
-    }
+    }    
 
     public String solicitarPrestamo(Usuario USUARIO, Persona PERSONA_SELECCIONADA, Object cantidades, Object sems) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new solicitudes_service(modulo).solicitarPrestamo(USUARIO, PERSONA_SELECCIONADA, cantidades, sems);
     }
 }

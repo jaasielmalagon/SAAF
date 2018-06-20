@@ -642,9 +642,10 @@ public class Amortizacion {
     }
 
     public double getTasa(int nPrestamos) {
-        if (nPrestamos > 15) {
-            return 10.0;
-        } else if (nPrestamos >= 10 && nPrestamos <= 15) {
+//        if (nPrestamos > 15) {
+//            return 10.0;
+//        } else 
+        if (nPrestamos >= 10) {
             return 13.0;
         } else if (nPrestamos <= 9 && nPrestamos >= 7) {
             return 13.5;
