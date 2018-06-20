@@ -52,7 +52,8 @@ public class solicitudes_service {
                                 if (this.compararFechaSolicitud(ultimaSolicitud)) {
                                     return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
                                 } else {
-                                    boolean solIns = this.guardarSolicitud(solicitudNueva);
+                                    System.out.println(modulo + " "+solicitudNueva.toString());
+                                    boolean solIns = false;//this.guardarSolicitud(solicitudNueva);
                                     if (solIns) {
                                         return "Solicitud guardada correctamente. Esté pendiente del resultado...";
                                     } else {

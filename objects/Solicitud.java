@@ -179,8 +179,15 @@ public class Solicitud {
         this.FECHA = FECHA;
     }
 
+//    @Override
+//    public String toString() {
+//        return "" + ID;
+//    }
+
     @Override
     public String toString() {
-        return "" + ID;
+        return "Solicitud{" + "ID=" + ID + ", MONTO=" + MONTO + ", PLAZO=" + PLAZO + ", CLIENTE=" + CLIENTE + ", USUARIO=" + USUARIO + ", SUCURSAL=" + SUCURSAL + ", ESTADO=" + ESTADO + ", TASA=" + TASA + ", FECHA=" + FECHA + ", HORA=" + HORA + '}';
     }
+    
+    
 }
