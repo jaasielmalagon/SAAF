@@ -1,145 +1,166 @@
 package views;
-import java.awt.HeadlessException;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import objects.Adc;
-import objects.Empleado;
-import objects.Estudio;
-import objects.Fecha;
-import objects.Lista;
-import objects.Mes;
-import objects.Persona;
-import objects.Usuario;
-import services.clientes_service;
 
+import javax.swing.DefaultComboBoxModel;
+import objects.Usuario;
+import services.Nomina_service;
 
 /**
  * @author mield
  */
 public class Nomina extends javax.swing.JDialog {
-    private final clientes_service SERVICIO;
-    private Persona Empleado_seleccionado = null;
+
+    private final Nomina_service SERVICIO;
     private Usuario USUARIO = null;
-     private Empleado EMPLEADO = null;
-    /**
-     * Creates new form Nomina
-     */
-    public Nomina(java.awt.Frame parent, boolean modal, Usuario Empleado, Persona persona) {
+
+    
+    public Nomina(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        
-        tituloVentana.setText(tituloVentana.getText() + " " + Empleado.getIdSucursal());
-        this.USUARIO = Empleado;
-        this.Empleado_seleccionado = persona;                
-        this.SERVICIO = new clientes_service(this.getClass().toString());
-        cargarDatosEmpleado();
-        llenarTabla("");
-        seleccionarEmpleado();
+
+        tituloVentana.setText(tituloVentana.getText() + " " + usuario.getIdSucursal());
+        this.USUARIO = usuario;
+        this.SERVICIO = new Nomina_service(this.getClass().toString());
+        llenarTabla(null, null);
+        setCargos();
     }
-    private Nomina() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    private void llenarTabla(String codigo, Object[] filtro) {        
+        tabla = this.SERVICIO.tablaNomina(tabla, codigo, filtro);
     }
- 
-    private void seleccionarEmpleado() {
-        tablaEmpleados.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    int id = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
-                    try {
-                        Empleado_seleccionado = SERVICIO.persona(USUARIO.getIdSucursal(), id);
-                        cargarDatosEmpleado();
-                    } catch (NumberFormatException ex) {
-                        System.out.println(".mousePressed() : " + ex);
-                    }
-                }
-            }
-            });
-    }
-        private void llenarTabla(String dato) {
-        if (!dato.isEmpty()) {
-            tablaEmpleados = this.SERVICIO.tablaPersonas(tablaEmpleados, this.USUARIO.getIdSucursal(), dato);
-        } else {
-            tablaEmpleados = this.SERVICIO.tablaEmpleados(tablaEmpleados, this.USUARIO.getIdSucursal(), dato);
-        }
-    }
-            private void cargarDatosEmpleado() {
-        if (Empleado_seleccionado!= null) {
-            idEmpleado.setText(Empleado_seleccionado.toString());
-            this.EMPLEADO = this.SERVICIO.getEmpleado(Empleado_seleccionado.getIdPersona());            
-            if (this.EMPLEADO == null) {
-                JOptionPane.showMessageDialog(rootPane, "Agregue los datos laborales para: " + Empleado_seleccionado.toString());
-                limpiarCampos();
-            }
-        } 
-    }
-             private void limpiarCampos() {        
-                 cmbDepartamento.setSelectedIndex(0);
-                 cmbCargo.setSelectedIndex(0);
-    }
-                 private void cancelar() {
-        this.Empleado_seleccionado = null;
-        this.EMPLEADO = null;
-        limpiarCampos();
-        llenarTabla("");
-    }
-    private void setSelectedDepartamento(int value) {
-        Object item;
-        Lista objeto;
-        for (int i = 0; i < cmbDepartamento.getItemCount(); i++) {
-            item = cmbDepartamento.getItemAt(i);
-            objeto = (Lista) item;
-            if (objeto.getID() == value) {
-                cmbDepartamento.setSelectedIndex(i);
-                break;
-            }
-        }
-    }
-        private void cargos() {
+
+    private void setCargos() {
         DefaultComboBoxModel dcbm = this.SERVICIO.cargos();
         cmbCargo.setModel(dcbm);
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BarraSuperior = new javax.swing.JPanel();
-        btnCerrar = new javax.swing.JButton();
-        tituloVentana = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        PanelPrincipal = new javax.swing.JPanel();
         Contenedor = new javax.swing.JPanel();
         panelForm = new javax.swing.JPanel();
-        lblOrb = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cmbDepartamento = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cmbCargo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbSemana = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         idEmpleado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         btnBusqueda = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JLabel();
+        BarraSuperior = new javax.swing.JPanel();
+        btnCerrar = new javax.swing.JButton();
+        tituloVentana = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+
+        setModal(true);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1200, 620));
+        setResizable(false);
+
+        PanelPrincipal.setBackground(new java.awt.Color(244, 0, 100));
+        PanelPrincipal.setPreferredSize(new java.awt.Dimension(1200, 620));
+        PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Contenedor.setBackground(new java.awt.Color(255, 245, 250));
+        Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelForm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Filtrar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel1.setText("Departamento:");
+        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 20));
+
+        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelForm.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 120, -1));
+
+        jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel2.setText("Cargo:");
+        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, 20));
+
+        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelForm.add(cmbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, -1));
+
+        jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel4.setText("Semana:");
+        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 60, 20));
+
+        cmbSemana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelForm.add(cmbSemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 150, -1));
+
+        Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 600, 120));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Nómina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        jPanel1.setAlignmentX(0.0F);
+        jPanel1.setAlignmentY(0.0F);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel3.setText("Código");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, -1, 30));
+
+        idEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idEmpleadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(idEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 230, 30));
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1140, 250));
+
+        btnBusqueda.setBackground(new java.awt.Color(244, 0, 100));
+        btnBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBusquedaMouseClicked(evt);
+            }
+        });
+
+        txtBuscar.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setText("Buscar");
+
+        javax.swing.GroupLayout btnBusquedaLayout = new javax.swing.GroupLayout(btnBusqueda);
+        btnBusqueda.setLayout(btnBusquedaLayout);
+        btnBusquedaLayout.setHorizontalGroup(
+            btnBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnBusquedaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtBuscar)
+                .addGap(18, 18, 18))
+        );
+        btnBusquedaLayout.setVerticalGroup(
+            btnBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnBusquedaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(btnBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
+
+        Contenedor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 1160, 340));
+
+        PanelPrincipal.add(Contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, 1200, 530));
 
         BarraSuperior.setBackground(new java.awt.Color(189, 0, 53));
         BarraSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -178,97 +199,7 @@ public class Nomina extends javax.swing.JDialog {
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu-logo.png"))); // NOI18N
         BarraSuperior.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(895, 0, 304, 85));
 
-        Contenedor.setBackground(new java.awt.Color(255, 245, 250));
-        Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelForm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Filtrar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
-        panelForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 40, 20));
-
-        jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel1.setText("Departamento:");
-        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 20));
-
-        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelForm.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
-
-        jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel2.setText("Cargo:");
-        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, 20));
-
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelForm.add(cmbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 140, -1));
-
-        jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel4.setText("Semanas:");
-        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, 20));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelForm.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 150, -1));
-
-        Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 730, 120));
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Nómina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
-        jPanel1.setAlignmentX(0.0F);
-        jPanel1.setAlignmentY(0.0F);
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel3.setText("Código");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, -1, 30));
-
-        idEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idEmpleadoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(idEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 230, 30));
-
-        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tablaEmpleados);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1140, 200));
-
-        btnBusqueda.setBackground(new java.awt.Color(244, 0, 100));
-        btnBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBusquedaMouseClicked(evt);
-            }
-        });
-
-        txtBuscar.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar.setText("Buscar");
-
-        javax.swing.GroupLayout btnBusquedaLayout = new javax.swing.GroupLayout(btnBusqueda);
-        btnBusqueda.setLayout(btnBusquedaLayout);
-        btnBusquedaLayout.setHorizontalGroup(
-            btnBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnBusquedaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtBuscar)
-                .addGap(18, 18, 18))
-        );
-        btnBusquedaLayout.setVerticalGroup(
-            btnBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnBusquedaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(btnBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
-
-        Contenedor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 1160, 290));
+        PanelPrincipal.add(BarraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,23 +207,15 @@ public class Nomina extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1200, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(BarraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(BarraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(5, 5, 5)
-                    .addComponent(Contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -307,22 +230,14 @@ public class Nomina extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void idEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idEmpleadoActionPerformed
-        llenarTabla(idEmpleado.getText());
+        llenarTabla(idEmpleado.getText(), null);
     }//GEN-LAST:event_idEmpleadoActionPerformed
 
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
-        llenarTabla(idEmpleado.getText());
+        llenarTabla(idEmpleado.getText(), null);
     }//GEN-LAST:event_btnBusquedaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -330,35 +245,34 @@ public class Nomina extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Nomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Nomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Nomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Nomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Nomina().setVisible(true);
-            }
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            Usuario usuario = null;
+            Nomina dialog = new Nomina(new javax.swing.JFrame(), true, usuario);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
-}
-    
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JPanel Contenedor;
+    private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JPanel btnBusqueda;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cmbCargo;
     private javax.swing.JComboBox<String> cmbDepartamento;
+    private javax.swing.JComboBox<String> cmbSemana;
     private javax.swing.JTextField idEmpleado;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -367,12 +281,10 @@ public class Nomina extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblOrb;
     private javax.swing.JPanel panelForm;
-    private javax.swing.JTable tablaEmpleados;
+    private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JLabel txtBuscar;
     // End of variables declaration//GEN-END:variables
 
 }
-
