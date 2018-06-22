@@ -16,13 +16,14 @@ import resources.Cobro_resource;
  * @author 76053
  */
 public class Cobro_service {
+
     private final Cobro_resource recurso;
 
     public Cobro_service(String modulo) {
-        this.recurso = new Cobro_resource();
+        this.recurso = new Cobro_resource(modulo);
     }
-    
-     public JTable buscarFolio(JTable tabla, String Folio) {
+
+    public JTable buscarFolio(JTable tabla, String Folio) {
         String titulos[] = {"campo1", "campo2", "campo3", "campo4"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         String[][] resultados = this.recurso.buscarFolios(Folio);
@@ -47,7 +48,8 @@ public class Cobro_service {
         tabla.setColumnModel(tcr.resizeTableDireccionesGuardadas(tabla));
         return tabla;
     }
- public Cobro buscarFolioGuardado(String Folio, String campo1, String campo2) {
+
+    public Cobro buscarFolioGuardado(String Folio, String campo1, String campo2) {
         Cobro cob = null;
         String[] d = this.recurso.buscarFolio(Folio, campo1, campo2);
         if (d != null) {
@@ -55,7 +57,8 @@ public class Cobro_service {
         }
         return cob;
     }
- public boolean guardarCobro(Cobro cobro) {        
+
+    public boolean guardarCobro(Cobro cobro) {
         boolean flag;
         int idCobro = this.recurso.guardarCobro(cobro.getCAMPO1(), cobro.getCAMPO2());
         flag = idCobro > 0;
