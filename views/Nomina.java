@@ -131,6 +131,8 @@ public class Nomina extends javax.swing.JDialog {
         cmbDepartamento = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cmbCargo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         idEmpleado = new javax.swing.JTextField();
@@ -179,33 +181,40 @@ public class Nomina extends javax.swing.JDialog {
         Contenedor.setBackground(new java.awt.Color(255, 245, 250));
         Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelForm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Buscador de Nomina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelForm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Filtrar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         panelForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 40, 20));
 
         jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel1.setText("Departamento:");
-        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, 20));
+        panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 20));
 
         cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelForm.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 120, -1));
+        panelForm.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
 
         jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel2.setText("Cargo:");
-        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, -1, 20));
+        panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, 20));
 
         cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelForm.add(cmbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 140, -1));
+        panelForm.add(cmbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 140, -1));
+
+        jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel4.setText("Semanas:");
+        panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, 20));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelForm.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 150, -1));
 
         Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 730, 120));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Empleados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Nómina", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         jPanel1.setAlignmentX(0.0F);
         jPanel1.setAlignmentY(0.0F);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel3.setText("Número:");
+        jLabel3.setText("Código");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, -1, 30));
 
         idEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -349,11 +358,13 @@ public class Nomina extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbCargo;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JTextField idEmpleado;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblOrb;
