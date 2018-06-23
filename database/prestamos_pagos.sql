@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2018 a las 22:04:39
+-- Tiempo de generación: 22-06-2018 a las 22:05:02
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -25,41 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `prestamos`
+-- Estructura de tabla para la tabla `prestamos_pagos`
 --
 
-CREATE TABLE `prestamos` (
-  `idPrestamo` int(11) NOT NULL,
-  `cliente` int(11) NOT NULL,
-  `num_contrato` int(11) NOT NULL,
-  `fecha_contrato` date NOT NULL,
-  `total_prestado` int(11) NOT NULL,
-  `capital` int(11) NOT NULL,
-  `interes` int(11) NOT NULL,
-  `plazo` tinyint(2) NOT NULL,
-  `tarifa` int(11) NOT NULL,
-  `multa` int(11) NOT NULL
+CREATE TABLE `prestamos_pagos` (
+  `idPago` int(11) NOT NULL,
+  `prestamo` int(11) NOT NULL,
+  `monto` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `hora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `prestamos`
---
-ALTER TABLE `prestamos`
-  ADD PRIMARY KEY (`idPrestamo`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `prestamos`
---
-ALTER TABLE `prestamos`
-  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
