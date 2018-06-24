@@ -15,7 +15,8 @@ import objects.ErrorController;
 public class Cronograma_resource {
     private final conection db;
     ErrorController ERROR_CONTROLLER;
-    
+    ResultSet resultados;
+   
     public Cronograma_resource(){
         this.db = new conection();
     }
@@ -24,7 +25,7 @@ public class Cronograma_resource {
         String[][] tareas = null;
         try{
             this.db.Connect();
-            ResultSet resultados = this.db.fullSelect("SELECT * FROM tareas");
+            resultados = this.db.fullSelect("SELECT * FROM tareas");
             if(resultados != null){
                 int i = 0;
                 while(resultados.next()){
@@ -44,7 +45,7 @@ public class Cronograma_resource {
        try{
            this.db.Connect();
            String consulta = String.format("SELECT * FROM tareas WHERE fecha =  %s;", fecha);
-           ResultSet resultados = this.db.fullSelect( consulta );
+           resultados = this.db.fullSelect( consulta );
            if(resultados != null){
                int i = 0;
                while(resultados.next()){
@@ -56,21 +57,25 @@ public class Cronograma_resource {
        }catch(Exception ex){
            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
        }
+       this.db.Disconnect();
        return tareas;
     }
     
     public boolean ingresarTarea(String fecha, String descripcion){
         this.db.Connect();
-        return this.db.Insert("tareas","`fecha`, `descripcion`", " '"+ fecha +"', '"+ descripcion +"'");
+        boolean resultado = this.db.Insert("tareas","`fecha`, `descripcion`", " '"+ fecha +"', '"+ descripcion +"'");
+        return resultado;
     }
     
     public boolean modificarTarea(int idTarea, String fecha, String descripcion){
         this.db.Connect();
-        return this.db.Update("tareas", "Fecha = " + fecha + ", Descripcion = " + descripcion,"idTarea = " + idTarea );
+        boolean resultado =  this.db.Update("tareas", "Fecha = " + fecha + ", Descripcion = " + descripcion,"idTarea = " + idTarea );
+        return resultado;
     }
     
     public boolean borrarTarea(int id){
         this.db.Connect();
-        return this.db.Delete("tareas", "idTarea = "  + id );
+        boolean resultado = this.db.Delete("tareas", "idTarea = "  + id );
+        return resultado;
     }
 }
