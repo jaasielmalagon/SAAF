@@ -28,7 +28,7 @@ public class Cronograma_resource {
             if(resultados != null){
                 int i = 0;
                 while(resultados.next()){
-                    String[] fila = {resultados.getString("idTabla"), resultados.getString("fecha"), resultados.getString("descripcion")};
+                    String[] fila ={resultados.getString("fecha"), resultados.getString("descripcion")};
                     tareas[i] = fila;
                     i++;
                 }
@@ -48,7 +48,7 @@ public class Cronograma_resource {
            if(resultados != null){
                int i = 0;
                while(resultados.next()){
-                   String[] fila = {resultados.getString("idTabla"), resultados.getString("fecha"), resultados.getString("descripcion")};
+                   String[] fila = {resultados.getString("fecha"), resultados.getString("descripcion")};
                    tareas[i] = fila;
                    i++;
                }
