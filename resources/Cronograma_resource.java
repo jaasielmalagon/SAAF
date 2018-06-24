@@ -35,7 +35,6 @@ public class Cronograma_resource {
             }
         }catch(SQLException ex){
              System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
-
         }
         return tareas;
     }
@@ -44,7 +43,8 @@ public class Cronograma_resource {
        String[][] tareas = null;
        try{
            this.db.Connect();
-           ResultSet resultados = this.db.fullSelect("SELECT * FROM tareas WHERE fecha = " + fecha);
+           String consulta = String.format("SELECT * FROM tareas WHERE fecha =  %s;", fecha);
+           ResultSet resultados = this.db.fullSelect( consulta );
            if(resultados != null){
                int i = 0;
                while(resultados.next()){
@@ -56,7 +56,6 @@ public class Cronograma_resource {
        }catch(Exception ex){
            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
        }
-       
        return tareas;
     }
     

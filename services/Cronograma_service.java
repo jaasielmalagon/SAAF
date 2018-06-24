@@ -28,5 +28,4 @@ public class Cronograma_service {
         String[] campos = {"Fecha","Descripción"};
         return (datos != null && campos != null) ? new DefaultTableModel(datos, campos) : null;
     }
-    
 }
