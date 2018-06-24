@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +44,8 @@ public class Nomina_service {
 
     public DefaultComboBoxModel cargos() {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-        String[][] array = this.RECURSO.cargos();
+        String[][] array = this.RECURSO.getCargos();
+        
         if (array != null) {
             dcbm.addElement(new Lista(0, "-- Seleccione --"));
             for (String[] val : array) {
@@ -52,9 +54,8 @@ public class Nomina_service {
         }
         return dcbm;
     }
-
     private String filtro(String codigo, Object[] filtro) {
         return "";
     }
-
+ 
 }
