@@ -42,7 +42,7 @@ public class solicitudes_service {
                             int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
                             String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
                             //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
-                            amr.setAmortizacion(plazo, montoSolicitado, tasaString);
+                            amr.setAmortizacionFromSolicitud(plazo, montoSolicitado, tasaString);
                             //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
                             if (amr.getMONTO() >= 5000 && p.getAval() <= 0) {
                                 return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
@@ -115,7 +115,7 @@ public class solicitudes_service {
             if (solicitud.getESTADO() == 0) {
                 estado = "rechazada";
             } else if (solicitud.getESTADO() == 2) {
-//                b = this.insertarPrestamo(solicitud);
+                b = this.insertarPrestamo(solicitud);
                 estado = "aprobada";
             }
             return "Solicitud " + estado + " correctamente";
@@ -188,12 +188,12 @@ public class solicitudes_service {
                             order = "DESC";
                         }
                         f = f + " ORDER BY " + l.getSTRING2() + " " + order;
-                    } else {
+                    } else if(l.getSTRING2() != null){
                         f = f + " AND " + l.getSTRING2() + " = " + l.getID();
                     }
                 }
             }
-            System.out.println(f);
+//            System.out.println(f);
         }
         return f;
     }
@@ -268,5 +268,17 @@ public class solicitudes_service {
             monto = monto + 500;
         }
         return dcbm;
+    }
+
+    private boolean insertarPrestamo(Solicitud solicitud) {
+        if (solicitud != null) {
+            Amortizacion a = new Amortizacion();
+            a.setAmortizacionFromSolicitud(solicitud.getPLAZO(), solicitud.getMONTO(), String.valueOf(solicitud.getTASA()));
+            System.out.println("Cliente: " + solicitud.getCLIENTE());
+            System.out.println(a.toString());            
+            return this.RECURSO.insertarPrestamo(solicitud.getCLIENTE(),a.getTOTAL(),a.getMONTO(),a.getINTERES(),solicitud.getPLAZO(),a.getPAGO());
+        }else{
+            return false;
+        }
     }
 }

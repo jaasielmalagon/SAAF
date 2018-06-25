@@ -204,4 +204,8 @@ public class solicitudCredito_resource {
         }
     }
 
+    public boolean insertarPrestamo(int cliente, int total, int monto, int interes, int plazo, int pago) {
+        
+    }
+
 }
