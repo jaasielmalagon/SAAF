@@ -7,7 +7,10 @@ package resources;
 
 import database.conection;
 import java.sql.ResultSet;
+<<<<<<< HEAD
 import java.sql.SQLException;
+=======
+>>>>>>> ebe856ac8d855c8a5b557f0e023cd539ff9fc8f9
 import objects.ErrorController;
 
 /**
@@ -16,6 +19,7 @@ import objects.ErrorController;
  */
 public class Cobro_resource {
     private final conection DB;
+<<<<<<< HEAD
     ResultSet RS;
     ErrorController ERROR_CONTROLLER;
     private String MODULO;
@@ -25,6 +29,17 @@ public class Cobro_resource {
         this.ERROR_CONTROLLER = new ErrorController();
         this.MODULO = modulo;
     }
+=======
+    ResultSet RS = null;
+    ErrorController ERROR_CONTROLLER;
+    private final String modulo;
+    
+    public Cobro_resource(String modulo) {
+        this.modulo = modulo;
+        this.DB = new conection();        
+    }
+    
+>>>>>>> ebe856ac8d855c8a5b557f0e023cd539ff9fc8f9
     
      public Cobro_resource() {
         this.DB = new conection();

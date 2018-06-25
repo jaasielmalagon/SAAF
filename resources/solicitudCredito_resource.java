@@ -18,7 +18,7 @@ public class solicitudCredito_resource {
 
     public solicitudCredito_resource(String modulo) {
         this.modulo = modulo;
-        this.DB = new conection();        
+        this.DB = new conection();
     }
 
     public String[] getSolicitud(int idSolicitud, int idSucusal) {
@@ -142,13 +142,13 @@ public class solicitudCredito_resource {
         return count;
     }
 
-    public boolean cambiarEstadoSolicitud(int id, int estado) {        
+    public boolean cambiarEstadoSolicitud(int id, int estado) {
         this.DB.Connect();
         boolean flag = this.DB.Update("prestamos_solicitudes", "estado = " + estado, "idSolicitud = " + id + " LIMIT 1");
         this.DB.Disconnect();
         return flag;
     }
-    
+
     public boolean guardarSolicitud(int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA) {
         try {
             this.DB.Connect();
@@ -161,7 +161,7 @@ public class solicitudCredito_resource {
             return false;
         }
     }
-    
+
     public String[] fechaSolicitudAnterior(int idCliente) {
         String[] array = null;
         try {
@@ -194,14 +194,18 @@ public class solicitudCredito_resource {
             RS = this.DB.fullSelect("SELECT now()");
             if (RS.next()) {
                 hora = RS.getString(1);
-            }            
-            this.DB.Disconnect();            
+            }
+            this.DB.Disconnect();
             return hora;
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
             this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
             return hora;
         }
+    }
+
+    public boolean insertarPrestamo(int cliente, int total, int monto, int interes, int plazo, int pago) {
+        
     }
 
 }

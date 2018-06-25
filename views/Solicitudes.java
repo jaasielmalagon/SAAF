@@ -32,6 +32,7 @@ public class Solicitudes extends javax.swing.JDialog {
         cmbPlazo.setModel(this.servicio.comboPlazo());
         cmbFecha.setModel(this.servicio.comboFecha());
         cmbMonto.setModel(this.servicio.comboMonto());
+        cmbStatus.setModel(this.servicio.comboStatus());
         cmbAdc.setModel(this.servicio.comboAdc(this.USUARIO));
     }
 
@@ -65,28 +66,17 @@ public class Solicitudes extends javax.swing.JDialog {
         });
     }
 
-    private void guardarDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void limpiarCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void buscar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     private void llenarTabla() {
         tabla = this.servicio.tablaSolicitudes(tabla, this.USUARIO, null);
     }
 
     private void busquedaFiltrada() {
-        Object[] obj = new Object[4];
+        Object[] obj = new Object[5];
         obj[0] = cmbAdc.getSelectedItem();
         obj[1] = cmbPlazo.getSelectedItem();
         obj[2] = cmbMonto.getSelectedItem();
-        obj[3] = cmbFecha.getSelectedItem();
+        obj[3] = cmbStatus.getSelectedItem();
+        obj[4] = cmbFecha.getSelectedItem();
         tabla = this.servicio.tablaSolicitudes(tabla, this.USUARIO, obj);
     }
 
@@ -111,9 +101,7 @@ public class Solicitudes extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         cmbAdc = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        cmbFecha1 = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        cmbFecha2 = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -219,22 +207,11 @@ public class Solicitudes extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel5.setText("Filtrar por estatus:");
 
-        cmbFecha1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        cmbFecha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Aprobado", "Pendiente", "Rechazado" }));
-        cmbFecha1.addActionListener(new java.awt.event.ActionListener() {
+        cmbStatus.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Aprobado", "Pendiente", "Rechazado" }));
+        cmbStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFecha1ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel7.setText("Filtrar por estatus:");
-
-        cmbFecha2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        cmbFecha2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione ---", "Aprobado", "Pendiente", "Rechazado" }));
-        cmbFecha2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFecha2ActionPerformed(evt);
+                cmbStatusActionPerformed(evt);
             }
         });
 
@@ -256,7 +233,7 @@ public class Solicitudes extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormularioLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbFecha1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(67, 67, 67)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
@@ -264,19 +241,15 @@ public class Solicitudes extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbAdc, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbFecha2, 0, 1, Short.MAX_VALUE))
-                    .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
-        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel20, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7});
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel20, jLabel3, jLabel4, jLabel5, jLabel6});
 
-        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbFecha1, cmbFecha2, cmbMonto, cmbPlazo});
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbMonto, cmbPlazo, cmbStatus});
 
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,13 +269,11 @@ public class Solicitudes extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cmbFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(cmbFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        panelFormularioLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbFecha1, cmbFecha2, cmbMonto, cmbPlazo, jLabel20, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7});
+        panelFormularioLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAdc, cmbFecha, cmbMonto, cmbPlazo, cmbStatus, jLabel20, jLabel3, jLabel4, jLabel5, jLabel6});
 
         Contenedor.add(panelFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, -1));
 
@@ -379,13 +350,9 @@ public class Solicitudes extends javax.swing.JDialog {
         this.busquedaFiltrada();
     }//GEN-LAST:event_cmbAdcActionPerformed
 
-    private void cmbFecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFecha1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbFecha1ActionPerformed
-
-    private void cmbFecha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFecha2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbFecha2ActionPerformed
+    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
+        this.busquedaFiltrada();
+    }//GEN-LAST:event_cmbStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,10 +389,9 @@ public class Solicitudes extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cmbAdc;
     private javax.swing.JComboBox<String> cmbFecha;
-    private javax.swing.JComboBox<String> cmbFecha1;
-    private javax.swing.JComboBox<String> cmbFecha2;
     private javax.swing.JComboBox<String> cmbMonto;
     private javax.swing.JComboBox<String> cmbPlazo;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
@@ -433,7 +399,6 @@ public class Solicitudes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormulario;
     private javax.swing.JPanel panelTabla;

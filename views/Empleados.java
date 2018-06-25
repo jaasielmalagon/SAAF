@@ -33,15 +33,14 @@ public class Empleados extends javax.swing.JDialog {
     private Empleado EMPLEADO = null;
     private Adc ADC = null;
 
-    public Empleados(java.awt.Frame parent, boolean modal, Usuario usuario, Persona persona) {
+    public Empleados(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
 
         tituloVentana.setText(tituloVentana.getText() + " " + usuario.getIdSucursal());
         this.SERVICIO = new clientes_service(this.getClass().toString());
-        this.USUARIO = usuario;
-        this.PERSONA_SELECCIONADA = persona;
+        this.USUARIO = usuario;        
         estudios();
         cargos();
         meses();
@@ -1058,9 +1057,8 @@ public class Empleados extends javax.swing.JDialog {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            Usuario usuario = null;
-            Persona persona = null;
-            Empleados dialog = new Empleados(new javax.swing.JFrame(), true, usuario, persona);
+            Usuario usuario = null;            
+            Empleados dialog = new Empleados(new javax.swing.JFrame(), true, usuario);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

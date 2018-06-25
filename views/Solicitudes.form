@@ -198,7 +198,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel5" linkSize="3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="cmbFecha1" linkSize="4" max="32767" attributes="0"/>
+                                  <Component id="cmbStatus" linkSize="4" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
@@ -209,17 +209,12 @@
                                   <Component id="cmbAdc" linkSize="4" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel7" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="cmbFecha2" linkSize="4" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel3" linkSize="3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="cmbMonto" linkSize="4" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="168" max="32767" attributes="0"/>
+                          <EmptySpace pref="170" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -243,9 +238,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbFecha1" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbFecha2" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbStatus" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -387,7 +380,7 @@
                     <Property name="text" type="java.lang.String" value="Filtrar por estatus:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cmbFecha1">
+                <Component class="javax.swing.JComboBox" name="cmbStatus">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Solomon Sans Book" size="12" style="0"/>
@@ -402,36 +395,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbFecha1ActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel7">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Solomon Sans Book" size="12" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Filtrar por estatus:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="cmbFecha2">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Solomon Sans Book" size="12" style="0"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="--- Seleccione ---"/>
-                        <StringItem index="1" value="Aprobado"/>
-                        <StringItem index="2" value="Pendiente"/>
-                        <StringItem index="3" value="Rechazado"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbFecha2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbStatusActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
