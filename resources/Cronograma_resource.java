@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import objects.ErrorController;
 /**
  *
- * @author dell
+ * @author Gerarcode (Gerardo Aguilar)
  */
 public class Cronograma_resource {
     private final conection db;

@@ -142,24 +142,7 @@ public class solicitudes_service {
         } else {
             return null;
         }
-    }
-
-    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
-        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-        String[][] array = this.RECURSO.getAdcFromSucursal(USUARIO.getIdSucursal());
-        if (array != null) {
-            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
-            for (String[] val : array) {
-                if (Integer.parseInt(val[2]) < 10) {
-                    val[2] = "0" + val[2];
-                }
-                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
-            }
-        } else {
-            dcbm.addElement(new Lista(0, "Sin resultados"));
-        }
-        return dcbm;
-    }
+    }    
 
     public JTable tablaSolicitudes(JTable tabla, Usuario usuario, Object[] object) {
         String titulos[] = {"Folio", "Monto", "Interés", "Plazo", "Fecha", "Hora"};
@@ -193,7 +176,7 @@ public class solicitudes_service {
         if (objects != null) {
             for (Object object : objects) {
                 Lista l = (Lista) object;
-                if (l.getID() > 0) {
+                if (!"".equals(l.getSTRING2())) {
                     if ("adc".equals(l.getSTRING2())) {
 //                        int solicitudes = this.RECURSO.contarSolicitudesDeClientes(this.condicionContarSolicitudes(l));
 //                        f = " INNER JOIN personas_clientes ON prestamos_solicitudes.cliente = personas_clientes.idCliente " + f + " AND personas_clientes.adc = " + l.getID();
@@ -232,6 +215,32 @@ public class solicitudes_service {
             condicion = "cliente = " + idClientes[0];
         }
         return condicion;
+    }
+    
+    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[][] array = this.RECURSO.getAdcFromSucursal(USUARIO.getIdSucursal());
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
+            for (String[] val : array) {
+                if (Integer.parseInt(val[2]) < 10) {
+                    val[2] = "0" + val[2];
+                }
+                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
+            }
+        } else {
+            dcbm.addElement(new Lista(0, "Sin resultados"));
+        }
+        return dcbm;
+    }
+    
+    public DefaultComboBoxModel comboStatus() {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        dcbm.addElement(new Lista(0, "--- Seleccione ---", ""));
+        dcbm.addElement(new Lista(2, "Aprobado", "estado"));
+        dcbm.addElement(new Lista(1, "Pendiente", "estado"));
+        dcbm.addElement(new Lista(0, "Rechazado", "estado"));
+        return dcbm;
     }
 
     public DefaultComboBoxModel comboPlazo() {
