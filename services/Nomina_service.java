@@ -19,7 +19,13 @@ public class Nomina_service {
     public Nomina_service(String modulo) {
         this.RECURSO = new Nomina_resource(modulo);
     }
-
+    /**
+     * Regresa un objeto JTable con los datos del empleado
+     * registradas en la base de datos.
+     *
+     * @return new JTable se usa para mostrar y editar tablas de celdas bidimensionales regulares
+     * Se usará para mostrar los datos del empleado
+     */
     public JTable tablaNomina(JTable tabla, String codigo, Object[] filtro) {
         TableCreator tcr = new TableCreator();
         String titulos[] = {"Nombre", "Cargo", "Horario", "Pagos"};
@@ -41,7 +47,14 @@ public class Nomina_service {
         tabla.setColumnModel(tcr.resizeTableDireccionesGuardadas(tabla));
         return tabla;
     }
-
+ /**
+     * Regresa un objeto setModel con los resultados del empleado  en
+     * específico registrados en la base de datos. Se mostrarán el nombre,el cargo, el horario 
+     * de trabajo y su sueldo
+     * 
+     * @return new DefaultComboBoxModel: Objeto que contiene los Cargos de cada empleado.
+     * 
+     */
     public DefaultComboBoxModel cargos() {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String[][] array = this.RECURSO.getCargos();

@@ -7,7 +7,7 @@ package views;
 import objects.Usuario;
 /**
  *
- * @author dell
+ * @author Gerarcode (Gerardo Aguilar)
  */
 public class Cronograma extends javax.swing.JDialog {
     private final Usuario USUARIO = null;

@@ -656,7 +656,7 @@ public class Amortizacion {
         }
     }
 
-    public void setAmortizacion(int plazo, int montoSolicitado, String tasa) {
+    public void setAmortizacionFromSolicitud(int plazo, int montoSolicitado, String tasa) {
         if (plazo == 20) {//TABLAS A 20 SEMANAS                                    
             switch (tasa) {
                 case "14.5":

@@ -22,11 +22,19 @@ public class Nomina_resource {
         this.ERROR_CONTROLLER = new ErrorController();
         this.MODULO = modulo;
     }
-
+   /*Buscar una nómina en la base de datos mediante un Id
+    *@params Id: identificador del empleado
+    *@return resultado: null
+    *@since 1.0
+    */
     public String[][] nomina(String filtroBusqueda) {
         return null;
     }
-
+    /*Realiza una búsqueda en la base de datos del id y el cargo deseado
+    *@params: filtro de busqueda por id
+    *@return resultado: Tipo de cargos en forma ascendente
+    *@since: 1.0
+    */
     public String[][] cargos() {
         String[][] array = null;
         try {
@@ -53,7 +61,11 @@ public class Nomina_resource {
         }
         return array;
     }
-
+    /*Realiza una búsqueda en la base de datos para traer la id y mostrar el cargo deseado
+    *@params: Ninguno
+    *@return resultado: tipos de Cargo Ordenados en forma ascendente
+    *@since: 1.0
+    */
     public String[][] getCargos() {
         String[][] array = null;
         try {
