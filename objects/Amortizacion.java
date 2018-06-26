@@ -83,7 +83,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -159,7 +159,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -235,7 +235,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -311,7 +311,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -388,7 +388,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -464,7 +464,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -540,7 +540,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -616,7 +616,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 

@@ -111,14 +111,18 @@ public class solicitudes_service {
     public String aprobacionSolicitud(Solicitud solicitud) {
         boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());
         if (b) {
-            String estado = "";
+            String estado = "Algo falló, reintente la operación";
             if (solicitud.getESTADO() == 0) {
-                estado = "rechazada";
+                estado = "Solicitud rechazada correctamente";;
             } else if (solicitud.getESTADO() == 2) {
-                b = this.insertarPrestamo(solicitud);
-                estado = "aprobada";
-            }
-            return "Solicitud " + estado + " correctamente";
+                b = this.insertarPrestamo(solicitud);                                
+                if (b) {
+                    estado = "Solicitud aprobada correctamente";
+                }else{
+                    estado = "No se creó el préstamo para esta solicitud, reintente.";
+                }                
+            }    
+            return estado;
         } else {
             return "El estado de la solicitud no pudo ser cambiado";
         }
