@@ -33,7 +33,7 @@ public class solicitudes_service {
                     Cliente cliente = new clientes_service(modulo).cliente(p);
                     if (cliente != null) {
                         double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
-                        int nPrestamos = 1;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
+                        int nPrestamos = this.RECURSO.contarPrestamosDeCliente(cliente.getID());//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
                         Amortizacion amr = new Amortizacion();
                         double tasa = amr.getTasa(nPrestamos);
                         //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE                        
@@ -108,14 +108,14 @@ public class solicitudes_service {
         return solicitud;
     }
 
-    public String aprobacionSolicitud(Solicitud solicitud) {
+    public String aprobacionSolicitud(Solicitud solicitud, Usuario usuario) {
         boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());
         if (b) {
             String estado = "Algo falló, reintente la operación";
             if (solicitud.getESTADO() == 0) {
                 estado = "Solicitud rechazada correctamente";;
             } else if (solicitud.getESTADO() == 2) {
-                b = this.insertarPrestamo(solicitud);                                
+                b = this.insertarPrestamo(solicitud,usuario.getIdUsuario());                                
                 if (b) {
                     estado = "Solicitud aprobada correctamente";
                 }else{
@@ -194,6 +194,9 @@ public class solicitudes_service {
                         f = f + " ORDER BY " + l.getSTRING2() + " " + order;
                     } else if(l.getSTRING2() != null){
                         f = f + " AND " + l.getSTRING2() + " = " + l.getID();
+                        if (!"estado".equals(l.getSTRING2())) {
+                            f += " AND estado = 1";
+                        }
                     }
                 }
             }
@@ -274,13 +277,13 @@ public class solicitudes_service {
         return dcbm;
     }
 
-    private boolean insertarPrestamo(Solicitud solicitud) {
+    private boolean insertarPrestamo(Solicitud solicitud, int autoriza) {
         if (solicitud != null) {
             Amortizacion a = new Amortizacion();
             a.setAmortizacionFromSolicitud(solicitud.getPLAZO(), solicitud.getMONTO(), String.valueOf(solicitud.getTASA()));
-            System.out.println("Cliente: " + solicitud.getCLIENTE());
-            System.out.println(a.toString());            
-            return this.RECURSO.insertarPrestamo(solicitud.getCLIENTE(),a.getTOTAL(),a.getMONTO(),a.getINTERES(),solicitud.getPLAZO(),a.getPAGO());
+//            System.out.println("Cliente: " + solicitud.getCLIENTE());
+//            System.out.println(a.toString());            
+            return this.RECURSO.insertarPrestamo(autoriza,solicitud.getCLIENTE(),a.getTOTAL(),a.getMONTO(),a.getINTERES(),solicitud.getPLAZO(),a.getPAGO());
         }else{
             return false;
         }

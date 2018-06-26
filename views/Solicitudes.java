@@ -47,14 +47,14 @@ public class Solicitudes extends javax.swing.JDialog {
                         SOLICITUD_SELECCIONADA = servicio.solicitud(USUARIO, idSolicitud);
                         if (SOLICITUD_SELECCIONADA != null) {
                             int aprobacion = JOptionPane.showConfirmDialog(rootPane, "Autorizar esta solicitud creará la tabla de pagos \nautomáticamente y generará el préstamo internamente.\n¿Aceptar?", "¿Autorizar solicitud?", JOptionPane.YES_NO_CANCEL_OPTION);
-                            String mensaje = "Algo salió mal. Intente nuevamente.";
+                            String mensaje = "Operación cancelada";
                             if (aprobacion < 2) {
                                 if (aprobacion == JOptionPane.YES_OPTION) {
                                     SOLICITUD_SELECCIONADA.setESTADO(2);
                                 } else if (aprobacion == JOptionPane.NO_OPTION) {
                                     SOLICITUD_SELECCIONADA.setESTADO(0);
                                 }
-                                mensaje = servicio.aprobacionSolicitud(SOLICITUD_SELECCIONADA);
+                                mensaje = servicio.aprobacionSolicitud(SOLICITUD_SELECCIONADA,USUARIO);
                             }
                             JOptionPane.showMessageDialog(rootPane, mensaje);
                         }

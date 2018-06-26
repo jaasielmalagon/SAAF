@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2018 a las 22:04:39
+-- Tiempo de generación: 26-06-2018 a las 22:30:21
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -30,16 +30,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `prestamos` (
   `idPrestamo` int(11) NOT NULL,
-  `cliente` int(11) NOT NULL,
-  `num_contrato` int(11) NOT NULL,
-  `fecha_contrato` date NOT NULL,
-  `total_prestado` int(11) NOT NULL,
-  `capital` int(11) NOT NULL,
-  `interes` int(11) NOT NULL,
-  `plazo` tinyint(2) NOT NULL,
-  `tarifa` int(11) NOT NULL,
-  `multa` int(11) NOT NULL
+  `autorizo` int(11) NOT NULL DEFAULT '0',
+  `fecha_autorizacion` datetime DEFAULT NULL,
+  `entrego` int(11) NOT NULL DEFAULT '0',
+  `fecha_entrega` datetime DEFAULT NULL,
+  `num_contrato` int(11) NOT NULL DEFAULT '0',
+  `fecha_contrato` date DEFAULT NULL,
+  `cliente` int(11) NOT NULL DEFAULT '0',
+  `total_prestado` int(11) NOT NULL DEFAULT '0',
+  `capital` int(11) NOT NULL DEFAULT '0',
+  `interes` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `plazo` tinyint(2) NOT NULL DEFAULT '0',
+  `tarifa` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `multa` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `prestamos`
+--
+
+INSERT INTO `prestamos` (`idPrestamo`, `autorizo`, `fecha_autorizacion`, `entrego`, `fecha_entrega`, `num_contrato`, `fecha_contrato`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`, `multa`) VALUES
+(1, 2, '2018-06-26 14:51:52', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0);
 
 --
 -- Índices para tablas volcadas
@@ -59,7 +70,7 @@ ALTER TABLE `prestamos`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

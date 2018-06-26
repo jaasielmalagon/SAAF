@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
-
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,14 +6,11 @@ import objects.Cobro;
 import objects.TableCreator;
 import resources.Cobro_resource;
 
- /**
-     * Regresa un objeto JTable con los datos del empleado
-     * registradas en la base de datos.
-     *
-     * @return new JTable se usa para mostrar y editar tablas de celdas bidimensionales regulares
-     * Se usará para mostrar los datos del empleado
-     */
-
+/**
+ * Regresa un objeto JTable con los datos del empleado registradas en la base de
+ * datos.
+ *
+ */
 public class Cobro_service {
 
     private final Cobro_resource recurso;
@@ -28,7 +19,6 @@ public class Cobro_service {
         this.recurso = new Cobro_resource(modulo);
     }
 
-    
     public JTable buscarFolio(JTable tabla, String Folio) {
         String titulos[] = {"campo1", "campo2", "campo3", "campo4"};
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
@@ -55,13 +45,13 @@ public class Cobro_service {
         return tabla;
     }
 
-       /**
-     * Regresa un objeto setModel con los resultados del empleado  en
-     * específico registrados en la base de datos. Se mostrarán el nombre,la zona, el ADC 
+    /**
+     * Regresa un objeto setModel con los resultados del empleado en específico
+     * registrados en la base de datos. Se mostrarán el nombre,la zona, el ADC
      * de nombre.
-     * 
+     *
      * @return Objeto que contiene los campos de zona y ADC de cada empleado.
-     * 
+     *
      */
     public Cobro buscarFolioGuardado(String Folio, String campo1, String campo2) {
         Cobro cob = null;
@@ -78,6 +68,5 @@ public class Cobro_service {
         flag = idCobro > 0;
         return flag;
     }
-  
-  
+
 }

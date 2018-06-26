@@ -204,11 +204,27 @@ public class solicitudCredito_resource {
         }
     }
 
-    public boolean insertarPrestamo(int cliente, int total, int monto, int interes, int plazo, int pago) {
+    public boolean insertarPrestamo(int autoriza, int cliente, int total, int monto, int interes, int plazo, int pago) {
         this.DB.Connect();
-        boolean flag = this.DB.Insert("prestamos", "cliente, total_prestado, capital, interes, plazo, tarifa", cliente+","+total+","+monto+","+interes+","+plazo+","+pago);
+        boolean flag = this.DB.Insert("prestamos", "autorizo, fecha_autorizacion, cliente, total_prestado, capital, interes, plazo, tarifa", autoriza + ", now()," + cliente + "," + total + "," + monto + "," + interes + "," + plazo + "," + pago);
         this.DB.Disconnect();
         return flag;
+    }
+
+    public int contarPrestamosDeCliente(int id) {
+        int count = 0;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("COUNT(*)", "prestamos", "cliente = " + id + " LIMIT 1");
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return count;
     }
 
 }
