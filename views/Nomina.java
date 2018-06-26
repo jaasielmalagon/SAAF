@@ -30,8 +30,7 @@ public class Nomina extends javax.swing.JDialog {
     }
 
     private void setCargos() {
-        DefaultComboBoxModel dcbm = this.SERVICIO.cargos();
-        cmbCargo.setModel(dcbm);
+        cmbCargo.setModel(this.SERVICIO.cargos());
     }
 
     @SuppressWarnings("unchecked")
