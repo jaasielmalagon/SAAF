@@ -52,7 +52,7 @@ public class solicitudes_service {
                                 if (this.compararFechaSolicitud(ultimaSolicitud)) {
                                     return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
                                 } else {
-                                    System.out.println(modulo + " "+solicitudNueva.toString());
+                                    System.out.println(modulo + " " + solicitudNueva.toString());
                                     boolean solIns = this.guardarSolicitud(solicitudNueva);
                                     if (solIns) {
                                         return "Solicitud guardada correctamente. Esté pendiente del resultado...";
@@ -115,13 +115,13 @@ public class solicitudes_service {
             if (solicitud.getESTADO() == 0) {
                 estado = "Solicitud rechazada correctamente";;
             } else if (solicitud.getESTADO() == 2) {
-                b = this.insertarPrestamo(solicitud,usuario.getIdUsuario());                                
+                b = this.insertarPrestamo(solicitud, usuario.getIdUsuario());
                 if (b) {
                     estado = "Solicitud aprobada correctamente";
-                }else{
+                } else {
                     estado = "No se creó el préstamo para esta solicitud, reintente.";
-                }                
-            }    
+                }
+            }
             return estado;
         } else {
             return "El estado de la solicitud no pudo ser cambiado";
@@ -146,7 +146,7 @@ public class solicitudes_service {
         } else {
             return null;
         }
-    }    
+    }
 
     public JTable tablaSolicitudes(JTable tabla, Usuario usuario, Object[] object) {
         String titulos[] = {"Folio", "Monto", "Interés", "Plazo", "Fecha", "Hora"};
@@ -192,7 +192,7 @@ public class solicitudes_service {
                             order = "DESC";
                         }
                         f = f + " ORDER BY " + l.getSTRING2() + " " + order;
-                    } else if(l.getSTRING2() != null){
+                    } else if (l.getSTRING2() != null) {
                         f = f + " AND " + l.getSTRING2() + " = " + l.getID();
                         if (!"estado".equals(l.getSTRING2())) {
                             f += " AND estado = 1";
@@ -200,7 +200,8 @@ public class solicitudes_service {
                     }
                 }
             }
-//            System.out.println(f);
+        } else {
+            f += " AND estado = 1";
         }
         return f;
     }
@@ -223,7 +224,7 @@ public class solicitudes_service {
         }
         return condicion;
     }
-    
+
     public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String[][] array = this.RECURSO.getAdcFromSucursal(USUARIO.getIdSucursal());
@@ -240,7 +241,7 @@ public class solicitudes_service {
         }
         return dcbm;
     }
-    
+
     public DefaultComboBoxModel comboStatus() {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         dcbm.addElement(new Lista(0, "--- Seleccione ---", ""));
@@ -281,10 +282,9 @@ public class solicitudes_service {
         if (solicitud != null) {
             Amortizacion a = new Amortizacion();
             a.setAmortizacionFromSolicitud(solicitud.getPLAZO(), solicitud.getMONTO(), String.valueOf(solicitud.getTASA()));
-//            System.out.println("Cliente: " + solicitud.getCLIENTE());
-//            System.out.println(a.toString());            
-            return this.RECURSO.insertarPrestamo(autoriza,solicitud.getCLIENTE(),a.getTOTAL(),a.getMONTO(),a.getINTERES(),solicitud.getPLAZO(),a.getPAGO());
-        }else{
+            int[] adc_agencia = this.RECURSO.adcYagencia(solicitud.getCLIENTE());
+            return this.RECURSO.insertarPrestamo(solicitud.getSUCURSAL(), adc_agencia[1], adc_agencia[0], autoriza, solicitud.getCLIENTE(), a.getTOTAL(), a.getMONTO(), a.getINTERES(), solicitud.getPLAZO(), a.getPAGO());
+        } else {
             return false;
         }
     }

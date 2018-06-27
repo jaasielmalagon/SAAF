@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2018 a las 18:06:36
+-- Tiempo de generación: 27-06-2018 a las 22:42:24
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -42,7 +42,8 @@ CREATE TABLE `domicilios` (
 INSERT INTO `domicilios` (`idDomicilio`, `direccion`, `latitud`, `longitud`) VALUES
 (1, 'CALLE 1 SUR 108 INT 203, CENTRO DE LA CIUDAD, 75700 TEHUACÁN, PUE., MÉXICO', '18.4623504', '-97.3934058'),
 (2, 'CALLE 6 PTE 217, CENTRO, 75700 TEHUACÁN, PUE., MÉXICO', '18.4691768', '-97.3971585'),
-(4, 'CALLE 6 PTE 1004-1006, AQUILES SERDÁN, TEHUACÁN, PUE., MÉXICO', '18.4691982', '-97.4031335');
+(4, 'CALLE 6 PTE 1004-1006, AQUILES SERDÁN, TEHUACÁN, PUE., MÉXICO', '18.4691982', '-97.4031335'),
+(5, 'ANDADOR 7 1308, RANCHO VIEJO, 75790 TEHUACÁN, PUE., MÉXICO', '18.4423701', '-97.3844141');
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,11 @@ INSERT INTO `historial_personas` (`idHistorialPersonas`, `idPersona`, `modificac
 (10, 4, '2018-05-21 14:58:20', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 1, 0, 0, 0),
 (11, 4, '2018-05-24 13:07:25', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 2, 0, 0, 0),
 (12, 5, '2018-06-01 01:18:58', 2, 'ANGELINA', 'CONTRERA', 'MARTINEZ', '1972-03-28', 20, 'NSANDOXKSMDKOKN3IO', '1545615665867', 'M', 0, '----------', '2381209502', 0, 0, 0, 0),
-(13, 1, '2018-06-01 14:34:05', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 2, 0, 0, 0);
+(13, 1, '2018-06-01 14:34:05', 1, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 2, 0, 0, 0),
+(14, 1, '2018-06-14 12:22:47', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 0),
+(15, 1, '2018-06-14 12:22:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 3),
+(16, 1, '2018-06-14 12:22:57', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 4),
+(17, 1, '2018-06-14 12:23:04', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -421,7 +426,7 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`idPersona`, `sucursal`, `registro`, `usuario`, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES
-(1, 1, '2018-04-19 11:14:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 0),
+(1, 1, '2018-04-19 11:14:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 4, 5),
 (2, 1, '2018-04-19 11:16:21', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 0),
 (3, 1, '2018-04-19 11:33:44', 3, 'ALMA ELIA', 'VALERIO', 'LECHUGA', '1969-07-20', 21, 'VALA690720MPLLCL00', '1992075813527', 'M', 1, '----------', '2381682735', 1, 0, 0, 0),
 (4, 1, '2018-05-03 14:36:13', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 1, 0, 0, 0),
@@ -446,7 +451,7 @@ CREATE TABLE `personas_clientes` (
   `sucursal` int(11) NOT NULL DEFAULT '0',
   `usuario` int(11) NOT NULL DEFAULT '0',
   `registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `adc` varchar(4) COLLATE utf8_spanish_ci NOT NULL DEFAULT '0',
+  `adc` int(11) NOT NULL DEFAULT '0',
   `idPersona` int(11) NOT NULL DEFAULT '0',
   `ingresos` decimal(8,2) NOT NULL DEFAULT '0.00',
   `egresos` decimal(8,2) NOT NULL DEFAULT '0.00',
@@ -472,8 +477,8 @@ CREATE TABLE `personas_clientes` (
 --
 
 INSERT INTO `personas_clientes` (`idCliente`, `sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`, `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`, `tipo_vivienda`, `propietario`, `vigencia_contrato`, `tiempo_residencia`, `score`, `status`, `actividad`) VALUES
-(1, 1, 2, '2018-05-31 23:25:54', 'z1-2', 1, '1500.00', '1000.00', 2, 3, 2, 'ABARROTES CADENA', 'INDEPENDENCIA ORIENTE', '2383828734', '08:30:00', '23:23:28', 2, 'DON PEDRO', '2020-01-10', 3, 0, 0, 1),
-(2, 1, 2, '2018-06-01 01:15:44', 'Z2-2', 5, '2000.00', '1600.00', 3, 1, 3, 'NINGUNA', 'NINGUNA', '0000000000', '00:00:00', '00:00:00', 2, 'SU MARIDO PEPE', '0001-12-31', 0, 0, 0, 1);
+(1, 1, 2, '2018-05-31 23:25:54', 17, 1, '1500.00', '1000.00', 2, 3, 2, 'ABARROTES CADENA', 'INDEPENDENCIA ORIENTE', '2383828734', '08:30:00', '23:23:28', 2, 'DON PEDRO', '2020-01-10', 3, 0, 0, 1),
+(2, 1, 2, '2018-06-01 01:15:44', 17, 5, '2000.00', '1600.00', 3, 1, 3, 'NINGUNA', 'NINGUNA', '0000000000', '00:00:00', '00:00:00', 2, 'SU MARIDO PEPE', '0001-12-31', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -505,8 +510,7 @@ CREATE TABLE `personas_empleados` (
 --
 
 INSERT INTO `personas_empleados` (`idStaff`, `sucursal`, `usuario`, `registro`, `idPersona`, `cargo`, `estudios`, `departamento`, `salario`, `entrada`, `salida`, `dias`, `llamara`, `fecha_incorp`, `efectivo`, `codigo`) VALUES
-(1, 1, 3, '2018-05-17 14:09:03', 1, 1, 7, 7, 1500, '10:00:00', '15:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'PASTORA CELIA MALAGON RAMOS (MADRE) 2381314177', '2017-06-20', 500, '01C-O'),
-(2, 1, 3, '2018-05-18 14:44:28', 3, 1, 6, 3, 1000, '09:00:00', '14:00:00', 'Lunes-Miércoles-Jueves-Viernes-Sábado', 'SU ESPOSO RENAUT', '2018-07-01', 0, '01C-O');
+(1, 1, 3, '2018-06-27 14:08:57', 5, 5, 3, 8, 1000, '01:00:00', '23:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'SU MARIDO', '2018-03-10', 3000, '01S-Z2-05-100318');
 
 -- --------------------------------------------------------
 
@@ -544,7 +548,7 @@ INSERT INTO `personas_empleados_adc` (`idAdc`, `sucursal`, `idStaff`, `agencia`,
 (14, 1, 0, 2, 2, 0),
 (15, 1, 0, 2, 3, 0),
 (16, 1, 0, 2, 4, 0),
-(17, 1, 0, 2, 5, 0),
+(17, 1, 1, 2, 5, 0),
 (18, 1, 0, 2, 6, 0),
 (19, 1, 0, 2, 7, 0),
 (20, 1, 0, 2, 8, 0),
@@ -580,31 +584,61 @@ INSERT INTO `personas_empleados_adc` (`idAdc`, `sucursal`, `idStaff`, `agencia`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `prestamos`
+--
+
+CREATE TABLE `prestamos` (
+  `idPrestamo` int(11) NOT NULL,
+  `sucursal` int(11) NOT NULL DEFAULT '0',
+  `zona` int(11) NOT NULL DEFAULT '0',
+  `adc` int(11) NOT NULL DEFAULT '0',
+  `autorizo` int(11) NOT NULL DEFAULT '0',
+  `fecha_autorizacion` datetime DEFAULT NULL,
+  `entrego` int(11) NOT NULL DEFAULT '0',
+  `fecha_entrega` datetime DEFAULT NULL,
+  `num_contrato` int(11) NOT NULL DEFAULT '0',
+  `fecha_contrato` date DEFAULT NULL,
+  `cliente` int(11) NOT NULL DEFAULT '0',
+  `total_prestado` int(11) NOT NULL DEFAULT '0',
+  `capital` int(11) NOT NULL DEFAULT '0',
+  `interes` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `plazo` tinyint(2) NOT NULL DEFAULT '0',
+  `tarifa` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `multa` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prestamos_pagos`
+--
+
+CREATE TABLE `prestamos_pagos` (
+  `idPago` int(11) NOT NULL,
+  `prestamo` int(11) NOT NULL,
+  `monto` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `hora` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `prestamos_solicitudes`
 --
 
 CREATE TABLE `prestamos_solicitudes` (
   `idSolicitud` int(11) NOT NULL,
   `monto` int(11) NOT NULL,
-  `tasa` decimal(10,0) NOT NULL,
+  `tasa` decimal(4,2) NOT NULL,
   `plazo` int(11) NOT NULL,
   `cliente` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
   `sucursal` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL
+  `hora` time NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `prestamos_solicitudes`
---
-
-INSERT INTO `prestamos_solicitudes` (`idSolicitud`, `monto`, `tasa`, `plazo`, `cliente`, `usuario`, `sucursal`, `fecha`, `hora`) VALUES
-(1, 1000, '13', 20, 6, 2, 1, '2018-04-12', '00:10:05'),
-(2, 2000, '13', 20, 6, 2, 1, '2018-04-18', '12:32:11'),
-(3, 3000, '13', 20, 7, 2, 1, '2018-04-14', '14:18:48'),
-(4, 1000, '13', 20, 7, 2, 1, '2018-04-18', '13:24:37'),
-(5, 1000, '13', 20, 5, 2, 1, '2018-04-18', '13:27:44');
 
 -- --------------------------------------------------------
 
@@ -642,12 +676,12 @@ CREATE TABLE `tipo_cargo` (
 --
 
 INSERT INTO `tipo_cargo` (`idCargo`, `cargo`, `tipo`) VALUES
-(1, 'Gerente Administrativo', 1),
-(2, 'Gerente Operativo', 0),
-(3, 'Gerente de Zona', 0),
-(4, 'Gerente de Sucursal', 1),
-(5, 'Admin. de Cartera', 0),
-(6, 'Auxiliar administrativo', 1),
+(1, 'Gerente Administrativo', 0),
+(2, 'Gerente Operativo', 1),
+(3, 'Gerente de Zona', 1),
+(4, 'Gerente de Sucursal', 0),
+(5, 'Admin. de Cartera', 1),
+(6, 'Auxiliar administrativo', 0),
 (7, 'Intendencia', 1);
 
 -- --------------------------------------------------------
@@ -835,6 +869,12 @@ ALTER TABLE `personas_empleados_adc`
   ADD PRIMARY KEY (`idAdc`);
 
 --
+-- Indices de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  ADD PRIMARY KEY (`idPrestamo`);
+
+--
 -- Indices de la tabla `prestamos_solicitudes`
 --
 ALTER TABLE `prestamos_solicitudes`
@@ -897,7 +937,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `domicilios`
 --
 ALTER TABLE `domicilios`
-  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -909,7 +949,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `historial_personas`
 --
 ALTER TABLE `historial_personas`
-  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
@@ -933,7 +973,7 @@ ALTER TABLE `personas_clientes`
 -- AUTO_INCREMENT de la tabla `personas_empleados`
 --
 ALTER TABLE `personas_empleados`
-  MODIFY `idStaff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idStaff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `personas_empleados_adc`
@@ -942,10 +982,16 @@ ALTER TABLE `personas_empleados_adc`
   MODIFY `idAdc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
+-- AUTO_INCREMENT de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `prestamos_solicitudes`
 --
 ALTER TABLE `prestamos_solicitudes`
-  MODIFY `idSolicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idSolicitud` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
