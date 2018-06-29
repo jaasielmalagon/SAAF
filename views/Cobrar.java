@@ -21,7 +21,18 @@ public class Cobrar extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         this.SERVICIO = new Cobrar_service(modulo);
         this.USUARIO = usuario;
-        this.llenarTabla();
+        this.comboZonas();        
+    }
+    
+    private void buscarPorFolio() {        
+    }
+
+    private void llenarTabla() {
+        this.SERVICIO.tablaPrestamosDe(jTable1, 2, 0);
+    }
+    
+    private void comboZonas(){
+        cmbZona.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
     }
     
     @SuppressWarnings("unchecked")
@@ -36,9 +47,9 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         panelTabla1 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbAdc = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmbZona = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -100,17 +111,15 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel19.setText("ADC:");
         panelTabla1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 35, 40, 20));
 
-        jComboBox3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 260, 20));
+        cmbAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        panelTabla1.add(cmbAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 260, 20));
 
         jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel21.setText("Zona:");
         panelTabla1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, 40, 20));
 
-        jComboBox4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 35, 260, 20));
+        cmbZona.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        panelTabla1.add(cmbZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 35, 260, 20));
 
         jPanel1.add(panelTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 660, 80));
 
@@ -249,7 +258,7 @@ public class Cobrar extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed
-        buscar();
+        buscarPorFolio();
     }//GEN-LAST:event_txtBuscar2ActionPerformed
 
     private void txtBuscar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyPressed
@@ -267,7 +276,7 @@ public class Cobrar extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscar2KeyReleased
 
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
-        buscar();
+        buscarPorFolio();
     }//GEN-LAST:event_btnBusquedaMouseClicked
 
     /**
@@ -301,8 +310,8 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JPanel btnBusqueda;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> cmbAdc;
+    private javax.swing.JComboBox<String> cmbZona;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
@@ -317,12 +326,4 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtBuscar2;
     // End of variables declaration//GEN-END:variables
-
-    private void buscar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void llenarTabla() {
-        this.SERVICIO.tablaPrestamosDe(jTable1, 2, 0);
-    }
 }
