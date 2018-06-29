@@ -81,15 +81,15 @@ public class Cobrar_resource extends conection{
     }
     /*NO MODIFICAR NI ELIMINAR ESTE BLOQUE*/
 
-    public String[][] getPrestamosByAdc(int zona, int adc) {
+    public String[][] getPrestamosByAdc(String filtro) {
         String[][] array = null;
         try {
             this.Connect();            
-            RS = this.Select("COUNT(*)", "prestamos", "zona = " + zona + " AND adc = " + adc);
+            RS = this.Select("COUNT(*)", "prestamos", filtro);
             if (RS.next()) {
                 int filas = RS.getInt(1);
                 if (filas > 0) {                    
-                    RS = this.Select("`idPrestamo`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`", "prestamos", "zona = " + zona + " OR adc = " + adc);
+                    RS = this.Select("`idPrestamo`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`", "prestamos", filtro);
                     int columnas = RS.getMetaData().getColumnCount();
                     array = new String[filas][columnas];
                     filas = 0;
@@ -101,6 +101,58 @@ public class Cobrar_resource extends conection{
                         }
                         filas++;
                     }
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+    
+    public String[] agencias(int sucursal) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("COUNT(DISTINCT(agencia))", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
+            int count = 0;
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            if (count > 0) {
+                array = new String[count];
+                int i = 0;
+                RS = this.freeSelect("DISTINCT(agencia)", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
+                while (RS.next()) {
+                    array[i] = RS.getString(1);
+                    i++;
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+    
+    public String[] vacantes(int sucursal, int agencia) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("COUNT(DISTINCT(adc))", "prestamos", "WHERE sucursal = " + sucursal + " AND zona = " + agencia);
+            int count = 0;
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            if (count > 0) {
+                array = new String[count];
+                int i = 0;
+                RS = this.freeSelect("DISTINCT(adc)", "prestamos", "WHERE sucursal = " + sucursal + " AND zona = " + agencia);
+                while (RS.next()) {
+                    array[i] = RS.getString(1);
+                    i++;
                 }
             }
             this.Disconnect();
