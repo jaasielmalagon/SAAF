@@ -21,7 +21,7 @@ public class Cobrar extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         this.SERVICIO = new Cobrar_service(modulo);
         this.USUARIO = usuario;
-        this.llenarTabla();
+        this.llenarTabla(null);
     }
     
     @SuppressWarnings("unchecked")
@@ -48,6 +48,9 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
@@ -261,7 +264,7 @@ public class Cobrar extends javax.swing.JDialog {
         if (cTeclaPresionada == KeyEvent.VK_DELETE || cTeclaPresionada == KeyEvent.VK_BACK_SPACE) {
             int l = txtBuscar2.getText().length();
             if (l == 0) {
-                llenarTabla();
+                llenarTabla(null);
             }
         }
     }//GEN-LAST:event_txtBuscar2KeyReleased
@@ -322,7 +325,7 @@ public class Cobrar extends javax.swing.JDialog {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void llenarTabla() {
-        this.SERVICIO.tablaPrestamosDe(jTable1, 2, 0);
+    private void llenarTabla(Object[] filtros) {
+        this.SERVICIO.tablaPrestamosDe(jTable1, this.USUARIO, filtros);
     }
 }

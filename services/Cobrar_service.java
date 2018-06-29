@@ -4,7 +4,9 @@ import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import objects.Cobro;
+import objects.Lista;
 import objects.TableCreator;
+import objects.Usuario;
 import resources.Cobrar_resource;
 
 /**
@@ -20,11 +22,12 @@ public class Cobrar_service {
         this.RECURSO = new Cobrar_resource(modulo);
     }
 
-    public JTable tablaPrestamosDe(JTable tabla, int zona, int adc) {
+    public JTable tablaPrestamosDe(JTable tabla, Usuario u, Object[] filtros) {
         String titulos[] = {"Folio", "Cliente", "Préstamo", "Capital", "Interés", "Plazo", "Tarifa"};
         TableCreator tcr = new TableCreator();
         DefaultTableModel dtm = tcr.noEditableTableModel(titulos);
-        String[][] resultados = this.RECURSO.getPrestamosByAdc(zona, adc);
+        String filtro = this.filtro(u, filtros);
+        String[][] resultados = this.RECURSO.getPrestamosByAdc(filtro);
         System.out.println(Arrays.deepToString(resultados));
         /*if (resultados != null) {
             for (String[] resultado : resultados) {
@@ -44,6 +47,20 @@ public class Cobrar_service {
         */
         tabla.setModel(dtm);        
         return tabla;
+    }
+    
+    private String filtro(Usuario u, Object[] objects) {
+        //int zona, int adc
+        String f = "WHERE prestamos.sucursal = " + u.getIdSucursal();
+        if (objects != null) {
+            for (Object object : objects) {
+                Lista l = (Lista) object;
+                if (!"".equals(l.getSTRING2())) {
+                    
+                }
+            }
+        }
+        return f;
     }
 
     /**

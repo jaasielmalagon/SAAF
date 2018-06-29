@@ -81,15 +81,15 @@ public class Cobrar_resource extends conection{
     }
     /*NO MODIFICAR NI ELIMINAR ESTE BLOQUE*/
 
-    public String[][] getPrestamosByAdc(int zona, int adc) {
+    public String[][] getPrestamosByAdc(String filtro) {
         String[][] array = null;
         try {
             this.Connect();            
-            RS = this.Select("COUNT(*)", "prestamos", "zona = " + zona + " AND adc = " + adc);
+            RS = this.Select("COUNT(*)", "prestamos", filtro);
             if (RS.next()) {
                 int filas = RS.getInt(1);
                 if (filas > 0) {                    
-                    RS = this.Select("`idPrestamo`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`", "prestamos", "zona = " + zona + " OR adc = " + adc);
+                    RS = this.Select("`idPrestamo`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`", "prestamos", filtro);
                     int columnas = RS.getMetaData().getColumnCount();
                     array = new String[filas][columnas];
                     filas = 0;
