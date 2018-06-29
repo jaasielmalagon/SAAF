@@ -279,10 +279,7 @@ public class Cronograma extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtAp1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAp1KeyTyped
-        char c = evt.getKeyChar();
-        if (Character.isDigit(c)) {
-            evt.consume();
-        }
+        
     }//GEN-LAST:event_txtAp1KeyTyped
 
     private void txtAp1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAp1KeyReleased
