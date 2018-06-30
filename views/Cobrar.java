@@ -38,33 +38,45 @@ public class Cobrar extends javax.swing.JDialog {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 2) {
-                    try {
-                        int i = tabla.getSelectedRow();
-                        int rows = tabla.getRowCount();
-                        int x = 0;                        
-                        String monto = null;
-                        String[][] datos = new String[rows - i][3];
-                        do {
-                            String id = tabla.getValueAt(i, 0).toString();                            
-                            String fecha = null;
-                            monto = JOptionPane.showInputDialog(rootPane, "Préstamo: " + id, "0");
-                            if (monto != null) {
-                                Object[] params = {"Seleccione fecha de pago:\n", new JDateChooser()};
-                                JOptionPane.showConfirmDialog(null, params, "Préstamo: " + id, JOptionPane.PLAIN_MESSAGE);                                
-                                Date jdc = ((JDateChooser) params[1]).getDate();
-                                if (jdc != null) {
-                                    fecha = new SimpleDateFormat("yyyy/MM/dd").format(((JDateChooser) params[1]).getDate());
+                    int confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea iniciar la cobranza a partir del préstamo seleccionado hasta el último mostrado en la tabla?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        try {
+                            int i = tabla.getSelectedRow();
+                            int rows = tabla.getRowCount();
+                            int x = 0;
+                            String monto = null;
+                            String[][] pagos = new String[rows - i][3];
+                            do {
+                                String id = tabla.getValueAt(i, 0).toString();
+                                String fecha = null;
+                                monto = JOptionPane.showInputDialog(rootPane, "Préstamo: " + id, "0");
+                                if (monto != null) {
+                                    Date date = new Date();
+                                    Object[] params = {"Seleccione fecha de pago:\n", new JDateChooser(date)};
+                                    JOptionPane.showConfirmDialog(null, params, "Préstamo: " + id, JOptionPane.PLAIN_MESSAGE);
+                                    Date jdc = ((JDateChooser) params[1]).getDate();
+                                    if (jdc != null) {
+                                        fecha = new SimpleDateFormat("yyyy/MM/dd").format(((JDateChooser) params[1]).getDate());
+                                    }
                                 }
-                            }                            
-                            datos[x][0] = id;
-                            datos[x][1] = monto;
-                            datos[x][2] = fecha;
-                            i++;
-                            x++;
-                        } while (i < rows && monto != null);
-                        System.out.println(Arrays.deepToString(datos));
-                    } catch (NumberFormatException ex) {
-                        System.out.println(".mousePressed() : " + ex);
+                                pagos[x][0] = id;
+                                pagos[x][1] = monto;
+                                pagos[x][2] = fecha;
+                                i++;
+                                x++;
+                            } while (i < rows && monto != null);
+                            
+                            confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea guardar los pagos capturados hasta este momento?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
+                            String mensaje;
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                mensaje = SERVICIO.guardarPagos(USUARIO, pagos);
+                            } else {
+                                mensaje = "Operación cancelada";
+                            }
+                            JOptionPane.showMessageDialog(rootPane, mensaje);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(".mousePressed() : " + ex);
+                        }
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package services;
 
+import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
@@ -31,7 +33,7 @@ public class Cobrar_service {
         String[][] resultados = this.RECURSO.getPrestamosByAdc(filtro);
         //System.out.println(Arrays.toString(resultados));
         if (resultados != null) {
-            for (String[] resultado : resultados) {               
+            for (String[] resultado : resultados) {
                 dtm.addRow(resultado);
             }
         } else {
@@ -39,23 +41,9 @@ public class Cobrar_service {
             cli[0] = "";
             cli[1] = "NO SE OBTUVIERON RESULTADOS";
             dtm.addRow(cli);
-        }        
+        }
         tabla.setModel(dtm);
         return tabla;
-    }
-    
-    private String filtro(Usuario u, Object[] objects) {
-        //int zona, int adc
-        String f = "WHERE prestamos.sucursal = " + u.getIdSucursal();
-        if (objects != null) {
-            for (Object object : objects) {
-                Lista l = (Lista) object;
-                if (!"".equals(l.getSTRING2())) {
-                    
-                }
-            }
-        }
-        return f;
     }
 
     private String filtro(int sucursal, int zona, int adc) {
@@ -89,12 +77,54 @@ public class Cobrar_service {
         if (array != null) {
             dcbm.addElement(new Lista(0, "-- Seleccione --"));
             for (String array1 : array) {
-                dcbm.addElement(new Lista(Integer.valueOf(array1), "Vacante " + array1));
+                dcbm.addElement(new Lista(Integer.valueOf(array1), "Z" + agencia + "-" + array1));
             }
-        }else{
+        } else {
             dcbm.addElement(new Lista(0, "-- Sin resultados --"));
         }
         return dcbm;
+    }
+
+    public String guardarPagos(Usuario USUARIO, String[][] pagos) {
+        if (pagos != null) {
+            String dataInsert = "";
+            int limite = pagos.length;
+            int i = 1;
+            for (String[] pago : pagos) {
+                System.out.println(Arrays.toString(pago));
+                int id = 0;
+                double monto = 0;
+                String fecha = null;
+                try {
+                    id = Integer.parseInt(pago[0]);
+                    monto = Double.parseDouble(pago[1]);
+                    fecha = pago[2];
+                } catch (NumberFormatException e) {
+                }
+
+                if (id > 0 && monto > 0) {
+                    if (fecha == null) {
+                        fecha = "now()";
+                    } else {
+                        fecha = "'" + fecha + "'";
+                    }
+                    dataInsert += "(" + id + "," + monto + "," + fecha + "," + USUARIO.getIdUsuario() + ")";
+                    if (i < limite) {
+                        dataInsert += ",";
+                    }
+                    i++;
+                }
+            }
+            System.out.println(dataInsert);
+            boolean b = this.RECURSO.guardarPagos(dataInsert);
+            if (b) {
+                return "Cobranza guardada exitosamente";
+            } else {
+                return "Ocurrió un error al intentar guardar los datos";
+            }
+        } else {
+            return "No ha capturado ningún valor válido, los datos no fueron guardados";
+        }
     }
 
 }

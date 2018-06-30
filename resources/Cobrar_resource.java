@@ -162,4 +162,12 @@ public class Cobrar_resource extends conection{
         }
         return array;
     }
+
+    public boolean guardarPagos(String dataInsert) {
+        this.Connect();
+        //(7,173.0,2018/06/30,2),(8,173.0,2018/06/30,2),(9,260.0,2018/06/30,2)
+        boolean flag = this.InsertMultiple("prestamos_pagos", "prestamo, monto, fecha, cobrador", dataInsert);
+        this.Disconnect();
+        return flag;
+    }
 }

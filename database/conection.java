@@ -118,6 +118,30 @@ public class conection {
         }
         return xsas;
     }
+    
+    /*
+    InsertMultiple() es un método que puede ser utilizado para ingresar los datos recibidos desde las capas superiores a la base de
+    datos de manera directa, pues no cuenta con filtrado de caracteres.
+    Inserta uno o varios regristros simultáneos separados por "(),".
+     */
+    public boolean InsertMultiple(String tabla, String campos, String valores) {
+        boolean xsas = false;
+        if (tabla.isEmpty() || campos.isEmpty() || valores.isEmpty()) {
+            System.err.println("No hay datos para guardar.");
+        } else {
+            try {
+                if (estado != null) {
+                    //System.out.println("INSERT INTO " + tabla + "(" + campos + ") VALUES (" + valores + ")");
+                    estado.execute("INSERT INTO " + tabla + "(" + campos + ") VALUES " + valores + "");
+                    xsas = true;
+                }
+            } catch (SQLException ex) {
+                System.out.println("database.conection.Insert() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Insert() : " + ex);
+            }
+        }
+        return xsas;
+    }
 
     /*
     Select() es un método que puede ser utilizado para obtener los datos desde la base de
