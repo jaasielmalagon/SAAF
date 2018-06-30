@@ -110,4 +110,56 @@ public class Cobrar_resource extends conection{
         }
         return array;
     }
+    
+    public String[] agencias(int sucursal) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("COUNT(DISTINCT(agencia))", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
+            int count = 0;
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            if (count > 0) {
+                array = new String[count];
+                int i = 0;
+                RS = this.freeSelect("DISTINCT(agencia)", "personas_empleados_adc", "WHERE sucursal = " + sucursal);
+                while (RS.next()) {
+                    array[i] = RS.getString(1);
+                    i++;
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+    
+    public String[] vacantes(int sucursal, int agencia) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("COUNT(DISTINCT(adc))", "prestamos", "WHERE sucursal = " + sucursal + " AND zona = " + agencia);
+            int count = 0;
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            if (count > 0) {
+                array = new String[count];
+                int i = 0;
+                RS = this.freeSelect("DISTINCT(adc)", "prestamos", "WHERE sucursal = " + sucursal + " AND zona = " + agencia);
+                while (RS.next()) {
+                    array[i] = RS.getString(1);
+                    i++;
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
 }

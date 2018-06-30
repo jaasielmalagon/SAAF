@@ -1,6 +1,15 @@
 package views;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import objects.Lista;
 import objects.Prestamo;
 import objects.Usuario;
 import services.Cobrar_service;
@@ -14,16 +23,65 @@ public class Cobrar extends javax.swing.JDialog {
     private final Cobrar_service SERVICIO;
     private Prestamo PRESTAMO_SELECCIONADO = null;
     private Usuario USUARIO = null;
-    
+
     public Cobrar(java.awt.Frame parent, boolean modal, Usuario usuario, String modulo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         this.SERVICIO = new Cobrar_service(modulo);
         this.USUARIO = usuario;
-        this.llenarTabla(null);
+        this.comboZonas();
     }
-    
+
+    private void seleccionarDeTabla() {
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 2) {
+                    try {
+                        int i = tabla.getSelectedRow();
+                        int rows = tabla.getRowCount();
+                        int x = 0;                        
+                        String monto = null;
+                        String[][] datos = new String[rows - i][3];
+                        do {
+                            String id = tabla.getValueAt(i, 0).toString();                            
+                            String fecha = null;
+                            monto = JOptionPane.showInputDialog(rootPane, "Préstamo: " + id, "0");
+                            if (monto != null) {
+                                Object[] params = {"Seleccione fecha de pago:\n", new JDateChooser()};
+                                JOptionPane.showConfirmDialog(null, params, "Préstamo: " + id, JOptionPane.PLAIN_MESSAGE);                                
+                                Date jdc = ((JDateChooser) params[1]).getDate();
+                                if (jdc != null) {
+                                    fecha = new SimpleDateFormat("yyyy/MM/dd").format(((JDateChooser) params[1]).getDate());
+                                }
+                            }                            
+                            datos[x][0] = id;
+                            datos[x][1] = monto;
+                            datos[x][2] = fecha;
+                            i++;
+                            x++;
+                        } while (i < rows && monto != null);
+                        System.out.println(Arrays.deepToString(datos));
+                    } catch (NumberFormatException ex) {
+                        System.out.println(".mousePressed() : " + ex);
+                    }
+                }
+            }
+        });
+    }
+
+    private void cobrar() {
+
+    }
+
+    private void buscarPorFolio() {
+    }
+
+    private void comboZonas() {
+        cmbZona.setModel(this.SERVICIO.agencias(this.USUARIO.getIdSucursal()));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,12 +94,12 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         panelTabla1 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbAdc = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmbZona = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         txtBuscar2 = new javax.swing.JTextField();
         btnBusqueda = new javax.swing.JPanel();
@@ -53,7 +111,8 @@ public class Cobrar extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1200, 620));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 620));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BarraSuperior.setBackground(new java.awt.Color(189, 0, 53));
@@ -103,17 +162,25 @@ public class Cobrar extends javax.swing.JDialog {
         jLabel19.setText("ADC:");
         panelTabla1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 35, 40, 20));
 
-        jComboBox3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 260, 20));
+        cmbAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbAdc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAdcActionPerformed(evt);
+            }
+        });
+        panelTabla1.add(cmbAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 260, 20));
 
         jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel21.setText("Zona:");
         panelTabla1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, 40, 20));
 
-        jComboBox4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelTabla1.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 35, 260, 20));
+        cmbZona.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbZona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbZonaActionPerformed(evt);
+            }
+        });
+        panelTabla1.add(cmbZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 35, 260, 20));
 
         jPanel1.add(panelTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 660, 80));
 
@@ -121,8 +188,8 @@ public class Cobrar extends javax.swing.JDialog {
         panelTabla.setPreferredSize(new java.awt.Dimension(1200, 620));
         panelTabla.setLayout(null);
 
-        jTable1.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -179,7 +246,7 @@ public class Cobrar extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
         panelTabla.add(jScrollPane1);
         jScrollPane1.setBounds(10, 60, 1160, 340);
@@ -238,7 +305,7 @@ public class Cobrar extends javax.swing.JDialog {
 
         jPanel1.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 1180, 410));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -252,7 +319,7 @@ public class Cobrar extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void txtBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar2ActionPerformed
-        buscar();
+        buscarPorFolio();
     }//GEN-LAST:event_txtBuscar2ActionPerformed
 
     private void txtBuscar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyPressed
@@ -264,14 +331,40 @@ public class Cobrar extends javax.swing.JDialog {
         if (cTeclaPresionada == KeyEvent.VK_DELETE || cTeclaPresionada == KeyEvent.VK_BACK_SPACE) {
             int l = txtBuscar2.getText().length();
             if (l == 0) {
-                llenarTabla(null);
+
             }
         }
     }//GEN-LAST:event_txtBuscar2KeyReleased
 
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
-        buscar();
+        buscarPorFolio();
     }//GEN-LAST:event_btnBusquedaMouseClicked
+
+    private void cmbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbZonaActionPerformed
+        try {
+            int zona = ((Lista) cmbZona.getSelectedItem()).getID();
+            if (zona > 0) {
+                cmbAdc.setModel(this.SERVICIO.vacantes(this.USUARIO.getIdSucursal(), zona));
+                this.SERVICIO.tablaPrestamosDe(tabla, this.USUARIO.getIdSucursal(), zona, 0);
+                this.seleccionarDeTabla();
+            } else {
+                cmbAdc.removeAllItems();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbZonaActionPerformed
+
+    private void cmbAdcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdcActionPerformed
+        try {
+            int zona = ((Lista) cmbZona.getSelectedItem()).getID();
+            int adc = ((Lista) cmbAdc.getSelectedItem()).getID();
+            if (zona > 0 && adc > 0) {
+                this.SERVICIO.tablaPrestamosDe(tabla, this.USUARIO.getIdSucursal(), zona, adc);
+                this.seleccionarDeTabla();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbAdcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,8 +397,8 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JPanel btnBusqueda;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> cmbAdc;
+    private javax.swing.JComboBox<String> cmbZona;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
@@ -314,18 +407,11 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JPanel panelTabla1;
+    private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtBuscar2;
     // End of variables declaration//GEN-END:variables
 
-    private void buscar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void llenarTabla(Object[] filtros) {
-        this.SERVICIO.tablaPrestamosDe(jTable1, this.USUARIO, filtros);
-    }
 }

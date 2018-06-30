@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Arrays;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import objects.Cobro;
@@ -22,30 +23,24 @@ public class Cobrar_service {
         this.RECURSO = new Cobrar_resource(modulo);
     }
 
-    public JTable tablaPrestamosDe(JTable tabla, Usuario u, Object[] filtros) {
+    public JTable tablaPrestamosDe(JTable tabla, int sucursal, int zona, int adc) {
         String titulos[] = {"Folio", "Cliente", "Préstamo", "Capital", "Interés", "Plazo", "Tarifa"};
         TableCreator tcr = new TableCreator();
         DefaultTableModel dtm = tcr.noEditableTableModel(titulos);
-        String filtro = this.filtro(u, filtros);
+        String filtro = this.filtro(sucursal, zona, adc);
         String[][] resultados = this.RECURSO.getPrestamosByAdc(filtro);
-        System.out.println(Arrays.deepToString(resultados));
-        /*if (resultados != null) {
-            for (String[] resultado : resultados) {
-                Object[] o = new Object[4];
-                o[0] = resultado[0];
-                o[1] = resultado[1];
-                o[2] = resultado[2];
-                o[3] = resultado[3];
-                dtm.addRow(o);
+        //System.out.println(Arrays.toString(resultados));
+        if (resultados != null) {
+            for (String[] resultado : resultados) {               
+                dtm.addRow(resultado);
             }
         } else {
             Object[] cli = new Object[2];
             cli[0] = "";
             cli[1] = "NO SE OBTUVIERON RESULTADOS";
             dtm.addRow(cli);
-        }
-        */
-        tabla.setModel(dtm);        
+        }        
+        tabla.setModel(dtm);
         return tabla;
     }
     
@@ -63,28 +58,43 @@ public class Cobrar_service {
         return f;
     }
 
-    /**
-     * Regresa un objeto setModel con los resultados del empleado en específico
-     * registrados en la base de datos. Se mostrarán el nombre,la zona, el ADC
-     * de nombre.
-     *
-     * @return Objeto que contiene los campos de zona y ADC de cada empleado.
-     *
-     */
-    public Cobro buscarFolioGuardado(String Folio, String campo1, String campo2) {
-        Cobro cob = null;
-        String[] d = this.RECURSO.buscarFolio(Folio, campo1, campo2);
-        if (d != null) {
-            cob = new Cobro(Integer.valueOf(d[0]), d[1], d[2], d[3]);
+    private String filtro(int sucursal, int zona, int adc) {
+        String f = "sucursal = " + sucursal;
+        if (zona > 0 && adc > 0) {
+            return f + " AND zona = " + zona + " AND adc = " + adc;
+        } else if (zona > 0 && adc == 0) {
+            return f + " AND zona = " + zona;
+        } else if (zona == 0 && adc > 0) {
+            return f + " AND adc = " + adc;
+        } else {
+            return f + " LIMIT 50";
         }
-        return cob;
     }
 
-    public boolean guardarCobro(Cobro cobro) {
-        boolean flag;
-        int idCobro = this.RECURSO.guardarCobro(cobro.getCAMPO1(), cobro.getCAMPO2());
-        flag = idCobro > 0;
-        return flag;
+    public DefaultComboBoxModel agencias(int sucursal) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[] array = this.RECURSO.agencias(sucursal);
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "-- Seleccione --"));
+            for (String array1 : array) {
+                dcbm.addElement(new Lista(Integer.valueOf(array1), "Agencia " + array1));
+            }
+        }
+        return dcbm;
+    }
+
+    public DefaultComboBoxModel vacantes(int sucursal, int agencia) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[] array = this.RECURSO.vacantes(sucursal, agencia);
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "-- Seleccione --"));
+            for (String array1 : array) {
+                dcbm.addElement(new Lista(Integer.valueOf(array1), "Vacante " + array1));
+            }
+        }else{
+            dcbm.addElement(new Lista(0, "-- Sin resultados --"));
+        }
+        return dcbm;
     }
 
 }
