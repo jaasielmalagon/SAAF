@@ -1,6 +1,6 @@
 /*DATOS DE EMPLEADOS*/
-SELECT personas.idPersona, personas.nombre, personas.apaterno, personas.amaterno, personas.curp, personas.telefono, personas.celular, personas.sexo,
-tipo_cargo.cargo, tipo_estudios.estudios, tipo_usuarios.tipo as depto, personas_empleados.llamara as contacto_emergencia, personas_empleados.dias
+SELECT personas.idPersona',' personas.nombre',' personas.apaterno',' personas.amaterno',' personas.curp',' personas.telefono',' personas.celular',' personas.sexo','
+tipo_cargo.cargo',' tipo_estudios.estudios',' tipo_usuarios.tipo as depto',' personas_empleados.llamara as contacto_emergencia',' personas_empleados.dias
 FROM personas_empleados
 LEFT JOIN personas ON personas_empleados.idPersona = personas.idPersona
 RIGHT JOIN tipo_cargo ON personas_empleados.cargo = tipo_cargo.idCargo
@@ -8,3 +8,56 @@ RIGHT JOIN tipo_estudios ON personas_empleados.estudios = tipo_estudios.idTipoEs
 RIGHT JOIN tipo_usuarios ON personas_empleados.departamento = tipo_usuarios.idTipoUsuario
 WHERE personas_empleados.sucursal = 1
 /*<-- fin DATOS DE EMPLEADOS*/
+
+('	02/01/2018	','	08/01/2018	',	1	),
+('	09/01/2018	','	15/01/2018	',	2	),
+('	10/01/2018	','	16/01/2018	',	3	),
+('	11/01/2018	','	17/01/2018	',	4	),
+('	12/01/2018	','	18/01/2018	',	5	),
+('	13/01/2018	','	19/01/2018	',	6	),
+('	14/01/2018	','	20/01/2018	',	7	),
+('	15/01/2018	','	21/01/2018	',	8	),
+('	16/01/2018	','	22/01/2018	',	9	),
+('	17/01/2018	','	23/01/2018	',	10	),
+('	18/01/2018	','	24/01/2018	',	11	),
+('	19/01/2018	','	25/01/2018	',	12	),
+('	20/01/2018	','	26/01/2018	',	13	),
+('	21/01/2018	','	27/01/2018	',	14	),
+('	22/01/2018	','	28/01/2018	',	15	),
+('	23/01/2018	','	29/01/2018	',	16	),
+('	24/01/2018	','	30/01/2018	',	17	),
+('	25/01/2018	','	31/01/2018	',	18	),
+('	26/01/2018	','	01/02/2018	',	19	),
+('	27/01/2018	','	02/02/2018	',	20	),
+('	28/01/2018	','	03/02/2018	',	21	),
+('	29/01/2018	','	04/02/2018	',	22	),
+('	30/01/2018	','	05/02/2018	',	23	),
+('	31/01/2018	','	06/02/2018	',	24	),
+('	01/02/2018	','	07/02/2018	',	25	),
+('	02/02/2018	','	08/02/2018	',	26	),
+('	03/02/2018	','	09/02/2018	',	27	),
+('	04/02/2018	','	10/02/2018	',	28	),
+('	05/02/2018	','	11/02/2018	',	29	),
+('	06/02/2018	','	12/02/2018	',	30	),
+('	07/02/2018	','	13/02/2018	',	31	),
+('	08/02/2018	','	14/02/2018	',	32	),
+('	09/02/2018	','	15/02/2018	',	33	),
+('	10/02/2018	','	16/02/2018	',	34	),
+('	11/02/2018	','	17/02/2018	',	35	),
+('	12/02/2018	','	18/02/2018	',	36	),
+('	13/02/2018	','	19/02/2018	',	37	),
+('	14/02/2018	','	20/02/2018	',	38	),
+('	15/02/2018	','	21/02/2018	',	39	),
+('	16/02/2018	','	22/02/2018	',	40	),
+('	17/02/2018	','	23/02/2018	',	41	),
+('	18/02/2018	','	24/02/2018	',	42	),
+('	19/02/2018	','	25/02/2018	',	43	),
+('	20/02/2018	','	26/02/2018	',	44	),
+('	21/02/2018	','	27/02/2018	',	45	),
+('	22/02/2018	','	28/02/2018	',	46	),
+('	23/02/2018	','	01/03/2018	',	47	),
+('	24/02/2018	','	02/03/2018	',	48	),
+('	25/02/2018	','	03/03/2018	',	49	),
+('	26/02/2018	','	04/03/2018	',	50	),
+('	27/02/2018	','	05/03/2018	',	51	),
+('	28/02/2018	','	06/03/2018	',	52	)

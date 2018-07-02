@@ -41,22 +41,21 @@ public class Cobrar extends javax.swing.JDialog {
                     int confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea iniciar la cobranza a partir del préstamo seleccionado hasta el último mostrado en la tabla?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         try {
+                            Date date = new Date();
+                            String fecha = new SimpleDateFormat("yyyy/MM/dd").format((date).getDate());
                             int i = tabla.getSelectedRow();
                             int rows = tabla.getRowCount();
                             int x = 0;
                             String monto = null;
                             String[][] pagos = new String[rows - i][3];
                             do {
-                                String id = tabla.getValueAt(i, 0).toString();
-                                String fecha = null;
+                                String id = tabla.getValueAt(i, 0).toString();                                
                                 monto = JOptionPane.showInputDialog(rootPane, "Préstamo: " + id, "0");
                                 if (monto != null) {
-                                    Date date = new Date();
-                                    Object[] params = {"Seleccione fecha de pago:\n", new JDateChooser(date)};
-                                    JOptionPane.showConfirmDialog(null, params, "Préstamo: " + id, JOptionPane.PLAIN_MESSAGE);
+                                    String dia = JOptionPane.showInputDialog(rootPane, "Día de pago: " + id, "0");
                                     Date jdc = ((JDateChooser) params[1]).getDate();
                                     if (jdc != null) {
-                                        fecha = new SimpleDateFormat("yyyy/MM/dd").format(((JDateChooser) params[1]).getDate());
+
                                     }
                                 }
                                 pagos[x][0] = id;
@@ -65,7 +64,7 @@ public class Cobrar extends javax.swing.JDialog {
                                 i++;
                                 x++;
                             } while (i < rows && monto != null);
-                            
+
                             confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea guardar los pagos capturados hasta este momento?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                             String mensaje;
                             if (confirm == JOptionPane.YES_OPTION) {
