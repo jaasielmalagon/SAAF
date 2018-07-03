@@ -7,8 +7,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import objects.Fecha;
 import objects.Lista;
 import objects.Prestamo;
 import objects.Usuario;
@@ -41,9 +44,12 @@ public class Cobrar extends javax.swing.JDialog {
                     int confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea iniciar la cobranza a partir del préstamo seleccionado hasta el último mostrado en la tabla?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         try {
-                            Date date = new Date();
-                            String fecha = new SimpleDateFormat("yyyy/MM/dd").format((date).getDate());
-                            int i = tabla.getSelectedRow();
+                            String[] f = new Fecha().fechaSegmentada();
+                            String fecha = f[3] + "-" + f[2] + "-" + f[1];
+                            String[] rango = SERVICIO.getRango(fecha);
+                            System.out.println(fecha);
+                            System.out.println(Arrays.toString(rango));
+                            /*int i = tabla.getSelectedRow();
                             int rows = tabla.getRowCount();
                             int x = 0;
                             String monto = null;
@@ -71,8 +77,8 @@ public class Cobrar extends javax.swing.JDialog {
                                 mensaje = SERVICIO.guardarPagos(USUARIO, pagos);
                             } else {
                                 mensaje = "Operación cancelada";
-                            }
-                            JOptionPane.showMessageDialog(rootPane, mensaje);
+                            }*/
+                            JOptionPane.showMessageDialog(rootPane, fecha);
                         } catch (NumberFormatException ex) {
                             System.out.println(".mousePressed() : " + ex);
                         }

@@ -127,4 +127,8 @@ public class Cobrar_service {
         }
     }
 
+    public String[] getRango(String fecha) {
+        return this.RECURSO.getRango(fecha);
+    }
+
 }
