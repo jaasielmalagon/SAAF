@@ -114,7 +114,7 @@ public class Cobrar_service {
                     } else {
                         fecha = "'" + fecha + "'";
                     }
-                    dataInsert += "(" + id + "," + monto + "," + fecha + "," + USUARIO.getIdUsuario() + ")";
+                    dataInsert += "(" + id + "," + monto + "," + fecha + "," + USUARIO.getIdUsuario() + ",now())";
                     if (i < limite) {
                         dataInsert += ",";
                     }
@@ -141,8 +141,8 @@ public class Cobrar_service {
         String[] rangoFechas = null;
         try {
             String[] f = new Fecha().fechaSegmentada();
-//            String fecha = f[3] + "-" + f[2] + "-" + f[1];
-        String fecha = "2018-06-30";
+            String fecha = f[3] + "-" + f[2] + "-" + f[1];
+//        String fecha = "2018-06-30";
             String[] rango = this.getRango(fecha);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

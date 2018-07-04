@@ -1,17 +1,9 @@
 package views;
 
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
-import objects.Fecha;
 import objects.Lista;
 import objects.Prestamo;
 import objects.Usuario;
@@ -34,6 +26,7 @@ public class Cobrar extends javax.swing.JDialog {
         this.SERVICIO = new Cobrar_service(modulo);
         this.USUARIO = usuario;
         this.comboZonas();
+        this.ultimoPago();
     }
 
     private void seleccionarDeTabla() {
@@ -84,8 +77,8 @@ public class Cobrar extends javax.swing.JDialog {
         });
     }
 
-    private void cobrar() {
-
+    private void ultimoPago() {
+        this.SERVICIO.ultimoPago(this.USUARIO.getIdStaff());
     }
 
     private void buscarPorFolio() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-07-2018 a las 20:52:50
+-- Tiempo de generación: 04-07-2018 a las 22:11:37
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -640,17 +640,18 @@ CREATE TABLE `prestamos_pagos` (
   `prestamo` int(11) NOT NULL,
   `monto` double(8,2) NOT NULL,
   `fecha` datetime NOT NULL,
-  `cobrador` int(11) NOT NULL
+  `cobrador` int(11) NOT NULL,
+  `capturado` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `prestamos_pagos`
 --
 
-INSERT INTO `prestamos_pagos` (`idPago`, `prestamo`, `monto`, `fecha`, `cobrador`) VALUES
-(1, 7, 173.00, '2018-07-04 13:51:59', 2),
-(2, 8, 173.00, '2018-06-29 00:00:00', 2),
-(3, 9, 300.00, '2018-07-01 00:00:00', 2);
+INSERT INTO `prestamos_pagos` (`idPago`, `prestamo`, `monto`, `fecha`, `cobrador`, `capturado`) VALUES
+(1, 7, 180.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16'),
+(2, 8, 180.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16'),
+(3, 9, 300.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16');
 
 -- --------------------------------------------------------
 
