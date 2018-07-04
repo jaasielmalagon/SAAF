@@ -44,24 +44,20 @@ public class Cobrar extends javax.swing.JDialog {
                     int confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea iniciar la cobranza a partir del préstamo seleccionado hasta el último mostrado en la tabla?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         try {
-                            String[] f = new Fecha().fechaSegmentada();
-                            String fecha = f[3] + "-" + f[2] + "-" + f[1];
-                            String[] rango = SERVICIO.getRango(fecha);
-                            System.out.println(fecha);
-                            System.out.println(Arrays.toString(rango));
-                            /*int i = tabla.getSelectedRow();
+                            String[] fechas = SERVICIO.setRangoSemana();
+                            int i = tabla.getSelectedRow();
                             int rows = tabla.getRowCount();
                             int x = 0;
                             String monto = null;
+                            String fecha = null;
                             String[][] pagos = new String[rows - i][3];
                             do {
-                                String id = tabla.getValueAt(i, 0).toString();                                
+                                String id = tabla.getValueAt(i, 0).toString();
                                 monto = JOptionPane.showInputDialog(rootPane, "Préstamo: " + id, "0");
                                 if (monto != null) {
-                                    String dia = JOptionPane.showInputDialog(rootPane, "Día de pago: " + id, "0");
-                                    Date jdc = ((JDateChooser) params[1]).getDate();
-                                    if (jdc != null) {
-
+                                    String dia = JOptionPane.showInputDialog(rootPane, "Día de pago para préstamo: " + id, "0");
+                                    if (dia != null) {
+                                        fecha = SERVICIO.elegirFecha(fechas, dia);
                                     }
                                 }
                                 pagos[x][0] = id;
@@ -77,8 +73,8 @@ public class Cobrar extends javax.swing.JDialog {
                                 mensaje = SERVICIO.guardarPagos(USUARIO, pagos);
                             } else {
                                 mensaje = "Operación cancelada";
-                            }*/
-                            JOptionPane.showMessageDialog(rootPane, fecha);
+                            }
+                            JOptionPane.showMessageDialog(rootPane, mensaje);
                         } catch (NumberFormatException ex) {
                             System.out.println(".mousePressed() : " + ex);
                         }

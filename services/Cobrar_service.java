@@ -1,12 +1,18 @@
 package services;
 
 import com.toedter.calendar.JDateChooser;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import objects.Cobro;
+import objects.Fecha;
 import objects.Lista;
 import objects.TableCreator;
 import objects.Usuario;
@@ -129,6 +135,57 @@ public class Cobrar_service {
 
     public String[] getRango(String fecha) {
         return this.RECURSO.getRango(fecha);
+    }
+
+    public String[] setRangoSemana() {
+        String[] rangoFechas = null;
+        try {
+            String[] f = new Fecha().fechaSegmentada();
+//            String fecha = f[3] + "-" + f[2] + "-" + f[1];
+        String fecha = "2018-06-30";
+            String[] rango = this.getRango(fecha);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(rango[0]);
+            Calendar inicio = Calendar.getInstance();
+            inicio.setTime(date); // Configuramos la fecha que se recibe
+
+            rangoFechas = new String[7];
+            rangoFechas[0] = sdf.format(sdf.parse(inicio.get(Calendar.YEAR) + "-" + (inicio.get(Calendar.MONTH) + 1) + "-" + inicio.get(Calendar.DAY_OF_MONTH)));
+            for (int i = 1; i < 7; i++) {
+                inicio.add(Calendar.DAY_OF_YEAR, 1);  // numero de días a añadir, o restar en caso de días<0
+                rangoFechas[i] = sdf.format(sdf.parse(inicio.get(Calendar.YEAR) + "-" + (inicio.get(Calendar.MONTH) + 1) + "-" + inicio.get(Calendar.DAY_OF_MONTH)));
+            }
+        } catch (ParseException ex) {
+            System.out.println("services.Cobrar_service.setRangoSemana() : " + ex);
+        }
+        return rangoFechas;
+    }
+
+    public String elegirFecha(String[] fechas, String d) {        
+        if (fechas != null && d != null) {
+            try {
+                String f = null;
+                int dia = Integer.parseInt(d);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                for (String fecha : fechas) {
+                    Date date = sdf.parse(fecha);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);                                        
+                    if (day == dia) {
+                        f = fecha;
+                        break;
+                    }
+                }
+                return f;
+            } catch (NumberFormatException | ParseException e) {
+                System.out.println("services.Cobrar_service.elegirFecha() : " + e);
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 
 }

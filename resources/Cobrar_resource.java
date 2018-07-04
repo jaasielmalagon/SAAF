@@ -176,7 +176,7 @@ public class Cobrar_resource extends conection {
         String[] array = null;
         try {
             this.Connect();                        
-            RS = this.freeSelect("inicio, fin", "semanas", "WHERE inicio >= '" + fecha + "' AND fin <= '" + fecha + "'");
+            RS = this.freeSelect("inicio, fin", "semanas", "WHERE inicio <= '" + fecha + "' AND fin >= '" + fecha + "' LIMIT 1");
             if (RS.next()) {
                 array = new String[RS.getMetaData().getColumnCount()];
                 for (int i = 0; i < RS.getMetaData().getColumnCount(); i++) {
