@@ -1,11 +1,9 @@
-create database avante;
-
 -- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2018 a las 22:42:24
+-- Tiempo de generación: 04-07-2018 a las 20:52:50
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -146,7 +144,13 @@ INSERT INTO `historial_personas` (`idHistorialPersonas`, `idPersona`, `modificac
 (14, 1, '2018-06-14 12:22:47', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 0),
 (15, 1, '2018-06-14 12:22:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 3),
 (16, 1, '2018-06-14 12:22:57', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 4),
-(17, 1, '2018-06-14 12:23:04', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 5);
+(17, 1, '2018-06-14 12:23:04', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 5),
+(18, 1, '2018-06-29 12:12:03', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 4, 5),
+(19, 1, '2018-06-29 12:12:07', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 4, 0),
+(20, 1, '2018-06-29 12:16:10', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 0),
+(21, 2, '2018-06-29 12:56:05', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 0),
+(22, 2, '2018-06-29 12:56:13', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 1),
+(23, 2, '2018-06-29 12:56:50', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -428,8 +432,8 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`idPersona`, `sucursal`, `registro`, `usuario`, `nombre`, `apaterno`, `amaterno`, `nacimiento`, `entidad`, `curp`, `ocr`, `sexo`, `edoCivil`, `telefono`, `celular`, `domicilio`, `conyuge`, `aval`, `referencia`) VALUES
-(1, 1, '2018-04-19 11:14:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 4, 5),
-(2, 1, '2018-04-19 11:16:21', 1, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 0, 0, 0, 0),
+(1, 1, '2018-04-19 11:14:53', 3, 'JAASIEL', 'MENDEZ', 'MALAGON', '1994-01-22', 21, 'MEMJ940122HPLNLS02', '1954093563992', 'H', 0, '----------', '2381721972', 4, 0, 0, 5),
+(2, 1, '2018-04-19 11:16:21', 2, 'EPIFANIA', 'PASTOR', 'CRISTINO', '1979-04-07', 21, 'PACE790407MPLSRP09', '1947076645955', 'M', 1, '----------', '2381512594', 2, 0, 4, 1),
 (3, 1, '2018-04-19 11:33:44', 3, 'ALMA ELIA', 'VALERIO', 'LECHUGA', '1969-07-20', 21, 'VALA690720MPLLCL00', '1992075813527', 'M', 1, '----------', '2381682735', 1, 0, 0, 0),
 (4, 1, '2018-05-03 14:36:13', 2, 'NUEVA', 'PERSONA', 'DE PRUEBA', '1990-12-20', 21, 'NSD89SUD89SD989J3J', '9028910980289', 'M', 0, '----------', '2381209130', 1, 0, 0, 0),
 (5, 1, '2018-05-19 12:06:58', 2, 'ANGELINA', 'CONTRERA', 'MARTINEZ', '1972-03-28', 20, 'NSANDOXKSMDKOKN3IO', '1545615665867', 'M', 0, '----------', '2381209502', 1, 0, 0, 0);
@@ -479,8 +483,8 @@ CREATE TABLE `personas_clientes` (
 --
 
 INSERT INTO `personas_clientes` (`idCliente`, `sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`, `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`, `tipo_vivienda`, `propietario`, `vigencia_contrato`, `tiempo_residencia`, `score`, `status`, `actividad`) VALUES
-(1, 1, 2, '2018-05-31 23:25:54', 17, 1, '1500.00', '1000.00', 2, 3, 2, 'ABARROTES CADENA', 'INDEPENDENCIA ORIENTE', '2383828734', '08:30:00', '23:23:28', 2, 'DON PEDRO', '2020-01-10', 3, 0, 0, 1),
-(2, 1, 2, '2018-06-01 01:15:44', 17, 5, '2000.00', '1600.00', 3, 1, 3, 'NINGUNA', 'NINGUNA', '0000000000', '00:00:00', '00:00:00', 2, 'SU MARIDO PEPE', '0001-12-31', 0, 0, 0, 1);
+(1, 1, 2, '2018-06-29 12:15:18', 14, 1, '1000.00', '500.00', 1, 3, 3, 'TA BARATO', '3 SUR', '2381100610', '12:14:25', '12:14:25', 1, '', '0000-00-00', 0, 0, 0, 1),
+(2, 1, 2, '2018-06-29 12:58:28', 14, 2, '1500.00', '1000.00', 2, 3, 6, 'AVANTE', '1 SUR 108 CENTRO', '2381512594', '09:00:00', '20:00:00', 1, '', '0000-00-00', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -512,7 +516,7 @@ CREATE TABLE `personas_empleados` (
 --
 
 INSERT INTO `personas_empleados` (`idStaff`, `sucursal`, `usuario`, `registro`, `idPersona`, `cargo`, `estudios`, `departamento`, `salario`, `entrada`, `salida`, `dias`, `llamara`, `fecha_incorp`, `efectivo`, `codigo`) VALUES
-(1, 1, 3, '2018-06-27 14:08:57', 5, 5, 3, 8, 1000, '01:00:00', '23:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'SU MARIDO', '2018-03-10', 3000, '01S-Z2-05-100318');
+(1, 1, 3, '2018-06-29 12:14:02', 5, 5, 3, 8, 500, '01:00:00', '23:00:00', 'Lunes-Martes-Miércoles-Jueves-Viernes-Sábado', 'SU ESPOSO', '2015-03-10', 3000, '01S-Z2-02-100315');
 
 -- --------------------------------------------------------
 
@@ -547,10 +551,10 @@ INSERT INTO `personas_empleados_adc` (`idAdc`, `sucursal`, `idStaff`, `agencia`,
 (11, 1, 0, 1, 11, 0),
 (12, 1, 0, 1, 12, 0),
 (13, 1, 0, 2, 1, 0),
-(14, 1, 0, 2, 2, 0),
+(14, 1, 1, 2, 2, 0),
 (15, 1, 0, 2, 3, 0),
 (16, 1, 0, 2, 4, 0),
-(17, 1, 1, 2, 5, 0),
+(17, 1, 0, 2, 5, 0),
 (18, 1, 0, 2, 6, 0),
 (19, 1, 0, 2, 7, 0),
 (20, 1, 0, 2, 8, 0),
@@ -606,8 +610,24 @@ CREATE TABLE `prestamos` (
   `interes` decimal(8,2) NOT NULL DEFAULT '0.00',
   `plazo` tinyint(2) NOT NULL DEFAULT '0',
   `tarifa` decimal(8,2) NOT NULL DEFAULT '0.00',
-  `multa` int(11) NOT NULL DEFAULT '0'
+  `multa` int(11) NOT NULL DEFAULT '0',
+  `cobrado` decimal(8,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `prestamos`
+--
+
+INSERT INTO `prestamos` (`idPrestamo`, `sucursal`, `zona`, `adc`, `autorizo`, `fecha_autorizacion`, `entrego`, `fecha_entrega`, `num_contrato`, `fecha_contrato`, `cliente`, `total_prestado`, `capital`, `interes`, `plazo`, `tarifa`, `multa`, `cobrado`) VALUES
+(1, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(2, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(3, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(4, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(5, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(6, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(7, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(8, 1, 2, 14, 2, '2018-06-29 12:19:46', 0, NULL, 0, NULL, 1, 3460, 2000, '1460.00', 20, '173.00', 0, '0.00'),
+(9, 1, 2, 14, 2, '2018-06-29 13:02:24', 0, NULL, 0, NULL, 2, 5180, 3000, '2180.00', 20, '259.00', 0, '0.00');
 
 -- --------------------------------------------------------
 
@@ -618,10 +638,19 @@ CREATE TABLE `prestamos` (
 CREATE TABLE `prestamos_pagos` (
   `idPago` int(11) NOT NULL,
   `prestamo` int(11) NOT NULL,
-  `monto` int(11) NOT NULL,
-  `fecha` int(11) NOT NULL,
-  `hora` int(11) NOT NULL
+  `monto` double(8,2) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `cobrador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `prestamos_pagos`
+--
+
+INSERT INTO `prestamos_pagos` (`idPago`, `prestamo`, `monto`, `fecha`, `cobrador`) VALUES
+(1, 7, 173.00, '2018-07-04 13:51:59', 2),
+(2, 8, 173.00, '2018-06-29 00:00:00', 2),
+(3, 9, 300.00, '2018-07-01 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -641,6 +670,85 @@ CREATE TABLE `prestamos_solicitudes` (
   `hora` time NOT NULL,
   `estado` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `prestamos_solicitudes`
+--
+
+INSERT INTO `prestamos_solicitudes` (`idSolicitud`, `monto`, `tasa`, `plazo`, `cliente`, `usuario`, `sucursal`, `fecha`, `hora`, `estado`) VALUES
+(1, 2000, '14.50', 20, 1, 2, 1, '2018-06-29', '12:16:21', 2),
+(2, 3000, '14.50', 20, 2, 2, 1, '2018-06-29', '13:00:45', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `semanas`
+--
+
+CREATE TABLE `semanas` (
+  `id` int(11) NOT NULL,
+  `inicio` date NOT NULL,
+  `fin` date NOT NULL,
+  `numero` tinyint(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `semanas`
+--
+
+INSERT INTO `semanas` (`id`, `inicio`, `fin`, `numero`) VALUES
+(1, '2018-01-02', '2018-01-08', 1),
+(2, '2018-01-09', '2018-01-15', 2),
+(3, '2018-01-16', '2018-01-22', 3),
+(4, '2018-01-23', '2018-01-29', 4),
+(5, '2018-01-30', '2018-02-05', 5),
+(6, '2018-02-06', '2018-02-12', 6),
+(7, '2018-02-13', '2018-02-19', 7),
+(8, '2018-02-20', '2018-02-26', 8),
+(9, '2018-02-27', '2018-03-05', 9),
+(10, '2018-03-06', '2018-03-12', 10),
+(11, '2018-03-13', '2018-03-19', 11),
+(12, '2018-03-20', '2018-03-26', 12),
+(13, '2018-03-27', '2018-04-02', 13),
+(14, '2018-04-03', '2018-04-09', 14),
+(15, '2018-04-10', '2018-04-16', 15),
+(16, '2018-04-17', '2018-04-23', 16),
+(17, '2018-04-24', '2018-04-30', 17),
+(18, '2018-05-01', '2018-05-07', 18),
+(19, '2018-05-08', '2018-05-14', 19),
+(20, '2018-05-15', '2018-05-21', 20),
+(21, '2018-05-22', '2018-05-28', 21),
+(22, '2018-05-29', '2018-06-04', 22),
+(23, '2018-06-05', '2018-06-11', 23),
+(24, '2018-06-12', '2018-06-18', 24),
+(25, '2018-06-19', '2018-06-25', 25),
+(26, '2018-06-26', '2018-07-02', 26),
+(27, '2018-07-03', '2018-07-09', 27),
+(28, '2018-07-10', '2018-07-16', 28),
+(29, '2018-07-17', '2018-07-23', 29),
+(30, '2018-07-24', '2018-07-30', 30),
+(31, '2018-07-31', '2018-08-06', 31),
+(32, '2018-08-07', '2018-08-13', 32),
+(33, '2018-08-14', '2018-08-20', 33),
+(34, '2018-08-21', '2018-08-27', 34),
+(35, '2018-08-28', '2018-09-03', 35),
+(36, '2018-09-04', '2018-09-10', 36),
+(37, '2018-09-11', '2018-09-17', 37),
+(38, '2018-09-18', '2018-09-24', 38),
+(39, '2018-09-25', '2018-10-01', 39),
+(40, '2018-10-02', '2018-10-08', 40),
+(41, '2018-10-09', '2018-10-15', 41),
+(42, '2018-10-16', '2018-10-22', 42),
+(43, '2018-10-23', '2018-10-29', 43),
+(44, '2018-10-30', '2018-11-05', 44),
+(45, '2018-11-06', '2018-11-12', 45),
+(46, '2018-11-13', '2018-11-19', 46),
+(47, '2018-11-20', '2018-11-26', 47),
+(48, '2018-11-27', '2018-12-03', 48),
+(49, '2018-12-04', '2018-12-10', 49),
+(50, '2018-12-11', '2018-12-17', 50),
+(51, '2018-12-18', '2018-12-24', 51),
+(52, '2018-12-25', '2018-12-31', 52);
 
 -- --------------------------------------------------------
 
@@ -877,10 +985,22 @@ ALTER TABLE `prestamos`
   ADD PRIMARY KEY (`idPrestamo`);
 
 --
+-- Indices de la tabla `prestamos_pagos`
+--
+ALTER TABLE `prestamos_pagos`
+  ADD PRIMARY KEY (`idPago`);
+
+--
 -- Indices de la tabla `prestamos_solicitudes`
 --
 ALTER TABLE `prestamos_solicitudes`
   ADD PRIMARY KEY (`idSolicitud`);
+
+--
+-- Indices de la tabla `semanas`
+--
+ALTER TABLE `semanas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `sucursales`
@@ -951,7 +1071,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `historial_personas`
 --
 ALTER TABLE `historial_personas`
-  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idHistorialPersonas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
@@ -987,13 +1107,25 @@ ALTER TABLE `personas_empleados_adc`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `prestamos_pagos`
+--
+ALTER TABLE `prestamos_pagos`
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos_solicitudes`
 --
 ALTER TABLE `prestamos_solicitudes`
-  MODIFY `idSolicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSolicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `semanas`
+--
+ALTER TABLE `semanas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
