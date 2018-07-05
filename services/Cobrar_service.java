@@ -188,4 +188,8 @@ public class Cobrar_service {
         }
     }
 
+    public String[] ultimoPago(int sucursal) {
+        return this.RECURSO.getLastPayment(sucursal);
+    }
+
 }

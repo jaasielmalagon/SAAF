@@ -16,7 +16,6 @@ import services.Cobrar_service;
 public class Cobrar extends javax.swing.JDialog {
 
     private final Cobrar_service SERVICIO;
-    private Prestamo PRESTAMO_SELECCIONADO = null;
     private Usuario USUARIO = null;
 
     public Cobrar(java.awt.Frame parent, boolean modal, Usuario usuario, String modulo) {
@@ -78,7 +77,12 @@ public class Cobrar extends javax.swing.JDialog {
     }
 
     private void ultimoPago() {
-        this.SERVICIO.ultimoPago(this.USUARIO.getIdStaff());
+        String[] ultimoPago = this.SERVICIO.ultimoPago(this.USUARIO.getIdSucursal());
+        if (ultimoPago != null) {
+            lblUltimo.setText("Último pago registrado: " + ultimoPago[2] + " | $" + ultimoPago[1] + " | " + ultimoPago[0]);
+        } else {
+            lblUltimo.setText("NO SE HAN REGISTRADO PAGOS EN ESTA SUCURSAL");
+        }
     }
 
     private void buscarPorFolio() {
@@ -106,10 +110,11 @@ public class Cobrar extends javax.swing.JDialog {
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
+        lblUltimo = new javax.swing.JLabel();
         txtBuscar2 = new javax.swing.JTextField();
         btnBusqueda = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -190,7 +195,7 @@ public class Cobrar extends javax.swing.JDialog {
 
         jPanel1.add(panelTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 660, 80));
 
-        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Préstamos vigentes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
         panelTabla.setPreferredSize(new java.awt.Dimension(1200, 620));
         panelTabla.setLayout(null);
 
@@ -255,13 +260,12 @@ public class Cobrar extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tabla);
 
         panelTabla.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 60, 1160, 340);
+        jScrollPane1.setBounds(10, 90, 1160, 310);
 
-        jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Folio de préstamo:");
-        panelTabla.add(jLabel9);
-        jLabel9.setBounds(230, 30, 168, 20);
+        lblUltimo.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        lblUltimo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelTabla.add(lblUltimo);
+        lblUltimo.setBounds(290, 30, 600, 20);
 
         txtBuscar2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBuscar2.setToolTipText("Ingrese nombre, apellidos, CURP, OCR, teléfono o celular para realizar la búsqueda");
@@ -279,7 +283,7 @@ public class Cobrar extends javax.swing.JDialog {
             }
         });
         panelTabla.add(txtBuscar2);
-        txtBuscar2.setBounds(400, 30, 380, 20);
+        txtBuscar2.setBounds(430, 60, 380, 20);
 
         btnBusqueda.setBackground(new java.awt.Color(244, 0, 100));
         btnBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -307,7 +311,13 @@ public class Cobrar extends javax.swing.JDialog {
         );
 
         panelTabla.add(btnBusqueda);
-        btnBusqueda.setBounds(790, 30, 75, 20);
+        btnBusqueda.setBounds(820, 60, 75, 20);
+
+        jLabel12.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Folio de préstamo:");
+        panelTabla.add(jLabel12);
+        jLabel12.setBounds(260, 60, 168, 20);
 
         jPanel1.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 1180, 410));
 
@@ -407,12 +417,13 @@ public class Cobrar extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbZona;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUltimo;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JPanel panelTabla1;
     private javax.swing.JTable tabla;

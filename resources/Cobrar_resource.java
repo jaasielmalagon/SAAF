@@ -165,7 +165,7 @@ public class Cobrar_resource extends conection {
     }
 
     public boolean guardarPagos(String dataInsert) {
-        this.Connect();       
+        this.Connect();
         boolean flag = this.InsertMultiple("prestamos_pagos", "prestamo, monto, fecha, cobrador,capturado", dataInsert);
         this.Disconnect();
         return flag;
@@ -174,13 +174,33 @@ public class Cobrar_resource extends conection {
     public String[] getRango(String fecha) {
         String[] array = null;
         try {
-            this.Connect();                        
+            this.Connect();
             RS = this.freeSelect("inicio, fin", "semanas", "WHERE inicio <= '" + fecha + "' AND fin >= '" + fecha + "' LIMIT 1");
             if (RS.next()) {
                 array = new String[RS.getMetaData().getColumnCount()];
                 for (int i = 0; i < RS.getMetaData().getColumnCount(); i++) {
                     array[i] = RS.getString(i + 1);
-                }                
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public String[] getLastPayment(int sucursal) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("MAX(capturado),monto,prestamo", "prestamos_pagos", "INNER JOIN prestamos ON prestamos_pagos.prestamo WHERE prestamos_pagos.prestamo = prestamos.idPrestamo AND prestamos.cobrado < prestamos.total_prestado AND prestamos.sucursal = " + sucursal);
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
             }
             this.Disconnect();
         } catch (SQLException ex) {
