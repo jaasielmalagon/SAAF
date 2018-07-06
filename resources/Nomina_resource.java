@@ -3,24 +3,77 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import objects.ErrorController;
 
 /**
  *
  * @author mield
  */
-public class Nomina_resource {
+public class Nomina_resource extends conection {
 
-    private final conection DB;
+    //private final conection DB;
     ResultSet RS;
     ErrorController ERROR_CONTROLLER;
-    private final String MODULO;
+    //private final String MODULO;
 
     public Nomina_resource(String modulo) {
-        this.DB = new conection();
-        this.ERROR_CONTROLLER = new ErrorController();
+        //this.DB = new conection();
+        //this.ERROR_CONTROLLER = new ErrorController();
         this.MODULO = modulo;
+    }
+    public String[] getRow(int param){
+        String[] array = null;
+        try{
+            this.Connect();
+            RS=this.Select("*","tabla","condicion");
+             if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+        public String[][] getRows(int param) {
+        String[][] array = null;
+        try {
+            this.Connect();
+            RS = this.Select("COUNT(filas)", "tabla", "condicion");
+            if (RS.next()) {
+                int filas = RS.getInt(1);
+                if (filas > 0) {
+                    RS = this.Select("idPersona,sucursal,departamento","personas_empleados","condicion");
+                    int columnas = RS.getMetaData().getColumnCount();
+                    array = new String[filas][columnas];
+                    filas = 0;
+                    while (RS.next()) {
+                        columnas = 1;
+                        for (int i = 0; i < array[filas].length; i++) {
+                            array[filas][i] = RS.getString(columnas);
+                            columnas++;
+                        }
+                        filas++;
+                    }
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+         public boolean setSomething(String param) {
+        this.Connect();
+        boolean flag = this.Insert("tabla", "campos", "valores");
+        this.Disconnect();
+        return flag;
     }
    /*Buscar una nómina en la base de datos mediante un Id
     *@params Id: identificador del empleado
@@ -38,8 +91,8 @@ public class Nomina_resource {
     public String[][] cargos() {
         String[][] array = null;
         try {
-            this.DB.Connect();
-            RS = this.DB.freeSelect("COUNT(idCargo)", "tipo_cargo", "");
+            this.Connect();
+            RS = this.freeSelect("COUNT(idCargo)", "tipo_cargo", "");
             int count = 0;
             if (RS.next()) {
                 count = RS.getInt(1);
@@ -47,14 +100,14 @@ public class Nomina_resource {
             if (count > 0) {
                 array = new String[count][2];
                 int i = 0;
-                RS = this.DB.freeSelect("*", "tipo_cargo", "ORDER BY cargo ASC");
+                RS = this.freeSelect("*", "tipo_cargo", "ORDER BY cargo ASC");
                 while (RS.next()) {
                     array[i][0] = RS.getString(1);
                     array[i][1] = RS.getString(2);
                     i++;
                 }
             }
-            this.DB.Disconnect();
+            this.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
             this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
@@ -69,13 +122,13 @@ public class Nomina_resource {
     public String[][] getCargos() {
         String[][] array = null;
         try {
-            this.DB.Connect();
-            RS = this.DB.freeSelect("COUNT(*)", "tipo_cargo", "");
+            this.Connect();
+            RS = this.freeSelect("COUNT(*)", "tipo_cargo", "");
             int count = 0;
             if (RS.next()) {
                 count = RS.getInt(1);
                 if (count > 0) {
-                    RS = this.DB.freeSelect("idCargo,cargo", "tipo_cargo", "ORDER BY cargo ASC");
+                    RS = this.freeSelect("idCargo,cargo", "tipo_cargo", "ORDER BY cargo ASC");
                     int columnas = RS.getMetaData().getColumnCount();
                     array = new String[count][columnas];
                     count = 0;
@@ -89,11 +142,59 @@ public class Nomina_resource {
                     }
                 }
             }
-            this.DB.Disconnect();
+            this.Disconnect();
         } catch (SQLException e) {
         }
         return array;
-
     }
-
-}
+    public String [] departamentos (int departamento){
+        String[] array = null;
+        try{
+            this.Connect();
+            RS= this.freeSelect("COUNT(DISTINCT(departamento))","personas_empleados", "WHERE departamento = "+ departamento);
+            int count = 0;
+            if(RS.next()){
+                count = RS.getInt(1);
+            }
+            if (count >0){
+                array = new String[count];
+                int i =0;
+                RS = this.freeSelect("DISTINCT(departamento)", "personas_empleados","WHERE departamento = "+ departamento);
+                while (RS.next()){
+                   array[i] = RS.getString(1);
+                    i++; 
+                }
+            }
+           this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array; 
+        }
+    public String[] usuario(int departamento, int cargo) {
+        String[] array = null;
+        try {
+            this.Connect();
+            RS = this.freeSelect("COUNT(DISTINCT(departamento))", "personas_empleados", "WHERE departamento = " + departamento + " AND cargo = " + cargo);
+            int count = 0;
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            if (count > 0) {
+                array = new String[count];
+                int i = 0;
+                RS = this.freeSelect("DISTINCT(departamento)", "personas_empleados", "WHERE departamento = " + departamento + " AND cargo = " + cargo);
+                while (RS.next()) {
+                    array[i] = RS.getString(1);
+                    i++;
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+    }
