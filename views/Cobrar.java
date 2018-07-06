@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import objects.Lista;
-import objects.Prestamo;
 import objects.Usuario;
 import services.Cobrar_service;
 
@@ -79,7 +78,7 @@ public class Cobrar extends javax.swing.JDialog {
     private void ultimoPago() {
         String[] ultimoPago = this.SERVICIO.ultimoPago(this.USUARIO.getIdSucursal());
         if (ultimoPago != null) {
-            lblUltimo.setText("Último pago registrado: " + ultimoPago[2] + " | $" + ultimoPago[1] + " | " + ultimoPago[0]);
+            lblUltimo.setText("Último registro:    préstamo " + ultimoPago[2] + "    |    $" + ultimoPago[1] + "    |    " + ultimoPago[0]);
         } else {
             lblUltimo.setText("NO SE HAN REGISTRADO PAGOS EN ESTA SUCURSAL");
         }
