@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import objects.Persona;
 import objects.Usuario;
-import services.agregarPersona_service;
+import services.Personas_service;
 
 /**
  *
@@ -15,7 +15,7 @@ import services.agregarPersona_service;
  */
 public class Referencias extends javax.swing.JDialog {
 
-    private final agregarPersona_service SERVICIO;
+    private final Personas_service SERVICIO;
     private final int ID_SUCURSAL;
     private Persona PERSONA;
     private Persona PERSONA_REFERENCIA = null;
@@ -27,7 +27,7 @@ public class Referencias extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
 
         tituloVentana.setText(tituloVentana.getText() + " a: " + persona.toString());
-        this.SERVICIO = new agregarPersona_service(modulo);
+        this.SERVICIO = new Personas_service(modulo);
         this.ID_SUCURSAL = usuario.getIdSucursal();
         this.PERSONA = persona;
         cargarReferencias();

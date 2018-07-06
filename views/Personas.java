@@ -11,7 +11,7 @@ import objects.Fecha;
 import objects.Mes;
 import objects.Persona;
 import objects.Usuario;
-import services.agregarPersona_service;
+import services.Personas_service;
 
 /**
  *
@@ -19,7 +19,7 @@ import services.agregarPersona_service;
  */
 public class Personas extends javax.swing.JDialog {
 
-    private final agregarPersona_service servicio;
+    private final Personas_service servicio;
     private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA_SELECCIONADA = null;
     private Usuario USUARIO = null;    
@@ -30,7 +30,7 @@ public class Personas extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
 
-        this.servicio = new agregarPersona_service(modulo);
+        this.servicio = new Personas_service(modulo);
         this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
