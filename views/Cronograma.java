@@ -70,7 +70,7 @@ public class Cronograma extends javax.swing.JDialog {
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
         tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloVentana.setText("Registro de datos personales");
+        tituloVentana.setText("Cronograma");
         BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N

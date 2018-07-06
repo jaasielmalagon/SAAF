@@ -1,6 +1,9 @@
 package views;
-
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import objects.Lista;
 import objects.Usuario;
 import services.Nomina_service;
 
@@ -26,7 +29,7 @@ public class Nomina extends javax.swing.JDialog {
     }
 
     private void llenarTabla(String codigo, Object[] filtro) {        
-        tabla = this.SERVICIO.tablaNomina(tabla, codigo, filtro);
+        tabla = this.SERVICIO.tablaNomina(tabla, FRAMEBITS, ERROR, HEIGHT);
     }
 
     private void setCargos() {
@@ -61,7 +64,6 @@ public class Nomina extends javax.swing.JDialog {
 
         setModal(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1200, 620));
         setResizable(false);
 
         PanelPrincipal.setBackground(new java.awt.Color(244, 0, 100));
@@ -79,6 +81,11 @@ public class Nomina extends javax.swing.JDialog {
         panelForm.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 20));
 
         cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartamentoActionPerformed(evt);
+            }
+        });
         panelForm.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 120, -1));
 
         jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -86,6 +93,11 @@ public class Nomina extends javax.swing.JDialog {
         panelForm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, 20));
 
         cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCargoActionPerformed(evt);
+            }
+        });
         panelForm.add(cmbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, -1));
 
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -93,6 +105,11 @@ public class Nomina extends javax.swing.JDialog {
         panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 60, 20));
 
         cmbSemana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSemana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSemanaActionPerformed(evt);
+            }
+        });
         panelForm.add(cmbSemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 150, -1));
 
         Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 600, 120));
@@ -235,6 +252,45 @@ public class Nomina extends javax.swing.JDialog {
     private void btnBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaMouseClicked
         llenarTabla(idEmpleado.getText(), null);
     }//GEN-LAST:event_btnBusquedaMouseClicked
+
+    private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
+       try{
+            int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
+           if (departamento >0){
+               cmbCargo.setModel(this.SERVICIO.usuario(this.USUARIO.getIdSucursal(),departamento));
+               this.SERVICIO.tablaNomina(tabla, this.USUARIO.getIdSucursal(),departamento,0);
+           }else{
+               cmbCargo.removeAllItems();
+           }
+       }catch(Exception e){         
+       }
+    }//GEN-LAST:event_cmbDepartamentoActionPerformed
+
+    private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
+         try {
+            int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
+            if (cargo > 0) {
+                cmbCargo.setModel(this.SERVICIO.usuario(this.USUARIO.getIdSucursal(), cargo));
+                this.SERVICIO.tablaNomina(tabla, this.USUARIO.getIdSucursal(), cargo, 0);
+            } else {
+                cmbDepartamento.removeAllItems();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbCargoActionPerformed
+
+    private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
+
+          try {
+            int cargo = ((Lista) cmbCargo.getSelectedItem()).getID();
+            int departamento = ((Lista) cmbDepartamento.getSelectedItem()).getID();
+            int semana = ((Lista) cmbSemana.getSelectedItem()).getID();
+            if (cargo > 0 && departamento > 0 && semana >0) {
+            this.SERVICIO.tablaNomina(tabla, this.USUARIO.getIdSucursal(),cargo,departamento);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbSemanaActionPerformed
 
     public static void main(String args[]) {
         try {
