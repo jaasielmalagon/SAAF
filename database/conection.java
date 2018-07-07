@@ -16,8 +16,10 @@ import objects.ErrorController;
  * Select, Update y Delete; los cuales a su vez retornan los tipos de datos
  * Connection, boolean, ResultSet, boolean y boolean, respectivamente.
  */
+
 public class conection {
 
+    public String MODULO;
     Statement estado = null;
     ErrorController ERROR_CONTROLLER;
     ResultSet rs = null;
@@ -52,11 +54,15 @@ public class conection {
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("database.conection.Connect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Connect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Connect() : " + ex);
             return false;
         }
     }
 
+    /*
+    Disconnect() es el método que se encarga cerrar el el enlace entre la base de datos MySQL y la aplicación.
+    El cual retorna un valor booleano que indica si el cierre de la conexión fue exitoso.
+    */
     public boolean Disconnect() {
         try {
             if (estado != null) {
@@ -68,11 +74,15 @@ public class conection {
             }
         } catch (SQLException ex) {
             System.out.println("database.conection.Disconnect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Disconnect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Disconnect() : " + ex);
             return false;
         }
     }
 
+    /*
+    InsertId() es un método que puede ser utilizado para ingresar los datos recibidos de las capas superiores a la base
+    de datos de manera directa, pues no cuenta con filtrado de caracteres.
+    */
     public int InsertId(String tabla, String campos, String valores) {
         int idGenerado = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://" + servidor + "/" + basedatos + "?"
@@ -90,7 +100,7 @@ public class conection {
             ps.close();
         } catch (SQLException ex) {
             System.out.println("database.conection.InsertId() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.InsertId() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.InsertId() : " + ex);
         }
         return idGenerado;
     }
@@ -112,7 +122,7 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Insert() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Insert() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Insert() : " + ex);
             }
         }
         return xsas;
@@ -131,11 +141,15 @@ public class conection {
             }
         } catch (SQLException ex) {
             System.out.println("database.conection.Select() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Select() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Select() : " + ex);
         }
         return rs;
     }
 
+    /*
+    freeSelect() es un método que puede ser usado para obtener información desde la base de datos de manera directa, por 
+    medio de valores recibidos de las capas superiores.
+    */
     public ResultSet freeSelect(String campos, String tabla, String clausula) {
         try {
             if (estado != null) {
@@ -147,11 +161,16 @@ public class conection {
         } catch (SQLException ex) {
             rs = null;
             System.out.println("database.conection.freeSelect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.freeSelect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.freeSelect() : " + ex);
         }
         return rs;
     }
     
+    /*
+    El método fullSelect() puede ser utilizado para realizar consultas a la base de datos
+    recibe un parámetro de tipo String que contendrá toda la sentencia SQL que será ejecutada.
+    Retorna un objeto de tipo ResultSet.
+    */
     public ResultSet fullSelect(String sql) {
         try {
             if (estado != null) {
@@ -162,7 +181,7 @@ public class conection {
         } catch (SQLException ex) {
             rs = null;
             System.out.println("database.conection.fullSelect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.fullSelect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.fullSelect() : " + ex);
         }
         return rs;
     }
@@ -183,7 +202,7 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Update() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Update() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Update() : " + ex);
             }
         }
         return xsas;
@@ -206,7 +225,7 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Delete() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Delete() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Delete() : " + ex);
             }
         }
         return xsas;

@@ -2,7 +2,11 @@ package objects;
 
 /**
  *
- * @author Root
+ * @author Root 
+ * Esta clase ha sido incluida para trabajar con la base de datos
+ * en específico con la tabla personas_empleados_adc. 
+ * Contiene los métodos get y set necesarios para manipular la información 
+ * de cada campo en la tabla de la base de datos.
  */
 public class Adc {
     private int ID = 0, SUCURSAL = 0, ID_EMPLEADO = 0, AGENCIA = 0, VACANTE = 0, NIVEL = 0;

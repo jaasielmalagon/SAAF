@@ -14,7 +14,11 @@ import views.Solicitudes;
 
 /**
  *
- * @author JMalagon
+ * @author JMalagon 
+ * Esta clase ha sido añadida para ser el módulo de administración
+ * gracias a este módulo todo usuario de tipo administrador 
+ * podrá realizar las funciones de su cargo. Contiene un mérodo privado 
+ * llamado openInternet().
  */
 public class Administracion extends javax.swing.JFrame {
 
@@ -34,6 +38,11 @@ public class Administracion extends javax.swing.JFrame {
 //        System.out.println("Tu resolución es de " + screenSize.width + "x" + screenSize.height);
     }
 
+
+/*
+    Este método puede set utilizado para realizar búsquedas en internet a través de un texto
+    el cual es convertido a una URL.
+*/
     private void openInternet(String URL) {
         try {
             Desktop.getDesktop().browse(URI.create(URL));

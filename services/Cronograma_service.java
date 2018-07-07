@@ -1,15 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 import javax.swing.table.DefaultTableModel;
 import resources.Cronograma_resource;
 /**
  *
  * @author dell
+ * Esta clase ha sido incorporada para manipular la información obtenida desde la base de datos
+ * y posteriormente presentarla en la vista Cronograma.
+ * Contiene los métodos necesarios para convertir la información en un objeto del tipo DefaultTableModel.
+ * Los métodos contenidos tienen por nombre: tablaTareasDeTodoElAnio y tablaTareasDeUnaFecha.
  */
+
 public class Cronograma_service {
     private final Cronograma_resource recurso;
     

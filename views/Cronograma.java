@@ -4,21 +4,34 @@
  * and open the template in the editor.
  */
 package views;
+import javax.swing.JOptionPane;
 import objects.Usuario;
+import resources.Cronograma_resource;
+import services.Cronograma_service;
 /**
  *
  * @author dell
  */
 public class Cronograma extends javax.swing.JDialog {
     private final Usuario USUARIO = null;
+    private Cronograma_resource recurso;
+    private Cronograma_service servicio;
     /**
      * Creates new form Cronograma
      */
     public Cronograma(java.awt.Frame parent,boolean modal, Usuario usuario) {
         super(parent, modal);
         initComponents();
+        this.llenarTabla();
     }
-
+    
+    private void llenarTabla(){
+        //this.tablaClientes.setModel(this.servicio.tablaTareasDeTodoElAnio());
+        String[][] tareas = recurso.tareasDeTodoElAnio();
+        if(tareas.length > 0){
+             JOptionPane.showMessageDialog(null, "Hay tareas en la base de datos");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +83,7 @@ public class Cronograma extends javax.swing.JDialog {
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
         tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloVentana.setText("Registro de datos personales");
+        tituloVentana.setText("Cronograma");
         BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
@@ -95,6 +108,11 @@ public class Cronograma extends javax.swing.JDialog {
         jLabel17.setText("Descripción:");
 
         txtAp1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAp1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAp1ActionPerformed(evt);
+            }
+        });
         txtAp1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtAp1KeyReleased(evt);
@@ -113,7 +131,7 @@ public class Cronograma extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Cancelar");
+        jLabel8.setText("Borrar");
 
         javax.swing.GroupLayout btnCancelarLayout = new javax.swing.GroupLayout(btnCancelar);
         btnCancelar.setLayout(btnCancelarLayout);
@@ -271,11 +289,21 @@ public class Cronograma extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-        
+            String tarea = txtAp1.getText();
+            int fila = this.tablaClientes.getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos?", "Guardar datos", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION) {
+                if (fila > 0) {
+                    recurso.modificarTarea((int) this.tablaClientes.getValueAt(this.tablaClientes.getSelectedRow(), 1), this.tablaClientes.getValueAt(this.tablaClientes.getSelectedRow(), 2).toString(), tarea);
+                } else {
+                    recurso.ingresarTarea(jCalendar1.getDate().toString(), txtAp1.getText());
+                }
+            }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        
+        if(JOptionPane.showConfirmDialog(null, "¿Desea borrar la tarea seleccionada?", "Borrar una tarea", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION){
+            recurso.borrarTarea((int) this.tablaClientes.getValueAt(this.tablaClientes.getSelectedRow(), 1));
+        }
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void txtAp1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAp1KeyTyped
@@ -286,6 +314,10 @@ public class Cronograma extends javax.swing.JDialog {
         String cadena = txtAp1.getText().toUpperCase();
         txtAp1.setText(cadena);
     }//GEN-LAST:event_txtAp1KeyReleased
+
+    private void txtAp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAp1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAp1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,7 +349,8 @@ public class Cronograma extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Cronograma dialog = new Cronograma(new java.awt.Frame(),true, new Usuario(1,"","",1,1,1,""));
+                Usuario usuario = null;
+                Cronograma dialog = new Cronograma(new java.awt.Frame(),true, usuario);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
