@@ -165,7 +165,7 @@ public class conection {
         try {
             if (estado != null) {
                 rs = estado.executeQuery("SELECT " + campos + " FROM " + tabla + " " + clausula);
-//                System.err.println("SELECT " + campos + " FROM " + tabla + " " + clausula);
+                System.err.println("SELECT " + campos + " FROM " + tabla + " " + clausula);
             } else {
                 rs = null;
             }

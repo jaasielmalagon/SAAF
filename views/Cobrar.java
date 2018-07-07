@@ -50,6 +50,8 @@ public class Cobrar extends javax.swing.JDialog {
                                     if (dia != null) {
                                         fecha = SERVICIO.elegirFecha(fechas, dia);
                                     }
+                                }else{
+                                    monto = "0";
                                 }
                                 pagos[x][0] = id;
                                 pagos[x][1] = monto;

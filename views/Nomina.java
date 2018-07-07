@@ -26,6 +26,8 @@ public class Nomina extends javax.swing.JDialog {
         this.SERVICIO = new Nomina_service(this.getClass().toString());
         llenarTabla(null, null);
         setCargos();
+        setDepartamentos();
+        setSemanas();
     }
 
     private void llenarTabla(String codigo, Object[] filtro) {        
@@ -34,6 +36,14 @@ public class Nomina extends javax.swing.JDialog {
 
     private void setCargos() {
         cmbCargo.setModel(this.SERVICIO.cargos());
+    }
+    
+    private void setDepartamentos() {
+        cmbDepartamento.setModel(this.SERVICIO.departamentos());
+    }
+    
+    private void setSemanas() {
+        cmbSemana.setModel(this.SERVICIO.semanas());
     }
 
     @SuppressWarnings("unchecked")
