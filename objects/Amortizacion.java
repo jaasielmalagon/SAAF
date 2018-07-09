@@ -84,7 +84,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -160,7 +160,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -236,7 +236,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -312,7 +312,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -389,7 +389,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -465,7 +465,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -541,7 +541,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -617,7 +617,7 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
+        this.INTERES = this.TOTAL - monto;
         this.PAGO = pago;
     }
 
@@ -657,7 +657,7 @@ public class Amortizacion {
         }
     }
 
-    public void setAmortizacion(int plazo, int montoSolicitado, String tasa) {
+    public void setAmortizacionFromSolicitud(int plazo, int montoSolicitado, String tasa) {
         if (plazo == 20) {//TABLAS A 20 SEMANAS                                    
             switch (tasa) {
                 case "14.5":

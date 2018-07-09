@@ -204,4 +204,49 @@ public class solicitudCredito_resource {
         }
     }
 
+    public boolean insertarPrestamo(int sucursal, int zona, int adc, int autoriza, int cliente, int total, int monto, int interes, int plazo, int pago) {
+        this.DB.Connect();
+        boolean flag = this.DB.Insert("prestamos",
+                "sucursal, zona, adc, autorizo, fecha_autorizacion, cliente, total_prestado, capital, interes, plazo, tarifa",
+                sucursal + "," + zona + "," + adc + "," + autoriza + ", now()," + cliente + "," + total + "," + monto + "," + interes + "," + plazo + "," + pago);
+        this.DB.Disconnect();
+        return flag;
+    }
+
+    public int contarPrestamosDeCliente(int id) {
+        int count = 0;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("COUNT(*)", "prestamos", "cliente = " + id + " LIMIT 1");
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return count;
+    }
+    
+    public int[] adcYagencia(int id){
+        //SELECT personas_clientes.adc, personas_empleados_adc.agencia FROM `personas_clientes` INNER JOIN personas_empleados_adc ON personas_clientes.adc WHERE personas_clientes.adc = personas_empleados_adc.idAdc AND personas_clientes.idCliente = 1
+        int[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.freeSelect("personas_clientes.adc, personas_empleados_adc.agencia", "personas_clientes", "INNER JOIN personas_empleados_adc ON personas_clientes.adc WHERE personas_clientes.adc = personas_empleados_adc.idAdc AND personas_clientes.idCliente = " + id + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new int[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getInt(i + 1);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
 }

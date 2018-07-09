@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Usuario;
 import views.Clientes;
+import views.Cobrar;
 import views.Domicilios;
 import views.Personas;
 import views.Solicitudes;
@@ -237,8 +238,13 @@ public class Administracion extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(181, 10, 20));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel12.setText("COBRANZA");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 150, 35));
 
         jLabel13.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
@@ -302,6 +308,10 @@ public class Administracion extends javax.swing.JFrame {
     private void lblDomiciliosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDomiciliosMouseClicked
         (new Domicilios(this, true, this.usuario)).setVisible(true);
     }//GEN-LAST:event_lblDomiciliosMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        (new Cobrar(this, true, this.usuario, this.modulo)).setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments

@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import objects.ErrorController;
 /**
  *
+
  * @author dell
  * Esta clase ha sido incorporada para obtener la infromación necesaria desde la base de datos
  * a la aplicación con el fin de manejar las tareas en la vista de cronograma. Contiene 5 métodos con los nombres
  * tareasDeTodoElAnio, tareasDeUnaFecha, ingresarTarea, modificarTarea, borrarTarea. 
+
+ *
  */
 
 public class Cronograma_resource {

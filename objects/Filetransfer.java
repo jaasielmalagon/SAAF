@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 /**
  *
  * @author JMalagon
+ * La clase Filetransfer nos ayuda a tranferir imágenes desde el servidor
+ * al sistema SAAF, para su posterior uso dentro del programa.
  */
 public class Filetransfer {
     public void transfer(){

@@ -10,7 +10,7 @@ import resources.Cronograma_resource;
 import services.Cronograma_service;
 /**
  *
- * @author dell
+ * @author Gerarcode (Gerardo Aguilar)
  */
 public class Cronograma extends javax.swing.JDialog {
     private final Usuario USUARIO = null;

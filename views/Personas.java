@@ -11,7 +11,7 @@ import objects.Fecha;
 import objects.Mes;
 import objects.Persona;
 import objects.Usuario;
-import services.agregarPersona_service;
+import services.Personas_service;
 
 /**
  *
@@ -19,7 +19,7 @@ import services.agregarPersona_service;
  */
 public class Personas extends javax.swing.JDialog {
 
-    private final agregarPersona_service servicio;
+    private final Personas_service servicio;
     private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA_SELECCIONADA = null;
     private Usuario USUARIO = null;    
@@ -30,7 +30,7 @@ public class Personas extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
 
-        this.servicio = new agregarPersona_service(modulo);
+        this.servicio = new Personas_service(modulo);
         this.meses();
         this.estadosNacimiento();
         this.USUARIO = usuario;
@@ -529,6 +529,11 @@ public class Personas extends javax.swing.JDialog {
 
         comboSexo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Hombre", "Mujer" }));
+        comboSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSexoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
         panelFormulario.setLayout(panelFormularioLayout);
@@ -1019,6 +1024,10 @@ public class Personas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
     }//GEN-LAST:event_btnCrearClienteMouseClicked
+
+    private void comboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSexoActionPerformed
 
     /**
      * @param args the command line arguments

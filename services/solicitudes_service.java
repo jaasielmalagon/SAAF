@@ -33,7 +33,7 @@ public class solicitudes_service {
                     Cliente cliente = new clientes_service(modulo).cliente(p);
                     if (cliente != null) {
                         double pagoMax = cliente.getINGRESOS() - cliente.getEGRESOS();//LO MÁS QUE PUEDE PAGAR                        
-                        int nPrestamos = 1;//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
+                        int nPrestamos = this.RECURSO.contarPrestamosDeCliente(cliente.getID());//CONSULTAR A LA BASE DE DATOS CUANTOS PRESTAMOS LLEVA EL CLIENTE
                         Amortizacion amr = new Amortizacion();
                         double tasa = amr.getTasa(nPrestamos);
                         //GENERAR LA TASA SEGUN EL NUMERO DE PRESTAMOS QUE TIENE EL CLIENTE                        
@@ -42,7 +42,7 @@ public class solicitudes_service {
                             int montoSolicitado = Integer.parseInt(cantidades.toString());//MONTO SOLICITADO (DE 1000 A 10000)                                
                             String tasaString = String.valueOf(tasa);//TASA EN STRING PARA UTILIZAR EL SWITCH NADA MAS
                             //SEGUN EL PLAZO SOLICITADO SE BUSCA Y GENERA LA TABLA DE AMORTIZACIÓN CORRESPONDIENTE A 20 O 24 SEMANAS
-                            amr.setAmortizacion(plazo, montoSolicitado, tasaString);
+                            amr.setAmortizacionFromSolicitud(plazo, montoSolicitado, tasaString);
                             //TENIENDO LA AMORTIZACIÓN BUSCAMOS SEGUN EL MONTO SOLICITADO, POR POLITICA A PARTIR DE $5000 SE SOLICITA EL RESPALDO DE UN AVAL
                             if (amr.getMONTO() >= 5000 && p.getAval() <= 0) {
                                 return "La operación ha sido cancelada porque la persona seleccionada no cuenta con un aval asignado\ny el monto seleccionado es mayor o igual a $5000.00";
@@ -52,7 +52,7 @@ public class solicitudes_service {
                                 if (this.compararFechaSolicitud(ultimaSolicitud)) {
                                     return "Este cliente ya cuenta con una solicitúd expedida durante este día. Intente de nuevo el día de mañana.";
                                 } else {
-                                    System.out.println(modulo + " "+solicitudNueva.toString());
+                                    System.out.println(modulo + " " + solicitudNueva.toString());
                                     boolean solIns = this.guardarSolicitud(solicitudNueva);
                                     if (solIns) {
                                         return "Solicitud guardada correctamente. Esté pendiente del resultado...";
@@ -108,17 +108,21 @@ public class solicitudes_service {
         return solicitud;
     }
 
-    public String aprobacionSolicitud(Solicitud solicitud) {
+    public String aprobacionSolicitud(Solicitud solicitud, Usuario usuario) {
         boolean b = this.RECURSO.cambiarEstadoSolicitud(solicitud.getID(), solicitud.getESTADO());
         if (b) {
-            String estado = "";
+            String estado = "Algo falló, reintente la operación";
             if (solicitud.getESTADO() == 0) {
-                estado = "rechazada";
+                estado = "Solicitud rechazada correctamente";;
             } else if (solicitud.getESTADO() == 2) {
-//                b = this.insertarPrestamo(solicitud);
-                estado = "aprobada";
+                b = this.insertarPrestamo(solicitud, usuario.getIdUsuario());
+                if (b) {
+                    estado = "Solicitud aprobada correctamente";
+                } else {
+                    estado = "No se creó el préstamo para esta solicitud, reintente.";
+                }
             }
-            return "Solicitud " + estado + " correctamente";
+            return estado;
         } else {
             return "El estado de la solicitud no pudo ser cambiado";
         }
@@ -142,23 +146,6 @@ public class solicitudes_service {
         } else {
             return null;
         }
-    }
-
-    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
-        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-        String[][] array = this.RECURSO.getAdcFromSucursal(USUARIO.getIdSucursal());
-        if (array != null) {
-            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
-            for (String[] val : array) {
-                if (Integer.parseInt(val[2]) < 10) {
-                    val[2] = "0" + val[2];
-                }
-                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
-            }
-        } else {
-            dcbm.addElement(new Lista(0, "Sin resultados"));
-        }
-        return dcbm;
     }
 
     public JTable tablaSolicitudes(JTable tabla, Usuario usuario, Object[] object) {
@@ -193,7 +180,7 @@ public class solicitudes_service {
         if (objects != null) {
             for (Object object : objects) {
                 Lista l = (Lista) object;
-                if (l.getID() > 0) {
+                if (!"".equals(l.getSTRING2())) {
                     if ("adc".equals(l.getSTRING2())) {
 //                        int solicitudes = this.RECURSO.contarSolicitudesDeClientes(this.condicionContarSolicitudes(l));
 //                        f = " INNER JOIN personas_clientes ON prestamos_solicitudes.cliente = personas_clientes.idCliente " + f + " AND personas_clientes.adc = " + l.getID();
@@ -205,12 +192,16 @@ public class solicitudes_service {
                             order = "DESC";
                         }
                         f = f + " ORDER BY " + l.getSTRING2() + " " + order;
-                    } else {
+                    } else if (l.getSTRING2() != null) {
                         f = f + " AND " + l.getSTRING2() + " = " + l.getID();
+                        if (!"estado".equals(l.getSTRING2())) {
+                            f += " AND estado = 1";
+                        }
                     }
                 }
             }
-            System.out.println(f);
+        } else {
+            f += " AND estado = 1";
         }
         return f;
     }
@@ -232,6 +223,32 @@ public class solicitudes_service {
             condicion = "cliente = " + idClientes[0];
         }
         return condicion;
+    }
+
+    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[][] array = this.RECURSO.getAdcFromSucursal(USUARIO.getIdSucursal());
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
+            for (String[] val : array) {
+                if (Integer.parseInt(val[2]) < 10) {
+                    val[2] = "0" + val[2];
+                }
+                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
+            }
+        } else {
+            dcbm.addElement(new Lista(0, "Sin resultados"));
+        }
+        return dcbm;
+    }
+
+    public DefaultComboBoxModel comboStatus() {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        dcbm.addElement(new Lista(0, "--- Seleccione ---", ""));
+        dcbm.addElement(new Lista(2, "Aprobado", "estado"));
+        dcbm.addElement(new Lista(1, "Pendiente", "estado"));
+        dcbm.addElement(new Lista(0, "Rechazado", "estado"));
+        return dcbm;
     }
 
     public DefaultComboBoxModel comboPlazo() {
@@ -259,5 +276,16 @@ public class solicitudes_service {
             monto = monto + 500;
         }
         return dcbm;
+    }
+
+    private boolean insertarPrestamo(Solicitud solicitud, int autoriza) {
+        if (solicitud != null) {
+            Amortizacion a = new Amortizacion();
+            a.setAmortizacionFromSolicitud(solicitud.getPLAZO(), solicitud.getMONTO(), String.valueOf(solicitud.getTASA()));
+            int[] adc_agencia = this.RECURSO.adcYagencia(solicitud.getCLIENTE());
+            return this.RECURSO.insertarPrestamo(solicitud.getSUCURSAL(), adc_agencia[1], adc_agencia[0], autoriza, solicitud.getCLIENTE(), a.getTOTAL(), a.getMONTO(), a.getINTERES(), solicitud.getPLAZO(), a.getPAGO());
+        } else {
+            return false;
+        }
     }
 }

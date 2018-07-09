@@ -24,7 +24,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtUsuario.requestFocus();
-        this.SERVICIO = new login_service();
+        this.SERVICIO = new login_service();       
     }
 
     /*

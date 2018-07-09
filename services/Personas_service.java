@@ -15,12 +15,12 @@ import resources.agregarPersona_resource;
  *
  * @author JMalagon
  */
-public class agregarPersona_service {
+public class Personas_service {
 
     private final agregarPersona_resource recurso;
     private final String modulo;
 
-    public agregarPersona_service(String modulo) {
+    public Personas_service(String modulo) {
         this.modulo = modulo;
         this.recurso = new agregarPersona_resource(this.modulo);
     }

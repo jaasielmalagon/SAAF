@@ -80,6 +80,7 @@ public class Domicilios extends javax.swing.JDialog {
                 tabla.setEnabled(false);
                 JOptionPane.showMessageDialog(rootPane, "Se mostrarán las coordenadas de la dirección \"" + DIRECCION_SELECCIONADA + "\".", "Información", JOptionPane.INFORMATION_MESSAGE);
                 txtDireccion.setText(DIRECCION_SELECCIONADA);
+                txtDireccionSeleccionada.setText(DIRECCION_SELECCIONADA);
                 xPos.setText("" + resultadoCD.x);
                 yPos.setText("" + resultadoCD.y);
                 tabla.setEnabled(true);
@@ -134,7 +135,7 @@ public class Domicilios extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtDireccionActual = new javax.swing.JTextField();
+        txtDireccionSeleccionada = new javax.swing.JTextField();
         btnBuscarGPS = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         panelTabla = new javax.swing.JPanel();
@@ -295,20 +296,20 @@ public class Domicilios extends javax.swing.JDialog {
         jLabel17.setText("Ingresar dirección:");
         panelFormulario.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
 
-        txtDireccionActual.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        txtDireccionActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDireccionActual.setEnabled(false);
-        txtDireccionActual.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccionSeleccionada.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        txtDireccionSeleccionada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDireccionSeleccionada.setEnabled(false);
+        txtDireccionSeleccionada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActualActionPerformed(evt);
+                txtDireccionSeleccionadaActionPerformed(evt);
             }
         });
-        txtDireccionActual.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDireccionSeleccionada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDireccionActualKeyReleased(evt);
+                txtDireccionSeleccionadaKeyReleased(evt);
             }
         });
-        panelFormulario.add(txtDireccionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 580, 20));
+        panelFormulario.add(txtDireccionSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 580, 20));
 
         btnBuscarGPS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/gps30x30.png"))); // NOI18N
         btnBuscarGPS.setText("GPS");
@@ -417,13 +418,13 @@ public class Domicilios extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void txtDireccionActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActualActionPerformed
+    private void txtDireccionSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionSeleccionadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActualActionPerformed
+    }//GEN-LAST:event_txtDireccionSeleccionadaActionPerformed
 
-    private void txtDireccionActualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionActualKeyReleased
+    private void txtDireccionSeleccionadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionSeleccionadaKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActualKeyReleased
+    }//GEN-LAST:event_txtDireccionSeleccionadaKeyReleased
 
     private void btnBuscarGPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarGPSActionPerformed
         buscarCoordenadas(txtDireccion.getText());
@@ -494,7 +495,7 @@ public class Domicilios extends javax.swing.JDialog {
     private javax.swing.JTable tabla;
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccionActual;
+    private javax.swing.JTextField txtDireccionSeleccionada;
     private javax.swing.JTextField xPos;
     private javax.swing.JTextField yPos;
     // End of variables declaration//GEN-END:variables

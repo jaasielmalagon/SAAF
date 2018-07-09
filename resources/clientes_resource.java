@@ -187,6 +187,26 @@ public class clientes_resource {
         }
         return array;
     }
+    
+    public String[] getClienteById(int idCliente) {
+        String[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "personas_clientes", "idCliente = " + idCliente + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
 
     public String[] persona(int idSucursal, int idPersona) {
         String[] persona = null;

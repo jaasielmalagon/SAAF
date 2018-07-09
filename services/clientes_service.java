@@ -114,6 +114,40 @@ public class clientes_service {
         }
         return c;
     }
+    
+    public Cliente cliente(int idCliente) {
+        Cliente c = null;
+        if (idCliente > 0) {
+            String[] d = this.recurso.cliente(idCliente);
+            if (d != null) {
+                c = new Cliente();
+                c.setID(d[0]);
+                c.setSUCURSAL(d[1]);
+                c.setUSUARIO(d[2]);
+                c.setF_REGISTRO(d[3]);
+                c.setADC(d[4]);
+                c.setID_PERSONA(d[5]);
+                c.setINGRESOS(d[6]);
+                c.setEGRESOS(d[7]);
+                c.setDEPENDIENTES(d[8]);
+                c.setOCUPACION(d[9]);
+                c.setESTUDIOS(d[10]);
+                c.setEMPRESA(d[11]);
+                c.setDOMICILIO_EMPRESA(d[12]);
+                c.setTEL_EMPRESA(d[13]);
+                c.setHORA_ENTRADA(d[14]);
+                c.setHORA_SALIDA(d[15]);
+                c.setTIPO_VIVIENDA(d[16]);
+                c.setPROPIETARIO(d[17]);
+                c.setVIGENCIA(d[18]);
+                c.setTIEMPO_RESIDENCIA(d[19]);
+                c.setSCORE(d[20]);
+                c.setSTATUS(d[21]);
+                c.setACTIVIDAD(d[22]);                
+            }
+        }
+        return c;
+    }
 
     public Persona persona(int idSucursal, int idPersona) {
         Persona personas = null;
