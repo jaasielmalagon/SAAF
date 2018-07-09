@@ -687,6 +687,11 @@ public class Empleados extends javax.swing.JDialog {
         panelFormulario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 44, -1, -1));
 
         cmbDepartamento.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartamentoActionPerformed(evt);
+            }
+        });
         panelFormulario.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 71, 302, -1));
 
         jLabel25.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -1040,6 +1045,10 @@ public class Empleados extends javax.swing.JDialog {
             System.out.println("views.rrhh_staff.cmbAgenciaActionPerformed() " + e);
         }
     }//GEN-LAST:event_cmbAgenciaActionPerformed
+
+    private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDepartamentoActionPerformed
 
     /**
      * @param args the command line arguments

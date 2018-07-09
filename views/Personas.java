@@ -529,6 +529,11 @@ public class Personas extends javax.swing.JDialog {
 
         comboSexo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Hombre", "Mujer" }));
+        comboSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSexoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
         panelFormulario.setLayout(panelFormularioLayout);
@@ -1019,6 +1024,10 @@ public class Personas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
     }//GEN-LAST:event_btnCrearClienteMouseClicked
+
+    private void comboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSexoActionPerformed
 
     /**
      * @param args the command line arguments

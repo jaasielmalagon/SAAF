@@ -31,7 +31,7 @@ public class Nomina extends javax.swing.JDialog {
     private void llenarTabla(String codigo, Object[] filtro) {        
         tabla = this.SERVICIO.tablaNomina(tabla, FRAMEBITS, ERROR, HEIGHT);
     }
-
+  
     private void setCargos() {
         cmbCargo.setModel(this.SERVICIO.cargos());
     }
