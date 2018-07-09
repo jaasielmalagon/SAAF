@@ -52,13 +52,14 @@ public class Cobrar extends javax.swing.JDialog {
                                     }
                                 }else{
                                     monto = "0";
+                                    i = rows;
                                 }
                                 pagos[x][0] = id;
                                 pagos[x][1] = monto;
                                 pagos[x][2] = fecha;
                                 i++;
                                 x++;
-                            } while (i < rows && monto != null);
+                            } while (i < rows);
 
                             confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea guardar los pagos capturados hasta este momento?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                             String mensaje;

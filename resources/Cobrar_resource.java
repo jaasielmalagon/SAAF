@@ -203,7 +203,7 @@ public class Cobrar_resource extends conection {
                     array[i] = RS.getString(i + 1);
                 }
             }
-            System.out.println(Arrays.toString(array));
+//            System.out.println(Arrays.toString(array));
             this.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);

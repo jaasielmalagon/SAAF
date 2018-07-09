@@ -92,6 +92,7 @@ public class Cobrar_service {
             String dataInsert = "";
             int limite = pagos.length;
             int i = 1;
+            System.out.println("------------");
             for (String[] pago : pagos) {
                 System.out.println(Arrays.toString(pago));
                 int id = 0;
@@ -116,8 +117,8 @@ public class Cobrar_service {
                     }
                     i++;
                 }
-            }
-            System.out.println(dataInsert);
+            }System.out.println("------------");
+            System.out.println("\n"+dataInsert);
             boolean b = this.RECURSO.guardarPagos(dataInsert);
             if (b) {
                 return "Cobranza guardada exitosamente";
