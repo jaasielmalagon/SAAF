@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import objects.Persona;
 import objects.Usuario;
-import services.agregarPersona_service;
+import services.Personas_service;
 
 /**
  *
@@ -15,19 +15,19 @@ import services.agregarPersona_service;
  */
 public class Referencias extends javax.swing.JDialog {
 
-    private final agregarPersona_service SERVICIO;
+    private final Personas_service SERVICIO;
     private final int ID_SUCURSAL;
     private Persona PERSONA;
     private Persona PERSONA_REFERENCIA = null;
     private int ID_REFERENCIA = 0;
 
-    public Referencias(JDialog parent, boolean modal, Usuario usuario, Persona persona) {
+    public Referencias(JDialog parent, boolean modal, Usuario usuario, Persona persona, String modulo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
 
         tituloVentana.setText(tituloVentana.getText() + " a: " + persona.toString());
-        this.SERVICIO = new agregarPersona_service();
+        this.SERVICIO = new Personas_service(modulo);
         this.ID_SUCURSAL = usuario.getIdSucursal();
         this.PERSONA = persona;
         cargarReferencias();
@@ -514,7 +514,7 @@ public class Referencias extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(() -> {
             Usuario usuario = null;
             Persona persona = null;
-            Referencias dialog = new Referencias(new JDialog(), true, usuario, persona);
+            Referencias dialog = new Referencias(new JDialog(), true, usuario, persona, new String());
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

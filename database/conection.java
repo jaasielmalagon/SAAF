@@ -18,6 +18,7 @@ import objects.ErrorController;
  */
 public class conection {
 
+    public String MODULO;
     Statement estado = null;
     ErrorController ERROR_CONTROLLER;
     ResultSet rs = null;
@@ -52,7 +53,7 @@ public class conection {
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("database.conection.Connect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Connect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Connect() : " + ex);
             return false;
         }
     }
@@ -68,7 +69,7 @@ public class conection {
             }
         } catch (SQLException ex) {
             System.out.println("database.conection.Disconnect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Disconnect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Disconnect() : " + ex);
             return false;
         }
     }
@@ -90,7 +91,7 @@ public class conection {
             ps.close();
         } catch (SQLException ex) {
             System.out.println("database.conection.InsertId() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.InsertId() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.InsertId() : " + ex);
         }
         return idGenerado;
     }
@@ -112,7 +113,31 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Insert() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Insert() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Insert() : " + ex);
+            }
+        }
+        return xsas;
+    }
+    
+    /*
+    InsertMultiple() es un método que puede ser utilizado para ingresar los datos recibidos desde las capas superiores a la base de
+    datos de manera directa, pues no cuenta con filtrado de caracteres.
+    Inserta uno o varios regristros simultáneos separados por "(),".
+     */
+    public boolean InsertMultiple(String tabla, String campos, String valores) {
+        boolean xsas = false;
+        if (tabla.isEmpty() || campos.isEmpty() || valores.isEmpty()) {
+            System.err.println("No hay datos para guardar.");
+        } else {
+            try {
+                if (estado != null) {
+                    //System.out.println("INSERT INTO " + tabla + "(" + campos + ") VALUES (" + valores + ")");
+                    estado.execute("INSERT INTO " + tabla + "(" + campos + ") VALUES " + valores + "");
+                    xsas = true;
+                }
+            } catch (SQLException ex) {
+                System.out.println("database.conection.Insert() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Insert() : " + ex);
             }
         }
         return xsas;
@@ -131,7 +156,7 @@ public class conection {
             }
         } catch (SQLException ex) {
             System.out.println("database.conection.Select() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Select() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Select() : " + ex);
         }
         return rs;
     }
@@ -140,13 +165,14 @@ public class conection {
         try {
             if (estado != null) {
                 rs = estado.executeQuery("SELECT " + campos + " FROM " + tabla + " " + clausula);
+//                System.err.println("SELECT " + campos + " FROM " + tabla + " " + clausula);
             } else {
                 rs = null;
             }
         } catch (SQLException ex) {
             rs = null;
             System.out.println("database.conection.freeSelect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.freeSelect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.freeSelect() : " + ex);
         }
         return rs;
     }
@@ -161,7 +187,7 @@ public class conection {
         } catch (SQLException ex) {
             rs = null;
             System.out.println("database.conection.fullSelect() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.fullSelect() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.fullSelect() : " + ex);
         }
         return rs;
     }
@@ -182,7 +208,7 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Update() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Update() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Update() : " + ex);
             }
         }
         return xsas;
@@ -205,7 +231,7 @@ public class conection {
                 }
             } catch (SQLException ex) {
                 System.out.println("database.conection.Delete() : " + ex);
-                this.ERROR_CONTROLLER.escribirErrorLogger("conection", "database.conection.Delete() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, "database.conection.Delete() : " + ex);
             }
         }
         return xsas;

@@ -11,6 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import objects.Cliente;
 import objects.Estudio;
+import objects.Lista;
 import objects.Mes;
 import objects.Ocupacion;
 import objects.Persona;
@@ -39,16 +40,21 @@ public class ClienteAdd extends javax.swing.JDialog {
         this.USUARIO = usuario;
         this.PERSONA_SELECCIONADA = persona;
         if (this.PERSONA_SELECCIONADA != null) {
+            adcs();
             ocupaciones();
             estudios();
             meses();
             limpiarCampos();
-            System.out.println(this.PERSONA_SELECCIONADA.toString());
+//            System.out.println(this.PERSONA_SELECCIONADA.toString());
             this.CLIENTE = SERVICIO.cliente(this.PERSONA_SELECCIONADA);
             if (this.CLIENTE != null) {
                 cargarDatosCliente();
             }
         }
+    }
+    
+    private void adcs() {
+        cmbAdc.setModel(this.SERVICIO.comboAdc(this.USUARIO));
     }
 
     private void guardarDatos() {
@@ -68,7 +74,7 @@ public class ClienteAdd extends javax.swing.JDialog {
                 String salida = txtSalida.getValue().toString();
                 split = salida.split(" ");
                 salida = split[3];
-                String adc = txtAdc.getText();
+                int adc = ((Lista) cmbAdc.getSelectedItem()).getID();
                 int tipo = comboTipoVivienda.getSelectedIndex();
                 String vigencia = txtAno.getText() + "-" + ((Mes) comboMeses.getSelectedItem()).getNumeroMes() + "-" + txtDia.getText();
                 String propietario = txtPropietario.getText();
@@ -175,15 +181,14 @@ public class ClienteAdd extends javax.swing.JDialog {
             txtSalida.setModel(sm2);
             JSpinner.DateEditor ded = new JSpinner.DateEditor(txtSalida, "HH:mm:ss");
             txtSalida.setEditor(ded);
-            txtAdc.setText(CLIENTE.getADC());
-            txtAdc.requestFocus();
+            setSelectedAdc(CLIENTE.getADC());            
             comboTipoVivienda.setSelectedIndex(CLIENTE.getTIPO_VIVIENDA());
             if (CLIENTE.getTIPO_VIVIENDA() > 1) {
                 txtAnosResidencia.setText(String.valueOf(CLIENTE.getTIEMPO_RESIDENCIA()));
                 txtPropietario.setText(CLIENTE.getPROPIETARIO());
                 String vigencia = CLIENTE.getVIGENCIA();
                 txtAno.setText(vigencia.substring(0, 4));
-                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)) + 1);
+                comboMeses.setSelectedIndex(Integer.valueOf(vigencia.substring(5, 7)));
                 txtDia.setText(vigencia.substring(8, 10));
             }
             switch (CLIENTE.getSTATUS()) {
@@ -220,9 +225,8 @@ public class ClienteAdd extends javax.swing.JDialog {
     private boolean comprobarCampos() {
         boolean flag = true;
         char[] charArray;
-        if (txtAdc.getText().length() == 0 || txtAdc.getText().isEmpty()) {
+        if (((Lista) cmbAdc.getSelectedItem()).getID() == 0) {
             flag = false;
-            txtAdc.requestFocus();
             JOptionPane.showMessageDialog(rootPane, "El cliente debe pertenecer a un ADC.", "¡Hay un error en los datos!", JOptionPane.ERROR_MESSAGE);
         }
         if (flag == true) {
@@ -289,6 +293,19 @@ public class ClienteAdd extends javax.swing.JDialog {
 
         return flag;
     }
+    
+    private void setSelectedAdc(int value) {
+        Object item;
+        Lista objeto;
+        for (int i = 0; i < cmbAdc.getItemCount(); i++) {
+            item = cmbAdc.getItemAt(i);
+            objeto = (Lista) item;
+            if (objeto.getID() == value) {
+                cmbAdc.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
     public void setSelectedEstudios(int value) {
         Object item;
@@ -339,7 +356,7 @@ public class ClienteAdd extends javax.swing.JDialog {
     }
 
     private void limpiarCampos() {
-        txtAdc.setText("");
+        cmbAdc.setSelectedIndex(0);
         txtIngresos.setText("");
         txtEgresos.setText("");
         txtSobrante.setText("");
@@ -454,7 +471,6 @@ public class ClienteAdd extends javax.swing.JDialog {
         SpinnerDateModel sm2 = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
         txtSalida = new javax.swing.JSpinner(sm2);
         jLabel23 = new javax.swing.JLabel();
-        txtAdc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         comboTipoVivienda = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
@@ -468,6 +484,7 @@ public class ClienteAdd extends javax.swing.JDialog {
         lblEstad = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
         lblOrb = new javax.swing.JLabel();
+        cmbAdc = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -729,11 +746,6 @@ public class ClienteAdd extends javax.swing.JDialog {
         jLabel23.setText("ADC:");
         panelForm.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        txtAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        txtAdc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtAdc.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        panelForm.add(txtAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 60, 20));
-
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de vivienda:");
         panelForm.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 110, 20));
@@ -812,6 +824,14 @@ public class ClienteAdd extends javax.swing.JDialog {
         lblEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelForm.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 140, 20));
         panelForm.add(lblOrb, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 40, 20));
+
+        cmbAdc.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbAdc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAdcActionPerformed(evt);
+            }
+        });
+        panelForm.add(cmbAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 100, 20));
 
         Contenedor.add(panelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 25, 1000, 260));
 
@@ -971,6 +991,10 @@ public class ClienteAdd extends javax.swing.JDialog {
         //        }
     }//GEN-LAST:event_txtPropietarioKeyTyped
 
+    private void cmbAdcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbAdcActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1008,6 +1032,7 @@ public class ClienteAdd extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel btnEliminar;
     private javax.swing.JPanel btnGuardar;
+    private javax.swing.JComboBox<String> cmbAdc;
     private javax.swing.JComboBox<String> cmbNivelEstudios;
     private javax.swing.JComboBox<String> cmbOcupacion;
     private javax.swing.JComboBox<String> comboMeses;
@@ -1038,7 +1063,6 @@ public class ClienteAdd extends javax.swing.JDialog {
     private javax.swing.JLabel lblOrb;
     private javax.swing.JPanel panelForm;
     private javax.swing.JLabel tituloVentana;
-    private javax.swing.JTextField txtAdc;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtAnosResidencia;
     private javax.swing.JTextField txtDependientes;

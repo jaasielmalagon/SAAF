@@ -11,55 +11,242 @@ import objects.ErrorController;
  */
 public class solicitudCredito_resource {
 
-    private final conection db;
-    ResultSet rs = null;
+    private final conection DB;
+    ResultSet RS = null;
     ErrorController ERROR_CONTROLLER;
+    private final String modulo;
 
-    public solicitudCredito_resource() {
-        this.db = new conection();
+    public solicitudCredito_resource(String modulo) {
+        this.modulo = modulo;
+        this.DB = new conection();
     }
 
-    public String[][] personas(int idSucursal, String dato) {
-        String[][] personas = null;
-        int i = 0;
+    public String[] getSolicitud(int idSolicitud, int idSucusal) {
+        String[] array = null;
         try {
-            
-            int count = this.contarPersonas(idSucursal, dato);
-            if (count > 0) {
-                this.db.Connect();
-                personas = new String[count][10];
-                rs = this.db.freeSelect("idPersona, nombre, apaterno, amaterno, curp, ocr, telefono, celular, sexo,"
-                        + "calles.calle, numerosdomiciliares.numero, tipo_asentamiento.tipoAsentamiento, colonias.colonia, colonias.cp, municipios.municipio,estados.estado",
-                        "personas",
-                        "INNER JOIN domicilios ON personas.domicilio = domicilios.idDomicilio INNER JOIN calles ON domicilios.calle = calles.idCalle INNER JOIN numerosdomiciliares ON domicilios.numero = numerosdomiciliares.idNumero INNER JOIN colonias ON domicilios.colonia = colonias.idColonia INNER JOIN tipo_asentamiento ON colonias.asentamiento = tipo_asentamiento.idTipoAsentamiento INNER JOIN municipios ON municipios.idMunicipio = colonias.municipio INNER JOIN estados ON estados.idEstado = municipios.estado "
-                        + "WHERE personas.sucursal = " + idSucursal + " AND (nombre like '%" + dato + "%' OR apaterno like '%" + dato + "%' OR amaterno like '%" + dato + "%' OR curp like '%" + dato + "%' OR ocr like '%" + dato + "%' OR telefono like '%" + dato + "%' OR celular like '%" + dato + "%')");
-                while (rs.next()) {
-                    String dir = rs.getString(10) + " " + rs.getString(11) + " " + rs.getString(12) + " " + rs.getString(13) + " " + rs.getString(15) + "," + rs.getString(16);
-                    String array[] = {String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), dir};
-                    personas[i] = array;
-                    i++;
+            this.DB.Connect();
+            RS = this.DB.Select("*", "prestamos_solicitudes", "idSolicitud = " + idSolicitud + " AND sucursal = " + idSucusal + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
                 }
-                this.db.Disconnect();
-            }            
+            }
+            this.DB.Disconnect();
         } catch (SQLException ex) {
-            System.out.println("resources.agregarPersona_resource.personas() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", "resources.agregarPersona_resource.personas() : " + ex);
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
-        return personas;
+        return array;
     }
 
-    private int contarPersonas(int idSucursal, String dato) {
+    public String[][] getAdcFromSucursal(int idSucursal) {
+        String[][] array = null;
+        try {
+            this.DB.Connect();
+            String condicion = "sucursal = " + idSucursal + " AND idStaff != 0";
+            RS = this.DB.Select("COUNT(*)", "personas_empleados_adc", condicion);
+            if (RS.next()) {
+                int count = RS.getInt(1);
+                if (count > 0) {
+                    array = new String[count][3];
+                    RS = this.DB.Select("idAdc,agencia,vacante", "personas_empleados_adc", condicion);
+                    count = count - count;
+//                    System.out.println(count);
+                    while (RS.next()) {
+//                        System.out.println(count);
+                        array[count][0] = RS.getString(1);
+                        array[count][1] = RS.getString(2);
+                        array[count][2] = RS.getString(3);
+                        count++;
+                    }
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public String[][] solicitudes(String filtro) {
+        String[][] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.freeSelect("COUNT(*)", "prestamos_solicitudes", filtro);
+            if (RS.next()) {
+                int count = RS.getInt(1);
+//                System.out.println("RESULTADOS: " + count);
+                if (count > 0) {
+                    RS = this.DB.freeSelect("prestamos_solicitudes.*", "prestamos_solicitudes", filtro);
+                    int cols = RS.getMetaData().getColumnCount();
+                    array = new String[count][cols];
+                    count = count - count;
+                    while (RS.next()) {
+                        for (int i = 0; i < cols; i++) {
+                            array[count][i] = RS.getString(i + 1);
+                        }
+//                        System.out.println(Arrays.toString(array[count]));
+                        count++;
+                    }
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public int[] clientesDeAdc(int adc) {
+        int[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("COUNT(DISTINCT(idCliente))", "personas_clientes", "adc = " + adc);
+            if (RS.next()) {
+                int count = RS.getInt(1);
+                if (count > 0) {
+                    RS = this.DB.freeSelect("DISTINCT(idCliente)", "personas_clientes", "adc = " + adc);
+                    array = new int[count];
+                    count = 0;
+                    while (RS.next()) {
+                        array[count] = RS.getInt(1);
+                        count++;
+                    }
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public int contarSolicitudesDeClientes(String condicion) {
         int count = 0;
         try {
-            rs = this.db.Select("COUNT(idPersona)", "personas", "sucursal = " + idSucursal + " AND (nombre like '%" + dato + "%' OR apaterno like '%" + dato + "%' OR amaterno like '%" + dato + "%' OR curp like '%" + dato + "%' OR ocr like '%" + dato + "%' OR telefono like '%" + dato + "%' OR celular like '%" + dato + "%')");
-            if (rs.next()) {
-                count = rs.getInt(1);
+            this.DB.Connect();
+            RS = this.DB.Select("COUNT(*)", "prestamos_solicitudes", condicion);
+            if (RS.next()) {
+                count = RS.getInt(1);
             }
+            this.DB.Disconnect();
         } catch (SQLException ex) {
-            System.out.println("resources.agregarPersona_resource.contarPersonas() : " + ex);
-            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", "resources.agregarPersona_resource.contarPersonas() : " + ex);
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
         }
         return count;
+    }
+
+    public boolean cambiarEstadoSolicitud(int id, int estado) {
+        this.DB.Connect();
+        boolean flag = this.DB.Update("prestamos_solicitudes", "estado = " + estado, "idSolicitud = " + id + " LIMIT 1");
+        this.DB.Disconnect();
+        return flag;
+    }
+
+    public boolean guardarSolicitud(int MONTO, int PLAZO, int CLIENTE, int USUARIO, int SUCURSAL, double TASA) {
+        try {
+            this.DB.Connect();
+            this.DB.Insert("prestamos_solicitudes", "monto,tasa,plazo,cliente,usuario,sucursal,fecha,hora", MONTO + "," + TASA + "," + PLAZO + "," + CLIENTE + "," + USUARIO + "," + SUCURSAL + ",now(),now()");
+            this.DB.Disconnect();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            return false;
+        }
+    }
+
+    public String[] fechaSolicitudAnterior(int idCliente) {
+        String[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "prestamos_solicitudes", "cliente=" + idCliente + " ORDER BY idSolicitud DESC LIMIT 1");
+            if (RS.next()) {
+                array = new String[10];
+                array[0] = RS.getString(1);
+                array[1] = RS.getString(2);
+                array[2] = RS.getString(3);
+                array[3] = RS.getString(4);
+                array[4] = RS.getString(5);
+                array[5] = RS.getString(6);
+                array[6] = RS.getString(7);
+                array[7] = RS.getString(8);
+                array[8] = RS.getString(9);
+                array[9] = RS.getString(10);
+            }
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+
+    public String fechaServidor() {
+        String hora = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.fullSelect("SELECT now()");
+            if (RS.next()) {
+                hora = RS.getString(1);
+            }
+            this.DB.Disconnect();
+            return hora;
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger("administracion", Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            return hora;
+        }
+    }
+
+    public boolean insertarPrestamo(int sucursal, int zona, int adc, int autoriza, int cliente, int total, int monto, int interes, int plazo, int pago) {
+        this.DB.Connect();
+        boolean flag = this.DB.Insert("prestamos",
+                "sucursal, zona, adc, autorizo, fecha_autorizacion, cliente, total_prestado, capital, interes, plazo, tarifa",
+                sucursal + "," + zona + "," + adc + "," + autoriza + ", now()," + cliente + "," + total + "," + monto + "," + interes + "," + plazo + "," + pago);
+        this.DB.Disconnect();
+        return flag;
+    }
+
+    public int contarPrestamosDeCliente(int id) {
+        int count = 0;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("COUNT(*)", "prestamos", "cliente = " + id + " LIMIT 1");
+            if (RS.next()) {
+                count = RS.getInt(1);
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return count;
+    }
+    
+    public int[] adcYagencia(int id){
+        //SELECT personas_clientes.adc, personas_empleados_adc.agencia FROM `personas_clientes` INNER JOIN personas_empleados_adc ON personas_clientes.adc WHERE personas_clientes.adc = personas_empleados_adc.idAdc AND personas_clientes.idCliente = 1
+        int[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.freeSelect("personas_clientes.adc, personas_empleados_adc.agencia", "personas_clientes", "INNER JOIN personas_empleados_adc ON personas_clientes.adc WHERE personas_clientes.adc = personas_empleados_adc.idAdc AND personas_clientes.idCliente = " + id + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new int[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getInt(i + 1);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
     }
 
 }

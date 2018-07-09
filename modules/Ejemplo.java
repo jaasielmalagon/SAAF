@@ -17,12 +17,13 @@ import views.Personas;
 public class Ejemplo extends javax.swing.JFrame {
 
     private final Usuario usuario;
-
+    private String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
+    
     public Ejemplo(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        nombreUsuario.setText("HOLA " + this.usuario.toString().toUpperCase());
+        nombreUsuario.setText("HOLA " + this.usuario.getUsername().toUpperCase());
         if (this.usuario.getFotografia() != null) {
             System.out.println(this.usuario.getFotografia());
             fotografia.setIcon(new ImageIcon(this.usuario.getFotografia()));
@@ -240,11 +241,11 @@ public class Ejemplo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iconPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario,this.modulo)).setVisible(true);
     }//GEN-LAST:event_iconPersonasMouseClicked
 
     private void lblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_lblPersonasMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked

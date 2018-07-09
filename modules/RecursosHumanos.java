@@ -8,9 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Persona;
 import objects.Usuario;
-import views.Clientes;
 import views.Domicilios;
 import views.Empleados;
+import views.Nomina;
 import views.Personas;
 
 /**
@@ -20,12 +20,13 @@ import views.Personas;
 public class RecursosHumanos extends javax.swing.JFrame {
 
     private final Usuario usuario;
+    private String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
 
     public RecursosHumanos(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        nombreUsuario.setText("HOLA " + this.usuario.toString().toUpperCase());
+        nombreUsuario.setText("HOLA " + this.usuario.getUsername().toUpperCase());
         if (this.usuario.getFotografia() != null) {
             System.out.println(this.usuario.getFotografia());
             fotografia.setIcon(new ImageIcon(this.usuario.getFotografia()));
@@ -58,12 +59,12 @@ public class RecursosHumanos extends javax.swing.JFrame {
         lblPersonas = new javax.swing.JLabel();
         iconDomicilios = new javax.swing.JLabel();
         lblDomicilios = new javax.swing.JLabel();
-        iconClientes = new javax.swing.JLabel();
-        lblClientes = new javax.swing.JLabel();
+        iconEmpleados = new javax.swing.JLabel();
+        lblEmpleados = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        iconNomina = new javax.swing.JLabel();
+        lblNomina = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         fotografia = new javax.swing.JLabel();
@@ -172,27 +173,27 @@ public class RecursosHumanos extends javax.swing.JFrame {
         });
         getContentPane().add(lblDomicilios, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 150, 35));
 
-        iconClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icono_staff.png"))); // NOI18N
-        iconClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icono_staff.png"))); // NOI18N
+        iconEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconClientesMouseClicked(evt);
+                iconEmpleadosMouseClicked(evt);
             }
         });
-        getContentPane().add(iconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 120, 150, 150));
+        getContentPane().add(iconEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 120, 150, 150));
 
-        lblClientes.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
-        lblClientes.setForeground(new java.awt.Color(181, 10, 20));
-        lblClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClientes.setText("EMPLEADOS");
-        lblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEmpleados.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
+        lblEmpleados.setForeground(new java.awt.Color(181, 10, 20));
+        lblEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEmpleados.setText("EMPLEADOS");
+        lblEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblClientesMouseClicked(evt);
+                lblEmpleadosMouseClicked(evt);
             }
         });
-        getContentPane().add(lblClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 280, 150, 35));
+        getContentPane().add(lblEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 280, 150, 35));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -204,27 +205,27 @@ public class RecursosHumanos extends javax.swing.JFrame {
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 150, 150));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconNomina.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconNomina.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        iconNomina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconNomina.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                iconNominaMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 150, 150));
+        getContentPane().add(iconNomina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 150, 150));
 
-        jLabel11.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(181, 10, 20));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNomina.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
+        lblNomina.setForeground(new java.awt.Color(181, 10, 20));
+        lblNomina.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNomina.setText("NÓMINA");
+        lblNomina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNomina.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                lblNominaMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 150, 35));
+        getContentPane().add(lblNomina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 150, 35));
 
         jLabel12.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(181, 10, 20));
@@ -264,30 +265,28 @@ public class RecursosHumanos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void iconPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_iconPersonasMouseClicked
 
     private void lblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_lblPersonasMouseClicked
 
-    private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked
-        Persona persona = null;
-        (new Empleados(this, true, this.usuario, persona)).setVisible(true);
-    }//GEN-LAST:event_iconClientesMouseClicked
+    private void iconEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconEmpleadosMouseClicked
+        (new Empleados(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_iconEmpleadosMouseClicked
 
-    private void lblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseClicked
-        Persona persona = null;
-        (new Empleados(this, true, this.usuario, persona)).setVisible(true);
-    }//GEN-LAST:event_lblClientesMouseClicked
+    private void lblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEmpleadosMouseClicked
+        (new Empleados(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_lblEmpleadosMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel10MouseClicked
+    private void iconNominaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconNominaMouseClicked
+        (new Nomina(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_iconNominaMouseClicked
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseClicked
+    private void lblNominaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNominaMouseClicked
+        (new Nomina(this, true, this.usuario)).setVisible(true);
+    }//GEN-LAST:event_lblNominaMouseClicked
 
     private void iconDomiciliosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconDomiciliosMouseClicked
         (new Domicilios(this, true, this.usuario)).setVisible(true);
@@ -325,20 +324,20 @@ public class RecursosHumanos extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel fotografia;
     private javax.swing.JLabel iconBuscar;
-    private javax.swing.JLabel iconClientes;
     private javax.swing.JLabel iconDomicilios;
+    private javax.swing.JLabel iconEmpleados;
+    private javax.swing.JLabel iconNomina;
     private javax.swing.JLabel iconPersonas;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblDomicilios;
+    private javax.swing.JLabel lblEmpleados;
     private javax.swing.JLabel lblMensaje1;
     private javax.swing.JLabel lblMensaje2;
+    private javax.swing.JLabel lblNomina;
     private javax.swing.JLabel lblPersonas;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JLabel tituloModulo;

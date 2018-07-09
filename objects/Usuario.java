@@ -5,7 +5,7 @@ package objects;
  * @author JMalagon
  */
 public class Usuario {
-    
+
     private final int idUsuario;
     private final String usuario;
     private final String password;
@@ -13,8 +13,8 @@ public class Usuario {
     private final int idStaff;
     private final int idSucursal;
     private final String fotografia;
-    
-    public Usuario(int idUsuario, String usuario, String password, int tipo, int idStaff, int idSucursal, String fotografia){
+
+    public Usuario(int idUsuario, String usuario, String password, int tipo, int idStaff, int idSucursal, String fotografia) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.password = password;
@@ -23,27 +23,38 @@ public class Usuario {
         this.idSucursal = idSucursal;
         this.fotografia = fotografia;
     }
-    
-    public int getIdUsuario(){
+
+    public int getIdUsuario() {
         return idUsuario;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    public int getTipoUsuario(){
+
+    public int getTipoUsuario() {
         return tipo;
     }
-    public int getIdStaff(){
+
+    public int getIdStaff() {
         return idStaff;
     }
-    public int getIdSucursal(){
+
+    public int getIdSucursal() {
         return idSucursal;
     }
+
     public String getFotografia() {
         return fotografia;
-    }        
-    @Override
-    public String toString(){
+    }
+
+    public String getUsername() {
         return usuario;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", tipo=" + tipo + ", idStaff=" + idStaff + ", idSucursal=" + idSucursal + ", fotografia=" + fotografia + '}';
+    }
+
 }

@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtUsuario.requestFocus();
-        this.SERVICIO = new login_service();
+        this.SERVICIO = new login_service();       
     }
 
     private void login() {
@@ -33,6 +33,7 @@ public class Login extends javax.swing.JFrame {
 //7 Sistemas informáticos
 //8 Administración de cartera
         if (u != null) {
+//            System.out.println(u.toString());
             switch (u.getTipoUsuario()) {
                 case 1:
                     new Administracion(u).setVisible(true);
@@ -46,8 +47,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();                    
                     break;
                 case 4:
-                    new gerencia_operativa(u).setVisible(true);
-                    this.dispose();
+                    JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -59,8 +59,8 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Módulo no disponible", "¡Error!", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
-                    new fullmodules(u).setVisible(true);
-                    this.dispose();
+//                    new fullmodules(u).setVisible(true);
+//                    this.dispose();
                     break;
             }
         } else {

@@ -3,7 +3,6 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import objects.ErrorController;
 
 /**
@@ -21,6 +20,36 @@ public class clientes_resource {
         this.DB = new conection();
         this.ERROR_CONTROLLER = new ErrorController();
         this.modulo = modulo;
+    }
+    
+        public String[][] getAdcFromSucursal(int idSucursal) {
+        String[][] array = null;
+        try {
+            this.DB.Connect();
+            String condicion = "sucursal = " + idSucursal + " AND idStaff != 0";
+            RS = this.DB.Select("COUNT(*)", "personas_empleados_adc", condicion);
+            if (RS.next()) {
+                int count = RS.getInt(1);
+                if (count > 0) {
+                    array = new String[count][3];
+                    RS = this.DB.Select("idAdc,agencia,vacante", "personas_empleados_adc", condicion);
+                    count = count - count;
+//                    System.out.println(count);
+                    while (RS.next()) {
+//                        System.out.println(count);
+                        array[count][0] = RS.getString(1);
+                        array[count][1] = RS.getString(2);
+                        array[count][2] = RS.getString(3);
+                        count++;
+                    }
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
     }
 
     public boolean actualizarDatosStaff(int idStaff, int idPersona, int cargo, int estudios, int departamento, int sucursal, int salario, String entrada, String salida,
@@ -70,22 +99,6 @@ public class clientes_resource {
                 for (int i = 0; i < size; i++) {
                     array[i] = RS.getString(i + 1);
                 }
-//                array[0] = RS.getString(1);
-//                array[1] = RS.getString(2);
-//                array[2] = RS.getString(3);
-//                array[3] = RS.getString(4);
-//                array[4] = RS.getString(5);
-//                array[5] = RS.getString(6);
-//                array[6] = RS.getString(7);
-//                array[7] = RS.getString(8);
-//                array[8] = RS.getString(9);
-//                array[9] = RS.getString(10);
-//                array[10] = RS.getString(11);
-//                array[11] = RS.getString(12);
-//                array[12] = RS.getString(13);
-//                array[13] = RS.getString(14);
-//                array[14] = RS.getString(15);
-//                array[15] = RS.getString(16);
             }
             this.DB.Disconnect();
         } catch (SQLException ex) {
@@ -160,6 +173,26 @@ public class clientes_resource {
         try {
             this.DB.Connect();
             RS = this.DB.Select("*", "personas_clientes", "idPersona = " + idPersona + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.DB.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.modulo, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
+    
+    public String[] getClienteById(int idCliente) {
+        String[] array = null;
+        try {
+            this.DB.Connect();
+            RS = this.DB.Select("*", "personas_clientes", "idCliente = " + idCliente + " LIMIT 1");
             if (RS.next()) {
                 int size = RS.getMetaData().getColumnCount();
                 array = new String[size];
@@ -439,22 +472,22 @@ public class clientes_resource {
         return array;
     }
 
-    public int guardarDatosCliente(int sucursal, int usuario, String adc, int id_persona, double ingresos, double egresos, int dependientes,
+    public int guardarDatosCliente(int sucursal, int usuario, int adc, int id_persona, double ingresos, double egresos, int dependientes,
             int ocupacion, int estudios, String empresa, String domicilio_empresa, String tel_empresa, String hora_entrada, String hora_salida,
             int tipo_vivienda, String propietario_inmueble, String vigencia_contrato, int tiempo_residencia) {
         int res = this.DB.InsertId("personas_clientes",
                 "`sucursal`, `usuario`, `registro`, `adc`, `idPersona`, `ingresos`, `egresos`, `dependientes`, `ocupacion`,"
                 + " `estudios`, `empresa`, `domicilio_empresa`, `tel_empresa`, `horario_entrada`, `horario_salida`,`tipo_vivienda`, `propietario`, `vigencia_contrato`, `tiempo_residencia`",
-                sucursal + "," + usuario + ",now(),'" + adc + "'," + id_persona + "," + ingresos + "," + egresos + "," + dependientes + "," + ocupacion + ","
+                sucursal + "," + usuario + ",now()," + adc + "," + id_persona + "," + ingresos + "," + egresos + "," + dependientes + "," + ocupacion + ","
                 + estudios + ",'" + empresa + "','" + domicilio_empresa + "','" + tel_empresa + "','" + hora_entrada + "','" + hora_salida + "'," + tipo_vivienda + ",'" + propietario_inmueble + "','" + vigencia_contrato + "'," + tiempo_residencia);
         return res;
     }
 
-    public int actualizarDatosCliente(int cliente, int sucursal, int usuario, String adc, int id_persona, double ingresos, double egresos, int dependientes, int ocupacion, int estudios, String empresa, String domicilio_empresa, String tel_empresa, String hora_entrada, String hora_salida,
+    public int actualizarDatosCliente(int cliente, int sucursal, int usuario, int adc, int id_persona, double ingresos, double egresos, int dependientes, int ocupacion, int estudios, String empresa, String domicilio_empresa, String tel_empresa, String hora_entrada, String hora_salida,
             int tipoVivienda, String propietario, String vigencia, int tiempoResidencia) {
         this.DB.Connect();
         boolean update = this.DB.Update("personas_clientes",
-                "sucursal=" + sucursal + ",usuario=" + usuario + ",adc='" + adc + "',ingresos=" + ingresos + ",egresos=" + egresos + ",dependientes=" + dependientes + ",ocupacion=" + ocupacion
+                "sucursal=" + sucursal + ",usuario=" + usuario + ",adc=" + adc + ",ingresos=" + ingresos + ",egresos=" + egresos + ",dependientes=" + dependientes + ",ocupacion=" + ocupacion
                 + ",estudios=" + estudios + ",empresa='" + empresa + "',domicilio_empresa='" + domicilio_empresa + "',tel_empresa='" + tel_empresa + "',horario_entrada='" + hora_entrada + "',horario_salida='" + hora_salida + "',"
                 + "tipo_vivienda = " + tipoVivienda + ",propietario='" + propietario + "',vigencia_contrato='" + vigencia + "',tiempo_residencia=" + tiempoResidencia,
                 "idCliente=" + cliente + " AND idPersona=" + id_persona);

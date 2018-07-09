@@ -26,6 +26,23 @@ public class clientes_service {
     public clientes_service(String modulo) {
         this.recurso = new clientes_resource(modulo);
     }
+    
+    public DefaultComboBoxModel comboAdc(Usuario USUARIO) {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String[][] array = this.recurso.getAdcFromSucursal(USUARIO.getIdSucursal());
+        if (array != null) {
+            dcbm.addElement(new Lista(0, "--- Seleccione ---"));
+            for (String[] val : array) {
+                if (Integer.parseInt(val[2]) < 10) {
+                    val[2] = "0" + val[2];
+                }
+                dcbm.addElement(new Lista(Integer.parseInt(val[0]), "Z" + val[1] + "-" + val[2], "adc"));
+            }
+        } else {
+            dcbm.addElement(new Lista(0, "Sin resultados"));
+        }
+        return dcbm;
+    }
 
     public Adc crearAdc(Usuario USUARIO, Empleado EMPLEADO, Object agencia, Object vacante) {
         Adc adc;
@@ -97,6 +114,40 @@ public class clientes_service {
         }
         return c;
     }
+    
+    public Cliente cliente(int idCliente) {
+        Cliente c = null;
+        if (idCliente > 0) {
+            String[] d = this.recurso.cliente(idCliente);
+            if (d != null) {
+                c = new Cliente();
+                c.setID(d[0]);
+                c.setSUCURSAL(d[1]);
+                c.setUSUARIO(d[2]);
+                c.setF_REGISTRO(d[3]);
+                c.setADC(d[4]);
+                c.setID_PERSONA(d[5]);
+                c.setINGRESOS(d[6]);
+                c.setEGRESOS(d[7]);
+                c.setDEPENDIENTES(d[8]);
+                c.setOCUPACION(d[9]);
+                c.setESTUDIOS(d[10]);
+                c.setEMPRESA(d[11]);
+                c.setDOMICILIO_EMPRESA(d[12]);
+                c.setTEL_EMPRESA(d[13]);
+                c.setHORA_ENTRADA(d[14]);
+                c.setHORA_SALIDA(d[15]);
+                c.setTIPO_VIVIENDA(d[16]);
+                c.setPROPIETARIO(d[17]);
+                c.setVIGENCIA(d[18]);
+                c.setTIEMPO_RESIDENCIA(d[19]);
+                c.setSCORE(d[20]);
+                c.setSTATUS(d[21]);
+                c.setACTIVIDAD(d[22]);                
+            }
+        }
+        return c;
+    }
 
     public Persona persona(int idSucursal, int idPersona) {
         Persona personas = null;
@@ -134,12 +185,8 @@ public class clientes_service {
 
     public JTable tablaEmpleados(JTable tabla, int idSucursal, String dato) {
         String titulos[] = {"ID", "Nombre", "Apellidos", "CURP", "Teléfono", "Celular", "Sexo", "Cargo", "Estudios", "Departamento", "Contacto", "Dias Laborales"};
-        DefaultTableModel dtm = new DefaultTableModel(null, titulos) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        TableCreator tcr = new TableCreator();
+        DefaultTableModel dtm = tcr.noEditableTableModel(titulos);
         String[][] array;
         if (dato.isEmpty()) {
             array = this.recurso.datosEmpleados(idSucursal, dato);
@@ -163,8 +210,7 @@ public class clientes_service {
                 cli[11] = var[12];
                 dtm.addRow(cli);
             }
-        }
-        TableCreator tcr = new TableCreator();
+        }        
         tabla.setModel(dtm);
         tabla.setColumnModel(tcr.resizeTableEmpleados(tabla));
         return tabla;
@@ -441,19 +487,20 @@ public class clientes_service {
     }
 
     public Mes[] meses() {
-        Mes[] meses = new Mes[12];
-        meses[0] = new Mes("01", "Enero");
-        meses[1] = new Mes("02", "Febrero");
-        meses[2] = new Mes("03", "Marzo");
-        meses[3] = new Mes("04", "Abril");
-        meses[4] = new Mes("05", "Mayo");
-        meses[5] = new Mes("06", "Junio");
-        meses[6] = new Mes("07", "Julio");
-        meses[7] = new Mes("08", "Agosto");
-        meses[8] = new Mes("09", "Septiembre");
-        meses[9] = new Mes("10", "Octubre");
-        meses[10] = new Mes("11", "Noviembre");
-        meses[11] = new Mes("12", "Diciembre");
+        Mes[] meses = new Mes[13];
+        meses[0] = new Mes("00", "--Seleccione--");
+        meses[1] = new Mes("01", "Enero");
+        meses[2] = new Mes("02", "Febrero");
+        meses[3] = new Mes("03", "Marzo");
+        meses[4] = new Mes("04", "Abril");
+        meses[5] = new Mes("05", "Mayo");
+        meses[6] = new Mes("06", "Junio");
+        meses[7] = new Mes("07", "Julio");
+        meses[8] = new Mes("08", "Agosto");
+        meses[9] = new Mes("09", "Septiembre");
+        meses[10] = new Mes("10", "Octubre");
+        meses[11] = new Mes("11", "Noviembre");
+        meses[12] = new Mes("12", "Diciembre");
         return meses;
     }
 

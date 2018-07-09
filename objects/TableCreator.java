@@ -1,6 +1,7 @@
 package objects;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -39,7 +40,7 @@ public class TableCreator {
         }
         return tabla;
     }
-    
+
     public TableColumnModel resizeTableEmpleados(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
         if (columnModel.getColumnCount() > 0) {
@@ -56,7 +57,7 @@ public class TableCreator {
             columnModel.getColumn(10).setPreferredWidth(120);
             columnModel.getColumn(11).setPreferredWidth(133);
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                columnModel.getColumn(i).setResizable(false);                
+                columnModel.getColumn(i).setResizable(false);
             }
         }
         return columnModel;
@@ -79,7 +80,7 @@ public class TableCreator {
         }
         return columnModel;
     }
-    
+
     public TableColumnModel resizeTableSolicitud(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
         if (columnModel.getColumnCount() > 0) {
@@ -93,33 +94,47 @@ public class TableCreator {
             columnModel.getColumn(7).setPreferredWidth(5);
             columnModel.getColumn(8).setPreferredWidth(300);
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                columnModel.getColumn(i).setResizable(false);                
+                columnModel.getColumn(i).setResizable(false);
             }
         }
         return columnModel;
     }
-    
+
     public TableColumnModel resizeTableDireccionesGuardadas(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
         if (columnModel.getColumnCount() > 0) {
             columnModel.getColumn(0).setPreferredWidth(60);
             columnModel.getColumn(1).setPreferredWidth(800);
-            
+
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                columnModel.getColumn(i).setResizable(false);                
+                columnModel.getColumn(i).setResizable(false);
             }
         }
         return columnModel;
     }
-    
+
     public TableColumnModel noResizable(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
-        if (columnModel.getColumnCount() > 0) {                        
+        if (columnModel.getColumnCount() > 0) {
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                columnModel.getColumn(i).setResizable(false);                
+                columnModel.getColumn(i).setResizable(false);
             }
         }
         return columnModel;
+    }
+
+    public DefaultTableModel noEditableTableModel(String[] titulos) {
+        boolean[] canEdit = new boolean[titulos.length];
+        for (int i = 0; i < titulos.length; i++) {
+            canEdit[i] = false;
+        }
+        return new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //return false;
+                return canEdit[column];
+            }
+        };
     }
 
 }

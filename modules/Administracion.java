@@ -8,8 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objects.Usuario;
 import views.Clientes;
+import views.Cobrar;
 import views.Domicilios;
 import views.Personas;
+import views.Solicitudes;
 
 /**
  *
@@ -18,12 +20,12 @@ import views.Personas;
 public class Administracion extends javax.swing.JFrame {
 
     private final Usuario usuario;
-
+    private final String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
     public Administracion(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        nombreUsuario.setText("HOLA " + this.usuario.toString().toUpperCase());
+        nombreUsuario.setText("HOLA " + this.usuario.getUsername().toUpperCase());
         if (this.usuario.getFotografia() != null) {
             System.out.println(this.usuario.getFotografia());
             fotografia.setIcon(new ImageIcon(this.usuario.getFotografia()));
@@ -60,8 +62,8 @@ public class Administracion extends javax.swing.JFrame {
         lblClientes = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        iconSolicitudes = new javax.swing.JLabel();
+        lblSolicitudes = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         fotografia = new javax.swing.JLabel();
@@ -202,33 +204,38 @@ public class Administracion extends javax.swing.JFrame {
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 150, 150));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconSolicitudes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconSolicitudes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/request.png"))); // NOI18N
+        iconSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                iconSolicitudesMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 150, 150));
+        getContentPane().add(iconSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 150, 150));
 
-        jLabel11.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(181, 10, 20));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblSolicitudes.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
+        lblSolicitudes.setForeground(new java.awt.Color(181, 10, 20));
+        lblSolicitudes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSolicitudes.setText("SOLICITUDES");
+        lblSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                lblSolicitudesMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 150, 35));
+        getContentPane().add(lblSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 150, 35));
 
         jLabel12.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(181, 10, 20));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel12.setText("COBRANZA");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 150, 35));
 
         jLabel13.setFont(new java.awt.Font("Solomon Sans Book", 1, 18)); // NOI18N
@@ -250,20 +257,20 @@ public class Administracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iconPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_iconPersonasMouseClicked
 
     private void lblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPersonasMouseClicked
-        (new Personas(this, true, this.usuario)).setVisible(true);
+        (new Personas(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_lblPersonasMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel10MouseClicked
+    private void iconSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSolicitudesMouseClicked
+        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+    }//GEN-LAST:event_iconSolicitudesMouseClicked
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseClicked
+    private void lblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSolicitudesMouseClicked
+        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+    }//GEN-LAST:event_lblSolicitudesMouseClicked
 
     private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked
         (new Clientes(this, true, this.usuario)).setVisible(true);
@@ -292,6 +299,10 @@ public class Administracion extends javax.swing.JFrame {
     private void lblDomiciliosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDomiciliosMouseClicked
         (new Domicilios(this, true, this.usuario)).setVisible(true);
     }//GEN-LAST:event_lblDomiciliosMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        (new Cobrar(this, true, this.usuario, this.modulo)).setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments
@@ -323,8 +334,7 @@ public class Administracion extends javax.swing.JFrame {
     private javax.swing.JLabel iconClientes;
     private javax.swing.JLabel iconDomicilios;
     private javax.swing.JLabel iconPersonas;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel iconSolicitudes;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel8;
@@ -335,6 +345,7 @@ public class Administracion extends javax.swing.JFrame {
     private javax.swing.JLabel lblMensaje1;
     private javax.swing.JLabel lblMensaje2;
     private javax.swing.JLabel lblPersonas;
+    private javax.swing.JLabel lblSolicitudes;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JLabel tituloModulo;
     private javax.swing.JTextField txtBuscador;

@@ -5,15 +5,17 @@ package objects;
  * @author JMalagon
  */
 public class Amortizacion {
-    
-    private int MONTO, INTERES, TOTAL, PAGO;
+
+    private int MONTO = 0, INTERES = 0, TOTAL = 0, PAGO = 0;
+
     public Amortizacion() {
     }
 
     /**
      * Tabla de amortización al 14.5% x 20 semanas (5 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla145_20(int monto, int semanas) {
         int pago;
@@ -81,14 +83,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 14.0% x 20 semanas (5 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla140_20(int monto, int semanas) {
         int pago;
@@ -156,14 +159,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 13.5% x 20 semanas (5 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla135_20(int monto, int semanas) {
         int pago;
@@ -231,14 +235,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 13.0% x 20 semanas (5 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla130_20(int monto, int semanas) {
         int pago;
@@ -306,16 +311,16 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     //PRESTAMOS A 24 SEMANAS
-    
     /**
      * Tabla de amortización al 14.5% x 24 semanas (6 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla145_24(int monto, int semanas) {
         int pago;
@@ -383,14 +388,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;   
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 14.0% x 24 semanas (6 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla140_24(int monto, int semanas) {
         int pago;
@@ -458,14 +464,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 13.5% x 24 semanas (6 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla135_24(int monto, int semanas) {
         int pago;
@@ -533,14 +540,15 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
-    
+
     /**
      * Tabla de amortización al 13.0% x 24 semanas (6 meses)
+     *
      * @param monto : (int) monto de préstamo solicitado
-     * @param semanas : (int) plazo en semanas para pagar el préstamo     
+     * @param semanas : (int) plazo en semanas para pagar el préstamo
      */
     public void tabla130_24(int monto, int semanas) {
         int pago;
@@ -608,8 +616,8 @@ public class Amortizacion {
         }
         this.MONTO = monto;
         this.TOTAL = pago * semanas;
-        this.INTERES = monto - this.TOTAL;
-        this.PAGO = pago;        
+        this.INTERES = this.TOTAL - monto;
+        this.PAGO = pago;
     }
 
     public String[] montos() {
@@ -632,10 +640,65 @@ public class Amortizacion {
     public int getPAGO() {
         return PAGO;
     }
-    
+
+    public double getTasa(int nPrestamos) {
+//        if (nPrestamos > 15) {
+//            return 10.0;
+//        } else 
+        if (nPrestamos >= 10) {
+            return 13.0;
+        } else if (nPrestamos <= 9 && nPrestamos >= 7) {
+            return 13.5;
+        } else if (nPrestamos <= 6 && nPrestamos >= 4) {
+            return 14.0;
+        } else {
+            return 14.5;
+        }
+    }
+
+    public void setAmortizacionFromSolicitud(int plazo, int montoSolicitado, String tasa) {
+        if (plazo == 20) {//TABLAS A 20 SEMANAS                                    
+            switch (tasa) {
+                case "14.5":
+                    this.tabla145_20(montoSolicitado, plazo);//14.5% A 20 SEMANAS
+                    break;
+                case "14.0":
+                    this.tabla140_20(montoSolicitado, plazo);//14.0% A 20 SEMANAS
+                    break;
+                case "13.5":
+                    this.tabla135_20(montoSolicitado, plazo);//13.5% A 20 SEMANAS
+                    break;
+                case "13.0":
+                    this.tabla130_20(montoSolicitado, plazo);//13.0% A 20 SEMANAS
+                    break;
+                default:
+                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
+                    break;
+            }
+        } else if (plazo == 24) {//TABLAS A 24 SEMANAS
+            switch (tasa) {
+                case "14.5":
+                    this.tabla145_24(montoSolicitado, plazo);//14.5% A 24 SEMANAS
+                    break;
+                case "14.0":
+                    this.tabla140_24(montoSolicitado, plazo);//14.0% A 24 SEMANAS
+                    break;
+                case "13.5":
+                    this.tabla135_24(montoSolicitado, plazo);//13.5% A 24 SEMANAS
+                    break;
+                case "13.0":
+                    this.tabla130_24(montoSolicitado, plazo);//13.0% A 24 SEMANAS
+                    break;
+                default:
+                    System.out.println("No se encuentra la tabla de amortización para los parámetros ingresados.\nLa operación ha sido cancelada");
+                    break;
+            }
+        }
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "|" + this.MONTO + "|" + this.INTERES + "|" + this.TOTAL + "|" + this.PAGO + "|";
     }
-   
+
 }
