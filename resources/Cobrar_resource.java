@@ -3,6 +3,7 @@ package resources;
 import database.conection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import objects.ErrorController;
 
 /**
@@ -194,7 +195,7 @@ public class Cobrar_resource extends conection {
         String[] array = null;
         try {
             this.Connect();
-            RS = this.freeSelect("MAX(capturado),monto,prestamo", "prestamos_pagos", "INNER JOIN prestamos ON prestamos_pagos.prestamo WHERE prestamos_pagos.prestamo = prestamos.idPrestamo AND prestamos.cobrado < prestamos.total_prestado AND prestamos.sucursal = " + sucursal);
+            RS = this.freeSelect("capturado,monto,prestamo", "prestamos_pagos", "INNER JOIN prestamos ON prestamos_pagos.prestamo WHERE prestamos_pagos.prestamo = prestamos.idPrestamo AND prestamos.cobrado < prestamos.total_prestado AND prestamos.sucursal = " + sucursal + " ORDER BY idPago DESC LIMIT 1");
             if (RS.next()) {
                 int size = RS.getMetaData().getColumnCount();
                 array = new String[size];
@@ -202,6 +203,7 @@ public class Cobrar_resource extends conection {
                     array[i] = RS.getString(i + 1);
                 }
             }
+//            System.out.println(Arrays.toString(array));
             this.Disconnect();
         } catch (SQLException ex) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);

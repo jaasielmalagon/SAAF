@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import objects.Lista;
-import objects.Prestamo;
 import objects.Usuario;
 import services.Cobrar_service;
 
@@ -51,13 +50,16 @@ public class Cobrar extends javax.swing.JDialog {
                                     if (dia != null) {
                                         fecha = SERVICIO.elegirFecha(fechas, dia);
                                     }
+                                }else{
+                                    monto = "0";
+                                    i = rows;
                                 }
                                 pagos[x][0] = id;
                                 pagos[x][1] = monto;
                                 pagos[x][2] = fecha;
                                 i++;
                                 x++;
-                            } while (i < rows && monto != null);
+                            } while (i < rows);
 
                             confirm = JOptionPane.showConfirmDialog(rootPane, "¿Desea guardar los pagos capturados hasta este momento?", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
                             String mensaje;
@@ -79,7 +81,7 @@ public class Cobrar extends javax.swing.JDialog {
     private void ultimoPago() {
         String[] ultimoPago = this.SERVICIO.ultimoPago(this.USUARIO.getIdSucursal());
         if (ultimoPago != null) {
-            lblUltimo.setText("Último pago registrado: " + ultimoPago[2] + " | $" + ultimoPago[1] + " | " + ultimoPago[0]);
+            lblUltimo.setText("Último registro:    préstamo " + ultimoPago[2] + "    |    $" + ultimoPago[1] + "    |    " + ultimoPago[0]);
         } else {
             lblUltimo.setText("NO SE HAN REGISTRADO PAGOS EN ESTA SUCURSAL");
         }
