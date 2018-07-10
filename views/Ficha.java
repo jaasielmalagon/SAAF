@@ -12,16 +12,17 @@ import services.Ficha_service;
 public class Ficha extends javax.swing.JDialog {
 
     private final Ficha_service SERVICIO;
-//    private int ID_PERSONA_SELECCIONADA = 0;
     private Persona PERSONA = null;
     private Usuario USUARIO = null;    
 
     public Ficha(JDialog parent, boolean modal, Usuario usuario, Persona persona, String modulo) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
         this.SERVICIO = new Ficha_service(modulo);
         this.USUARIO = usuario;
-        this.PERSONA = persona;        
+        this.PERSONA = persona;  
+        tituloVentana.setText(tituloVentana.getText() + " " +this.PERSONA.toString());
         ponerDatos();
     }
 
@@ -63,9 +64,9 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccion.setText(dom);
         lblCelular.setText(this.PERSONA.getCelular());
         lblTelefono.setText(this.PERSONA.getTelefono());
-        datosReferencia();
-        datosAval();
-        datosConyuge();
+//        datosReferencia();
+//        datosAval();
+//        datosConyuge();
     }
 
     private void datosReferencia() {
@@ -186,6 +187,9 @@ public class Ficha extends javax.swing.JDialog {
         lblTelefono1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(244, 0, 100));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -211,7 +215,7 @@ public class Ficha extends javax.swing.JDialog {
 
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
-        tituloVentana.setText("Ventana de cobro");
+        tituloVentana.setText("Ficha general de: ");
         BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 350, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
@@ -234,164 +238,89 @@ public class Ficha extends javax.swing.JDialog {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Personales", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel18.setText("FECHA NACIMIENTO:");
+        jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, 120, -1));
 
         jLabel3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel3.setText("SEXO:");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 52, 120, -1));
 
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel4.setText("ESTADO CIVIL:");
+        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 52, 100, -1));
 
         jLabel19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel19.setText("OCR:");
+        jPanel5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 50, -1));
 
         jLabel20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel20.setText("ENTIDAD NACIMIENTO:");
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 76, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel16.setText("NOMBRE:");
+        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 120, -1));
 
         jLabel21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel21.setText("CURP:");
+        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, -1));
 
         lblNombre.setBackground(new java.awt.Color(255, 255, 255));
         lblNombre.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 28, 580, 13));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 76, 320, 13));
 
         lblEntidad.setBackground(new java.awt.Color(255, 255, 255));
         lblEntidad.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblEntidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 76, 135, 13));
 
         lblSexo.setBackground(new java.awt.Color(255, 255, 255));
         lblSexo.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 52, 210, 13));
 
         lblCurp.setBackground(new java.awt.Color(255, 255, 255));
         lblCurp.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 210, 13));
 
         lblOcr.setBackground(new java.awt.Color(255, 255, 255));
         lblOcr.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblOcr, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 208, 13));
 
         lblEdoCivil.setBackground(new java.awt.Color(255, 255, 255));
         lblEdoCivil.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblEdoCivil, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 52, 158, 13));
 
         jLabel22.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel22.setText("DIRECCIÓN:");
+        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 124, 120, -1));
 
         lblDireccion.setBackground(new java.awt.Color(255, 255, 255));
         lblDireccion.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 124, 590, 13));
 
         jLabel1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel1.setText("TELÉFONO:");
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 148, 120, -1));
 
         lblTelefono.setBackground(new java.awt.Color(255, 255, 255));
         lblTelefono.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 148, 210, 13));
 
         jLabel2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         jLabel2.setText("CELULAR:");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 148, 66, -1));
 
         lblCelular.setBackground(new java.awt.Color(255, 255, 255));
         lblCelular.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jPanel5.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 148, 205, 13));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCelular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCurp, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(91, 91, 91))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(168, 168, 168)))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblEdoCivil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblOcr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4)
-                        .addComponent(lblEdoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
-                    .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
-                        .addComponent(lblEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
-                    .addComponent(lblCurp, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel19)
-                        .addComponent(lblOcr, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(lblDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 11, -1, -1));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 11, 750, 170));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Referencias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(244, 0, 100))); // NOI18N
@@ -433,7 +362,7 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccionRef.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         panelReferencia.add(lblDireccionRef, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 44, 607, 13));
 
-        jPanel7.add(panelReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 17, 720, 90));
+        jPanel7.add(panelReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 17, 710, 90));
 
         panelAval.setBackground(new java.awt.Color(255, 255, 255));
         panelAval.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aval: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 0, 11))); // NOI18N
@@ -511,7 +440,7 @@ public class Ficha extends javax.swing.JDialog {
 
         jPanel7.add(panelConyuge, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 215, 720, 90));
 
-        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 195, 754, 325));
+        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 754, 340));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel6.setMaximumSize(new java.awt.Dimension(100, 100));

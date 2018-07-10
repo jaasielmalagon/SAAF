@@ -694,6 +694,11 @@ public class Personas extends javax.swing.JDialog {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Ficha general");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
         btnFicha.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
 
         panelOpciones.add(btnFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 154, 35));
@@ -990,18 +995,11 @@ public class Personas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDomicilioMouseClicked
 
     private void btnFichaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFichaMouseClicked
-//        if (PERSONA_SELECCIONADA != null) {
-//            ficha_personal fp = new ficha_personal(this, USUARIO, PERSONA_SELECCIONADA);
-//            escritorio.add(fp);
-//            Dimension FrameSize = escritorio.getSize();
-//            fp.setSize(FrameSize);
-//            fp.toFront();
-//            fp.show();
-//            this.toBack();
-//            this.hide();
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
-//        }
+        if (PERSONA_SELECCIONADA != null) {
+            (new Ficha(this, true, this.USUARIO, this.PERSONA_SELECCIONADA, modulo)).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
+        }
     }//GEN-LAST:event_btnFichaMouseClicked
 
     private void btnCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditoMouseClicked
@@ -1019,6 +1017,14 @@ public class Personas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
         }
     }//GEN-LAST:event_btnCrearClienteMouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        if (PERSONA_SELECCIONADA != null) {
+            (new Ficha(this, true, this.USUARIO, this.PERSONA_SELECCIONADA, modulo)).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
