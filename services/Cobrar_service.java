@@ -113,12 +113,16 @@ public class Cobrar_service {
                     }
                     dataInsert += "(" + id + "," + monto + "," + fecha + "," + USUARIO.getIdUsuario() + ",now())";
                     if (i < limite) {
-                        dataInsert += ",";
+//                        if (pagos[i + 1][0] != null) {
+                            dataInsert += ",";
+//                        }
+                        System.out.println(i + " | " + limite);
                     }
                     i++;
                 }
-            }System.out.println("------------");
-            System.out.println("\n"+dataInsert);
+            }
+            System.out.println("------------");
+            System.out.println("\n" + dataInsert);
             boolean b = this.RECURSO.guardarPagos(dataInsert);
             if (b) {
                 return "Cobranza guardada exitosamente";
@@ -159,7 +163,7 @@ public class Cobrar_service {
         return rangoFechas;
     }
 
-    public String elegirFecha(String[] fechas, String d) {        
+    public String elegirFecha(String[] fechas, String d) {
         if (fechas != null && d != null) {
             try {
                 String f = null;
@@ -169,7 +173,7 @@ public class Cobrar_service {
                     Date date = sdf.parse(fecha);
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(date);
-                    int day = cal.get(Calendar.DAY_OF_MONTH);                                        
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
                     if (day == dia) {
                         f = fecha;
                         break;
@@ -180,7 +184,7 @@ public class Cobrar_service {
                 System.out.println("services.Cobrar_service.elegirFecha() : " + e);
                 return null;
             }
-        }else{
+        } else {
             return null;
         }
     }
