@@ -1,13 +1,14 @@
 package objects;
-
 /**
  *
  * @author JMalagon
+ * Esta clase se ha incluido para manejar la información acerca de los pagos 
+ * dentro de la base de datos. Contiene 15 métodos que nos ayudarán a manejar 
+ * toda la información relacionada con los pagos de los clientes.
  */
 public class Amortizacion {
 
     private int MONTO = 0, INTERES = 0, TOTAL = 0, PAGO = 0;
-
     public Amortizacion() {
     }
 

@@ -215,6 +215,11 @@ public class Domicilios extends javax.swing.JDialog {
 
         xPos.setEditable(false);
         xPos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        xPos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xPosActionPerformed(evt);
+            }
+        });
         xPos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 xPosKeyTyped(evt);
@@ -432,6 +437,10 @@ public class Domicilios extends javax.swing.JDialog {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void xPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xPosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xPosActionPerformed
 
     /**
      * @param args the command line arguments

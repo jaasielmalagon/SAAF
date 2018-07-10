@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package resources;
 import database.conection;
 import java.sql.ResultSet;
@@ -10,8 +5,15 @@ import java.sql.SQLException;
 import objects.ErrorController;
 /**
  *
- * @author Gerarcode (Gerardo Aguilar)
+
+ * @author dell
+ * Esta clase ha sido incorporada para obtener la infromación necesaria desde la base de datos
+ * a la aplicación con el fin de manejar las tareas en la vista de cronograma. Contiene 5 métodos con los nombres
+ * tareasDeTodoElAnio, tareasDeUnaFecha, ingresarTarea, modificarTarea, borrarTarea. 
+
+ *
  */
+
 public class Cronograma_resource {
     private final conection db;
     ErrorController ERROR_CONTROLLER;
@@ -30,11 +32,11 @@ public class Cronograma_resource {
         String[][] tareas = null;
         try{
             this.db.Connect();
-            resultados = this.db.fullSelect("SELECT * FROM tareas ORDER BY Fecha");
+            resultados = this.db.fullSelect("SELECT * FROM tareas ORDER BY fecha");
             if(resultados != null){
                 int i = 0;
                 while(resultados.next()){
-                    String[] fila ={resultados.getString("fecha"), resultados.getString("descripcion")};
+                    String[] fila ={String.valueOf(resultados.getInt("idTarea")), resultados.getString("fecha"), resultados.getString("descripcion")};
                     tareas[i] = fila;
                     i++;
                 }

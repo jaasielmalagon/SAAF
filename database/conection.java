@@ -16,6 +16,7 @@ import objects.ErrorController;
  * Select, Update y Delete; los cuales a su vez retornan los tipos de datos
  * Connection, boolean, ResultSet, boolean y boolean, respectivamente.
  */
+
 public class conection {
 
     public String MODULO;
@@ -58,6 +59,10 @@ public class conection {
         }
     }
 
+    /*
+    Disconnect() es el método que se encarga cerrar el el enlace entre la base de datos MySQL y la aplicación.
+    El cual retorna un valor booleano que indica si el cierre de la conexión fue exitoso.
+    */
     public boolean Disconnect() {
         try {
             if (estado != null) {
@@ -74,6 +79,10 @@ public class conection {
         }
     }
 
+    /*
+    InsertId() es un método que puede ser utilizado para ingresar los datos recibidos de las capas superiores a la base
+    de datos de manera directa, pues no cuenta con filtrado de caracteres.
+    */
     public int InsertId(String tabla, String campos, String valores) {
         int idGenerado = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://" + servidor + "/" + basedatos + "?"
@@ -161,6 +170,10 @@ public class conection {
         return rs;
     }
 
+    /*
+    freeSelect() es un método que puede ser usado para obtener información desde la base de datos de manera directa, por 
+    medio de valores recibidos de las capas superiores.
+    */
     public ResultSet freeSelect(String campos, String tabla, String clausula) {
         try {
             if (estado != null) {
@@ -177,6 +190,11 @@ public class conection {
         return rs;
     }
     
+    /*
+    El método fullSelect() puede ser utilizado para realizar consultas a la base de datos
+    recibe un parámetro de tipo String que contendrá toda la sentencia SQL que será ejecutada.
+    Retorna un objeto de tipo ResultSet.
+    */
     public ResultSet fullSelect(String sql) {
         try {
             if (estado != null) {
