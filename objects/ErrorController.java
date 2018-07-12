@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 /**
  *
  * @author JMalagon
+ * Esta clase se encarga de escribir todos los errores que ocurran durante la ejecución del 
+ * programa en un archvo .txt
  */
 public class ErrorController {
     Fecha FECHA;

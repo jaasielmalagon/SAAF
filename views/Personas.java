@@ -278,7 +278,7 @@ public class Personas extends javax.swing.JDialog {
         btnDomicilio = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btnFicha = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         btnCredito = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         btnCrearCliente = new javax.swing.JPanel();
@@ -529,6 +529,11 @@ public class Personas extends javax.swing.JDialog {
 
         comboSexo.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Hombre", "Mujer" }));
+        comboSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSexoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
         panelFormulario.setLayout(panelFormularioLayout);
@@ -690,16 +695,11 @@ public class Personas extends javax.swing.JDialog {
         });
         btnFicha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Ficha general");
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
-            }
-        });
-        btnFicha.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
+        jLabel14.setFont(new java.awt.Font("Solomon Sans Book", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Ficha general");
+        btnFicha.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 154, 35));
 
         panelOpciones.add(btnFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 154, 35));
 
@@ -1018,13 +1018,9 @@ public class Personas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCrearClienteMouseClicked
 
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        if (PERSONA_SELECCIONADA != null) {
-            (new Ficha(this, true, this.USUARIO, this.PERSONA_SELECCIONADA, modulo)).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No hay ninguna persona seleccionada actualmente.");
-        }
-    }//GEN-LAST:event_jLabel13MouseClicked
+    private void comboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSexoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1075,7 +1071,7 @@ public class Personas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

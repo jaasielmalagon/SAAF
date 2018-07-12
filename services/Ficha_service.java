@@ -30,11 +30,10 @@ public class Ficha_service {
     }
 
     public Persona persona(int idSucursal, int idPersona) {
-        Persona personas = null;
-        String[] array = this.recurso.persona(idSucursal, idPersona);
-        if (array != null) {
-            personas = new Persona(Integer.parseInt(array[0]), array[1], array[2], array[3], array[4], Integer.parseInt(array[5]), array[6], array[7], array[8], Integer.parseInt(array[9]), array[10], array[11], Integer.parseInt(array[12]), Integer.parseInt(array[13]), Integer.parseInt(array[14]), Integer.parseInt(array[15]));
+        Persona persona = null;        
+        if (idSucursal > 0 && idPersona > 0) {
+            persona = new Personas_service(modulo).persona(idSucursal, idPersona);
         }
-        return personas;
+        return persona;
     }
 }

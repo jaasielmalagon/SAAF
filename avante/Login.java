@@ -8,6 +8,13 @@ import services.login_service;
 /**
  *
  * @author Root
+ * Esta clase ha sido creada para cumplir la función de logear 
+ * a todos los usuarios que entran al sistema, con el objetivo
+ * de mantener la seguridad y prevenir ataques al programa
+ * Contiene un método privado llamado login() que nos servirá
+ * para validar las cuentas de usuario.
+ * Ademas incluye una constante privada de tipo login_service que nos ayudará 
+ * en la validación de usuarios.
  */
 public class Login extends javax.swing.JFrame {
 
@@ -20,6 +27,12 @@ public class Login extends javax.swing.JFrame {
         this.SERVICIO = new login_service();       
     }
 
+    /*
+        El método login() se encarga de validar y comunicar al usuario con su respectivo módulo
+        Contiene dos variables de tipo String usuario y contrasena que servirán para realizar una validación
+        mediante el servicio de usuarios el cual utiliza el método llamado datosUsuario() que recibe dos parámetros de tipo String
+        y retorna un objeto de tipo usuario.
+    */
     private void login() {
         String usuario = txtUsuario.getText();
         String contrasena = txtContrasena.getText();

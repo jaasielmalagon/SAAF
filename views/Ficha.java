@@ -1,10 +1,10 @@
 package views;
 
 import javax.swing.JDialog;
+import objects.CloudinaryImages;
 import objects.Persona;
 import objects.Usuario;
 import services.Ficha_service;
-
 /**
  *
  * @author JMalagon
@@ -13,7 +13,8 @@ public class Ficha extends javax.swing.JDialog {
 
     private final Ficha_service SERVICIO;
     private Persona PERSONA = null;
-    private Usuario USUARIO = null;    
+    private Usuario USUARIO = null;
+    
 
     public Ficha(JDialog parent, boolean modal, Usuario usuario, Persona persona, String modulo) {
         super(parent, modal);
@@ -21,8 +22,8 @@ public class Ficha extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         this.SERVICIO = new Ficha_service(modulo);
         this.USUARIO = usuario;
-        this.PERSONA = persona;  
-        tituloVentana.setText(tituloVentana.getText() + " " +this.PERSONA.toString());
+        this.PERSONA = persona;
+        tituloVentana.setText(tituloVentana.getText() + " " + this.PERSONA.toString());
         ponerDatos();
     }
 
@@ -57,28 +58,31 @@ public class Ficha extends javax.swing.JDialog {
         lblOcr.setText(this.PERSONA.getOcr());
         String dom;
         if (this.PERSONA.getDomicilio() > 0) {
-            dom = this.SERVICIO.domicilio(this.PERSONA.getDomicilio()).toString();
+            dom = this.SERVICIO.domicilio(this.PERSONA.getDomicilio()).getDIRECCION();
         } else {
             dom = "NO ASIGNADO";
         }
         lblDireccion.setText(dom);
         lblCelular.setText(this.PERSONA.getCelular());
         lblTelefono.setText(this.PERSONA.getTelefono());
-//        datosReferencia();
-//        datosAval();
-//        datosConyuge();
+        this.setPhoto();
+        datosReferencia();
+        datosAval();
+        datosConyuge();
+    }
+
+    private void setPhoto() {
+        String imgUrl = new CloudinaryImages().getImageUrl("mifoto");
+        lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource(imgUrl))); // NOI18N
     }
 
     private void datosReferencia() {
-        System.err.println("Ref: " + this.PERSONA.getReferencia());
-        Persona persona = SERVICIO.persona(USUARIO.getIdSucursal(), this.PERSONA.getReferencia());
-        System.err.println(persona);
+        Persona persona = this.SERVICIO.persona(this.USUARIO.getIdSucursal(), this.PERSONA.getReferencia());
         if (persona == null) {
             persona = new Persona(0, "N/D", "N/D", "N/D", "N/D", 0, "N/D", "N/D", "N/D", 0, "N/D", "N/D", 0, 0, 0, 0);
         }
         lblNombreRef.setText(persona.toString());
-        System.out.println("Dom: " + persona.getDomicilio());
-        objects.Domicilio domicilio = SERVICIO.domicilio(persona.getDomicilio());
+        objects.Domicilio domicilio = this.SERVICIO.domicilio(persona.getDomicilio());
         if (domicilio == null) {
             lblDireccionRef.setText("NO ASIGNADO");
         } else {
@@ -89,12 +93,12 @@ public class Ficha extends javax.swing.JDialog {
     }
 
     private void datosAval() {
-        Persona persona = SERVICIO.persona(USUARIO.getIdSucursal(), this.PERSONA.getAval());
+        Persona persona = this.SERVICIO.persona(this.USUARIO.getIdSucursal(), this.PERSONA.getAval());
         if (persona == null) {
             persona = new Persona(0, "N/D", "N/D", "N/D", "N/D", 0, "N/D", "N/D", "N/D", 0, "N/D", "N/D", 0, 0, 0, 0);
         }
         lblNombreAval.setText(persona.toString());
-        objects.Domicilio domicilio = SERVICIO.domicilio(persona.getDomicilio());
+        objects.Domicilio domicilio = this.SERVICIO.domicilio(persona.getDomicilio());
         if (domicilio == null) {
             lblDireccionAval.setText("NO ASIGNADO");
         } else {
@@ -105,12 +109,12 @@ public class Ficha extends javax.swing.JDialog {
     }
 
     private void datosConyuge() {
-        Persona persona = SERVICIO.persona(USUARIO.getIdSucursal(), this.PERSONA.getConyuge());
+        Persona persona = this.SERVICIO.persona(this.USUARIO.getIdSucursal(), this.PERSONA.getConyuge());
         if (persona == null) {
             persona = new Persona(0, "N/D", "N/D", "N/D", "N/D", 0, "N/D", "N/D", "N/D", 0, "N/D", "N/D", 0, 0, 0, 0);
         }
         lblNombreCon.setText(persona.toString());
-        objects.Domicilio domicilio = SERVICIO.domicilio(persona.getDomicilio());
+        objects.Domicilio domicilio = this.SERVICIO.domicilio(persona.getDomicilio());
         if (domicilio == null) {
             lblDireccionCon.setText("NO ASIGNADO");
         } else {
@@ -181,10 +185,9 @@ public class Ficha extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblDireccionCon = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         lblTelefono1 = new javax.swing.JLabel();
+        lblPhoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -270,7 +273,7 @@ public class Ficha extends javax.swing.JDialog {
 
         lblNombre.setBackground(new java.awt.Color(255, 255, 255));
         lblNombre.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
-        jPanel5.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 28, 580, 13));
+        jPanel5.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 28, 580, 13));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -362,7 +365,7 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccionRef.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         panelReferencia.add(lblDireccionRef, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 44, 607, 13));
 
-        jPanel7.add(panelReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 17, 710, 90));
+        jPanel7.add(panelReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 17, 700, 90));
 
         panelAval.setBackground(new java.awt.Color(255, 255, 255));
         panelAval.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aval: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 0, 11))); // NOI18N
@@ -400,7 +403,7 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccionAval.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         panelAval.add(lblDireccionAval, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 44, 609, 13));
 
-        jPanel7.add(panelAval, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 116, 720, 90));
+        jPanel7.add(panelAval, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 116, 700, 90));
 
         panelConyuge.setBackground(new java.awt.Color(255, 255, 255));
         panelConyuge.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cónyuge: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 0, 11))); // NOI18N
@@ -438,39 +441,22 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccionCon.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         panelConyuge.add(lblDireccionCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 44, 609, 13));
 
-        jPanel7.add(panelConyuge, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 215, 720, 90));
+        jPanel7.add(panelConyuge, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 215, 700, 90));
 
-        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 754, 340));
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel6.setMaximumSize(new java.awt.Dimension(100, 100));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 750, 320));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos adicionales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(255, 78, 0))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel14.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
-        jLabel14.setText("TELÉFONO:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 28, -1, -1));
 
         lblTelefono1.setBackground(new java.awt.Color(255, 255, 255));
         lblTelefono1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jPanel2.add(lblTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 28, 227, 13));
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 320, 510));
+
+        lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 100));
 
         jScrollPane1.setViewportView(jPanel3);
 
@@ -529,7 +515,6 @@ public class Ficha extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -554,7 +539,6 @@ public class Ficha extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCelular;
@@ -574,6 +558,7 @@ public class Ficha extends javax.swing.JDialog {
     private javax.swing.JLabel lblNombreCon;
     private javax.swing.JLabel lblNombreRef;
     private javax.swing.JLabel lblOcr;
+    private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTelefono1;

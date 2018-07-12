@@ -78,5 +78,25 @@ public class Ficha_resource extends conection {
         this.Disconnect();
         return flag;
     }
+
     /*NO MODIFICAR NI ELIMINAR ESTE BLOQUE*/
+
+    public String estado(int id) {
+        String estado = null;
+        if (id > 0) {
+            try {
+                this.Connect();
+                //SOLO CAMBIAR LA CONSULTA
+                RS = this.Select("estado", "estados", "idEstado = " + id);
+                if (RS.next()) {
+                    estado = RS.getString(1);
+                }
+                this.Disconnect();
+            } catch (SQLException ex) {
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+                this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            }
+        }
+        return estado;
+    }
 }

@@ -3,6 +3,9 @@ package objects;
 /**
  *
  * @author JMalagon
+ * Esta clase estpa incluida para trabajar con la información obtenida directamente
+ * de la base de datos referente a los muncipios.
+ * Contiene los métodos get y set necesarios para manipular los datos de los municipios en la base de datos.
  */
 public class Municipio {
 
