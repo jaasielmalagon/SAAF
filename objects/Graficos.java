@@ -11,8 +11,7 @@ import javax.swing.border.Border;
 /**
  *
  * @author JMalagon
- * Esta clase se encarga de manejar las imagenes que se almacenan dentro de
- * la base de datos
+ * Esta clase se encarga de manejar las imagenes que se aplican a los diferentes elementos de las interfaces
  */
 public class Graficos implements Border{    
     private BufferedImage image;

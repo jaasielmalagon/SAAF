@@ -2,7 +2,8 @@ package objects;
 
 /**
  *
- * @author Root
+ * @author Jaasiel Méndez Malagón
+ * Convierte cualquier elemento en un objeto tipo lista con un identificador y un nombre o dos.
  */
 public class Lista {
     private int ID;

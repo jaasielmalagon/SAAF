@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author JMalagon
+ * Asigna colores y estilos a las tablas.
  */
 public class TableCellRenderer extends DefaultTableCellRenderer {
 

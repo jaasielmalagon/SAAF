@@ -1,10 +1,22 @@
 package views;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import objects.CloudinaryImages;
 import objects.Persona;
 import objects.Usuario;
 import services.Ficha_service;
+
 /**
  *
  * @author JMalagon
@@ -14,7 +26,6 @@ public class Ficha extends javax.swing.JDialog {
     private final Ficha_service SERVICIO;
     private Persona PERSONA = null;
     private Usuario USUARIO = null;
-    
 
     public Ficha(JDialog parent, boolean modal, Usuario usuario, Persona persona, String modulo) {
         super(parent, modal);
@@ -72,8 +83,17 @@ public class Ficha extends javax.swing.JDialog {
     }
 
     private void setPhoto() {
-        String imgUrl = new CloudinaryImages().getImageUrl("mifoto");
-        lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource(imgUrl))); // NOI18N
+        try {            
+            String url = "https://res.cloudinary.com/grupoavante/image/upload/v1531328854/personas_avante/mifoto.jpg";
+            URLConnection connection = new URL(url).openConnection();
+            connection.setDoInput(true);            
+            connection.setRequestProperty("User-Agent", "xxxxxx");
+            BufferedImage img = ImageIO.read(connection.getInputStream());
+            ImageIcon icon = new ImageIcon(img);
+            lblPhoto.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void datosReferencia() {
@@ -219,7 +239,7 @@ public class Ficha extends javax.swing.JDialog {
         tituloVentana.setFont(new java.awt.Font("Solomon Sans Book", 1, 24)); // NOI18N
         tituloVentana.setForeground(new java.awt.Color(255, 255, 255));
         tituloVentana.setText("Ficha general de: ");
-        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 350, 85));
+        BarraSuperior.add(tituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 860, 85));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cerrar.png"))); // NOI18N
         jLabel11.setToolTipText("Cerrar");

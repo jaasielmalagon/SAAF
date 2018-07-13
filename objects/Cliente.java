@@ -6,21 +6,12 @@ package objects;
  */
 public class Cliente {
 
-    private int ID = 0, ADC = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;
-    //private String ID, SUCURSAL, USUARIO, ID_PERSONA, DEPENDIENTES, OCUPACION, ESTUDIOS, SCORE, STATUS, ACTIVIDAD, TIPO_VIVIENDA;
+    private int ID = 0, ADC = 0, SUCURSAL = 0, USUARIO = 0, ID_PERSONA = 0, DEPENDIENTES = 0, OCUPACION = 0, ESTUDIOS = 0, SCORE = 0, STATUS = 0, ACTIVIDAD = 0, TIPO_VIVIENDA = 0;    
     private String F_REGISTRO, EMPRESA, DOMICILIO_EMPRESA, TEL_EMPRESA, HORA_ENTRADA, HORA_SALIDA, PROPIETARIO, VIGENCIA, TIEMPO_RESIDENCIA;
     private double INGRESOS, EGRESOS;
     private Persona PERSONA;
 
-    public Cliente(
-            int ID, int SUCURSAL, int USUARIO,
-            String F_REGISTRO, int ADC, int ID_PERSONA,
-            double INGRESOS, double EGRESOS,
-            int DEPENDIENTES, int OCUPACION, int ESTUDIOS,
-            String EMPRESA, String DOMICILIO_EMPRESA,
-            String TEL_EMPRESA, String HORA_ENTRADA, String HORA_SALIDA,
-            int SCORE, int STATUS, int ACTIVIDAD, Persona persona,
-            int TIPO_VIVIENDA, String PROPIETARIO, String VIGENCIA, String TIEMPO_RESIDENCIA) {
+    public Cliente(int ID, int SUCURSAL, int USUARIO, String F_REGISTRO, int ADC, int ID_PERSONA, double INGRESOS, double EGRESOS, int DEPENDIENTES, int OCUPACION, int ESTUDIOS, String EMPRESA, String DOMICILIO_EMPRESA, String TEL_EMPRESA, String HORA_ENTRADA, String HORA_SALIDA, int SCORE, int STATUS, int ACTIVIDAD, Persona persona, int TIPO_VIVIENDA, String PROPIETARIO, String VIGENCIA, String TIEMPO_RESIDENCIA) {
 
         this.ID = ID;
         this.SUCURSAL = SUCURSAL;
@@ -49,7 +40,6 @@ public class Cliente {
     }
 
     public Cliente() {
-
     }
 
     public int getID() {

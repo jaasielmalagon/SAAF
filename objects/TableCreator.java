@@ -7,6 +7,7 @@ import javax.swing.table.TableColumnModel;
 /**
  *
  * @author JMalagon
+ * Crea las tablas indicadas con una determinada dimensión en cada celda y valores no editables.
  */
 public class TableCreator {
 

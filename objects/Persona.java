@@ -9,9 +9,7 @@ public class Persona {
     private int idPersona, entidad_nac, edoCivil, domicilio, conyuge, referencia, aval;
     private String nombre, apaterno, amaterno, f_nacimiento, curp, ocr, sexo, telefono, celular;    
 
-    public Persona(int idPersona, String nombre, String apaterno, String amaterno, String f_nacimiento, int entidad_nac,
-            String curp, String ocr, String sexo, int edoCivil, String telefono, String celular, int domicilio, 
-            int conyuge, int aval, int referencia) {
+    public Persona(int idPersona, String nombre, String apaterno, String amaterno, String f_nacimiento, int entidad_nac, String curp, String ocr, String sexo, int edoCivil, String telefono, String celular, int domicilio, int conyuge, int aval, int referencia) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apaterno = apaterno;
