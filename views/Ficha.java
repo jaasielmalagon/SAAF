@@ -83,14 +83,20 @@ public class Ficha extends javax.swing.JDialog {
     }
 
     private void setPhoto() {
-        try {            
-            String url = "https://res.cloudinary.com/grupoavante/image/upload/v1531328854/personas_avante/mifoto.jpg";
-            URLConnection connection = new URL(url).openConnection();
-            connection.setDoInput(true);            
-            connection.setRequestProperty("User-Agent", "xxxxxx");
-            BufferedImage img = ImageIO.read(connection.getInputStream());
-            ImageIcon icon = new ImageIcon(img);
-            lblPhoto.setIcon(icon);
+        try {
+            //String url = new CloudinaryImages().getImageUrl("mifoto");
+            //String url = "https://res.cloudinary.com/grupoavante/image/upload/v1531512157/personas_avante/100x100.jpg";
+            String url = "https://res.cloudinary.com/grupoavante/image/upload/v1531512157/personas_avante/100x100.jpg";
+            if (url != null) {
+                URLConnection connection = new URL(url).openConnection();
+                connection.setDoInput(true);
+                connection.setRequestProperty("User-Agent", "xxxxxx");
+                BufferedImage img = ImageIO.read(connection.getInputStream());
+                System.out.println(connection.getInputStream());
+                ImageIcon icon = new ImageIcon(img);
+                System.out.println(img);
+                lblPhoto.setIcon(icon);
+            }
         } catch (IOException ex) {
             Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
         }

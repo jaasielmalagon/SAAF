@@ -25,11 +25,9 @@ public class CloudinaryImages {
 
     public String getImageUrl(String imgName) {
         if (imgName != null) {
-            return this.cloudinary.url().format("jpg")
-                    .transformation(new Transformation().width(100).height(100).crop("fit"))
-                    .generate(imgName);
+            return this.cloudinary.url().transformation(new Transformation().gravity("face").width(100).crop("thumb")).imageTag("personas_avante/"+imgName+".jpg");
         } else {
-            return "Image not found... ";
+            return null;
         }
     }
 }
