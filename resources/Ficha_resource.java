@@ -80,7 +80,6 @@ public class Ficha_resource extends conection {
     }
 
     /*NO MODIFICAR NI ELIMINAR ESTE BLOQUE*/
-
     public String estado(int id) {
         String estado = null;
         if (id > 0) {
@@ -99,4 +98,26 @@ public class Ficha_resource extends conection {
         }
         return estado;
     }
+
+    public String[] getCliente() {
+        String[] array = null;
+        try {
+            this.Connect();
+            //SOLO CAMBIAR LA CONSULTA
+            RS = this.Select("*", "tabla", "condicion");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
 }
+//SELECT adc,ingresos,egresos,ocupacion,dependientes,estudios,empresa,horario_entrada,horario_salida,domicilio_empresa,tel_empresa,tipo_vivienda,vigencia_contrato,tiempo_residencia,score,status,actividad,registro FROM `personas_clientes` WHERE 1

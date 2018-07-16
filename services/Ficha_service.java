@@ -1,4 +1,5 @@
 package services;
+import objects.Cliente;
 import objects.Domicilio;
 import objects.Persona;
 import resources.Ficha_resource;
@@ -35,5 +36,14 @@ public class Ficha_service {
             persona = new Personas_service(modulo).persona(idSucursal, idPersona);
         }
         return persona;
+    }
+
+    public Cliente cliente() {
+        Cliente cliente = null;
+        String[] datos = this.recurso.getCliente();
+        if (datos != null) {
+            
+        }
+        return cliente;
     }
 }

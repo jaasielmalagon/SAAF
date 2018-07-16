@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import objects.Cliente;
 import objects.CloudinaryImages;
 import objects.Persona;
 import objects.Usuario;
@@ -80,6 +81,7 @@ public class Ficha extends javax.swing.JDialog {
         datosReferencia();
         datosAval();
         datosConyuge();
+        datosCliente();
     }
 
     private void setPhoto() {
@@ -142,6 +144,10 @@ public class Ficha extends javax.swing.JDialog {
         }
         lblCelularCon.setText(persona.getCelular());
         lblTelefonoCon.setText(persona.getTelefono());
+    }
+    
+    private void datosCliente(){
+        Cliente cliente = this.SERVICIO.cliente();
     }
 
     @SuppressWarnings("unchecked")
@@ -207,6 +213,24 @@ public class Ficha extends javax.swing.JDialog {
         lblDireccionCon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblTelefono1 = new javax.swing.JLabel();
+        lblAdc = new javax.swing.JLabel();
+        lblEgresos = new javax.swing.JLabel();
+        lblIngresos = new javax.swing.JLabel();
+        lblDependientes = new javax.swing.JLabel();
+        lblOcupacion = new javax.swing.JLabel();
+        lblEstudios = new javax.swing.JLabel();
+        lblEmpleo = new javax.swing.JLabel();
+        lblSalida = new javax.swing.JLabel();
+        lblEntrada = new javax.swing.JLabel();
+        lblDireccionEmpleo = new javax.swing.JLabel();
+        lblTelEmpleo = new javax.swing.JLabel();
+        lblTipoVivienda = new javax.swing.JLabel();
+        lblVigenciaVivienda = new javax.swing.JLabel();
+        lblAnosResidencia = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        lblScore = new javax.swing.JLabel();
+        lblActividad = new javax.swing.JLabel();
+        lblRegistro = new javax.swing.JLabel();
         lblPhoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -466,14 +490,68 @@ public class Ficha extends javax.swing.JDialog {
         jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 750, 320));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos adicionales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(255, 78, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(255, 78, 0))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTelefono1.setBackground(new java.awt.Color(255, 255, 255));
         lblTelefono1.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jPanel2.add(lblTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 28, 227, 13));
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 320, 510));
+        lblAdc.setText("ADC:");
+        jPanel2.add(lblAdc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        lblEgresos.setText("EGRESOS:");
+        jPanel2.add(lblEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+
+        lblIngresos.setText("INGRESOS:");
+        jPanel2.add(lblIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        lblDependientes.setText("DEPENDIENTES:");
+        jPanel2.add(lblDependientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
+
+        lblOcupacion.setText("OCUPACIÓN:");
+        jPanel2.add(lblOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        lblEstudios.setText("ESTUDIOS:");
+        jPanel2.add(lblEstudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        lblEmpleo.setText("EMPLEO:");
+        jPanel2.add(lblEmpleo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+
+        lblSalida.setText("SALIDA:");
+        jPanel2.add(lblSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
+
+        lblEntrada.setText("ENTRADA:");
+        jPanel2.add(lblEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+
+        lblDireccionEmpleo.setText("DIR. EMPLEO:");
+        jPanel2.add(lblDireccionEmpleo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
+        lblTelEmpleo.setText("TEL. EMPLEO:");
+        jPanel2.add(lblTelEmpleo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        lblTipoVivienda.setText("TIPO DE VIVIENDA:");
+        jPanel2.add(lblTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+
+        lblVigenciaVivienda.setText("VIGENCIA DE VIVIENDA:");
+        jPanel2.add(lblVigenciaVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
+
+        lblAnosResidencia.setText("AÑOS DE RESIDENCIA:");
+        jPanel2.add(lblAnosResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
+
+        lblStatus.setText("STATUS:");
+        jPanel2.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+
+        lblScore.setText("SCORE:");
+        jPanel2.add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+
+        lblActividad.setText("ESTADO DE ACTIVIDAD:");
+        jPanel2.add(lblActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
+
+        lblRegistro.setText("FECHA DE REGISTRO:");
+        jPanel2.add(lblRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, -1));
+
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 310, 430));
 
         lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 100));
@@ -561,30 +639,48 @@ public class Ficha extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblActividad;
+    private javax.swing.JLabel lblAdc;
+    private javax.swing.JLabel lblAnosResidencia;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCelularAval;
     private javax.swing.JLabel lblCelularCon;
     private javax.swing.JLabel lblCelularRef;
     private javax.swing.JLabel lblCurp;
+    private javax.swing.JLabel lblDependientes;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblDireccionAval;
     private javax.swing.JLabel lblDireccionCon;
+    private javax.swing.JLabel lblDireccionEmpleo;
     private javax.swing.JLabel lblDireccionRef;
     private javax.swing.JLabel lblEdoCivil;
+    private javax.swing.JLabel lblEgresos;
+    private javax.swing.JLabel lblEmpleo;
     private javax.swing.JLabel lblEntidad;
+    private javax.swing.JLabel lblEntrada;
+    private javax.swing.JLabel lblEstudios;
     private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblIngresos;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombreAval;
     private javax.swing.JLabel lblNombreCon;
     private javax.swing.JLabel lblNombreRef;
     private javax.swing.JLabel lblOcr;
+    private javax.swing.JLabel lblOcupacion;
     private javax.swing.JLabel lblPhoto;
+    private javax.swing.JLabel lblRegistro;
+    private javax.swing.JLabel lblSalida;
+    private javax.swing.JLabel lblScore;
     private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTelEmpleo;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTelefono1;
     private javax.swing.JLabel lblTelefonoAval;
     private javax.swing.JLabel lblTelefonoCon;
     private javax.swing.JLabel lblTelefonoRef;
+    private javax.swing.JLabel lblTipoVivienda;
+    private javax.swing.JLabel lblVigenciaVivienda;
     private javax.swing.JPanel panelAval;
     private javax.swing.JPanel panelConyuge;
     private javax.swing.JPanel panelReferencia;
