@@ -85,10 +85,10 @@ public class Ficha extends javax.swing.JDialog {
     }
 
     private void setPhoto() {
-        ImageIcon icon = new CloudinaryImages().getImage("jbkkbkjkjvkjvkj");
+        ImageIcon icon = new CloudinaryImages().getImage("user");
         if (icon == null) {
             try {
-                File file = new File("image/avatar.png");
+                File file = new File("E:\\Documents\\NetBeansProjects\\AvanteGit\\src\\image\\avatar.png");
                 BufferedImage img = ImageIO.read(file);
                 icon = new ImageIcon(img);
             } catch (IOException ex) {
@@ -147,7 +147,8 @@ public class Ficha extends javax.swing.JDialog {
     }
     
     private void datosCliente(){
-        Cliente cliente = this.SERVICIO.cliente();
+        Cliente cliente = this.SERVICIO.cliente(this.PERSONA.getIdPersona());
+        lblAdc.setText(lblAdc.getText() + cliente.getADC());
     }
 
     @SuppressWarnings("unchecked")

@@ -99,12 +99,12 @@ public class Ficha_resource extends conection {
         return estado;
     }
 
-    public String[] getCliente() {
+    public String[] getCliente(int idPersona) {
         String[] array = null;
         try {
             this.Connect();
             //SOLO CAMBIAR LA CONSULTA
-            RS = this.Select("*", "tabla", "condicion");
+            RS = this.freeSelect("adc,ingresos,egresos,tipo_ocupaciones.ocupacion,dependientes,tipo_estudios.estudios,empresa,horario_entrada,horario_salida,domicilio_empresa,tel_empresa,tipo_vivienda,vigencia_contrato,tiempo_residencia,score,status,actividad,registro", "`personas_clientes`", "INNER JOIN tipo_ocupaciones ON personas_clientes.ocupacion = tipo_ocupaciones.idTipo INNER JOIN tipo_estudios ON personas_clientes.estudios = tipo_estudios.idTipoEstudios WHERE personas_clientes.idPersona = " + idPersona + " LIMIT 1");
             if (RS.next()) {
                 int size = RS.getMetaData().getColumnCount();
                 array = new String[size];
@@ -120,4 +120,6 @@ public class Ficha_resource extends conection {
         return array;
     }
 }
-//SELECT adc,ingresos,egresos,ocupacion,dependientes,estudios,empresa,horario_entrada,horario_salida,domicilio_empresa,tel_empresa,tipo_vivienda,vigencia_contrato,tiempo_residencia,score,status,actividad,registro FROM `personas_clientes` WHERE 1
+/*SELECT adc,ingresos,egresos,tipo_ocupaciones.ocupacion,dependientes,tipo_estudios.estudios,empresa,horario_entrada,horario_salida,domicilio_empresa,tel_empresa,tipo_vivienda,vigencia_contrato,tiempo_residencia,score,status,actividad,registro FROM `personas_clientes` 
+INNER JOIN tipo_ocupaciones ON personas_clientes.ocupacion = tipo_ocupaciones.idTipo
+INNER JOIN tipo_estudios ON personas_clientes.estudios = tipo_estudios.idTipoEstudios WHERE personas_clientes.idPersona = 1*/
