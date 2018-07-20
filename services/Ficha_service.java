@@ -45,14 +45,10 @@ public class Ficha_service {
             cliente = new Cliente();
             cliente.setADC(datos[0]);
             cliente.setINGRESOS(datos[1]);
-            cliente.setEGRESOS(datos[2]);
-            
-            cliente.setOCUPACION(datos[3]);
-            
-            cliente.setDEPENDIENTES(datos[4]);
-            
-            cliente.setESTUDIOS(datos[5]);
-            
+            cliente.setEGRESOS(datos[2]);            
+            cliente.setOCUPACION(datos[3]);            
+            cliente.setDEPENDIENTES(datos[4]);            
+            cliente.setESTUDIOS(datos[5]);            
             cliente.setEMPRESA(datos[6]);
             cliente.setHORA_ENTRADA(datos[7]);
             cliente.setHORA_SALIDA(datos[8]);

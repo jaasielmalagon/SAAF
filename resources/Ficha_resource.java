@@ -119,7 +119,33 @@ public class Ficha_resource extends conection {
         }
         return array;
     }
+    
+    public String[] getEmpleado(int idPersona) {
+        String[] array = null;
+        try {
+            this.Connect();
+            //SOLO CAMBIAR LA CONSULTA
+            RS = this.freeSelect("", "`personas_clientes`", "INNER JOIN tipo_ocupaciones ON personas_clientes.ocupacion = tipo_ocupaciones.idTipo INNER JOIN tipo_estudios ON personas_clientes.estudios = tipo_estudios.idTipoEstudios WHERE personas_clientes.idPersona = " + idPersona + " LIMIT 1");
+            if (RS.next()) {
+                int size = RS.getMetaData().getColumnCount();
+                array = new String[size];
+                for (int i = 0; i < size; i++) {
+                    array[i] = RS.getString(i + 1);
+                }
+            }
+            this.Disconnect();
+        } catch (SQLException ex) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+            this.ERROR_CONTROLLER.escribirErrorLogger(this.MODULO, Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() : " + ex);
+        }
+        return array;
+    }
 }
 /*SELECT adc,ingresos,egresos,tipo_ocupaciones.ocupacion,dependientes,tipo_estudios.estudios,empresa,horario_entrada,horario_salida,domicilio_empresa,tel_empresa,tipo_vivienda,vigencia_contrato,tiempo_residencia,score,status,actividad,registro FROM `personas_clientes` 
 INNER JOIN tipo_ocupaciones ON personas_clientes.ocupacion = tipo_ocupaciones.idTipo
-INNER JOIN tipo_estudios ON personas_clientes.estudios = tipo_estudios.idTipoEstudios WHERE personas_clientes.idPersona = 1*/
+INNER JOIN tipo_estudios ON personas_clientes.estudios = tipo_estudios.idTipoEstudios WHERE personas_clientes.idPersona = 1
+
+SELECT `registro`, `salario`, `entrada`, `salida`, `dias`, `llamara`, `fecha_incorp`, `codigo`, tipo_cargo.cargo,tipo_estudios.estudios, tipo_usuarios.tipo FROM `personas_empleados` INNER JOIN tipo_cargo ON personas_empleados.cargo = tipo_cargo.idCargo 
+INNER JOIN tipo_estudios ON personas_empleados.estudios = tipo_estudios.estudios
+INNER JOIN tipo_usuarios ON personas_empleados.departamento = tipo_usuarios.idTipoUsuario
+*/
