@@ -11,20 +11,21 @@ import views.Clientes;
 import views.Cobrar;
 import views.Domicilios;
 import views.Personas;
+import views.Solicitud;
 import views.Solicitudes;
 
 /**
  *
- * @author JMalagon 
- * Esta clase ha sido añadida para ser el módulo de administración
- * gracias a este módulo todo usuario de tipo administrador 
- * podrá realizar las funciones de su cargo. Contiene un mérodo privado 
- * llamado openInternet().
+ * @author JMalagon Esta clase ha sido añadida para ser el módulo de
+ * administración gracias a este módulo todo usuario de tipo administrador podrá
+ * realizar las funciones de su cargo. Contiene un mérodo privado llamado
+ * openInternet().
  */
 public class Administracion extends javax.swing.JFrame {
 
     private final Usuario usuario;
     private final String modulo = Thread.currentThread().getStackTrace()[1].getClassName();
+
     public Administracion(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
@@ -40,10 +41,10 @@ public class Administracion extends javax.swing.JFrame {
     }
 
 
-/*
+    /*
     Este método puede set utilizado para realizar búsquedas en internet a través de un texto
     el cual es convertido a una URL.
-*/
+     */
     private void openInternet(String URL) {
         try {
             Desktop.getDesktop().browse(URI.create(URL));
@@ -274,11 +275,13 @@ public class Administracion extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPersonasMouseClicked
 
     private void iconSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSolicitudesMouseClicked
-        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+//        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+        (new Solicitud(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_iconSolicitudesMouseClicked
 
     private void lblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSolicitudesMouseClicked
-        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+//        (new Solicitudes(this, true, this.usuario, this.modulo)).setVisible(true);
+        (new Solicitud(this, true, this.usuario, this.modulo)).setVisible(true);
     }//GEN-LAST:event_lblSolicitudesMouseClicked
 
     private void iconClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconClientesMouseClicked

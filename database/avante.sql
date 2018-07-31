@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-07-2018 a las 22:11:37
+-- Tiempo de generación: 25-07-2018 a las 19:46:02
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -651,7 +651,13 @@ CREATE TABLE `prestamos_pagos` (
 INSERT INTO `prestamos_pagos` (`idPago`, `prestamo`, `monto`, `fecha`, `cobrador`, `capturado`) VALUES
 (1, 7, 180.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16'),
 (2, 8, 180.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16'),
-(3, 9, 300.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16');
+(3, 9, 300.00, '2018-07-04 15:04:16', 2, '2018-07-04 15:04:16'),
+(4, 2, 173.00, '2018-07-09 11:06:30', 2, '2018-07-09 11:06:30'),
+(5, 3, 173.00, '2018-07-06 00:00:00', 2, '2018-07-09 11:06:30'),
+(6, 4, 150.00, '2018-07-07 00:00:00', 2, '2018-07-09 11:06:30'),
+(7, 7, 150.00, '2018-07-07 00:00:00', 2, '2018-07-09 11:23:50'),
+(8, 8, 180.00, '2018-07-08 00:00:00', 2, '2018-07-09 11:23:50'),
+(9, 9, 300.00, '2018-07-08 00:00:00', 2, '2018-07-09 11:23:50');
 
 -- --------------------------------------------------------
 
@@ -1114,7 +1120,7 @@ ALTER TABLE `prestamos`
 -- AUTO_INCREMENT de la tabla `prestamos_pagos`
 --
 ALTER TABLE `prestamos_pagos`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos_solicitudes`
