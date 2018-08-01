@@ -262,6 +262,7 @@ public class Solicitud extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         comboSexo = new javax.swing.JComboBox<>();
+        txtCurp5 = new javax.swing.JTextField();
         panel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cmbEstadoCivil = new javax.swing.JComboBox<>();
@@ -459,6 +460,85 @@ public class Solicitud extends javax.swing.JDialog {
         txtNombre9 = new javax.swing.JTextField();
         jLabel99 = new javax.swing.JLabel();
         txtNombre10 = new javax.swing.JTextField();
+        panel8 = new javax.swing.JPanel();
+        jLabel126 = new javax.swing.JLabel();
+        cmbEstadoCivil5 = new javax.swing.JComboBox<>();
+        jLabel127 = new javax.swing.JLabel();
+        txtDependientes = new javax.swing.JTextField();
+        jLabel100 = new javax.swing.JLabel();
+        txtNombre11 = new javax.swing.JTextField();
+        jLabel101 = new javax.swing.JLabel();
+        txtNombre12 = new javax.swing.JTextField();
+        panelIngresos2 = new javax.swing.JPanel();
+        jLabel116 = new javax.swing.JLabel();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jRadioButton7 = new javax.swing.JRadioButton();
+        jLabel117 = new javax.swing.JLabel();
+        lunes = new javax.swing.JCheckBox();
+        martes = new javax.swing.JCheckBox();
+        miercoles = new javax.swing.JCheckBox();
+        jueves = new javax.swing.JCheckBox();
+        viernes = new javax.swing.JCheckBox();
+        sabado = new javax.swing.JCheckBox();
+        domingo = new javax.swing.JCheckBox();
+        jLabel118 = new javax.swing.JLabel();
+        txtNombre13 = new javax.swing.JTextField();
+        jLabel119 = new javax.swing.JLabel();
+        panelIngresos1 = new javax.swing.JPanel();
+        jLabel103 = new javax.swing.JLabel();
+        txtIngresos6 = new javax.swing.JTextField();
+        jLabel110 = new javax.swing.JLabel();
+        txtIngresos7 = new javax.swing.JTextField();
+        jLabel111 = new javax.swing.JLabel();
+        txtIngresos8 = new javax.swing.JTextField();
+        jLabel112 = new javax.swing.JLabel();
+        txtIngresos9 = new javax.swing.JTextField();
+        jLabel113 = new javax.swing.JLabel();
+        txtIngresos10 = new javax.swing.JTextField();
+        jLabel114 = new javax.swing.JLabel();
+        txtIngresos11 = new javax.swing.JTextField();
+        jLabel115 = new javax.swing.JLabel();
+        txtTotalIngresos1 = new javax.swing.JTextField();
+        jLabel123 = new javax.swing.JLabel();
+        txtIngresos18 = new javax.swing.JTextField();
+        jLabel124 = new javax.swing.JLabel();
+        txtIngresos19 = new javax.swing.JTextField();
+        jLabel125 = new javax.swing.JLabel();
+        jLabel128 = new javax.swing.JLabel();
+        txtIngresos20 = new javax.swing.JTextField();
+        txtIngresos21 = new javax.swing.JTextField();
+        jLabel129 = new javax.swing.JLabel();
+        jLabel130 = new javax.swing.JLabel();
+        txtIngresos22 = new javax.swing.JTextField();
+        txtIngresos23 = new javax.swing.JTextField();
+        jLabel131 = new javax.swing.JLabel();
+        txtIngresos24 = new javax.swing.JTextField();
+        panelIngresos = new javax.swing.JPanel();
+        jLabel102 = new javax.swing.JLabel();
+        txtIngresos = new javax.swing.JTextField();
+        jLabel104 = new javax.swing.JLabel();
+        txtIngresos1 = new javax.swing.JTextField();
+        jLabel105 = new javax.swing.JLabel();
+        txtIngresos2 = new javax.swing.JTextField();
+        jLabel106 = new javax.swing.JLabel();
+        txtIngresos3 = new javax.swing.JTextField();
+        jLabel107 = new javax.swing.JLabel();
+        txtIngresos4 = new javax.swing.JTextField();
+        jLabel108 = new javax.swing.JLabel();
+        txtIngresos5 = new javax.swing.JTextField();
+        jLabel109 = new javax.swing.JLabel();
+        txtTotalIngresos = new javax.swing.JTextField();
+        panel9 = new javax.swing.JPanel();
+        jLabel120 = new javax.swing.JLabel();
+        comboTipoVivienda = new javax.swing.JComboBox<>();
+        jLabel158 = new javax.swing.JLabel();
+        txtAnosResidencia1 = new javax.swing.JTextField();
+        jLabel159 = new javax.swing.JLabel();
+        cmbEstadoCivil6 = new javax.swing.JComboBox<>();
+        jLabel121 = new javax.swing.JLabel();
+        comboTipoVivienda1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -515,9 +595,10 @@ public class Solicitud extends javax.swing.JDialog {
         jScrollPane1.setAutoscrolls(true);
 
         Contenedor.setBackground(new java.awt.Color(255, 245, 250));
+        Contenedor.setPreferredSize(new java.awt.Dimension(1190, 3000));
         Contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de personas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador de personas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panelTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
@@ -584,7 +665,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1180, 150));
 
-        panel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ACERCA DEL PRÉSTAMO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ACERCA DEL PRÉSTAMO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -620,7 +701,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 1180, 50));
 
-        panel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE IDENTIFICACIÓN DEL SOLICITANTE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE IDENTIFICACIÓN DEL SOLICITANTE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboMeses.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
@@ -691,7 +772,7 @@ public class Solicitud extends javax.swing.JDialog {
                 txtCurpKeyTyped(evt);
             }
         });
-        panel2.add(txtCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 160, 20));
+        panel2.add(txtCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 130, 20));
 
         txtDia.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
         txtDia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -748,9 +829,20 @@ public class Solicitud extends javax.swing.JDialog {
         });
         panel2.add(comboSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(983, 30, 150, 20));
 
+        txtCurp5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtCurp5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCurp5KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCurp5KeyTyped(evt);
+            }
+        });
+        panel2.add(txtCurp5, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 70, 30, 20));
+
         Contenedor.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 1180, 100));
 
-        panel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ESTADO CIVIL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ESTADO CIVIL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -942,7 +1034,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 1180, 170));
 
-        panel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DOMICILIO PARTICULAR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DOMICILIO PARTICULAR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtCalle.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
@@ -1043,7 +1135,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 1180, 130));
 
-        panel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "REFERENCIA 1", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "REFERENCIA 1", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboMeses2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
@@ -1285,7 +1377,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 710, 1180, 280));
 
-        panel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "REFERENCIA 2", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "REFERENCIA 2", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboMeses3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
@@ -1527,7 +1619,7 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1010, 1180, 280));
 
-        panel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AVAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14))); // NOI18N
+        panel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AVAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
         panel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel96.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
@@ -1879,7 +1971,7 @@ public class Solicitud extends javax.swing.JDialog {
                 txtNombre9KeyTyped(evt);
             }
         });
-        panel7.add(txtNombre9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 260, 20));
+        panel7.add(txtNombre9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 290, 20));
 
         jLabel99.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
         jLabel99.setText("Domicilio de la empresa:");
@@ -1904,11 +1996,621 @@ public class Solicitud extends javax.swing.JDialog {
         });
         panel7.add(txtNombre10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 450, 20));
 
-        Contenedor.add(panel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1310, 1180, 570));
+        Contenedor.add(panel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1310, 1180, 440));
+
+        panel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ACTIVIDAD ECONÓMICA DEL CLIENTE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
+        panel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel126.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel126.setText("Ocupación:");
+        panel8.add(jLabel126, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, 20));
+
+        cmbEstadoCivil5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel8.add(cmbEstadoCivil5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 250, 20));
+
+        jLabel127.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel127.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel127.setText("Cantidad de dependientes económicos:");
+        panel8.add(jLabel127, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 260, 20));
+
+        txtDependientes.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDependientes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDependientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDependientesKeyTyped(evt);
+            }
+        });
+        panel8.add(txtDependientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 30, 100, 20));
+
+        jLabel100.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel100.setText("Empresa donde labora:");
+        panel8.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
+
+        txtNombre11.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre11ActionPerformed(evt);
+            }
+        });
+        txtNombre11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre11KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre11KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre11KeyTyped(evt);
+            }
+        });
+        panel8.add(txtNombre11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 970, 20));
+
+        jLabel101.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel101.setText("Domicilio de la empresa:");
+        panel8.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
+
+        txtNombre12.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre12ActionPerformed(evt);
+            }
+        });
+        txtNombre12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre12KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre12KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre12KeyTyped(evt);
+            }
+        });
+        panel8.add(txtNombre12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 970, 20));
+
+        panelIngresos2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DÍA DE SUELDO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 12))); // NOI18N
+        panelIngresos2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel116.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel116.setText("de cada mes.");
+        jLabel116.setEnabled(false);
+        panelIngresos2.add(jLabel116, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 90, 20));
+
+        jRadioButton4.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton4.setText("Eventual");
+        panelIngresos2.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
+
+        jRadioButton5.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton5.setText("Semanal");
+        panelIngresos2.add(jRadioButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 50, 80, -1));
+
+        jRadioButton6.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton6.setText("Quincenal");
+        panelIngresos2.add(jRadioButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jRadioButton7.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton7.setText("Mensual");
+        panelIngresos2.add(jRadioButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
+
+        jLabel117.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel117.setText("Periodo:");
+        panelIngresos2.add(jLabel117, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 120, 20));
+
+        lunes.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        lunes.setText("Lunes");
+        lunes.setEnabled(false);
+        panelIngresos2.add(lunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
+
+        martes.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        martes.setText("Martes");
+        martes.setEnabled(false);
+        panelIngresos2.add(martes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 80, 20));
+
+        miercoles.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        miercoles.setText("Miércoles");
+        miercoles.setEnabled(false);
+        panelIngresos2.add(miercoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 80, 20));
+
+        jueves.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        jueves.setText("Jueves");
+        jueves.setEnabled(false);
+        panelIngresos2.add(jueves, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
+
+        viernes.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        viernes.setText("Viernes");
+        viernes.setEnabled(false);
+        panelIngresos2.add(viernes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 80, 20));
+
+        sabado.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        sabado.setText("Sábado");
+        sabado.setEnabled(false);
+        panelIngresos2.add(sabado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 80, 20));
+
+        domingo.setFont(new java.awt.Font("Solomon Sans Book", 0, 11)); // NOI18N
+        domingo.setText("Domingo");
+        domingo.setEnabled(false);
+        panelIngresos2.add(domingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, 20));
+
+        jLabel118.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel118.setText("Días de pago:");
+        panelIngresos2.add(jLabel118, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
+
+        txtNombre13.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre13.setEnabled(false);
+        txtNombre13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre13ActionPerformed(evt);
+            }
+        });
+        txtNombre13.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre13KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre13KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre13KeyTyped(evt);
+            }
+        });
+        panelIngresos2.add(txtNombre13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 70, 20));
+
+        jLabel119.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel119.setText("Día (s)");
+        jLabel119.setEnabled(false);
+        panelIngresos2.add(jLabel119, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 50, 20));
+
+        panel8.add(panelIngresos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, 310, 240));
+
+        panelIngresos1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EGRESOS MENSUALES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 12))); // NOI18N
+        panelIngresos1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel103.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel103.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel103.setText("Alimentación:");
+        panelIngresos1.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 120, 20));
+
+        txtIngresos6.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos6.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos6KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos6KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 110, 20));
+
+        jLabel110.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel110.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel110.setText("Renta o hipoteca:");
+        panelIngresos1.add(jLabel110, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 120, 20));
+
+        txtIngresos7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos7.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos7KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos7KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 110, 20));
+
+        jLabel111.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel111.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel111.setText("Electricidad:");
+        panelIngresos1.add(jLabel111, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 120, 20));
+
+        txtIngresos8.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos8.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos8KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos8KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 20));
+
+        jLabel112.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel112.setText("Agua:");
+        panelIngresos1.add(jLabel112, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
+
+        txtIngresos9.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos9.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos9KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos9KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 110, 20));
+
+        jLabel113.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel113.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel113.setText("Gas:");
+        panelIngresos1.add(jLabel113, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 120, 20));
+
+        txtIngresos10.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos10.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos10KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos10KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 110, 20));
+
+        jLabel114.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel114.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel114.setText("Teléfono:");
+        panelIngresos1.add(jLabel114, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
+
+        txtIngresos11.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos11.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos11.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos11KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos11KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 110, 20));
+
+        jLabel115.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel115.setText("Total:");
+        panelIngresos1.add(jLabel115, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 150, 20));
+
+        txtTotalIngresos1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtTotalIngresos1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotalIngresos1.setText("0.0");
+        txtTotalIngresos1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTotalIngresos1.setEnabled(false);
+        txtTotalIngresos1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTotalIngresos1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTotalIngresos1KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtTotalIngresos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 110, 20));
+
+        jLabel123.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel123.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel123.setText("Cable o internet:");
+        panelIngresos1.add(jLabel123, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 150, 20));
+
+        txtIngresos18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos18.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos18.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos18KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos18KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos18, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 20));
+
+        jLabel124.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel124.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel124.setText("Predial:");
+        panelIngresos1.add(jLabel124, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 150, 20));
+
+        txtIngresos19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos19.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos19.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos19.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos19KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos19KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos19, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 110, 20));
+
+        jLabel125.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel125.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel125.setText("Mtto. del hogar:");
+        panelIngresos1.add(jLabel125, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 20));
+
+        jLabel128.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel128.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel128.setText("Escuela y material:");
+        panelIngresos1.add(jLabel128, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 150, 20));
+
+        txtIngresos20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos20.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos20.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos20.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos20KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos20KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos20, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 110, 20));
+
+        txtIngresos21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos21.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos21.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos21.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos21KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos21KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos21, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 110, 20));
+
+        jLabel129.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel129.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel129.setText("Créditos o préstamos:");
+        panelIngresos1.add(jLabel129, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 150, 20));
+
+        jLabel130.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel130.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel130.setText("Transporte:");
+        panelIngresos1.add(jLabel130, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 150, 20));
+
+        txtIngresos22.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos22.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos22.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos22.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos22KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos22KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos22, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 110, 20));
+
+        txtIngresos23.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos23.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos23.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos23.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos23KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos23KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos23, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 110, 20));
+
+        jLabel131.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel131.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel131.setText("Otros:");
+        panelIngresos1.add(jLabel131, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 150, 20));
+
+        txtIngresos24.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos24.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos24.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos24.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos24KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos24KeyTyped(evt);
+            }
+        });
+        panelIngresos1.add(txtIngresos24, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 110, 20));
+
+        panel8.add(panelIngresos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 550, 240));
+
+        panelIngresos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "INGRESOS MENSUALES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 12))); // NOI18N
+        panelIngresos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel102.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel102.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel102.setText("Ingreso actual:");
+        panelIngresos.add(jLabel102, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 120, 20));
+
+        txtIngresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresosKeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 110, 20));
+
+        jLabel104.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel104.setText("Ingreso conyuge:");
+        panelIngresos.add(jLabel104, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 120, 20));
+
+        txtIngresos1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos1KeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 110, 20));
+
+        jLabel105.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel105.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel105.setText("Ingreso padre:");
+        panelIngresos.add(jLabel105, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 120, 20));
+
+        txtIngresos2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos2KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos2KeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 20));
+
+        jLabel106.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel106.setText("Ingreso madre:");
+        panelIngresos.add(jLabel106, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
+
+        txtIngresos3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos3KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos3KeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 110, 20));
+
+        jLabel107.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel107.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel107.setText("Ingreso hermanos:");
+        panelIngresos.add(jLabel107, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 120, 20));
+
+        txtIngresos4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos4KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos4KeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 110, 20));
+
+        jLabel108.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel108.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel108.setText("Otros ingresos:");
+        panelIngresos.add(jLabel108, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
+
+        txtIngresos5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos5.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos5KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos5KeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtIngresos5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 110, 20));
+
+        jLabel109.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel109.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel109.setText("Total:");
+        panelIngresos.add(jLabel109, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, 20));
+
+        txtTotalIngresos.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtTotalIngresos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotalIngresos.setText("0.0");
+        txtTotalIngresos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTotalIngresos.setEnabled(false);
+        txtTotalIngresos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTotalIngresosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTotalIngresosKeyTyped(evt);
+            }
+        });
+        panelIngresos.add(txtTotalIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 20));
+
+        panel8.add(panelIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 280, 240));
+
+        Contenedor.add(panel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1770, 1180, 440));
+
+        panel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CARACTERÍSTICAS DE VIVIENDA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
+        panel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel120.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel120.setText("Régimen:");
+        panel9.add(jLabel120, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, 70, 20));
+
+        comboTipoVivienda.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        comboTipoVivienda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hipotecario", "Prestado", "Propio", "Rentado" }));
+        comboTipoVivienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoViviendaActionPerformed(evt);
+            }
+        });
+        panel9.add(comboTipoVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 100, 20));
+
+        jLabel158.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel158.setText("Tipo de vivienda:");
+        panel9.add(jLabel158, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 110, 20));
+
+        txtAnosResidencia1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia1KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 60, 20));
+
+        jLabel159.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel159.setText("Tiempo de vivir en el domicilio actual:");
+        panel9.add(jLabel159, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 240, 20));
+
+        cmbEstadoCivil6.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casa", "Condominio", "Departamento", "Duplex", "Vecindad" }));
+        panel9.add(cmbEstadoCivil6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 190, 20));
+
+        jLabel121.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel121.setText("Régimen:");
+        panel9.add(jLabel121, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 70, 20));
+
+        comboTipoVivienda1.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        comboTipoVivienda1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hipotecario", "Prestado", "Propio", "Rentado" }));
+        comboTipoVivienda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoVivienda1ActionPerformed(evt);
+            }
+        });
+        panel9.add(comboTipoVivienda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 30, 100, 20));
+
+        Contenedor.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2230, 1180, 390));
 
         jScrollPane1.setViewportView(Contenedor);
 
-        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1220, 530));
+        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1220, 3530));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -2477,6 +3179,269 @@ public class Solicitud extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombre10KeyTyped
 
+    private void txtDependientesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDependientesKeyTyped
+        char c = evt.getKeyChar();
+        int lon = txtDependientes.getText().length();
+        if (!Character.isDigit(c) || lon >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDependientesKeyTyped
+
+    private void txtNombre11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre11ActionPerformed
+
+    private void txtNombre11KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre11KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre11KeyPressed
+
+    private void txtNombre11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre11KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre11KeyReleased
+
+    private void txtNombre11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre11KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre11KeyTyped
+
+    private void txtNombre12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre12ActionPerformed
+
+    private void txtNombre12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre12KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre12KeyPressed
+
+    private void txtNombre12KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre12KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre12KeyReleased
+
+    private void txtNombre12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre12KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre12KeyTyped
+
+    private void txtIngresosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresosKeyReleased
+//        restarIngresosyEgresos();
+    }//GEN-LAST:event_txtIngresosKeyReleased
+
+    private void txtIngresosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresosKeyTyped
+        char c = evt.getKeyChar();
+        int lon = txtIngresos.getText().length();
+        if (c == '.') {
+            int punto = txtIngresos.getText().indexOf(".");
+            if (punto > -1) {
+                evt.consume();
+            }
+        }
+        if (Character.isWhitespace(c) || Character.isLetter(c) || lon > 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIngresosKeyTyped
+
+    private void txtIngresos1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos1KeyReleased
+
+    private void txtIngresos1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos1KeyTyped
+
+    private void txtIngresos2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos2KeyReleased
+
+    private void txtIngresos2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos2KeyTyped
+
+    private void txtIngresos3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos3KeyReleased
+
+    private void txtIngresos3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos3KeyTyped
+
+    private void txtIngresos4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos4KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos4KeyReleased
+
+    private void txtIngresos4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos4KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos4KeyTyped
+
+    private void txtIngresos5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos5KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos5KeyReleased
+
+    private void txtIngresos5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos5KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos5KeyTyped
+
+    private void txtTotalIngresosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalIngresosKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalIngresosKeyReleased
+
+    private void txtTotalIngresosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalIngresosKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalIngresosKeyTyped
+
+    private void txtIngresos6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos6KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos6KeyReleased
+
+    private void txtIngresos6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos6KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos6KeyTyped
+
+    private void txtIngresos7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos7KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos7KeyReleased
+
+    private void txtIngresos7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos7KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos7KeyTyped
+
+    private void txtIngresos8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos8KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos8KeyReleased
+
+    private void txtIngresos8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos8KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos8KeyTyped
+
+    private void txtIngresos9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos9KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos9KeyReleased
+
+    private void txtIngresos9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos9KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos9KeyTyped
+
+    private void txtIngresos10KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos10KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos10KeyReleased
+
+    private void txtIngresos10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos10KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos10KeyTyped
+
+    private void txtIngresos11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos11KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos11KeyReleased
+
+    private void txtIngresos11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos11KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos11KeyTyped
+
+    private void txtTotalIngresos1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalIngresos1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalIngresos1KeyReleased
+
+    private void txtTotalIngresos1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalIngresos1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalIngresos1KeyTyped
+
+    private void txtIngresos18KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos18KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos18KeyReleased
+
+    private void txtIngresos18KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos18KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos18KeyTyped
+
+    private void txtIngresos19KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos19KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos19KeyReleased
+
+    private void txtIngresos19KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos19KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos19KeyTyped
+
+    private void txtIngresos20KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos20KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos20KeyReleased
+
+    private void txtIngresos20KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos20KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos20KeyTyped
+
+    private void txtIngresos21KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos21KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos21KeyReleased
+
+    private void txtIngresos21KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos21KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos21KeyTyped
+
+    private void txtIngresos22KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos22KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos22KeyReleased
+
+    private void txtIngresos22KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos22KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos22KeyTyped
+
+    private void txtIngresos23KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos23KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos23KeyReleased
+
+    private void txtIngresos23KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos23KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos23KeyTyped
+
+    private void txtIngresos24KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos24KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos24KeyReleased
+
+    private void txtIngresos24KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos24KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos24KeyTyped
+
+    private void txtCurp5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCurp5KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCurp5KeyReleased
+
+    private void txtCurp5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCurp5KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCurp5KeyTyped
+
+    private void txtNombre13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre13ActionPerformed
+
+    private void txtNombre13KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre13KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre13KeyPressed
+
+    private void txtNombre13KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre13KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre13KeyReleased
+
+    private void txtNombre13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre13KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre13KeyTyped
+
+    private void txtAnosResidencia1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia1KeyTyped
+        char c = evt.getKeyChar();
+        int lon = txtAnosResidencia.getText().length();
+        if (!Character.isDigit(c) || lon >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAnosResidencia1KeyTyped
+
+    private void comboTipoViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoViviendaActionPerformed
+        int i = comboTipoVivienda.getSelectedIndex();
+        if (i > 1) {
+            frmArrendamientoOnOff(true);
+        } else {
+            frmArrendamientoOnOff(false);
+        }
+    }//GEN-LAST:event_comboTipoViviendaActionPerformed
+
+    private void comboTipoVivienda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoVivienda1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoVivienda1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2515,6 +3480,8 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbEstadoCivil1;
     private javax.swing.JComboBox<String> cmbEstadoCivil2;
     private javax.swing.JComboBox<String> cmbEstadoCivil3;
+    private javax.swing.JComboBox<String> cmbEstadoCivil5;
+    private javax.swing.JComboBox<String> cmbEstadoCivil6;
     private javax.swing.JComboBox<String> comboEstadosNacimiento;
     private javax.swing.JComboBox<String> comboEstadosNacimiento1;
     private javax.swing.JComboBox<String> comboEstadosNacimiento2;
@@ -2531,13 +3498,49 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboSexo2;
     private javax.swing.JComboBox<String> comboSexo3;
     private javax.swing.JComboBox<String> comboSexo4;
+    private javax.swing.JComboBox<String> comboTipoVivienda;
+    private javax.swing.JComboBox<String> comboTipoVivienda1;
+    private javax.swing.JCheckBox domingo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel100;
+    private javax.swing.JLabel jLabel101;
+    private javax.swing.JLabel jLabel102;
+    private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
+    private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel110;
+    private javax.swing.JLabel jLabel111;
+    private javax.swing.JLabel jLabel112;
+    private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
+    private javax.swing.JLabel jLabel118;
+    private javax.swing.JLabel jLabel119;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel120;
+    private javax.swing.JLabel jLabel121;
+    private javax.swing.JLabel jLabel123;
+    private javax.swing.JLabel jLabel124;
+    private javax.swing.JLabel jLabel125;
+    private javax.swing.JLabel jLabel126;
+    private javax.swing.JLabel jLabel127;
+    private javax.swing.JLabel jLabel128;
+    private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel130;
+    private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2633,12 +3636,20 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JCheckBox jueves;
+    private javax.swing.JCheckBox lunes;
+    private javax.swing.JCheckBox martes;
+    private javax.swing.JCheckBox miercoles;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
@@ -2646,7 +3657,13 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JPanel panel5;
     private javax.swing.JPanel panel6;
     private javax.swing.JPanel panel7;
+    private javax.swing.JPanel panel8;
+    private javax.swing.JPanel panel9;
+    private javax.swing.JPanel panelIngresos;
+    private javax.swing.JPanel panelIngresos1;
+    private javax.swing.JPanel panelIngresos2;
     private javax.swing.JPanel panelTabla;
+    private javax.swing.JCheckBox sabado;
     private javax.swing.JTable tablaClientes;
     private javax.swing.JLabel tituloVentana;
     private javax.swing.JTextField txtAno;
@@ -2656,6 +3673,7 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtAno4;
     private javax.swing.JTextField txtAno5;
     private javax.swing.JTextField txtAnosResidencia;
+    private javax.swing.JTextField txtAnosResidencia1;
     private javax.swing.JTextField txtAp1;
     private javax.swing.JTextField txtAp10;
     private javax.swing.JTextField txtAp11;
@@ -2715,15 +3733,39 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtCurp2;
     private javax.swing.JTextField txtCurp3;
     private javax.swing.JTextField txtCurp4;
+    private javax.swing.JTextField txtCurp5;
+    private javax.swing.JTextField txtDependientes;
     private javax.swing.JTextField txtDia;
     private javax.swing.JTextField txtDia1;
     private javax.swing.JTextField txtDia2;
     private javax.swing.JTextField txtDia3;
     private javax.swing.JTextField txtDia4;
     private javax.swing.JTextField txtDia5;
+    private javax.swing.JTextField txtIngresos;
+    private javax.swing.JTextField txtIngresos1;
+    private javax.swing.JTextField txtIngresos10;
+    private javax.swing.JTextField txtIngresos11;
+    private javax.swing.JTextField txtIngresos18;
+    private javax.swing.JTextField txtIngresos19;
+    private javax.swing.JTextField txtIngresos2;
+    private javax.swing.JTextField txtIngresos20;
+    private javax.swing.JTextField txtIngresos21;
+    private javax.swing.JTextField txtIngresos22;
+    private javax.swing.JTextField txtIngresos23;
+    private javax.swing.JTextField txtIngresos24;
+    private javax.swing.JTextField txtIngresos3;
+    private javax.swing.JTextField txtIngresos4;
+    private javax.swing.JTextField txtIngresos5;
+    private javax.swing.JTextField txtIngresos6;
+    private javax.swing.JTextField txtIngresos7;
+    private javax.swing.JTextField txtIngresos8;
+    private javax.swing.JTextField txtIngresos9;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre1;
     private javax.swing.JTextField txtNombre10;
+    private javax.swing.JTextField txtNombre11;
+    private javax.swing.JTextField txtNombre12;
+    private javax.swing.JTextField txtNombre13;
     private javax.swing.JTextField txtNombre2;
     private javax.swing.JTextField txtNombre3;
     private javax.swing.JTextField txtNombre4;
@@ -2741,5 +3783,8 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtTel1;
     private javax.swing.JTextField txtTel2;
     private javax.swing.JTextField txtTel3;
+    private javax.swing.JTextField txtTotalIngresos;
+    private javax.swing.JTextField txtTotalIngresos1;
+    private javax.swing.JCheckBox viernes;
     // End of variables declaration//GEN-END:variables
 }

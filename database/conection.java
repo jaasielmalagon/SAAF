@@ -28,6 +28,12 @@ public class conection {
     String usuario = "root";
     String password = "";
     String basedatos = "avante";
+    
+//    String servidor = "68.70.164.9:2083";
+//    String usuario = "avanteco_SAAF";
+//    String password = "grupo@v@nte2018";
+//    String basedatos = "avanteco_avante";
+    
 //    String servidor = "avantecorporativo.com:3306";
 //    String usuario = "avante";
 //    String password = ",C&RTZ@@+I2{";
