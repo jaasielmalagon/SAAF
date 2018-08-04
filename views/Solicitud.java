@@ -575,6 +575,18 @@ public class Solicitud extends javax.swing.JDialog {
         jRadioButton12 = new javax.swing.JRadioButton();
         jRadioButton13 = new javax.swing.JRadioButton();
         jRadioButton14 = new javax.swing.JRadioButton();
+        jLabel161 = new javax.swing.JLabel();
+        txtAnosResidencia2 = new javax.swing.JTextField();
+        jLabel162 = new javax.swing.JLabel();
+        txtAnosResidencia3 = new javax.swing.JTextField();
+        jLabel163 = new javax.swing.JLabel();
+        txtAnosResidencia4 = new javax.swing.JTextField();
+        jLabel164 = new javax.swing.JLabel();
+        txtAnosResidencia5 = new javax.swing.JTextField();
+        jLabel165 = new javax.swing.JLabel();
+        txtAnosResidencia6 = new javax.swing.JTextField();
+        jLabel166 = new javax.swing.JLabel();
+        txtAnosResidencia7 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -2754,6 +2766,78 @@ public class Solicitud extends javax.swing.JDialog {
         jRadioButton14.setText("Regular");
         panel9.add(jRadioButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 200, 80, -1));
 
+        jLabel161.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel161.setText("Niveles o plantas:");
+        panel9.add(jLabel161, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 120, 20));
+
+        txtAnosResidencia2.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia2KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 60, 20));
+
+        jLabel162.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel162.setText("Recámaras:");
+        panel9.add(jLabel162, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 80, 20));
+
+        txtAnosResidencia3.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia3KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 60, 20));
+
+        jLabel163.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel163.setText("Baños:");
+        panel9.add(jLabel163, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 50, 20));
+
+        txtAnosResidencia4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia4KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 60, 20));
+
+        jLabel164.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel164.setText("Cocinas:");
+        panel9.add(jLabel164, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 60, 20));
+
+        txtAnosResidencia5.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia5KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 60, 20));
+
+        jLabel165.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel165.setText("Salas:");
+        panel9.add(jLabel165, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, 50, 20));
+
+        txtAnosResidencia6.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia6KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia6, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 240, 60, 20));
+
+        jLabel166.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel166.setText("Comedores:");
+        panel9.add(jLabel166, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 240, 90, 20));
+
+        txtAnosResidencia7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia7KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 240, 60, 20));
+
         Contenedor.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2230, 1180, 390));
 
         jScrollPane1.setViewportView(Contenedor);
@@ -3580,9 +3664,9 @@ public class Solicitud extends javax.swing.JDialog {
     private void comboTipoViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoViviendaActionPerformed
         int i = comboTipoVivienda.getSelectedIndex();
         if (i > 1) {
-            frmArrendamientoOnOff(true);
+//            frmArrendamientoOnOff(true);
         } else {
-            frmArrendamientoOnOff(false);
+//            frmArrendamientoOnOff(false);
         }
     }//GEN-LAST:event_comboTipoViviendaActionPerformed
 
@@ -3621,6 +3705,30 @@ public class Solicitud extends javax.swing.JDialog {
     private void txtCurp9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCurp9KeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCurp9KeyTyped
+
+    private void txtAnosResidencia2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia2KeyTyped
+
+    private void txtAnosResidencia3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia3KeyTyped
+
+    private void txtAnosResidencia4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia4KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia4KeyTyped
+
+    private void txtAnosResidencia5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia5KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia5KeyTyped
+
+    private void txtAnosResidencia6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia6KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia6KeyTyped
+
+    private void txtAnosResidencia7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia7KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia7KeyTyped
 
     /**
      * @param args the command line arguments
@@ -3725,6 +3833,12 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel160;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
+    private javax.swing.JLabel jLabel164;
+    private javax.swing.JLabel jLabel165;
+    private javax.swing.JLabel jLabel166;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3868,6 +3982,12 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtAno5;
     private javax.swing.JTextField txtAnosResidencia;
     private javax.swing.JTextField txtAnosResidencia1;
+    private javax.swing.JTextField txtAnosResidencia2;
+    private javax.swing.JTextField txtAnosResidencia3;
+    private javax.swing.JTextField txtAnosResidencia4;
+    private javax.swing.JTextField txtAnosResidencia5;
+    private javax.swing.JTextField txtAnosResidencia6;
+    private javax.swing.JTextField txtAnosResidencia7;
     private javax.swing.JTextField txtAp1;
     private javax.swing.JTextField txtAp10;
     private javax.swing.JTextField txtAp11;
