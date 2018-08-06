@@ -587,6 +587,19 @@ public class Solicitud extends javax.swing.JDialog {
         txtAnosResidencia6 = new javax.swing.JTextField();
         jLabel166 = new javax.swing.JLabel();
         txtAnosResidencia7 = new javax.swing.JTextField();
+        jLabel167 = new javax.swing.JLabel();
+        txtAnosResidencia8 = new javax.swing.JTextField();
+        jLabel168 = new javax.swing.JLabel();
+        txtAnosResidencia9 = new javax.swing.JTextField();
+        jLabel134 = new javax.swing.JLabel();
+        jRadioButton15 = new javax.swing.JRadioButton();
+        jRadioButton16 = new javax.swing.JRadioButton();
+        jLabel135 = new javax.swing.JLabel();
+        jRadioButton17 = new javax.swing.JRadioButton();
+        jRadioButton18 = new javax.swing.JRadioButton();
+        jLabel136 = new javax.swing.JLabel();
+        jRadioButton19 = new javax.swing.JRadioButton();
+        jRadioButton20 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -2838,6 +2851,66 @@ public class Solicitud extends javax.swing.JDialog {
         });
         panel9.add(txtAnosResidencia7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 240, 60, 20));
 
+        jLabel167.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel167.setText("Garajes:");
+        panel9.add(jLabel167, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 70, 20));
+
+        txtAnosResidencia8.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia8KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 60, 20));
+
+        jLabel168.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel168.setText("Cuarto servicio:");
+        panel9.add(jLabel168, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 120, 20));
+
+        txtAnosResidencia9.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia9KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 60, 20));
+
+        jLabel134.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel134.setText("Existe orden:");
+        panel9.add(jLabel134, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 90, 20));
+
+        jRadioButton15.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton15.setText("Si");
+        panel9.add(jRadioButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 40, -1));
+
+        jRadioButton16.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton16.setText("No");
+        panel9.add(jRadioButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 50, -1));
+
+        jLabel135.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel135.setText("Número visible:");
+        panel9.add(jLabel135, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 110, 20));
+
+        jRadioButton17.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton17.setText("Si");
+        panel9.add(jRadioButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 40, -1));
+
+        jRadioButton18.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton18.setText("No");
+        panel9.add(jRadioButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 50, -1));
+
+        jLabel136.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel136.setText("¿Es adecuada para casa habitación?");
+        panel9.add(jLabel136, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 220, 20));
+
+        jRadioButton19.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton19.setText("Si");
+        panel9.add(jRadioButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 300, 40, -1));
+
+        jRadioButton20.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton20.setText("No");
+        panel9.add(jRadioButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 300, 50, -1));
+
         Contenedor.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2230, 1180, 390));
 
         jScrollPane1.setViewportView(Contenedor);
@@ -3730,6 +3803,14 @@ public class Solicitud extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnosResidencia7KeyTyped
 
+    private void txtAnosResidencia8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia8KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia8KeyTyped
+
+    private void txtAnosResidencia9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia9KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia9KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -3828,6 +3909,9 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel134;
+    private javax.swing.JLabel jLabel135;
+    private javax.swing.JLabel jLabel136;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel158;
@@ -3839,6 +3923,8 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel164;
     private javax.swing.JLabel jLabel165;
     private javax.swing.JLabel jLabel166;
+    private javax.swing.JLabel jLabel167;
+    private javax.swing.JLabel jLabel168;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3936,7 +4022,13 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton12;
     private javax.swing.JRadioButton jRadioButton13;
     private javax.swing.JRadioButton jRadioButton14;
+    private javax.swing.JRadioButton jRadioButton15;
+    private javax.swing.JRadioButton jRadioButton16;
+    private javax.swing.JRadioButton jRadioButton17;
+    private javax.swing.JRadioButton jRadioButton18;
+    private javax.swing.JRadioButton jRadioButton19;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton20;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
@@ -3988,6 +4080,8 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtAnosResidencia5;
     private javax.swing.JTextField txtAnosResidencia6;
     private javax.swing.JTextField txtAnosResidencia7;
+    private javax.swing.JTextField txtAnosResidencia8;
+    private javax.swing.JTextField txtAnosResidencia9;
     private javax.swing.JTextField txtAp1;
     private javax.swing.JTextField txtAp10;
     private javax.swing.JTextField txtAp11;
