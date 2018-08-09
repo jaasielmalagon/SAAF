@@ -612,6 +612,55 @@ public class Solicitud extends javax.swing.JDialog {
         txtAnosResidencia14 = new javax.swing.JTextField();
         jLabel174 = new javax.swing.JLabel();
         txtAnosResidencia15 = new javax.swing.JTextField();
+        jLabel175 = new javax.swing.JLabel();
+        txtAnosResidencia16 = new javax.swing.JTextField();
+        jLabel176 = new javax.swing.JLabel();
+        txtAnosResidencia17 = new javax.swing.JTextField();
+        jLabel177 = new javax.swing.JLabel();
+        txtAnosResidencia18 = new javax.swing.JTextField();
+        txtAnosResidencia19 = new javax.swing.JTextField();
+        jLabel178 = new javax.swing.JLabel();
+        panel10 = new javax.swing.JPanel();
+        jLabel145 = new javax.swing.JLabel();
+        txtNombre14 = new javax.swing.JTextField();
+        jLabel146 = new javax.swing.JLabel();
+        txtDia6 = new javax.swing.JTextField();
+        jLabel147 = new javax.swing.JLabel();
+        cmbEstadoCivil7 = new javax.swing.JComboBox<>();
+        jLabel137 = new javax.swing.JLabel();
+        cmbEstadoCivil4 = new javax.swing.JComboBox<>();
+        jLabel138 = new javax.swing.JLabel();
+        txtIngresos12 = new javax.swing.JTextField();
+        txtNombre15 = new javax.swing.JTextField();
+        txtDia7 = new javax.swing.JTextField();
+        cmbEstadoCivil8 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil9 = new javax.swing.JComboBox<>();
+        txtIngresos13 = new javax.swing.JTextField();
+        txtNombre16 = new javax.swing.JTextField();
+        txtDia8 = new javax.swing.JTextField();
+        cmbEstadoCivil10 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil11 = new javax.swing.JComboBox<>();
+        txtIngresos14 = new javax.swing.JTextField();
+        txtNombre17 = new javax.swing.JTextField();
+        txtDia9 = new javax.swing.JTextField();
+        cmbEstadoCivil12 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil13 = new javax.swing.JComboBox<>();
+        txtIngresos15 = new javax.swing.JTextField();
+        txtNombre18 = new javax.swing.JTextField();
+        txtDia10 = new javax.swing.JTextField();
+        cmbEstadoCivil14 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil15 = new javax.swing.JComboBox<>();
+        txtIngresos16 = new javax.swing.JTextField();
+        txtNombre19 = new javax.swing.JTextField();
+        txtDia11 = new javax.swing.JTextField();
+        cmbEstadoCivil16 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil17 = new javax.swing.JComboBox<>();
+        txtIngresos17 = new javax.swing.JTextField();
+        txtNombre20 = new javax.swing.JTextField();
+        txtDia12 = new javax.swing.JTextField();
+        cmbEstadoCivil18 = new javax.swing.JComboBox<>();
+        cmbEstadoCivil19 = new javax.swing.JComboBox<>();
+        txtIngresos25 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -2994,7 +3043,417 @@ public class Solicitud extends javax.swing.JDialog {
         });
         panel9.add(txtAnosResidencia15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 330, 60, 20));
 
-        Contenedor.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2230, 1180, 450));
+        jLabel175.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel175.setText("Teléfono:");
+        panel9.add(jLabel175, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 60, 20));
+
+        txtAnosResidencia16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia16.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia16KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 60, 20));
+
+        jLabel176.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel176.setText("Bicicleta:");
+        panel9.add(jLabel176, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 60, 20));
+
+        txtAnosResidencia17.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia17.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia17KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia17, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 360, 60, 20));
+
+        jLabel177.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel177.setText("Motocicleta:");
+        panel9.add(jLabel177, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 100, 20));
+
+        txtAnosResidencia18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia18.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia18KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 820, 20));
+
+        txtAnosResidencia19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtAnosResidencia19.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosResidencia19KeyTyped(evt);
+            }
+        });
+        panel9.add(txtAnosResidencia19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 820, 20));
+
+        jLabel178.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel178.setText("Automóvil:");
+        panel9.add(jLabel178, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 100, 20));
+
+        Contenedor.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2230, 1180, 470));
+
+        panel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PERSONAS QUE HABITAN EN EL DOMICILIO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
+        panel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel145.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel145.setText("Nombre(s):");
+        panel10.add(jLabel145, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, 20));
+
+        txtNombre14.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre14ActionPerformed(evt);
+            }
+        });
+        txtNombre14.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre14KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre14KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre14KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 269, 20));
+
+        jLabel146.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel146.setText("Parentesco:");
+        panel10.add(jLabel146, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, 20));
+
+        txtDia6.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia6KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 50, 20));
+
+        jLabel147.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel147.setText("Edad:");
+        panel10.add(jLabel147, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, 20));
+
+        cmbEstadoCivil7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 190, 20));
+
+        jLabel137.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel137.setText("Ocupación:");
+        panel10.add(jLabel137, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, -1, 20));
+
+        cmbEstadoCivil4.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, 150, 20));
+
+        jLabel138.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel138.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel138.setText("Ingreso:");
+        panel10.add(jLabel138, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 40, 60, 20));
+
+        txtIngresos12.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos12.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos12.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos12KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos12KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos12, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 60, 110, 20));
+
+        txtNombre15.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre15ActionPerformed(evt);
+            }
+        });
+        txtNombre15.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre15KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre15KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre15KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre15, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 269, 20));
+
+        txtDia7.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia7KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 50, 20));
+
+        cmbEstadoCivil8.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 190, 20));
+
+        cmbEstadoCivil9.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, 150, 20));
+
+        txtIngresos13.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos13.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos13.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos13.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos13KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos13KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos13, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, 110, 20));
+
+        txtNombre16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre16ActionPerformed(evt);
+            }
+        });
+        txtNombre16.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre16KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre16KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre16KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 269, 20));
+
+        txtDia8.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia8KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 50, 20));
+
+        cmbEstadoCivil10.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 190, 20));
+
+        cmbEstadoCivil11.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil11, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 150, 20));
+
+        txtIngresos14.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos14.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos14.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos14.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos14KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos14KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos14, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 120, 110, 20));
+
+        txtNombre17.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre17ActionPerformed(evt);
+            }
+        });
+        txtNombre17.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre17KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre17KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre17KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre17, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 269, 20));
+
+        txtDia9.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia9KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 50, 20));
+
+        cmbEstadoCivil12.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil12.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil12, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, 190, 20));
+
+        cmbEstadoCivil13.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil13, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 150, 20));
+
+        txtIngresos15.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos15.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos15.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos15.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos15KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos15KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos15, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 150, 110, 20));
+
+        txtNombre18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre18ActionPerformed(evt);
+            }
+        });
+        txtNombre18.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre18KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre18KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre18KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre18, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 269, 20));
+
+        txtDia10.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia10KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, 50, 20));
+
+        cmbEstadoCivil14.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil14.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 190, 20));
+
+        cmbEstadoCivil15.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil15.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil15, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, 150, 20));
+
+        txtIngresos16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos16.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos16.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos16.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos16KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos16KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos16, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 180, 110, 20));
+
+        txtNombre19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre19ActionPerformed(evt);
+            }
+        });
+        txtNombre19.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre19KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre19KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre19KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre19, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 269, 20));
+
+        txtDia11.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia11KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 50, 20));
+
+        cmbEstadoCivil16.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil16.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil16, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 190, 20));
+
+        cmbEstadoCivil17.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil17.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil17, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 210, 150, 20));
+
+        txtIngresos17.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos17.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos17.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos17.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos17KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos17KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos17, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 210, 110, 20));
+
+        txtNombre20.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre20ActionPerformed(evt);
+            }
+        });
+        txtNombre20.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre20KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre20KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre20KeyTyped(evt);
+            }
+        });
+        panel10.add(txtNombre20, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 269, 20));
+
+        txtDia12.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtDia12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDia12KeyTyped(evt);
+            }
+        });
+        panel10.add(txtDia12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 50, 20));
+
+        cmbEstadoCivil18.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil18.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Madre", "Padre", "Hermano", "Primo", "Tío", "Abuelo", "Bisabuelo", "Tatarabuelo", "Amigo" }));
+        panel10.add(cmbEstadoCivil18, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 190, 20));
+
+        cmbEstadoCivil19.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        cmbEstadoCivil19.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comerciante", "Empleado(a)", "Estudiante", "Labores del hogar", "Ninguno" }));
+        panel10.add(cmbEstadoCivil19, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 240, 150, 20));
+
+        txtIngresos25.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtIngresos25.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIngresos25.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtIngresos25.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresos25KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresos25KeyTyped(evt);
+            }
+        });
+        panel10.add(txtIngresos25, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 240, 110, 20));
+
+        Contenedor.add(panel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2710, 1180, 280));
 
         jScrollPane1.setViewportView(Contenedor);
 
@@ -3918,6 +4377,218 @@ public class Solicitud extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnosResidencia15KeyTyped
 
+    private void txtAnosResidencia16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia16KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia16KeyTyped
+
+    private void txtAnosResidencia17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia17KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia17KeyTyped
+
+    private void txtAnosResidencia18KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia18KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia18KeyTyped
+
+    private void txtAnosResidencia19KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosResidencia19KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosResidencia19KeyTyped
+
+    private void txtNombre14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre14ActionPerformed
+
+    private void txtNombre14KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre14KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre14KeyPressed
+
+    private void txtNombre14KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre14KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre14KeyReleased
+
+    private void txtNombre14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre14KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre14KeyTyped
+
+    private void txtDia6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia6KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia6KeyTyped
+
+    private void txtIngresos12KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos12KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos12KeyReleased
+
+    private void txtIngresos12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos12KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos12KeyTyped
+
+    private void txtNombre15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre15ActionPerformed
+
+    private void txtNombre15KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre15KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre15KeyPressed
+
+    private void txtNombre15KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre15KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre15KeyReleased
+
+    private void txtNombre15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre15KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre15KeyTyped
+
+    private void txtDia7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia7KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia7KeyTyped
+
+    private void txtIngresos13KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos13KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos13KeyReleased
+
+    private void txtIngresos13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos13KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos13KeyTyped
+
+    private void txtNombre16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre16ActionPerformed
+
+    private void txtNombre16KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre16KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre16KeyPressed
+
+    private void txtNombre16KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre16KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre16KeyReleased
+
+    private void txtNombre16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre16KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre16KeyTyped
+
+    private void txtDia8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia8KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia8KeyTyped
+
+    private void txtIngresos14KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos14KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos14KeyReleased
+
+    private void txtIngresos14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos14KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos14KeyTyped
+
+    private void txtNombre17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre17ActionPerformed
+
+    private void txtNombre17KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre17KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre17KeyPressed
+
+    private void txtNombre17KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre17KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre17KeyReleased
+
+    private void txtNombre17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre17KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre17KeyTyped
+
+    private void txtDia9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia9KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia9KeyTyped
+
+    private void txtIngresos15KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos15KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos15KeyReleased
+
+    private void txtIngresos15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos15KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos15KeyTyped
+
+    private void txtNombre18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre18ActionPerformed
+
+    private void txtNombre18KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre18KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre18KeyPressed
+
+    private void txtNombre18KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre18KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre18KeyReleased
+
+    private void txtNombre18KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre18KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre18KeyTyped
+
+    private void txtDia10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia10KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia10KeyTyped
+
+    private void txtIngresos16KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos16KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos16KeyReleased
+
+    private void txtIngresos16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos16KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos16KeyTyped
+
+    private void txtNombre19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre19ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre19ActionPerformed
+
+    private void txtNombre19KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre19KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre19KeyPressed
+
+    private void txtNombre19KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre19KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre19KeyReleased
+
+    private void txtNombre19KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre19KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre19KeyTyped
+
+    private void txtDia11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia11KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia11KeyTyped
+
+    private void txtIngresos17KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos17KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos17KeyReleased
+
+    private void txtIngresos17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos17KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos17KeyTyped
+
+    private void txtNombre20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre20ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre20ActionPerformed
+
+    private void txtNombre20KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre20KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre20KeyPressed
+
+    private void txtNombre20KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre20KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre20KeyReleased
+
+    private void txtNombre20KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre20KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre20KeyTyped
+
+    private void txtDia12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDia12KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDia12KeyTyped
+
+    private void txtIngresos25KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos25KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos25KeyReleased
+
+    private void txtIngresos25KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresos25KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresos25KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -3954,10 +4625,24 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cmbEstadoCivil;
     private javax.swing.JComboBox<String> cmbEstadoCivil1;
+    private javax.swing.JComboBox<String> cmbEstadoCivil10;
+    private javax.swing.JComboBox<String> cmbEstadoCivil11;
+    private javax.swing.JComboBox<String> cmbEstadoCivil12;
+    private javax.swing.JComboBox<String> cmbEstadoCivil13;
+    private javax.swing.JComboBox<String> cmbEstadoCivil14;
+    private javax.swing.JComboBox<String> cmbEstadoCivil15;
+    private javax.swing.JComboBox<String> cmbEstadoCivil16;
+    private javax.swing.JComboBox<String> cmbEstadoCivil17;
+    private javax.swing.JComboBox<String> cmbEstadoCivil18;
+    private javax.swing.JComboBox<String> cmbEstadoCivil19;
     private javax.swing.JComboBox<String> cmbEstadoCivil2;
     private javax.swing.JComboBox<String> cmbEstadoCivil3;
+    private javax.swing.JComboBox<String> cmbEstadoCivil4;
     private javax.swing.JComboBox<String> cmbEstadoCivil5;
     private javax.swing.JComboBox<String> cmbEstadoCivil6;
+    private javax.swing.JComboBox<String> cmbEstadoCivil7;
+    private javax.swing.JComboBox<String> cmbEstadoCivil8;
+    private javax.swing.JComboBox<String> cmbEstadoCivil9;
     private javax.swing.JComboBox<String> comboEstadosNacimiento;
     private javax.swing.JComboBox<String> comboEstadosNacimiento1;
     private javax.swing.JComboBox<String> comboEstadosNacimiento2;
@@ -4019,7 +4704,12 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel134;
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
+    private javax.swing.JLabel jLabel137;
+    private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel145;
+    private javax.swing.JLabel jLabel146;
+    private javax.swing.JLabel jLabel147;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel16;
@@ -4039,6 +4729,10 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel172;
     private javax.swing.JLabel jLabel173;
     private javax.swing.JLabel jLabel174;
+    private javax.swing.JLabel jLabel175;
+    private javax.swing.JLabel jLabel176;
+    private javax.swing.JLabel jLabel177;
+    private javax.swing.JLabel jLabel178;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -4164,6 +4858,7 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JCheckBox martes;
     private javax.swing.JCheckBox miercoles;
     private javax.swing.JPanel panel1;
+    private javax.swing.JPanel panel10;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
     private javax.swing.JPanel panel4;
@@ -4193,6 +4888,10 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtAnosResidencia13;
     private javax.swing.JTextField txtAnosResidencia14;
     private javax.swing.JTextField txtAnosResidencia15;
+    private javax.swing.JTextField txtAnosResidencia16;
+    private javax.swing.JTextField txtAnosResidencia17;
+    private javax.swing.JTextField txtAnosResidencia18;
+    private javax.swing.JTextField txtAnosResidencia19;
     private javax.swing.JTextField txtAnosResidencia2;
     private javax.swing.JTextField txtAnosResidencia3;
     private javax.swing.JTextField txtAnosResidencia4;
@@ -4268,14 +4967,27 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtDependientes;
     private javax.swing.JTextField txtDia;
     private javax.swing.JTextField txtDia1;
+    private javax.swing.JTextField txtDia10;
+    private javax.swing.JTextField txtDia11;
+    private javax.swing.JTextField txtDia12;
     private javax.swing.JTextField txtDia2;
     private javax.swing.JTextField txtDia3;
     private javax.swing.JTextField txtDia4;
     private javax.swing.JTextField txtDia5;
+    private javax.swing.JTextField txtDia6;
+    private javax.swing.JTextField txtDia7;
+    private javax.swing.JTextField txtDia8;
+    private javax.swing.JTextField txtDia9;
     private javax.swing.JTextField txtIngresos;
     private javax.swing.JTextField txtIngresos1;
     private javax.swing.JTextField txtIngresos10;
     private javax.swing.JTextField txtIngresos11;
+    private javax.swing.JTextField txtIngresos12;
+    private javax.swing.JTextField txtIngresos13;
+    private javax.swing.JTextField txtIngresos14;
+    private javax.swing.JTextField txtIngresos15;
+    private javax.swing.JTextField txtIngresos16;
+    private javax.swing.JTextField txtIngresos17;
     private javax.swing.JTextField txtIngresos18;
     private javax.swing.JTextField txtIngresos19;
     private javax.swing.JTextField txtIngresos2;
@@ -4284,6 +4996,7 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtIngresos22;
     private javax.swing.JTextField txtIngresos23;
     private javax.swing.JTextField txtIngresos24;
+    private javax.swing.JTextField txtIngresos25;
     private javax.swing.JTextField txtIngresos3;
     private javax.swing.JTextField txtIngresos4;
     private javax.swing.JTextField txtIngresos5;
@@ -4297,7 +5010,14 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre11;
     private javax.swing.JTextField txtNombre12;
     private javax.swing.JTextField txtNombre13;
+    private javax.swing.JTextField txtNombre14;
+    private javax.swing.JTextField txtNombre15;
+    private javax.swing.JTextField txtNombre16;
+    private javax.swing.JTextField txtNombre17;
+    private javax.swing.JTextField txtNombre18;
+    private javax.swing.JTextField txtNombre19;
     private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtNombre20;
     private javax.swing.JTextField txtNombre3;
     private javax.swing.JTextField txtNombre4;
     private javax.swing.JTextField txtNombre5;
