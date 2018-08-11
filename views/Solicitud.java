@@ -661,6 +661,27 @@ public class Solicitud extends javax.swing.JDialog {
         cmbEstadoCivil18 = new javax.swing.JComboBox<>();
         cmbEstadoCivil19 = new javax.swing.JComboBox<>();
         txtIngresos25 = new javax.swing.JTextField();
+        panel11 = new javax.swing.JPanel();
+        jLabel148 = new javax.swing.JLabel();
+        txtNombre21 = new javax.swing.JTextField();
+        jLabel140 = new javax.swing.JLabel();
+        jRadioButton21 = new javax.swing.JRadioButton();
+        jRadioButton22 = new javax.swing.JRadioButton();
+        jLabel149 = new javax.swing.JLabel();
+        jRadioButton23 = new javax.swing.JRadioButton();
+        jRadioButton24 = new javax.swing.JRadioButton();
+        jLabel141 = new javax.swing.JLabel();
+        txtNombre22 = new javax.swing.JTextField();
+        jLabel150 = new javax.swing.JLabel();
+        jRadioButton25 = new javax.swing.JRadioButton();
+        jRadioButton26 = new javax.swing.JRadioButton();
+        jLabel142 = new javax.swing.JLabel();
+        txtNombre23 = new javax.swing.JTextField();
+        jLabel151 = new javax.swing.JLabel();
+        jRadioButton27 = new javax.swing.JRadioButton();
+        jRadioButton28 = new javax.swing.JRadioButton();
+        jLabel143 = new javax.swing.JLabel();
+        txtNombre24 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -3455,9 +3476,178 @@ public class Solicitud extends javax.swing.JDialog {
 
         Contenedor.add(panel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2710, 1180, 280));
 
+        panel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DIAGNOSTICO DE SALUD Y AFICIONES*", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Solomon Sans Book", 1, 14), new java.awt.Color(189, 0, 53))); // NOI18N
+        panel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel148.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel148.setText("¿Ha padecido alguna enfermedad grave?");
+        panel11.add(jLabel148, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 260, 20));
+
+        txtNombre21.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre21ActionPerformed(evt);
+            }
+        });
+        txtNombre21.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre21KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre21KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre21KeyTyped(evt);
+            }
+        });
+        panel11.add(txtNombre21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 570, 20));
+
+        jLabel140.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel140.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel140.setText("¿Cuál?");
+        panel11.add(jLabel140, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 60, 20));
+
+        jRadioButton21.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton21.setText("Si");
+        jRadioButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton21ActionPerformed(evt);
+            }
+        });
+        panel11.add(jRadioButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 40, -1));
+
+        jRadioButton22.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton22.setText("No");
+        panel11.add(jRadioButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 50, -1));
+
+        jLabel149.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel149.setText("¿Padece alguna enfermedad hereditaria?");
+        panel11.add(jLabel149, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 260, 20));
+
+        jRadioButton23.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton23.setText("Si");
+        jRadioButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton23ActionPerformed(evt);
+            }
+        });
+        panel11.add(jRadioButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 40, -1));
+
+        jRadioButton24.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton24.setText("No");
+        panel11.add(jRadioButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 50, -1));
+
+        jLabel141.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel141.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel141.setText("¿Cuál?");
+        panel11.add(jLabel141, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 60, 20));
+
+        txtNombre22.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre22ActionPerformed(evt);
+            }
+        });
+        txtNombre22.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre22KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre22KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre22KeyTyped(evt);
+            }
+        });
+        panel11.add(txtNombre22, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 570, 20));
+
+        jLabel150.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel150.setText("¿Ha sido intervenido quirúrgicamente?");
+        panel11.add(jLabel150, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 260, 20));
+
+        jRadioButton25.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton25.setText("Si");
+        jRadioButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton25ActionPerformed(evt);
+            }
+        });
+        panel11.add(jRadioButton25, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 40, -1));
+
+        jRadioButton26.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton26.setText("No");
+        panel11.add(jRadioButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 50, -1));
+
+        jLabel142.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel142.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel142.setText("¿Cuál?");
+        panel11.add(jLabel142, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 60, 20));
+
+        txtNombre23.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre23ActionPerformed(evt);
+            }
+        });
+        txtNombre23.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre23KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre23KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre23KeyTyped(evt);
+            }
+        });
+        panel11.add(txtNombre23, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 570, 20));
+
+        jLabel151.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel151.setText("¿Está bajo algún tratamiento de por vida?");
+        panel11.add(jLabel151, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 260, 20));
+
+        jRadioButton27.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton27.setText("Si");
+        jRadioButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton27ActionPerformed(evt);
+            }
+        });
+        panel11.add(jRadioButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 40, -1));
+
+        jRadioButton28.setFont(new java.awt.Font("Solomon Sans Book", 1, 11)); // NOI18N
+        jRadioButton28.setText("No");
+        panel11.add(jRadioButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 50, -1));
+
+        jLabel143.setFont(new java.awt.Font("Solomon Sans Book", 1, 12)); // NOI18N
+        jLabel143.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel143.setText("¿Cuál?");
+        panel11.add(jLabel143, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 60, 20));
+
+        txtNombre24.setFont(new java.awt.Font("Solomon Sans Book", 0, 12)); // NOI18N
+        txtNombre24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre24ActionPerformed(evt);
+            }
+        });
+        txtNombre24.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombre24KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombre24KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre24KeyTyped(evt);
+            }
+        });
+        panel11.add(txtNombre24, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 570, 20));
+
+        Contenedor.add(panel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3000, 1180, 160));
+
         jScrollPane1.setViewportView(Contenedor);
 
-        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1220, 3535));
+        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1220, 4200));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -4589,6 +4779,86 @@ public class Solicitud extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIngresos25KeyTyped
 
+    private void txtNombre21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre21ActionPerformed
+
+    private void txtNombre21KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre21KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre21KeyPressed
+
+    private void txtNombre21KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre21KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre21KeyReleased
+
+    private void txtNombre21KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre21KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre21KeyTyped
+
+    private void jRadioButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton21ActionPerformed
+
+    private void jRadioButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton23ActionPerformed
+
+    private void txtNombre22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre22ActionPerformed
+
+    private void txtNombre22KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre22KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre22KeyPressed
+
+    private void txtNombre22KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre22KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre22KeyReleased
+
+    private void txtNombre22KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre22KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre22KeyTyped
+
+    private void jRadioButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton25ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton25ActionPerformed
+
+    private void txtNombre23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre23ActionPerformed
+
+    private void txtNombre23KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre23KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre23KeyPressed
+
+    private void txtNombre23KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre23KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre23KeyReleased
+
+    private void txtNombre23KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre23KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre23KeyTyped
+
+    private void jRadioButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton27ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton27ActionPerformed
+
+    private void txtNombre24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre24ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre24ActionPerformed
+
+    private void txtNombre24KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre24KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre24KeyPressed
+
+    private void txtNombre24KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre24KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre24KeyReleased
+
+    private void txtNombre24KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre24KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre24KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -4707,10 +4977,18 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel137;
     private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel jLabel141;
+    private javax.swing.JLabel jLabel142;
+    private javax.swing.JLabel jLabel143;
     private javax.swing.JLabel jLabel145;
     private javax.swing.JLabel jLabel146;
     private javax.swing.JLabel jLabel147;
+    private javax.swing.JLabel jLabel148;
+    private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel160;
@@ -4836,6 +5114,14 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton19;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton20;
+    private javax.swing.JRadioButton jRadioButton21;
+    private javax.swing.JRadioButton jRadioButton22;
+    private javax.swing.JRadioButton jRadioButton23;
+    private javax.swing.JRadioButton jRadioButton24;
+    private javax.swing.JRadioButton jRadioButton25;
+    private javax.swing.JRadioButton jRadioButton26;
+    private javax.swing.JRadioButton jRadioButton27;
+    private javax.swing.JRadioButton jRadioButton28;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
@@ -4859,6 +5145,7 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JCheckBox miercoles;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel10;
+    private javax.swing.JPanel panel11;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
     private javax.swing.JPanel panel4;
@@ -5018,6 +5305,10 @@ public class Solicitud extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre19;
     private javax.swing.JTextField txtNombre2;
     private javax.swing.JTextField txtNombre20;
+    private javax.swing.JTextField txtNombre21;
+    private javax.swing.JTextField txtNombre22;
+    private javax.swing.JTextField txtNombre23;
+    private javax.swing.JTextField txtNombre24;
     private javax.swing.JTextField txtNombre3;
     private javax.swing.JTextField txtNombre4;
     private javax.swing.JTextField txtNombre5;
